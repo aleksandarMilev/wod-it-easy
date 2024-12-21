@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WodItEasy.Domain", "WodItEasy.Domain\WodItEasy.Domain.csproj", "{27E04998-D711-4352-9476-42A9DECCB792}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WodItEasy.Domain", "WodItEasy.Domain\WodItEasy.Domain.csproj", "{27E04998-D711-4352-9476-42A9DECCB792}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WodItEasy.Startup", "WodItEasy.Startup\WodItEasy.Startup.csproj", "{86438286-3FED-43BF-B865-D30646EF33FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WodItEasy.Web", "WodItEasy.Web\WodItEasy.Web.csproj", "{7590D828-0F2E-4A60-A1E5-F0D7B0B8A902}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{27E04998-D711-4352-9476-42A9DECCB792}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27E04998-D711-4352-9476-42A9DECCB792}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{27E04998-D711-4352-9476-42A9DECCB792}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86438286-3FED-43BF-B865-D30646EF33FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86438286-3FED-43BF-B865-D30646EF33FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86438286-3FED-43BF-B865-D30646EF33FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86438286-3FED-43BF-B865-D30646EF33FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7590D828-0F2E-4A60-A1E5-F0D7B0B8A902}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7590D828-0F2E-4A60-A1E5-F0D7B0B8A902}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7590D828-0F2E-4A60-A1E5-F0D7B0B8A902}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7590D828-0F2E-4A60-A1E5-F0D7B0B8A902}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
