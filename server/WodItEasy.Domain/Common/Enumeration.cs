@@ -20,8 +20,7 @@
 
         public string Name { get; }
 
-        public override string ToString() 
-            => this.Name;
+        public override string ToString() => this.Name;
 
         public static IEnumerable<T> GetAll<T>() where T : Enumeration
         {
@@ -77,10 +76,8 @@
             return typeMatches && valueMatches;
         }
 
-        public override int GetHashCode()
-            => (this.GetType().ToString() + this.Value).GetHashCode();
+        public override int GetHashCode() => (this.GetType().ToString() + this.Value).GetHashCode();
 
-        public int CompareTo(object? other)
-            => this.Value.CompareTo(((Enumeration)other!).Value);
+        public int CompareTo(object? other) => this.Value.CompareTo(((Enumeration)other!).Value);
     }
 }

@@ -6,7 +6,6 @@
         {
         }
 
-        public InvalidMembershipException(string message)
-            => this.Message = message;
+        public InvalidMembershipException(string message) => this.Message = message;
     }
 }

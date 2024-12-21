@@ -6,7 +6,6 @@
         {
         }
 
-        public InvalidPhoneNumberException(string message) 
-            => this.Message = message;
+        public InvalidPhoneNumberException(string message) => this.Message = message;
     }
 }

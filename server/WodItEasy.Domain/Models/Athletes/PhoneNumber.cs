@@ -16,11 +16,9 @@
 
         public string Number { get; }
 
-        public static implicit operator string(PhoneNumber number) 
-            => number.Number;
+        public static implicit operator string(PhoneNumber number) => number.Number;
 
-        public static implicit operator PhoneNumber(string number) 
-            => new(number);
+        public static implicit operator PhoneNumber(string number) => new(number);
 
         private void Validate(string phoneNumber)
         {

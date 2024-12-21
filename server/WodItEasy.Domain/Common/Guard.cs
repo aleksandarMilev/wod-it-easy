@@ -2,8 +2,10 @@
 {
     using System;
     using System.Net.Mail;
+    using System.Text.RegularExpressions;
     using Exceptions;
-    using Models;
+
+    using static Models.ModelConstants.Common;
 
     public static class Guard
     {
@@ -56,7 +58,7 @@
         public static void AgainstOutOfRange<TException>(DateTime date, DateTime min, DateTime max, string name = "Date")
             where TException : BaseDomainException, new()
         {
-            if (min <= date && date <= max)
+            if (date >= min || date <= max)
             {
                 return;
             }
@@ -64,11 +66,12 @@
             ThrowException<TException>($"{name} must be between {min:O} and {max:O}.");
         }
 
-
         public static void ForValidUrl<TException>(string url, string name = "Value")
             where TException : BaseDomainException, new()
         {
-            if (url.Length <= ModelConstants.Common.MaxUrlLength && 
+            AgainstEmptyString<TException>(url, name);
+
+            if (url.Length <= MaxUrlLength && 
                 Uri.IsWellFormedUriString(url, UriKind.Absolute))
             {
                 return;
@@ -80,14 +83,16 @@
         public static void ForValidEmail<TException>(string email, string name = "Value")
             where TException : BaseDomainException, new()
         {
-            try
+            AgainstEmptyString<TException>(email, name);
+
+            var regEx = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+
+            if (Regex.IsMatch(email, regEx))
             {
-                var mailAddress = new MailAddress(email);
+                return;
             }
-            catch (FormatException)
-            {
-                ThrowException<TException>($"{name} must be a valid email address.");
-            }
+
+            ThrowException<TException>($"{name} must be a valid email address.");
         }
 
         public static void Against<TException>(object actualValue, object unexpectedValue, string name = "Value")

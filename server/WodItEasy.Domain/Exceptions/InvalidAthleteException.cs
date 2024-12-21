@@ -6,7 +6,6 @@
         {
         }
 
-        public InvalidAthleteException(string message) 
-            => this.Message = message;
+        public InvalidAthleteException(string message) => this.Message = message;
     }
 }

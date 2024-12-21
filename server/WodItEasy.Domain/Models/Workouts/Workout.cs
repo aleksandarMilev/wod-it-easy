@@ -11,8 +11,6 @@
 
     public class Workout : Entity<int>, IAggregateRoot
     {
-        private readonly HashSet<Athlete> athletes = [];
-
         public Workout(
              string name,
              string description,
@@ -37,8 +35,7 @@
 
         public int MaxParticipantsCount { get; }
 
-        public int CurrentParticipantsCount 
-            => this.athletes.Count;
+        public int CurrentParticipantsCount { get; private set; }
 
         public DateTime StartsAtDate { get; }
 
@@ -46,39 +43,13 @@
 
         public WorkoutType WorkoutType { get; }
 
-        public IReadOnlyCollection<Athlete> Athletes
-            => this.athletes.ToList().AsReadOnly();
+        public virtual bool IsClosed() => DateTime.Now > this.StartsAtDate;
 
-        private bool IsClosed()
-            => DateTime.Now > this.StartsAtDate;
+        public virtual bool IsFull() => this.CurrentParticipantsCount == this.MaxParticipantsCount;
 
-        private bool IsFull()
-            => this.CurrentParticipantsCount == this.MaxParticipantsCount;
+        public void IncrementParticipantsCount() => this.CurrentParticipantsCount++;
 
-        public bool AddAthlete(Athlete athlete)
-        {
-            if (this.IsClosed())
-            {
-                throw new RemoveAthleteException($"Workout is closed! Occurred on {this.StartsAtDate:dd MMM yyyy}!");
-            }
-
-            if (this.IsFull())
-            {
-                throw new AddAthleteException($"The workout has reached its maximum participant limit of {this.MaxParticipantsCount}!");
-            }
-
-            return this.athletes.Add(athlete);
-        }
-
-        public bool RemoveAthlete(Athlete athlete)
-        {
-            if (this.IsClosed())
-            {
-                throw new RemoveAthleteException($"Workout is closed! Occurred on {this.StartsAtDate:dd MMM yyyy}!");
-            }
-
-            return this.athletes.Remove(athlete);
-        }
+        public void DecrementParticipantsCount() => this.CurrentParticipantsCount--;
 
         private void Validate(
             string name,

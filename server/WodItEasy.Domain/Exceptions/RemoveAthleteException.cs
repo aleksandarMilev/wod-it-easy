@@ -1,12 +1,11 @@
 ﻿namespace WodItEasy.Domain.Exceptions
 {
-    internal class RemoveAthleteException : BaseDomainException
+    public class RemoveAthleteException : BaseDomainException
     {
         public RemoveAthleteException()
         {
         }
 
-        public RemoveAthleteException(string message)
-            => this.Message = message;
+        public RemoveAthleteException(string message) => this.Message = message;
     }
 }

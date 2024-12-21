@@ -21,13 +21,16 @@
         public class Athlete
         {
             public const int MinNameLength = 2;
-            public const int MaxNameLength = 200;
+            public const int MaxNameLength = 100;
         }
 
         public class Membership
         {
             public static readonly DateTime MinStartDateValue = DateTime.Now;
             public static readonly DateTime MaxStartDateValue = DateTime.Now.AddDays(30);
+
+            public const int MinWorkoutsCountValue = 1;
+            public const int MaxWorkoutsCountValue = 31;
         }
 
         public class Workout

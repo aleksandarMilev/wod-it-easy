@@ -11,15 +11,15 @@
     {
         internal Membership(
             MembershipType membershipType,
-            int? workoutsCount,
-            DateTime startsAt)
+            DateTime startsAt,
+            int? workoutsCount = null)
         {
-            this.Validate(membershipType, workoutsCount, startsAt);
+            this.Validate(membershipType, startsAt, workoutsCount);
 
             this.Type = membershipType;
+            this.StartsAt = startsAt;
             this.WorkoutsCount = workoutsCount;
             this.WorkoutsLeft = workoutsCount;
-            this.StartsAt = startsAt;
         }
 
         public MembershipType Type { get; }
@@ -42,15 +42,9 @@
 
         private void Validate(
             MembershipType membershipType,
-            int? workoutsCount,
-            DateTime startsAt)
+            DateTime startsAt,
+            int? workoutsCount = null)
         {
-            Guard.AgainstOutOfRange<InvalidMembershipException>(
-               startsAt,
-               MinStartDateValue,
-               MaxStartDateValue,
-               nameof(this.StartsAt));
-
             if (membershipType == MembershipType.FixedWorkouts &&
                 workoutsCount is null)
             {
@@ -61,6 +55,21 @@
                 workoutsCount is not null)
             {
                 throw new InvalidMembershipException("Monthly memberships should not have workouts count!");
+            }
+
+            Guard.AgainstOutOfRange<InvalidMembershipException>(
+                startsAt,
+                MinStartDateValue,
+                MaxStartDateValue,
+                nameof(this.StartsAt));
+
+            if (workoutsCount.HasValue)
+            {
+                Guard.AgainstOutOfRange<InvalidMembershipException>(
+                   workoutsCount.Value,
+                   MinWorkoutsCountValue,
+                   MaxWorkoutsCountValue,
+                   nameof(this.WorkoutsCount));
             }
         }
     }
