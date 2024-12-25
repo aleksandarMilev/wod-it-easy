@@ -5,7 +5,7 @@
     using Exceptions;
 
     using static ModelConstants.Common;
-    using static ModelConstants.Membership;
+    using static ModelConstants.MembershipConstants;
 
     public class Membership : Entity<int>
     {

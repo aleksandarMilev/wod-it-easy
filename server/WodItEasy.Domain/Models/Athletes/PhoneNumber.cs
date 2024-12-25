@@ -3,7 +3,7 @@
     using Common;
     using Exceptions;
 
-    using static ModelConstants.PhoneNumber;
+    using static ModelConstants.PhoneNumberConstants;
 
     public class PhoneNumber : ValueObject
     {

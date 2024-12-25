@@ -6,7 +6,7 @@
     using Exceptions;
     using Workouts;
 
-    using static ModelConstants.Athlete;
+    using static ModelConstants.AthleteConstants;
 
     public class Athlete : Entity<int>, IAggregateRoot
     {
@@ -45,7 +45,7 @@
 
             if (workout.IsClosed())
             {
-                throw new AddAthleteException($"Workout is closed! Occurred on {workout.StartsAtDate:dd MMM yyyy}!");
+                throw new AddAthleteException($"WorkoutConstants is closed! Occurred on {workout.StartsAtDate:dd MMM yyyy}!");
             }
 
             if (workout.IsFull())
@@ -62,7 +62,7 @@
         {
             if (workout.IsClosed())
             {
-                throw new RemoveAthleteException($"Workout is closed! Occurred on {workout.StartsAtDate:dd MMM yyyy}!");
+                throw new RemoveAthleteException($"WorkoutConstants is closed! Occurred on {workout.StartsAtDate:dd MMM yyyy}!");
             }
 
             workout.DecrementParticipantsCount();

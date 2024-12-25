@@ -1,13 +1,10 @@
 ﻿namespace WodItEasy.Domain.Models.Workouts
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using Athletes;
     using Common;
     using Exceptions;
    
-    using static ModelConstants.Workout;
+    using static ModelConstants.WorkoutConstants;
 
     public class Workout : Entity<int>, IAggregateRoot
     {

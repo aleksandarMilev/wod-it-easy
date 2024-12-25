@@ -3,6 +3,7 @@ namespace WodItEasy.Startup
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using WodItEasy.Infrastructure;
 
     public class Program
     {
@@ -13,6 +14,8 @@ namespace WodItEasy.Startup
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddInfrastructure(builder.Configuration);
 
             var app = builder.Build();
 

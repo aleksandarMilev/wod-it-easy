@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WodItEasy.Startup", "WodItE
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WodItEasy.Web", "WodItEasy.Web\WodItEasy.Web.csproj", "{7590D828-0F2E-4A60-A1E5-F0D7B0B8A902}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WodItEasy.Infrastructure", "WodItEasy.Infrastructure\WodItEasy.Infrastructure.csproj", "{631A6101-2715-4D59-9B00-E18927E35C9D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{7590D828-0F2E-4A60-A1E5-F0D7B0B8A902}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7590D828-0F2E-4A60-A1E5-F0D7B0B8A902}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7590D828-0F2E-4A60-A1E5-F0D7B0B8A902}.Release|Any CPU.Build.0 = Release|Any CPU
+		{631A6101-2715-4D59-9B00-E18927E35C9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{631A6101-2715-4D59-9B00-E18927E35C9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{631A6101-2715-4D59-9B00-E18927E35C9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{631A6101-2715-4D59-9B00-E18927E35C9D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
