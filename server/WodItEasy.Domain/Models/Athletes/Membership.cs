@@ -22,6 +22,14 @@
             this.WorkoutsLeft = workoutsCount;
         }
 
+        private Membership()
+        {
+            this.StartsAt = default;
+            this.WorkoutsCount = default;
+            this.WorkoutsLeft = default;
+            this.Type = default!;
+        }
+
         public MembershipType Type { get; }
 
         public int? WorkoutsCount { get; }

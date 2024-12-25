@@ -5,11 +5,13 @@ VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WodItEasy.Domain", "WodItEasy.Domain\WodItEasy.Domain.csproj", "{27E04998-D711-4352-9476-42A9DECCB792}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WodItEasy.Startup", "WodItEasy.Startup\WodItEasy.Startup.csproj", "{86438286-3FED-43BF-B865-D30646EF33FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WodItEasy.Startup", "WodItEasy.Startup\WodItEasy.Startup.csproj", "{86438286-3FED-43BF-B865-D30646EF33FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WodItEasy.Web", "WodItEasy.Web\WodItEasy.Web.csproj", "{7590D828-0F2E-4A60-A1E5-F0D7B0B8A902}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WodItEasy.Web", "WodItEasy.Web\WodItEasy.Web.csproj", "{7590D828-0F2E-4A60-A1E5-F0D7B0B8A902}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WodItEasy.Infrastructure", "WodItEasy.Infrastructure\WodItEasy.Infrastructure.csproj", "{631A6101-2715-4D59-9B00-E18927E35C9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WodItEasy.Infrastructure", "WodItEasy.Infrastructure\WodItEasy.Infrastructure.csproj", "{631A6101-2715-4D59-9B00-E18927E35C9D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WodItEasy.Application", "WodItEasy.Application\WodItEasy.Application.csproj", "{093100A1-C0A8-4232-B067-19DD695B377F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{631A6101-2715-4D59-9B00-E18927E35C9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{631A6101-2715-4D59-9B00-E18927E35C9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{631A6101-2715-4D59-9B00-E18927E35C9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{093100A1-C0A8-4232-B067-19DD695B377F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{093100A1-C0A8-4232-B067-19DD695B377F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{093100A1-C0A8-4232-B067-19DD695B377F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{093100A1-C0A8-4232-B067-19DD695B377F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

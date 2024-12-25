@@ -12,8 +12,8 @@ using WodItEasy.Infrastructure.Persistence;
 namespace WodItEasy.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(WodItEasyDbContext))]
-    [Migration("20241225113248_InitialDomainTables")]
-    partial class InitialDomainTables
+    [Migration("20241225181109_InitMigration")]
+    partial class InitMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,35 +25,7 @@ namespace WodItEasy.Infrastructure.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("WodItEasy.Infrastructure.Persistence.Models.Athlete", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<int?>("MembershipId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MembershipId");
-
-                    b.ToTable("Athletes");
-                });
-
-            modelBuilder.Entity("WodItEasy.Infrastructure.Persistence.Models.AthleteWorkout", b =>
+            modelBuilder.Entity("AthleteWorkouts", b =>
                 {
                     b.Property<int>("AthleteId")
                         .HasColumnType("int");
@@ -65,10 +37,10 @@ namespace WodItEasy.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("WorkoutId");
 
-                    b.ToTable("AthletesWorkouts");
+                    b.ToTable("AthletesWorkouts", (string)null);
                 });
 
-            modelBuilder.Entity("WodItEasy.Infrastructure.Persistence.Models.Membership", b =>
+            modelBuilder.Entity("WodItEasy.Domain.Models.Athletes.Athlete", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -76,24 +48,51 @@ namespace WodItEasy.Infrastructure.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Athletes");
+                });
+
+            modelBuilder.Entity("WodItEasy.Domain.Models.Athletes.Membership", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("AthleteId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("StartsAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Type")
+                    b.Property<int>("WorkoutsCount")
                         .HasColumnType("int");
 
-                    b.Property<int?>("WorkoutsCount")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("WorkoutsLeft")
+                    b.Property<int>("WorkoutsLeft")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AthleteId")
+                        .IsUnique()
+                        .HasFilter("[AthleteId] IS NOT NULL");
+
                     b.ToTable("Memberships");
                 });
 
-            modelBuilder.Entity("WodItEasy.Infrastructure.Persistence.Models.Workout", b =>
+            modelBuilder.Entity("WodItEasy.Domain.Models.Workouts.Workout", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -123,21 +122,29 @@ namespace WodItEasy.Infrastructure.Persistence.Migrations
                     b.Property<TimeSpan>("StartsAtTime")
                         .HasColumnType("time");
 
-                    b.Property<int>("WorkoutType")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.ToTable("Workouts");
                 });
 
-            modelBuilder.Entity("WodItEasy.Infrastructure.Persistence.Models.Athlete", b =>
+            modelBuilder.Entity("AthleteWorkouts", b =>
                 {
-                    b.HasOne("WodItEasy.Infrastructure.Persistence.Models.Membership", "Membership")
+                    b.HasOne("WodItEasy.Domain.Models.Athletes.Athlete", null)
                         .WithMany()
-                        .HasForeignKey("MembershipId");
+                        .HasForeignKey("AthleteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.OwnsOne("WodItEasy.Infrastructure.Persistence.Models.PhoneNumber", "PhoneNumber", b1 =>
+                    b.HasOne("WodItEasy.Domain.Models.Workouts.Workout", null)
+                        .WithMany()
+                        .HasForeignKey("WorkoutId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("WodItEasy.Domain.Models.Athletes.Athlete", b =>
+                {
+                    b.OwnsOne("WodItEasy.Domain.Models.Athletes.PhoneNumber", "PhoneNumber", b1 =>
                         {
                             b1.Property<int>("AthleteId")
                                 .HasColumnType("int");
@@ -155,39 +162,62 @@ namespace WodItEasy.Infrastructure.Persistence.Migrations
                                 .HasForeignKey("AthleteId");
                         });
 
-                    b.Navigation("Membership");
-
                     b.Navigation("PhoneNumber")
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("WodItEasy.Infrastructure.Persistence.Models.AthleteWorkout", b =>
+            modelBuilder.Entity("WodItEasy.Domain.Models.Athletes.Membership", b =>
                 {
-                    b.HasOne("WodItEasy.Infrastructure.Persistence.Models.Athlete", "Athlete")
-                        .WithMany("AthletesWorkouts")
-                        .HasForeignKey("AthleteId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                    b.HasOne("WodItEasy.Domain.Models.Athletes.Athlete", null)
+                        .WithOne("Membership")
+                        .HasForeignKey("WodItEasy.Domain.Models.Athletes.Membership", "AthleteId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.OwnsOne("WodItEasy.Domain.Models.Athletes.MembershipType", "Type", b1 =>
+                        {
+                            b1.Property<int>("MembershipId")
+                                .HasColumnType("int");
+
+                            b1.Property<int>("Value")
+                                .HasColumnType("int");
+
+                            b1.HasKey("MembershipId");
+
+                            b1.ToTable("Memberships");
+
+                            b1.WithOwner()
+                                .HasForeignKey("MembershipId");
+                        });
+
+                    b.Navigation("Type")
                         .IsRequired();
-
-                    b.HasOne("WodItEasy.Infrastructure.Persistence.Models.Workout", "Workout")
-                        .WithMany("AthletesWorkouts")
-                        .HasForeignKey("WorkoutId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Athlete");
-
-                    b.Navigation("Workout");
                 });
 
-            modelBuilder.Entity("WodItEasy.Infrastructure.Persistence.Models.Athlete", b =>
+            modelBuilder.Entity("WodItEasy.Domain.Models.Workouts.Workout", b =>
                 {
-                    b.Navigation("AthletesWorkouts");
+                    b.OwnsOne("WodItEasy.Domain.Models.Workouts.WorkoutType", "Type", b1 =>
+                        {
+                            b1.Property<int>("WorkoutId")
+                                .HasColumnType("int");
+
+                            b1.Property<int>("Value")
+                                .HasColumnType("int");
+
+                            b1.HasKey("WorkoutId");
+
+                            b1.ToTable("Workouts");
+
+                            b1.WithOwner()
+                                .HasForeignKey("WorkoutId");
+                        });
+
+                    b.Navigation("Type")
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("WodItEasy.Infrastructure.Persistence.Models.Workout", b =>
+            modelBuilder.Entity("WodItEasy.Domain.Models.Athletes.Athlete", b =>
                 {
-                    b.Navigation("AthletesWorkouts");
+                    b.Navigation("Membership");
                 });
 #pragma warning restore 612, 618
         }

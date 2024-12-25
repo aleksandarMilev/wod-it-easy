@@ -11,5 +11,10 @@
             : base(value, name)
         {
         }
+
+        private MembershipType(int value)
+            : this(value, FromValue<MembershipType>(value).Name)
+        {
+        }
     }
 }

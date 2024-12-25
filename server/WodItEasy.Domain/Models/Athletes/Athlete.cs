@@ -26,6 +26,17 @@
             this.Membership = membership;
         }
 
+        private Athlete(
+            string name,
+            string email)
+        {
+            this.Name = name;
+            this.Email = email;
+
+            this.PhoneNumber = default!;
+            this.Membership = default;
+        }
+
         public string Name { get; }
 
         public string Email { get; }

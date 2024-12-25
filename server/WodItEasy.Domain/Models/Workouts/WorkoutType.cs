@@ -1,6 +1,7 @@
 ﻿namespace WodItEasy.Domain.Models.Workouts
 {
     using Common;
+    using Domain.Models.Athletes;
 
     public class WorkoutType : Enumeration
     {
@@ -12,8 +13,13 @@
         public static readonly WorkoutType CrossFit = new(6, nameof(CrossFit));
         public static readonly WorkoutType Other = new(7, nameof(Other));
 
-        public WorkoutType(int value, string name) 
-            : base(value, name)
+        private WorkoutType(int value, string name)
+           : base (value, name)
+        {
+        }
+
+        private WorkoutType(int value)
+            : this(value, FromValue<MembershipType>(value).Name)
         {
         }
     }

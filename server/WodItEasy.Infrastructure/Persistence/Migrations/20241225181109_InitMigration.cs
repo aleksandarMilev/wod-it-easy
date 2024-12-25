@@ -5,25 +5,24 @@ namespace WodItEasy.Infrastructure.Persistence.Migrations
     using Microsoft.EntityFrameworkCore.Migrations;
 
     /// <inheritdoc />
-    public partial class InitialDomainTables : Migration
+    public partial class InitMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Memberships",
+                name: "Athletes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Type = table.Column<int>(type: "int", nullable: false),
-                    WorkoutsCount = table.Column<int>(type: "int", nullable: true),
-                    WorkoutsLeft = table.Column<int>(type: "int", nullable: true),
-                    StartsAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    PhoneNumber_Number = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Memberships", x => x.Id);
+                    table.PrimaryKey("PK_Athletes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -38,7 +37,7 @@ namespace WodItEasy.Infrastructure.Persistence.Migrations
                     CurrentParticipantsCount = table.Column<int>(type: "int", nullable: false),
                     StartsAtDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     StartsAtTime = table.Column<TimeSpan>(type: "time", nullable: false),
-                    WorkoutType = table.Column<int>(type: "int", nullable: false)
+                    Type_Value = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -46,24 +45,26 @@ namespace WodItEasy.Infrastructure.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Athletes",
+                name: "Memberships",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
-                    PhoneNumber_Number = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    MembershipId = table.Column<int>(type: "int", nullable: true)
+                    Type_Value = table.Column<int>(type: "int", nullable: false),
+                    WorkoutsCount = table.Column<int>(type: "int", nullable: false),
+                    WorkoutsLeft = table.Column<int>(type: "int", nullable: false),
+                    StartsAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    AthleteId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Athletes", x => x.Id);
+                    table.PrimaryKey("PK_Memberships", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Athletes_Memberships_MembershipId",
-                        column: x => x.MembershipId,
-                        principalTable: "Memberships",
-                        principalColumn: "Id");
+                        name: "FK_Memberships_Athletes_AthleteId",
+                        column: x => x.AthleteId,
+                        principalTable: "Athletes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -91,14 +92,16 @@ namespace WodItEasy.Infrastructure.Persistence.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Athletes_MembershipId",
-                table: "Athletes",
-                column: "MembershipId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_AthletesWorkouts_WorkoutId",
                 table: "AthletesWorkouts",
                 column: "WorkoutId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Memberships_AthleteId",
+                table: "Memberships",
+                column: "AthleteId",
+                unique: true,
+                filter: "[AthleteId] IS NOT NULL");
         }
 
         /// <inheritdoc />
@@ -108,13 +111,13 @@ namespace WodItEasy.Infrastructure.Persistence.Migrations
                 name: "AthletesWorkouts");
 
             migrationBuilder.DropTable(
-                name: "Athletes");
+                name: "Memberships");
 
             migrationBuilder.DropTable(
                 name: "Workouts");
 
             migrationBuilder.DropTable(
-                name: "Memberships");
+                name: "Athletes");
         }
     }
 }

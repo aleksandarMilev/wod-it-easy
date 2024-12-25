@@ -1,8 +1,9 @@
 ﻿namespace WodItEasy.Infrastructure.Persistence
 {
     using System.Reflection;
+    using Domain.Models.Athletes;
+    using Domain.Models.Workouts;
     using Microsoft.EntityFrameworkCore;
-    using Models;
 
     internal class WodItEasyDbContext(DbContextOptions<WodItEasyDbContext> options) : DbContext(options)
     {
@@ -11,8 +12,6 @@
         public DbSet<Membership> Memberships { get; init; }
 
         public DbSet<Workout> Workouts { get; init; }
-
-        public DbSet<AthleteWorkout> AthletesWorkouts { get; init; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -23,7 +23,18 @@
             this.MaxParticipantsCount = maxParticipantsCount;
             this.StartsAtDate = startsAtDate;
             this.StartsAtTime = startsAtTime;
-            this.WorkoutType = workoutType;
+            this.Type = workoutType;
+        }
+
+        private Workout(string name, string description)
+        {
+            this.Name = name;
+            this.Description = description;
+
+            this.MaxParticipantsCount = default;
+            this.StartsAtDate = default;
+            this.StartsAtTime = default;
+            this.Type = default!;
         }
 
         public string Name { get; }
@@ -38,11 +49,11 @@
 
         public TimeSpan StartsAtTime { get; }
 
-        public WorkoutType WorkoutType { get; }
+        public WorkoutType Type { get; }
 
-        public virtual bool IsClosed() => DateTime.Now > this.StartsAtDate;
+        public bool IsClosed() => DateTime.Now > this.StartsAtDate;
 
-        public virtual bool IsFull() => this.CurrentParticipantsCount == this.MaxParticipantsCount;
+        public bool IsFull() => this.CurrentParticipantsCount == this.MaxParticipantsCount;
 
         public void IncrementParticipantsCount() => this.CurrentParticipantsCount++;
 

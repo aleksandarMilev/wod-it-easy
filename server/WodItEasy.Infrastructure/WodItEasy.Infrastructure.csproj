@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WodItEasy.Domain\WodItEasy.Domain.csproj" />
+    <ProjectReference Include="..\WodItEasy.Application\WodItEasy.Application.csproj" />
   </ItemGroup>
 
 </Project>
