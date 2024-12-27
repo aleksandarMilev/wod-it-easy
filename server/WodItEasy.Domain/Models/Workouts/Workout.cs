@@ -8,7 +8,7 @@
 
     public class Workout : Entity<int>, IAggregateRoot
     {
-        public Workout(
+        internal Workout(
              string name,
              string description,
              int maxParticipantsCount,

@@ -1,10 +1,11 @@
 namespace WodItEasy.Startup
 {
+    using Application;
+    using Domain;
+    using Infrastructure;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.Hosting;
-    using WodItEasy.Application;
-    using WodItEasy.Infrastructure;
-    using WodItEasy.Web;
+    using Web;
 
     public class Program
     {
@@ -13,6 +14,7 @@ namespace WodItEasy.Startup
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services
+                .AddDomain()
                 .AddInfrastructure(builder.Configuration)
                 .AddApplication(builder.Configuration)
                 .AddWebComponents();

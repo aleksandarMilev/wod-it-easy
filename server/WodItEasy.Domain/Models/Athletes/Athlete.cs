@@ -12,7 +12,7 @@
     {
         private readonly HashSet<Workout> workouts = [];
 
-        public Athlete(
+        internal Athlete(
             string name,
             string email,
             string phoneNumber,
