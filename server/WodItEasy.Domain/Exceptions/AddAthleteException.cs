@@ -1,6 +1,6 @@
 ﻿namespace WodItEasy.Domain.Exceptions
 {
-    internal class AddAthleteException : BaseDomainException
+    public class AddAthleteException : BaseDomainException
     {
         public AddAthleteException()
         {

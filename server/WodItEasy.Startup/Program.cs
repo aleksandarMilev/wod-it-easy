@@ -1,9 +1,10 @@
 namespace WodItEasy.Startup
 {
     using Microsoft.AspNetCore.Builder;
-    using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using WodItEasy.Application;
     using WodItEasy.Infrastructure;
+    using WodItEasy.Web;
 
     public class Program
     {
@@ -11,11 +12,10 @@ namespace WodItEasy.Startup
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddControllers();
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-
-            builder.Services.AddInfrastructure(builder.Configuration);
+            builder.Services
+                .AddInfrastructure(builder.Configuration)
+                .AddApplication(builder.Configuration)
+                .AddWebComponents();
 
             var app = builder.Build();
 
@@ -25,9 +25,13 @@ namespace WodItEasy.Startup
                 app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection();
-            app.UseAuthorization();
-            app.MapControllers();
+            app
+                .UseHttpsRedirection()
+                .UseRouting()
+                .UseAuthentication()
+                .UseAuthorization()
+                .UseEndpoints(endpoints => endpoints.MapControllers())
+                .Initialize();
 
             app.Run();
         }
