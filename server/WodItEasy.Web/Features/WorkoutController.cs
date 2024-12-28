@@ -11,7 +11,5 @@
         private readonly IRepository<Workout> workouts;
 
         public WorkoutController(IRepository<Workout> workouts) => this.workouts = workouts;
-
-        public ActionResult<Workout> Get() => this.Ok(this.workouts.All());
     }
 }

@@ -1,8 +1,8 @@
-﻿namespace WodItEasy.Application.Contracts
+﻿namespace WodItEasy.Application.Features.Identity
 {
     using System.Threading.Tasks;
     using Application.Common;
-    using Features.Identity;
+    using Commands.LoginUser;
 
     public interface IIdentity
     {

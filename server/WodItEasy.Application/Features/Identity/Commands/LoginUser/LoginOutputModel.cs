@@ -1,4 +1,4 @@
-﻿namespace WodItEasy.Application.Features.Identity
+﻿namespace WodItEasy.Application.Features.Identity.Commands.LoginUser
 {
     public class LoginOutputModel
     {

@@ -2,7 +2,7 @@
 {
     public class UserInputModel
     {
-        public UserInputModel(string email, string password)
+        internal UserInputModel(string email, string password)
         {
             this.Email = email;
             this.Password = password;

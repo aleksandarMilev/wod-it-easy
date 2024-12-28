@@ -3,6 +3,7 @@
     using System.Text;
     using Application;
     using Application.Contracts;
+    using Application.Features.Identity;
     using Infrastructure.Identity;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Identity;
@@ -11,25 +12,31 @@
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.IdentityModel.Tokens;
     using Persistence;
-    using Persistence.Repositories;
 
     public static class InfrastructureConfiguration
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
             => services
                 .AddDatabase(configuration)
-                .AddIdentity(configuration);
+                .AddIdentity(configuration)
+                .AddRepositories();
+
+        private static IServiceCollection AddRepositories(this IServiceCollection services)
+            => services
+                .Scan(s => s.FromCallingAssembly()
+                .AddClasses(c => c.AssignableTo(typeof(IRepository<>)))
+                .AsMatchingInterface()
+                .WithTransientLifetime());
 
         private static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration)
             => services
-                .AddDbContext<WodItEasyDbContext>(options => 
+                .AddDbContext<WodItEasyDbContext>(options =>
                 {
                     options.UseSqlServer(
                         configuration.GetConnectionString("DefaultConnection"),
                         b => b.MigrationsAssembly(typeof(WodItEasyDbContext).Assembly.FullName));
                 })
-                .AddTransient<IInitializer, WodItEasyDbInitializer>()
-                .AddTransient(typeof(IRepository<>), typeof(DataRepository<>));
+                .AddTransient<IInitializer, WodItEasyDbInitializer>();
 
         private static IServiceCollection AddIdentity(this IServiceCollection services, IConfiguration configuration)
         {
