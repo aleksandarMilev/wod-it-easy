@@ -7,12 +7,10 @@
 
     public class IdentityController : ApiController
     {
-        [HttpPost]
-        [Route(nameof(this.Register))]
+        [HttpPost("/register")]
         public async Task<ActionResult> Register(CreateUserCommand command) => await this.Send(command);
 
-        [HttpPost]
-        [Route(nameof(this.Login))]
+        [HttpPost("/login")]
         public async Task<ActionResult<LoginOutputModel>> Login(LoginUserCommand command) => await this.Send(command);
     }
 }

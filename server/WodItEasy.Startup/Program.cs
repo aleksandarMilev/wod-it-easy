@@ -4,7 +4,6 @@ namespace WodItEasy.Startup
     using Domain;
     using Infrastructure;
     using Microsoft.AspNetCore.Builder;
-    using Microsoft.Extensions.Hosting;
     using Web;
 
     public class Program
@@ -21,17 +20,12 @@ namespace WodItEasy.Startup
 
             var app = builder.Build();
 
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
-
             app
                 .UseHttpsRedirection()
                 .UseRouting()
                 .UseAuthentication()
                 .UseAuthorization()
+                .UseSwaggerExtension()
                 .UseEndpoints(endpoints => endpoints.MapControllers())
                 .Initialize();
 
