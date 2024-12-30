@@ -4,7 +4,9 @@
     using Application;
     using Application.Contracts;
     using Application.Features.Identity;
+    using Application.Features.Workouts;
     using Infrastructure.Identity;
+    using Infrastructure.Persistence.Repositories;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
@@ -17,17 +19,22 @@
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
             => services
+                .AddTransient<IWorkoutRepository, WorkoutRepository>()
                 .AddDatabase(configuration)
-                .AddIdentity(configuration)
-                .AddRepositories();
+                .AddRepositories()
+                .AddIdentity(configuration);
 
-        private static IServiceCollection AddRepositories(this IServiceCollection services)
+        internal static IServiceCollection AddRepositories(this IServiceCollection services)
             => services
-                .Scan(s => s.FromCallingAssembly()
-                .AddClasses(c => c.AssignableTo(typeof(IRepository<>)))
-                .AsMatchingInterface()
-                .WithTransientLifetime());
-
+                 .Scan(scan =>
+                 {
+                     scan
+                        .FromCallingAssembly()
+                        .AddClasses(classes => classes.AssignableTo(typeof(IRepository<>)))
+                        .AsMatchingInterface()
+                        .WithTransientLifetime();
+                 });
+                    
         private static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration)
             => services
                 .AddDbContext<WodItEasyDbContext>(options =>

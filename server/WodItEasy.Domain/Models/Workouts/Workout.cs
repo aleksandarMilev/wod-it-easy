@@ -37,19 +37,19 @@
             this.Type = default!;
         }
 
-        public string Name { get; }
+        public string Name { get; private set; }
 
-        public string Description { get; }
+        public string Description { get; private set; }
 
-        public int MaxParticipantsCount { get; }
+        public int MaxParticipantsCount { get; private set; }
 
         public int CurrentParticipantsCount { get; private set; }
 
-        public DateTime StartsAtDate { get; }
+        public DateTime StartsAtDate { get; private set; }
 
-        public TimeSpan StartsAtTime { get; }
+        public TimeSpan StartsAtTime { get; private set; }
 
-        public WorkoutType Type { get; }
+        public WorkoutType Type { get; private set; }
 
         public bool IsClosed() => DateTime.Now > this.StartsAtDate;
 
@@ -59,35 +59,90 @@
 
         public void DecrementParticipantsCount() => this.CurrentParticipantsCount--;
 
+        public Workout UpdateName(string name)
+        {
+            this.ValidateName(name);
+            this.Name = name;
+
+            return this;
+        }
+
+        public Workout UpdateDescription(string description)
+        {
+            this.ValidateDescription(description);
+            this.Description = description;
+
+            return this;
+        }
+
+        public Workout UpdateMaxParticipantsCount(int maxParticipantsCount)
+        {
+            this.ValidateMaxParticipantsCount(maxParticipantsCount);
+            this.MaxParticipantsCount = maxParticipantsCount;
+
+            return this;
+        }
+
+        public Workout UpdateStartsAtDate(DateTime startsAtDate)
+        {
+            this.ValidateStartsAtDate(startsAtDate);
+            this.StartsAtDate = startsAtDate;
+
+            return this;
+        }
+
+        public Workout UpdateStartsAtTime(TimeSpan startsAtTime)
+        {
+            this.StartsAtTime = startsAtTime;
+
+            return this;
+        }
+
+        public Workout UpdateType(WorkoutType type)
+        {
+            this.Type = type;
+
+            return this;
+        }
+
         private void Validate(
             string name,
             string description,
             int maxParticipantsCount,
             DateTime startsAtDate)
         {
-            Guard.ForStringLength<InvalidWorkoutException>(
+            this.ValidateName(name);
+            this.ValidateDescription(description);
+            this.ValidateMaxParticipantsCount(maxParticipantsCount);
+            this.ValidateStartsAtDate(startsAtDate);
+        }
+
+        private void ValidateName(string name)
+            => Guard.ForStringLength<InvalidWorkoutException>(
                 name,
                 MinNameLength,
                 MaxNameLength,
                 nameof(this.Name));
 
-            Guard.ForStringLength<InvalidWorkoutException>(
+        private void ValidateDescription(string description)
+            => Guard.ForStringLength<InvalidWorkoutException>(
                 description,
                 MinDescriptionLength,
                 MaxDescriptionLength,
                 nameof(this.Description));
 
-            Guard.AgainstOutOfRange<InvalidWorkoutException>(
+        private void ValidateMaxParticipantsCount(int maxParticipantsCount)
+            => Guard.AgainstOutOfRange<InvalidWorkoutException>(
                 maxParticipantsCount,
                 MaxParticipantsCountMinValue,
                 MaxParticipantsCountMaxValue,
                 nameof(this.MaxParticipantsCount));
 
-            Guard.AgainstOutOfRange<InvalidWorkoutException>(
+        private void ValidateStartsAtDate(DateTime startsAtDate)
+            => Guard.AgainstOutOfRange<InvalidWorkoutException>(
                 startsAtDate,
                 MinStartAtDateValue,
                 MaxStartAtDateValue,
                 nameof(this.StartsAtDate));
-        }
     }
 }

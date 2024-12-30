@@ -1,7 +1,6 @@
 ﻿namespace WodItEasy.Domain.Common
 {
     using System;
-    using System.Net.Mail;
     using System.Text.RegularExpressions;
     using Exceptions;
 

@@ -4,7 +4,9 @@ namespace WodItEasy.Startup
     using Domain;
     using Infrastructure;
     using Microsoft.AspNetCore.Builder;
+    using Microsoft.Extensions.Hosting;
     using Web;
+    using Web.Middleware;
 
     public class Program
     {
@@ -14,19 +16,25 @@ namespace WodItEasy.Startup
 
             builder.Services
                 .AddDomain()
-                .AddInfrastructure(builder.Configuration)
                 .AddApplication(builder.Configuration)
+                .AddInfrastructure(builder.Configuration)
                 .AddWebComponents();
 
             var app = builder.Build();
 
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+
             app
                 .UseHttpsRedirection()
                 .UseRouting()
+                .UseValidationExceptionHandler()
+                .UseAllowedCors()
                 .UseAuthentication()
                 .UseAuthorization()
-                .UseSwaggerExtension()
-                .UseEndpoints(endpoints => endpoints.MapControllers())
+                .UseAppEndpoints()
                 .Initialize();
 
             app.Run();

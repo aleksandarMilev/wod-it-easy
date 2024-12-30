@@ -7,10 +7,13 @@
 
     public class IdentityController : ApiController
     {
-        [HttpPost("/register")]
-        public async Task<ActionResult> Register(CreateUserCommand command) => await this.Send(command);
+        [HttpPost("register")]
+        public async Task<ActionResult> Register(CreateUserCommand command) => await this.SendAsync(command);
 
-        [HttpPost("/login")]
-        public async Task<ActionResult<LoginOutputModel>> Login(LoginUserCommand command) => await this.Send(command);
+        [HttpPost("login")]
+        public async Task<ActionResult<LoginOutputModel>> Login(LoginUserCommand command) => await this.SendAsync(command);
+
+        [HttpGet("test")]
+        public ActionResult Test() => this.Content("OK!!!");
     }
 }

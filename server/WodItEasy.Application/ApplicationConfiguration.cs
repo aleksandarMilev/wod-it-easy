@@ -1,6 +1,8 @@
 ﻿namespace WodItEasy.Application
 {
     using System.Reflection;
+    using Behaviors;
+    using MediatR;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
 
@@ -11,6 +13,8 @@
                 .Configure<ApplicationSettings>(
                     configuration.GetSection(nameof(ApplicationSettings)), 
                     options => options.BindNonPublicProperties = true)
-                .AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+                .AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()))
+                .AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
+
     }
 }

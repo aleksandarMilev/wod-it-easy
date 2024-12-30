@@ -9,12 +9,16 @@
     internal abstract class DataRepository<TEntity> : IRepository<TEntity>
         where TEntity : class, IAggregateRoot
     {
-        private readonly WodItEasyDbContext data;
+        protected DataRepository(WodItEasyDbContext data) => this.Data = data;
 
-        protected DataRepository(WodItEasyDbContext data) => this.data = data;
+        protected WodItEasyDbContext Data { get; }
 
-        protected IQueryable<TEntity> All() => this.data.Set<TEntity>();
+        protected IQueryable<TEntity> All() => this.Data.Set<TEntity>();
 
-        protected Task<int> SaveChanges(CancellationToken cancellationToken = default) => this.data.SaveChangesAsync(cancellationToken);
+        public async Task SaveAsync(TEntity entity, CancellationToken cancellationToken = default)
+        {
+            this.Data.Update(entity);
+            await this.Data.SaveChangesAsync(cancellationToken);
+        }
     }
 }

@@ -8,7 +8,7 @@
 
     public class LoginUserCommand : UserInputModel, IRequest<Result<LoginOutputModel>>
     {
-        internal LoginUserCommand(string email, string password)
+        public LoginUserCommand(string email, string password)
             : base(email, password) { }
 
         public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, Result<LoginOutputModel>>

@@ -4,17 +4,15 @@
 
     public static class AppBuilderExtensions
     {
-        public static IApplicationBuilder UseSwaggerExtension(this IApplicationBuilder appBuilder)
-        {
-            appBuilder
-                .UseSwagger(opt => opt.SerializeAsV2 = true)
-                .UseSwaggerUI(opt =>
-                {
-                    opt.SwaggerEndpoint("swagger/v1/swagger.json", "WodItEasy API");
-                    opt.RoutePrefix = string.Empty;
-                });
+        public static IApplicationBuilder UseAppEndpoints(this IApplicationBuilder app) => app.UseEndpoints(e => e.MapControllers());
 
-            return appBuilder;
-        }
+        public static IApplicationBuilder UseAllowedCors(this IApplicationBuilder app)
+            => app
+                 .UseCors(opt =>
+                 {
+                     opt.AllowAnyOrigin();
+                     opt.AllowAnyHeader();
+                     opt.AllowAnyMethod();
+                 });
     }
 }
