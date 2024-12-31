@@ -5,8 +5,7 @@
     using Application.Contracts;
     using Application.Features.Identity;
     using Application.Features.Workouts;
-    using Infrastructure.Identity;
-    using Infrastructure.Persistence.Repositories;
+    using Identity;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
@@ -14,6 +13,7 @@
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.IdentityModel.Tokens;
     using Persistence;
+    using Persistence.Repositories;
 
     public static class InfrastructureConfiguration
     {
@@ -24,7 +24,7 @@
                 .AddRepositories()
                 .AddIdentity(configuration);
 
-        internal static IServiceCollection AddRepositories(this IServiceCollection services)
+        private static IServiceCollection AddRepositories(this IServiceCollection services)
             => services
                  .Scan(scan =>
                  {

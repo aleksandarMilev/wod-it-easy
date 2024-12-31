@@ -2,6 +2,7 @@
 {
     using System.Threading.Tasks;
     using Application.Common;
+    using Application.Features;
     using Application.Features.Workouts.Commands.Create;
     using Application.Features.Workouts.Commands.Edit;
     using Application.Features.Workouts.Commands.Delete;
@@ -18,19 +19,21 @@
 
         [HttpGet("{id}")]
         public async Task<ActionResult<WorkoutDetailsOutputModel?>> Details(
-            [FromQuery] WorkoutDetailsQuery query)
-            => await this.SendAsync(query);
+            [FromRoute] int id)
+            => await this.SendAsync(new WorkoutDetailsQuery() { Id = id });
 
         [HttpPost]
         public async Task<ActionResult<int>> Create(CreateWorkoutCommand command)
             => await this.SendAsync(command);
 
-        [HttpPut]
-        public async Task<ActionResult<Result>> Edit(EditWorkoutCommand command)
-            => await this.SendAsync(command);
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Result>> Edit(
+            [FromRoute]int id, [FromBody]EditWorkoutCommand command)
+            => await this.SendAsync(command.SetId(id));
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Result>> Delete([FromRoute]DeleteWorkoutCommand command)
-            => await this.SendAsync(command);
+        public async Task<ActionResult<Result>> Delete(
+            [FromRoute] int id)
+            => await this.SendAsync(new DeleteWorkoutCommand() { Id = id });
     }
 }

@@ -4,14 +4,12 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Application.Common;
+    using Domain.Common;
+    using Domain.Models.Workouts;
     using MediatR;
-    using WodItEasy.Domain.Common;
-    using WodItEasy.Domain.Models.Workouts;
 
-    public class EditWorkoutCommand : IRequest<Result>
+    public class EditWorkoutCommand : EntityCommand<int>, IRequest<Result>
     {
-        public int Id { get; set; }
-
         public string Name { get; set; } = null!;
 
         public string Description { get; set; } = null!;

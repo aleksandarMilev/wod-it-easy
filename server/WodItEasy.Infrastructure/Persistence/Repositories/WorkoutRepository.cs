@@ -8,14 +8,17 @@
     using Application.Features.Workouts;
     using Application.Features.Workouts.Queries.Details;
     using Application.Features.Workouts.Queries.Search;
-    using Domain.Common;
+    using AutoMapper;
+    using AutoMapper.QueryableExtensions;
     using Domain.Models.Workouts;
     using Microsoft.EntityFrameworkCore;
 
     internal class WorkoutRepository : DataRepository<Workout>, IWorkoutRepository
     {
-        public WorkoutRepository(WodItEasyDbContext data)
-            : base(data) {}
+        private readonly IMapper mapper;
+
+        public WorkoutRepository(WodItEasyDbContext data, IMapper mapper)
+            : base(data) => this.mapper = mapper;
 
         public async Task<PaginatedOutputModel<SearchWorkoutOutputModel>> PaginatedAsync(
             DateTime? startsAtDate,
@@ -27,16 +30,7 @@
                 .AllUpcomings()
                 .AsNoTracking()
                 .Where(w => startsAtDate.HasValue ? w.StartsAtDate == startsAtDate : true)
-                .Select(w => new SearchWorkoutOutputModel()
-                {
-                    Id = w.Id,
-                    Name = w.Name,
-                    MaxParticipantsCount = w.MaxParticipantsCount,
-                    CurrentParticipantsCount = w.CurrentParticipantsCount,
-                    StartsAtDate = w.StartsAtDate,
-                    StartsAtTime = w.StartsAtTime,
-                    Type = Enumeration.NameFromValue<WorkoutType>(w.Type.Value)
-                })
+                .ProjectTo<SearchWorkoutOutputModel>(this.mapper.ConfigurationProvider)
                 .Skip((pageIndex - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync(cancellationToken);
@@ -52,22 +46,13 @@
             => await this
                 .AllUpcomings()
                 .AsNoTracking()
-                .Select(w => new WorkoutDetailsOutputModel()
-                {
-                    Id = w.Id,
-                    Name = w.Name,
-                    Description = w.Description,
-                    MaxParticipantsCount = w.MaxParticipantsCount,
-                    CurrentParticipantsCount = w.CurrentParticipantsCount,
-                    StartsAtDate = w.StartsAtDate,
-                    StartsAtTime = w.StartsAtTime,
-                    Type = Enumeration.NameFromValue<WorkoutType>(w.Type.Value)
-                })
+                .ProjectTo<WorkoutDetailsOutputModel>(this.mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(w => w.Id == id, cancellationToken);
 
         public async Task<Workout?> FindAsync(int id, CancellationToken cancellationToken = default)
             => await this
                 .AllUpcomings()
+                .AsNoTracking()
                 .FirstOrDefaultAsync(w => w.Id == id, cancellationToken);
 
         public async Task<bool> DeleteAsync(int id, CancellationToken cancellationToken = default)

@@ -19,7 +19,7 @@
         }
 
         private WorkoutType(int value)
-            : this(value, FromValue<MembershipType>(value).Name)
+            : this(value, FromValue<WorkoutType>(value).Name)
         {
         }
     }

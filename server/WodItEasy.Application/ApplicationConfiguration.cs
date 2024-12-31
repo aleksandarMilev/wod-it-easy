@@ -14,7 +14,7 @@
                     configuration.GetSection(nameof(ApplicationSettings)), 
                     options => options.BindNonPublicProperties = true)
                 .AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()))
+                .AddAutoMapper(Assembly.GetExecutingAssembly())
                 .AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
-
     }
 }
