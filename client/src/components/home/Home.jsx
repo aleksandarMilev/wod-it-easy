@@ -3,24 +3,8 @@ import './Home.css'
 import img from '../../assets/home.jpg'
 
 export default function Home(){
-    const year = new Date().getFullYear()
-
     return(
-        <div className="homepage-container">
-            <header className="header">
-                <div className="logo">
-                <h1>Wod It Easy</h1>
-                <p>Your CrossFit Journey Starts Here</p>
-                </div>
-                <nav className="nav-bar">
-                <ul>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#classes">Classes</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-                </nav>
-            </header>
-
+        <>
             <section className="intro">
                 <div className="intro-text">
                 <h2>Get Stronger, Faster, Better</h2>
@@ -31,7 +15,6 @@ export default function Home(){
                 <img src={img} alt="CrossFit Workout" />
                 </div>
             </section>
-
             <section className="features" id="about">
                 <h2>Why Choose Wod It Easy?</h2>
                 <div className="feature-list">
@@ -49,20 +32,6 @@ export default function Home(){
                 </div>
                 </div>
             </section>
-
-            <footer className="footer">
-                <p>
-                    &copy; {year + ' '} 
-                    Wod It Easy 
-                    <a 
-                        href="https://github.com/aleksandarMilev/wod-it-easy" 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                    >
-                        Open source project
-                    </a>
-                </p>
-            </footer>
-        </div>
+        </>
     )
 }
