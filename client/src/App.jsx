@@ -1,12 +1,14 @@
 import { Route, Routes } from 'react-router-dom'
 
-import Footer from './components/common/footer/Footer'
-import Home from './components/home/Home'
 import Navigation from './components/common/navigation/Navigation'
+import Footer from './components/common/footer/Footer'
+
+import Home from './components/home/Home'
+
 import Login from './components/identity/login/Login'
 import Register from './components/identity/register/Register'
 
-import { routes } from './common/routes'
+import { routes } from './common/constants'
 
 import './App.css'
 

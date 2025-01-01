@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-import { routes } from '../../../common/routes'
+import { routes } from '../../../common/constants'
 
 import './Navigation.css'
 
