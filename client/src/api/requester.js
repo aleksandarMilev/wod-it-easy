@@ -20,7 +20,7 @@ async function requestAsync(url, method = httpActions.get, data = null, token = 
         options.body = JSON.stringify(data)
         options.headers[httpHeaders.contentType] = contentTypes.applicationJson
     }
-
+    
     try{
         return await fetch(url, options)
     } catch {

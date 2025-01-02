@@ -1,7 +1,9 @@
+export const baseUrl = 'https://localhost:7141'
+
 export const routes = {
     home: '/',
-    login: '/login',
-    register: '/register'
+    login: '/identity/login',
+    register: '/identity/register'
 }
 
 export const httpActions = {

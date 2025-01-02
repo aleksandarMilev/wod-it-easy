@@ -42,19 +42,20 @@
     width: 100%
 }
 
-.form-group {
+.login-form-group {
     margin-bottom: 25px;
-    width: 100%
+    width: 100%;
+    position: relative
 }
 
-.form-label {
+.login-form-label {
     display: block;
     margin-bottom: 10px;
     color: #555;
     font-size: 16px
 }
 
-.form-input {
+.login-form-input {
     width: 100%;
     padding: 15px;
     border: 1px solid #ddd;
@@ -62,7 +63,7 @@
     font-size: 18px
 }
 
-.form-input:focus {
+.login-form-input:focus {
     outline: none;
     border-color: #007BFF;
     box-shadow: 0 0 6px rgba(0, 123, 255, 0.6)
@@ -84,17 +85,53 @@
     background-color: #0056b3
 }
 
-.register-link {
+.login-register-link {
     margin-top: 20px;
     text-align: center
 }
 
-.register-link a {
+.login-register-link a {
     text-decoration: none;
     color: #007BFF;
     font-size: 16px
 }
 
-.register-link a:hover {
+.login-register-link a:hover {
     text-decoration: underline
+}
+
+.login-form-group.login-remember-me {
+    display: flex;
+    align-items: center
+}
+
+.login-form-checkbox {
+    margin-right: 10px
+}
+
+.login-form-error {
+    color: #d9534f;
+    font-size: 16px;
+    font-weight: bold;
+    position: absolute;
+    top: -20px; 
+    left: 0;
+    width: 100%;
+    text-align: center
+}
+
+.login-form-group.error .login-form-input {
+    border-color: #d9534f;
+    box-shadow: 0 0 6px rgba(217, 83, 79, 0.6)
+}
+
+.login-form-group.error .login-form-label {
+    color: #d9534f
+}
+
+.login-form-group.error {
+    margin-bottom: 25px;
+    border: 1px solid #d9534f;
+    padding: 5px;
+    border-radius: 6px
 }

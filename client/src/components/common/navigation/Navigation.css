@@ -24,7 +24,6 @@
     margin: 0
 }
 
-
 .header .logo a {
     text-decoration: none;
     color: inherit
@@ -32,7 +31,8 @@
 
 .nav-bar ul {
     list-style: none;
-    display: flex
+    display: flex;
+    align-items: center
 }
 
 .nav-bar ul li {
@@ -43,4 +43,26 @@
     text-decoration: none;
     color: white;
     font-size: 1.2rem
+}
+
+.nav-bar ul li span {
+    font-size: 1.2rem;
+    font-weight: bold;
+    font-family: 'Dancing Script', cursive
+}
+
+.nav-bar ul li button {
+    background-color: #fff;
+    color: #ff4500;
+    border: none;
+    padding: 10px 15px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease
+}
+
+.nav-bar ul li button:hover {
+    background-color: #ff7f50;
+    color: white
 }
