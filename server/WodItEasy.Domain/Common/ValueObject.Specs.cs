@@ -39,7 +39,7 @@
         }
 
         [Fact]
-        public void EqualsShouldReturnFalseIfArgumentIsTypesAreDifferent()
+        public void EqualsShouldReturnFalseIfTypesAreDifferent()
         {
             var obj1 = new TestValueObject(1);
             var obj2 = new AnotherValueObject(1);
@@ -51,10 +51,7 @@
         {
             public int Value { get; }
 
-            public AnotherValueObject(int value)
-            {
-                this.Value = value;
-            }
+            public AnotherValueObject(int value) => this.Value = value;
         }
 
         [Fact]
