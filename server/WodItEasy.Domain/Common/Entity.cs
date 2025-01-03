@@ -3,7 +3,7 @@
     public abstract class Entity<TId>
         where TId : struct
     {
-        public TId Id { get; private set; } = default;
+        public TId Id { get; protected set; } = default;
 
         public override bool Equals(object? obj)
         {

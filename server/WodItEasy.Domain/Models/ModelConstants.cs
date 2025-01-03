@@ -29,7 +29,7 @@
 
         public class MembershipConstants
         {
-            public static readonly DateTime MinStartDateValue = DateTime.Now;
+            public static readonly DateTime MinStartDateValue = DateTime.Now.AddMinutes(-1);
             public static readonly DateTime MaxStartDateValue = DateTime.Now.AddDays(30);
 
             public const int MinWorkoutsCountValue = 1;
@@ -47,7 +47,7 @@
             public const int MaxParticipantsCountMinValue = 1;
             public const int MaxParticipantsCountMaxValue = 15;
 
-            public static readonly DateTime MinStartAtDateValue = DateTime.Now;
+            public static readonly DateTime MinStartAtDateValue = DateTime.Now.AddMinutes(-1);
             public static readonly DateTime MaxStartAtDateValue = DateTime.Now.AddDays(7);
         }
     }

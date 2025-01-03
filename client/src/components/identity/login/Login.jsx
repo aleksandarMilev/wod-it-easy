@@ -8,7 +8,7 @@ import { useLogin } from '../../../hooks/useIdentity'
 import './Login.css'
 
 export default function Login() {
-    const onLogin = useLogin()
+    const onLoginAsync = useLogin()
 
     const formik = useFormik({
         initialValues: {
@@ -24,7 +24,7 @@ export default function Login() {
                 .string()
                 .required('Password is required')
         }),
-        onSubmit: (values) => onLogin(values)
+        onSubmit: async (values) => await onLoginAsync(values)
     })
 
     return (

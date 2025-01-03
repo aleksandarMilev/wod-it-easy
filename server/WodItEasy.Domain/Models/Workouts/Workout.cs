@@ -58,13 +58,13 @@
 
         public IReadOnlyCollection<Athlete> Athletes => this.athletes.ToList().AsReadOnly();
 
-        private bool IsClosed() => DateTime.Now > this.StartsAtDate;
+        internal bool IsClosed() => DateTime.Now > this.StartsAtDate;
 
-        private bool IsFull() => this.CurrentParticipantsCount == this.MaxParticipantsCount;
+        internal bool IsFull() => this.CurrentParticipantsCount >= this.MaxParticipantsCount;
 
-        private void IncrementParticipantsCount() => this.CurrentParticipantsCount++;
+        internal void IncrementParticipantsCount() => this.CurrentParticipantsCount++;
 
-        private void DecrementParticipantsCount() => this.CurrentParticipantsCount--;
+        internal void DecrementParticipantsCount() => this.CurrentParticipantsCount--;
 
         public void AddParticipant(Athlete athlete)
         {

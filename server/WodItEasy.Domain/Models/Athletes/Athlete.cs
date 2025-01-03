@@ -22,13 +22,14 @@
             this.Membership = default;
         }
 
-        public string Name { get; }
+        public string Name { get; private set; }
 
         public Membership? Membership { get; private set; }
 
         public Athlete UpdateName(string name)
         {
             this.ValidateName(name);
+            this.Name = name;
 
             return this;
         }

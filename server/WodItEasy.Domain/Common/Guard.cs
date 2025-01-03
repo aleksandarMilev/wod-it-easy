@@ -57,7 +57,7 @@
         public static void AgainstOutOfRange<TException>(DateTime date, DateTime min, DateTime max, string name = "Date")
             where TException : BaseDomainException, new()
         {
-            if (date >= min || date <= max)
+            if (date >= min && date <= max)
             {
                 return;
             }
