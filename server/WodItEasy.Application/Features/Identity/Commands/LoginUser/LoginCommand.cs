@@ -13,14 +13,14 @@
 
         public bool RememberMe { get; set; }
 
-        public class LoginUserCommandHandler : IRequestHandler<LoginCommand, Result<LoginOutputModel>>
+        public class LoginCommandHandler : IRequestHandler<LoginCommand, Result<LoginOutputModel>>
         {
-            private readonly IIdentityService identity;
+            private readonly IIdentityService identityService;
 
-            public LoginUserCommandHandler(IIdentityService identity) => this.identity = identity;
+            public LoginCommandHandler(IIdentityService identity) => this.identityService = identity;
 
             public async Task<Result<LoginOutputModel>> Handle(LoginCommand request, CancellationToken cancellationToken) 
-                => await this.identity.LoginAsync(
+                => await this.identityService.LoginAsync(
                     request.Credentials,
                     request.Password,
                     request.RememberMe);

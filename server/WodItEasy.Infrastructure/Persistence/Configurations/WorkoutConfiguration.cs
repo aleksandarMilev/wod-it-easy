@@ -34,12 +34,21 @@
                 .IsRequired();
 
             builder
+                .Ignore(w => w.Athletes);
+
+            builder
                 .OwnsOne(b => b.Type, t =>
                 {
                     t.WithOwner();
 
                     t.Property(type => type.Value).IsRequired();
                 });
+
+            builder
+                .HasMany(w => w.Athletes)  
+                .WithOne() 
+                .HasForeignKey("WorkoutId") 
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

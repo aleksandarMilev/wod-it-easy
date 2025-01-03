@@ -1,7 +1,6 @@
 ﻿namespace WodItEasy.Domain.Models.Workouts
 {
     using Common;
-    using Domain.Models.Athletes;
 
     public class WorkoutType : Enumeration
     {

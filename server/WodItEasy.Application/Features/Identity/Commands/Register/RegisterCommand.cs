@@ -14,14 +14,14 @@
 
         public string Password { get; set; } = null!;
 
-        public class CreateUserCommandHandler : IRequestHandler<RegisterCommand, Result<LoginOutputModel>>
+        public class RegisterCommandHandler : IRequestHandler<RegisterCommand, Result<LoginOutputModel>>
         {
-            private readonly IIdentityService identity;
+            private readonly IIdentityService identityService;
 
-            public CreateUserCommandHandler(IIdentityService identity) => this.identity = identity;
+            public RegisterCommandHandler(IIdentityService identity) => this.identityService = identity;
 
             public Task<Result<LoginOutputModel>> Handle(RegisterCommand request, CancellationToken cancellationToken)
-                => this.identity.RegisterAsync(
+                => this.identityService.RegisterAsync(
                     request.Username, 
                     request.Email,
                     request.Password);

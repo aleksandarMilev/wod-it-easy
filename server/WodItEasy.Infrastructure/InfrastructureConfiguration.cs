@@ -123,7 +123,7 @@
                 {
                     bearer.RequireHttpsMetadata = false;
                     bearer.SaveToken = true;
-                    bearer.TokenValidationParameters = new TokenValidationParameters
+                    bearer.TokenValidationParameters = new TokenValidationParameters()
                     {
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(key),

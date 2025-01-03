@@ -1,13 +1,18 @@
 ﻿namespace WodItEasy.Domain.Models.Workouts
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Athletes;
     using Common;
     using Exceptions;
-   
+
     using static ModelConstants.WorkoutConstants;
 
     public class Workout : Entity<int>, IAggregateRoot
     {
+        private readonly HashSet<Athlete> athletes = [];
+
         internal Workout(
              string name,
              string description,
@@ -51,13 +56,55 @@
 
         public WorkoutType Type { get; private set; }
 
-        public bool IsClosed() => DateTime.Now > this.StartsAtDate;
+        public IReadOnlyCollection<Athlete> Athletes => this.athletes.ToList().AsReadOnly();
 
-        public bool IsFull() => this.CurrentParticipantsCount == this.MaxParticipantsCount;
+        private bool IsClosed() => DateTime.Now > this.StartsAtDate;
 
-        public void IncrementParticipantsCount() => this.CurrentParticipantsCount++;
+        private bool IsFull() => this.CurrentParticipantsCount == this.MaxParticipantsCount;
 
-        public void DecrementParticipantsCount() => this.CurrentParticipantsCount--;
+        private void IncrementParticipantsCount() => this.CurrentParticipantsCount++;
+
+        private void DecrementParticipantsCount() => this.CurrentParticipantsCount--;
+
+        public void AddParticipant(Athlete athlete)
+        {
+            if (this.IsClosed())
+            {
+                throw new WorkoutClosedException("Workout is closed.");
+            }
+
+            if (this.IsFull())
+            {
+                throw new WorkoutFullException("Workout is full.");
+            }
+
+            if (!athlete.HasMembership())
+            {
+                throw new MembershipExpiredException("Athlete has not active membership!");
+            }
+
+            this.athletes.Add(athlete);
+            this.IncrementParticipantsCount();
+        }
+
+        public void RemoveParticipant(Athlete athlete)
+        {
+            var athleteIsJoined = this.athletes
+                .Any(a => a.Id == athlete.Id);
+
+            if (!athleteIsJoined)
+            {
+                throw new RemoveAthleteException("Athlete is not part of this workout.");
+            }
+
+            if (this.IsClosed())
+            {
+                throw new WorkoutClosedException("Workout is closed.");
+            }
+
+            this.athletes.Remove(athlete);
+            this.DecrementParticipantsCount();
+        }
 
         public Workout UpdateName(string name)
         {
