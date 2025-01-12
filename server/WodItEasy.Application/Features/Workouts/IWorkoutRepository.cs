@@ -3,12 +3,12 @@
     using System;
     using System.Threading;
     using System.Threading.Tasks;
-    using Application.Common;
-    using Application.Contracts;
-    using Application.Features.Workouts.Queries.Details;
-    using Application.Features.Workouts.Queries.Search;
+    using Common;
+    using Contracts;
     using Domain.Models.Workouts;
-
+    using Queries.Details;
+    using Queries.Search;
+   
     public interface IWorkoutRepository : IRepository<Workout>
     {
         Task<Workout?> FindAsync(int id, CancellationToken cancellationToken = default);

@@ -3,10 +3,10 @@
     using System;
     using System.Threading.Tasks;
     using Application.Common;
+    using Common;
     using MediatR;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.DependencyInjection;
-    using Web.Common;
 
     [ApiController]
     [Route("[controller]")]
