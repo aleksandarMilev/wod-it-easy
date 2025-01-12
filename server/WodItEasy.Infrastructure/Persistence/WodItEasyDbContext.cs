@@ -1,17 +1,24 @@
 ﻿namespace WodItEasy.Infrastructure.Persistence
 {
+    using System.Collections.Generic;
     using System.Reflection;
+    using Domain.Common;
     using Domain.Models.Athletes;
     using Domain.Models.Workouts;
+    using Infrastructure.Identity;
+    using Interceptors;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
-    using Infrastructure.Identity;
 
     internal class WodItEasyDbContext : IdentityDbContext<User>
     {
-        public WodItEasyDbContext(DbContextOptions<WodItEasyDbContext> options)
+        private readonly PublishDomainEventInterceptor eventInterceptor;
+
+        public WodItEasyDbContext(
+            DbContextOptions<WodItEasyDbContext> options,
+            PublishDomainEventInterceptor eventInterceptor)
             : base(options)
-        { }
+                => this.eventInterceptor = eventInterceptor;
 
         public DbSet<Athlete> Athletes { get; init; }
 
@@ -23,7 +30,16 @@
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            modelBuilder
+                .Ignore<List<IDomainEvent>>()
+                .ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.AddInterceptors(this.eventInterceptor);
+
+            base.OnConfiguring(optionsBuilder);
         }
     }
 }

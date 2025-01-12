@@ -15,6 +15,7 @@
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.IdentityModel.Tokens;
     using Persistence;
+    using Persistence.Interceptors;
     using Persistence.Repositories;
 
     public static class InfrastructureConfiguration
@@ -92,7 +93,8 @@
                         b => b.MigrationsAssembly(typeof(WodItEasyDbContext).Assembly.FullName));
                 })
                 .AddTransient<IInitializer, WodItEasyDbInitializer>()
-                .AddTransient<IJwtTokenGeneratorSerivce, JwtTokenGeneratorService>();
+                .AddTransient<IJwtTokenGeneratorSerivce, JwtTokenGeneratorService>()
+                .AddScoped<PublishDomainEventInterceptor>();
 
         private static IServiceCollection AddIdentity(this IServiceCollection services, IConfiguration configuration)
         {

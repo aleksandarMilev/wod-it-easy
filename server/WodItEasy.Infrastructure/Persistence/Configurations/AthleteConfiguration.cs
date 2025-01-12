@@ -1,8 +1,6 @@
 ﻿namespace WodItEasy.Infrastructure.Persistence.Configurations
 {
-    using System.Collections.Generic;
     using Domain.Models.Athletes;
-    using Domain.Models.Workouts;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -25,6 +23,11 @@
                 .WithOne()
                 .HasForeignKey<Membership>("AthleteId")
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .HasMany(a => a.Participations)
+                .WithOne(p => p.Athlete)
+                .HasForeignKey(p => p.AthleteId);
         }
     }
 }
