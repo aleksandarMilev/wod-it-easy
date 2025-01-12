@@ -1,5 +1,6 @@
 ﻿namespace WodItEasy.Domain
 {
+    using System.Reflection;
     using Factories;
     using Microsoft.Extensions.DependencyInjection;
 
@@ -14,6 +15,7 @@
                         .AddClasses(c => c.AssignableTo(typeof(IFactory<>)))
                         .AsMatchingInterface()
                         .WithTransientLifetime();
-                });
+                })
+                .AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
     }
 }

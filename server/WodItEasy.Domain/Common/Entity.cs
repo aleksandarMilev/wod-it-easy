@@ -1,9 +1,21 @@
 ﻿namespace WodItEasy.Domain.Common
 {
-    public abstract class Entity<TId>
+    using System.Collections.Generic;
+
+    public abstract class Entity<TId> : IHaveDomainEvents
         where TId : struct
     {
+        private readonly List<IDomainEvent> events = [];
+
+        protected Entity() { }
+
         public TId Id { get; protected set; } = default;
+
+        public IReadOnlyCollection<IDomainEvent> DomainEvents => this.events.AsReadOnly();
+
+        public void ClearDomainEvents() => this.events.Clear();
+
+        protected void RaiseEvent(IDomainEvent domainEvent) => this.events.Add(domainEvent);
 
         public override bool Equals(object? obj)
         {
@@ -48,6 +60,5 @@
         public override int GetHashCode() => (this.GetType().ToString() + this.Id).GetHashCode();
 
         public static bool operator !=(Entity<TId>? first, Entity<TId>? second) => !(first! == second!);
-
     }
 }
