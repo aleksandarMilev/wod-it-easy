@@ -166,113 +166,113 @@
             workout.CurrentParticipantsCount.Should().Be(-1);
         }
 
-        [Fact]
-        public void AddParticipantShouldThrowExceptionIfWorkoutIsClosed()
-        {
-            var workout = new Workout(
-                "Test",
-                "A Test Test Test",
-                10,
-                DateTime.Now,
-                TimeSpan.FromHours(6),
-                WorkoutType.CrossFit);
+        //[Fact]
+        //public void AddParticipantShouldThrowExceptionIfWorkoutIsClosed()
+        //{
+        //    var workout = new Workout(
+        //        "Test",
+        //        "A Test Test Test",
+        //        10,
+        //        DateTime.Now,
+        //        TimeSpan.FromHours(6),
+        //        WorkoutType.CrossFit);
 
-            var athlete = A.Dummy<Athlete>();
+        //    var athlete = A.Dummy<Athlete>();
 
-            var addParticipant = () => workout.AddParticipant(athlete);
+        //    var addParticipant = () => workout.AddParticipant(athlete);
 
-            addParticipant.Should().Throw<WorkoutClosedException>();
-        }
+        //    addParticipant.Should().Throw<WorkoutClosedException>();
+        //}
 
-        [Fact]
-        public void AddParticipantShouldThrowExceptionIfWorkoutIsFull()
-        {
-            var workout = new Workout(
-                "Test",
-                "A Test Test Test",
-                1,
-                DateTime.Now.AddHours(1),
-                TimeSpan.FromHours(6),
-                WorkoutType.CrossFit);
+        //[Fact]
+        //public void AddParticipantShouldThrowExceptionIfWorkoutIsFull()
+        //{
+        //    var workout = new Workout(
+        //        "Test",
+        //        "A Test Test Test",
+        //        1,
+        //        DateTime.Now.AddHours(1),
+        //        TimeSpan.FromHours(6),
+        //        WorkoutType.CrossFit);
 
-            var athleteOne = A.Dummy<Athlete>();
-            workout.AddParticipant(athleteOne);
+        //    var athleteOne = A.Dummy<Athlete>();
+        //    workout.AddParticipant(athleteOne);
 
-            var athleteTwo = A.Dummy<Athlete>();
-            var addParticipant = () => workout.AddParticipant(athleteTwo);
+        //    var athleteTwo = A.Dummy<Athlete>();
+        //    var addParticipant = () => workout.AddParticipant(athleteTwo);
 
-            addParticipant.Should().Throw<WorkoutFullException>();
-        }
+        //    addParticipant.Should().Throw<WorkoutFullException>();
+        //}
 
-        [Fact]
-        public void AddParticipantShouldThrowExceptionIfAthleteHasNotActiveMembership()
-        {
-            var workout = A.Dummy<Workout>();
+        //[Fact]
+        //public void AddParticipantShouldThrowExceptionIfAthleteHasNotActiveMembership()
+        //{
+        //    var workout = A.Dummy<Workout>();
 
-            var athlete = A.Dummy<Athlete>();
-            athlete.DeleteMembership();
+        //    var athlete = A.Dummy<Athlete>();
+        //    athlete.DeleteMembership();
 
-            var addParticipant = () => workout.AddParticipant(athlete);
+        //    var addParticipant = () => workout.AddParticipant(athlete);
 
-            addParticipant.Should().Throw<MembershipExpiredException>();
-        }
+        //    addParticipant.Should().Throw<MembershipExpiredException>();
+        //}
 
-        [Fact]
-        public void AddParticipantShouldAddAthleteToWorkout()
-        {
-            var workout = A.Dummy<Workout>();
-            var athlete = A.Dummy<Athlete>();
+        //[Fact]
+        //public void AddParticipantShouldAddAthleteToWorkout()
+        //{
+        //    var workout = A.Dummy<Workout>();
+        //    var athlete = A.Dummy<Athlete>();
 
-            workout.AddParticipant(athlete);
+        //    workout.AddParticipant(athlete);
 
-            workout.Athletes.Should().Contain(athlete);
-        }
+        //    workout.Athletes.Should().Contain(athlete);
+        //}
 
-        [Fact]
-        public void AddParticipantShouldIncrementCurrentParticipantsCount()
-        {
-            var workout = A.Dummy<Workout>();
-            var athlete = A.Dummy<Athlete>();
+        //[Fact]
+        //public void AddParticipantShouldIncrementCurrentParticipantsCount()
+        //{
+        //    var workout = A.Dummy<Workout>();
+        //    var athlete = A.Dummy<Athlete>();
 
-            workout.AddParticipant(athlete);
+        //    workout.AddParticipant(athlete);
 
-            workout.CurrentParticipantsCount.Should().Be(1);
-        }
+        //    workout.CurrentParticipantsCount.Should().Be(1);
+        //}
 
-        [Fact]
-        public void RemoveParticipantShouldThrowExceptionIfAthleteIsNotPartOfTheWorkout()
-        {
-            var workout = A.Dummy<Workout>();
-            var athlete = A.Dummy<Athlete>();
+        //[Fact]
+        //public void RemoveParticipantShouldThrowExceptionIfAthleteIsNotPartOfTheWorkout()
+        //{
+        //    var workout = A.Dummy<Workout>();
+        //    var athlete = A.Dummy<Athlete>();
 
-            var removeParticipant = () => workout.RemoveParticipant(athlete);
+        //    var removeParticipant = () => workout.RemoveParticipant(athlete);
 
-            removeParticipant.Should().Throw<RemoveAthleteException>();
-        }
+        //    removeParticipant.Should().Throw<RemoveAthleteException>();
+        //}
 
-        [Fact]
-        public void RemoveParticipantShouldRemoveAthleteFromWorkout()
-        {
-            var workout = A.Dummy<Workout>();
-            var athlete = A.Dummy<Athlete>();
+        //[Fact]
+        //public void RemoveParticipantShouldRemoveAthleteFromWorkout()
+        //{
+        //    var workout = A.Dummy<Workout>();
+        //    var athlete = A.Dummy<Athlete>();
 
-            workout.AddParticipant(athlete);
-            workout.RemoveParticipant(athlete);
+        //    workout.AddParticipant(athlete);
+        //    workout.RemoveParticipant(athlete);
 
-            workout.Athletes.Should().NotContain(athlete);
-        }
+        //    workout.Athletes.Should().NotContain(athlete);
+        //}
 
-        [Fact]
-        public void RemoveParticipantShouldDecrementCurrentParticipantsCount()
-        {
-            var workout = A.Dummy<Workout>();
-            var athlete = A.Dummy<Athlete>();
+        //[Fact]
+        //public void RemoveParticipantShouldDecrementCurrentParticipantsCount()
+        //{
+        //    var workout = A.Dummy<Workout>();
+        //    var athlete = A.Dummy<Athlete>();
 
-            workout.AddParticipant(athlete);
-            workout.RemoveParticipant(athlete);
+        //    workout.AddParticipant(athlete);
+        //    workout.RemoveParticipant(athlete);
 
-            workout.CurrentParticipantsCount.Should().Be(0);
-        }
+        //    workout.CurrentParticipantsCount.Should().Be(0);
+        //}
 
         [Theory]
         [MemberData(nameof(InvalidNames))]

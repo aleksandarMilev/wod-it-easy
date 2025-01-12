@@ -3,15 +3,15 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Athletes;
     using Common;
     using Exceptions;
+    using Participation;
 
     using static ModelConstants.WorkoutConstants;
 
     public class Workout : Entity<int>, IAggregateRoot
     {
-        private readonly HashSet<Athlete> athletes = [];
+        private readonly ICollection<Participation> participations = new HashSet<Participation>();
 
         internal Workout(
              string name,
@@ -56,7 +56,7 @@
 
         public WorkoutType Type { get; private set; }
 
-        public IReadOnlyCollection<Athlete> Athletes => this.athletes.ToList().AsReadOnly();
+        public IReadOnlyCollection<Participation> Participations => this.participations.ToList().AsReadOnly();
 
         internal bool IsClosed() => DateTime.Now > this.StartsAtDate;
 
@@ -66,7 +66,7 @@
 
         internal void DecrementParticipantsCount() => this.CurrentParticipantsCount--;
 
-        public void AddParticipant(Athlete athlete)
+        public void AddParticipant(int athleteId)
         {
             if (this.IsClosed())
             {
@@ -78,31 +78,19 @@
                 throw new WorkoutFullException("Workout is full.");
             }
 
-            if (!athlete.HasMembership())
-            {
-                throw new MembershipExpiredException("Athlete has not active membership!");
-            }
-
-            this.athletes.Add(athlete);
+            //we will not focus on events for now
+            //this.RaiseEvent(new AthleteJoinedWorkoutEvent(athleteId, this.Id));
             this.IncrementParticipantsCount();
         }
 
-        public void RemoveParticipant(Athlete athlete)
+        public void RemoveParticipant(int athleteId)
         {
-            var athleteIsJoined = this.athletes
-                .Any(a => a.Id == athlete.Id);
-
-            if (!athleteIsJoined)
-            {
-                throw new RemoveAthleteException("Athlete is not part of this workout.");
-            }
-
             if (this.IsClosed())
             {
                 throw new WorkoutClosedException("Workout is closed.");
             }
 
-            this.athletes.Remove(athlete);
+            //this.RaiseEvent(new AthleteLeftWorkout(athleteId, this.Id));
             this.DecrementParticipantsCount();
         }
 
