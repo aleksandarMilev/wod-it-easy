@@ -22,8 +22,6 @@
 
         public DbSet<Athlete> Athletes { get; init; }
 
-        public DbSet<Membership> Memberships { get; init; }
-
         public DbSet<Workout> Workouts { get; init; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

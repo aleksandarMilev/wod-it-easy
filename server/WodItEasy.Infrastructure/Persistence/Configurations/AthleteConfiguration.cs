@@ -19,12 +19,6 @@
                 .HasMaxLength(NameMaxLength);
 
             builder
-                .HasOne(a => a.Membership)
-                .WithOne()
-                .HasForeignKey<Membership>("AthleteId")
-                .OnDelete(DeleteBehavior.Restrict);
-
-            builder
                 .HasMany(a => a.Participations)
                 .WithOne(p => p.Athlete)
                 .HasForeignKey(p => p.AthleteId);
