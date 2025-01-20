@@ -3,38 +3,41 @@
     using System;
     using System.Threading;
     using System.Threading.Tasks;
-    using Application.Common;
+    using Common;
     using Domain.Common;
     using Domain.Models.Workouts;
     using MediatR;
 
     public class EditWorkoutCommand : EntityCommand<int>, IRequest<Result>
     {
-        public string Name { get; set; } = null!;
+        public string Name { get; } = null!;
 
-        public string Description { get; set; } = null!;
+        public string Description { get; } = null!;
 
-        public int MaxParticipantsCount { get; set; }
+        public int MaxParticipantsCount { get; }
 
-        public DateTime StartsAtDate { get; set; }
+        public DateTime StartsAtDate { get; }
 
-        public TimeSpan StartsAtTime { get; set; }
+        public TimeSpan StartsAtTime { get; }
 
-        public int Type { get; set; }
+        public int Type { get; }
 
         public class EditWorkoutCommandHandler : IRequestHandler<EditWorkoutCommand, Result>
         {
+            private const string NotFoundErrorMessage = "Workout not found!";
+
             private readonly IWorkoutRepository repository;
 
-            public EditWorkoutCommandHandler(IWorkoutRepository repository) => this.repository = repository;
+            public EditWorkoutCommandHandler(IWorkoutRepository repository) 
+                => this.repository = repository;
 
             public async Task<Result> Handle(EditWorkoutCommand request, CancellationToken cancellationToken)
             {
-                var workout = await this.repository.FindAsync(request.Id, cancellationToken);
+                var workout = await this.repository.Find(request.Id, cancellationToken);
 
                 if (workout is null)
                 {
-                    return "Workout not found!";
+                    return NotFoundErrorMessage;
                 }
 
                 workout

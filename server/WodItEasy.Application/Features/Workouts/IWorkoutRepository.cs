@@ -11,16 +11,16 @@
    
     public interface IWorkoutRepository : IRepository<Workout>
     {
-        Task<Workout?> FindAsync(int id, CancellationToken cancellationToken = default);
+        Task<Workout?> Find(int id, CancellationToken cancellationToken = default);
 
-        Task<PaginatedOutputModel<SearchWorkoutOutputModel>> PaginatedAsync(
+        Task<PaginatedOutputModel<SearchWorkoutOutputModel>> Paginated(
             DateTime? startsAtDate,
             int pageSize,
             int pageIndex,
             CancellationToken cancellationToken = default);
 
-        Task<WorkoutDetailsOutputModel?> DetailsAsync(int id, CancellationToken cancellationToken = default);
+        Task<WorkoutDetailsOutputModel?> Details(int id, CancellationToken cancellationToken = default);
 
-        Task<bool> DeleteAsync(int id, CancellationToken cancellationToken = default);
+        Task<bool> Delete(int id, CancellationToken cancellationToken = default);
     }
 }

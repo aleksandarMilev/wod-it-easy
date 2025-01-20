@@ -5,6 +5,7 @@
     using Application.Common;
     using Application.Features.Identity;
     using Application.Features.Identity.Commands.LoginUser;
+    using Jwt;
     using Microsoft.AspNetCore.Identity;
 
     using static Constants;
@@ -12,15 +13,15 @@
     public class IdentityService : IIdentityService
     {
         private readonly UserManager<User> userManager;
-        private readonly IJwtTokenGeneratorSerivce jwtTokenGenerator;
+        private readonly IJwtTokenGeneratorService jwtTokenGenerator;
 
-        public IdentityService(UserManager<User> userManager, IJwtTokenGeneratorSerivce jwtTokenGenerator)
+        public IdentityService(UserManager<User> userManager, IJwtTokenGeneratorService jwtTokenGenerator)
         {
             this.userManager = userManager;
             this.jwtTokenGenerator = jwtTokenGenerator;
         }
 
-        public async Task<Result<LoginOutputModel>> RegisterAsync(string username, string email, string password)
+        public async Task<Result<LoginOutputModel>> Register(string username, string email, string password)
         {
             var user = new User()
             {
@@ -40,7 +41,7 @@
             return string.Join("; ", identityResult.Errors.Select(e => e.Description));
         }
 
-        public async Task<Result<LoginOutputModel>> LoginAsync(string credentials, string password, bool rememberMe)
+        public async Task<Result<LoginOutputModel>> Login(string credentials, string password, bool rememberMe)
         {
             var user = await this.userManager.FindByNameAsync(credentials);
             user ??= await this.userManager.FindByEmailAsync(credentials);

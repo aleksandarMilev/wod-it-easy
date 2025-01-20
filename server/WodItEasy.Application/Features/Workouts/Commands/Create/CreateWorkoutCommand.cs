@@ -10,17 +10,17 @@
 
     public class CreateWorkoutCommand : IRequest<int>
     {
-        public string Name { get; set; } = null!;
+        public string Name { get; private set; } = null!;
 
-        public string Description { get; set; } = null!;
+        public string Description { get; private set; } = null!;
 
-        public int MaxParticipantsCount { get; set; }
+        public int MaxParticipantsCount { get; private set; }
 
-        public DateTime StartsAtDate { get; set; }
+        public DateTime StartsAtDate { get; private set; }
 
-        public TimeSpan StartsAtTime { get; set; }
+        public TimeSpan StartsAtTime { get; private set; }
 
-        public int Type { get; set; }
+        public int Type { get; private set; }
 
         public class CreateWorkoutCommandHandler : IRequestHandler<CreateWorkoutCommand, int>
         {

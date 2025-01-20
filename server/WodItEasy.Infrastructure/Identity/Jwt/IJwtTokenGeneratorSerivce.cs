@@ -1,6 +1,6 @@
-﻿namespace WodItEasy.Infrastructure.Identity
+﻿namespace WodItEasy.Infrastructure.Identity.Jwt
 {
-    public interface IJwtTokenGeneratorSerivce
+    public interface IJwtTokenGeneratorService
     {
         string GenerateJwtToken(
            string userId,

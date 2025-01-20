@@ -7,20 +7,21 @@
 
     public class LoginCommand : IRequest<Result<LoginOutputModel>>
     {
-        public string Credentials { get; set; } = null!;
+        public string Credentials { get; } = null!;
 
-        public string Password { get; set; } = null!;
+        public string Password { get; } = null!;
 
-        public bool RememberMe { get; set; }
+        public bool RememberMe { get; }
 
         public class LoginCommandHandler : IRequestHandler<LoginCommand, Result<LoginOutputModel>>
         {
             private readonly IIdentityService identityService;
 
-            public LoginCommandHandler(IIdentityService identity) => this.identityService = identity;
+            public LoginCommandHandler(IIdentityService identity) 
+                => this.identityService = identity;
 
             public async Task<Result<LoginOutputModel>> Handle(LoginCommand request, CancellationToken cancellationToken) 
-                => await this.identityService.LoginAsync(
+                => await this.identityService.Login(
                     request.Credentials,
                     request.Password,
                     request.RememberMe);

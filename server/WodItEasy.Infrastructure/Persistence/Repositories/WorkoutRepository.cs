@@ -20,7 +20,7 @@
         public WorkoutRepository(WodItEasyDbContext data, IMapper mapper)
             : base(data) => this.mapper = mapper;
 
-        public async Task<PaginatedOutputModel<SearchWorkoutOutputModel>> PaginatedAsync(
+        public async Task<PaginatedOutputModel<SearchWorkoutOutputModel>> Paginated(
             DateTime? startsAtDate,
             int pageSize,
             int pageIndex,
@@ -42,22 +42,22 @@
                 pageSize);
         }
 
-        public async Task<WorkoutDetailsOutputModel?> DetailsAsync(int id, CancellationToken cancellationToken = default)
+        public async Task<WorkoutDetailsOutputModel?> Details(int id, CancellationToken cancellationToken = default)
             => await this
                 .AllUpcomings()
                 .AsNoTracking()
                 .ProjectTo<WorkoutDetailsOutputModel>(this.mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(w => w.Id == id, cancellationToken);
 
-        public async Task<Workout?> FindAsync(int id, CancellationToken cancellationToken = default)
+        public async Task<Workout?> Find(int id, CancellationToken cancellationToken = default)
             => await this
                 .AllUpcomings()
                 .AsNoTracking()
                 .FirstOrDefaultAsync(w => w.Id == id, cancellationToken);
 
-        public async Task<bool> DeleteAsync(int id, CancellationToken cancellationToken = default)
+        public async Task<bool> Delete(int id, CancellationToken cancellationToken = default)
         {
-            var workout = await this.FindAsync(id, cancellationToken);
+            var workout = await this.Find(id, cancellationToken);
 
             if (workout is null)
             {

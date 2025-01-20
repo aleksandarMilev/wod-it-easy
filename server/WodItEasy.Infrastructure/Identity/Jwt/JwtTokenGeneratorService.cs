@@ -1,4 +1,4 @@
-﻿namespace WodItEasy.Infrastructure.Identity
+﻿namespace WodItEasy.Infrastructure.Identity.Jwt
 {
     using System;
     using System.Collections.Generic;
@@ -11,11 +11,11 @@
 
     using static Constants;
 
-    public class JwtTokenGeneratorService : IJwtTokenGeneratorSerivce
+    public class JwtTokenGeneratorService : IJwtTokenGeneratorService
     {
         private readonly ApplicationSettings applicationSettings;
 
-        public JwtTokenGeneratorService(IOptions<ApplicationSettings> applicationSettings) 
+        public JwtTokenGeneratorService(IOptions<ApplicationSettings> applicationSettings)
             => this.applicationSettings = applicationSettings.Value;
 
         public string GenerateJwtToken(
@@ -26,7 +26,7 @@
             bool isAdmin = false)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(this.applicationSettings.Secret);
+            var key = Encoding.ASCII.GetBytes(applicationSettings.Secret);
 
             var claimList = new List<Claim>()
             {

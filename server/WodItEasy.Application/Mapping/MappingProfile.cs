@@ -7,7 +7,8 @@
 
     public class MappingProfile : Profile
     {
-        public MappingProfile() => this.ApplyMappingsFromAssembly(Assembly.GetExecutingAssembly());
+        public MappingProfile() 
+            => this.ApplyMappingsFromAssembly(Assembly.GetExecutingAssembly());
 
         private void ApplyMappingsFromAssembly(Assembly assembly)
         {

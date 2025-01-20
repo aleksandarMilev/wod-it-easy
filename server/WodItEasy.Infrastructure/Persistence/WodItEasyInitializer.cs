@@ -7,8 +7,10 @@
     {
         private readonly WodItEasyDbContext data;
 
-        public WodItEasyDbInitializer(WodItEasyDbContext data) => this.data = data;
+        public WodItEasyDbInitializer(WodItEasyDbContext data) 
+            => this.data = data;
 
-        public void Initialize() => this.data.Database.Migrate();
+        public void Initialize() 
+            => this.data.Database.Migrate();
     }
 }

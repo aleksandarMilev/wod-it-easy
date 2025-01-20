@@ -10,20 +10,21 @@
 
     public class SearchWorkoutQuery : IRequest<PaginatedOutputModel<SearchWorkoutOutputModel>>
     {
-        public DateTime? StartsAtDate { get; set; }
+        public DateTime? StartsAtDate { get; }
 
-        public int PageSize { get; set; } = DefaultPageSize;
+        public int PageSize { get; } = DefaultPageSize;
 
-        public int PageIndex { get; set; } = DefaultPageIndex;
+        public int PageIndex { get; } = DefaultPageIndex;
 
         public class SearchWorkoutQueryHandler : IRequestHandler<SearchWorkoutQuery, PaginatedOutputModel<SearchWorkoutOutputModel>>
         {
             private readonly IWorkoutRepository repository;
 
-            public SearchWorkoutQueryHandler(IWorkoutRepository repository) => this.repository = repository;
+            public SearchWorkoutQueryHandler(IWorkoutRepository repository) 
+                => this.repository = repository;
 
             public Task<PaginatedOutputModel<SearchWorkoutOutputModel>> Handle(SearchWorkoutQuery request, CancellationToken cancellationToken)
-                => this.repository.PaginatedAsync(
+                => this.repository.Paginated(
                     request.StartsAtDate,
                     request.PageSize,
                     request.PageIndex,

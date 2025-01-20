@@ -2,26 +2,27 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using Application.Common;
+    using Common;
     using LoginUser;
     using MediatR;
 
     public class RegisterCommand : IRequest<Result<LoginOutputModel>>
     {
-        public string Username { get; set; } = null!;
+        public string Username { get; } = null!;
 
-        public string Email { get; set; } = null!;
+        public string Email { get; } = null!;
 
-        public string Password { get; set; } = null!;
+        public string Password { get; } = null!;
 
         public class RegisterCommandHandler : IRequestHandler<RegisterCommand, Result<LoginOutputModel>>
         {
             private readonly IIdentityService identityService;
 
-            public RegisterCommandHandler(IIdentityService identity) => this.identityService = identity;
+            public RegisterCommandHandler(IIdentityService identity) 
+                => this.identityService = identity;
 
             public Task<Result<LoginOutputModel>> Handle(RegisterCommand request, CancellationToken cancellationToken)
-                => this.identityService.RegisterAsync(
+                => this.identityService.Register(
                     request.Username, 
                     request.Email,
                     request.Password);

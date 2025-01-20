@@ -4,7 +4,11 @@
 
     public class PaginatedOutputModel<T>
     {
-        public PaginatedOutputModel(IEnumerable<T> items, int totalItems, int pageSize, int pageIndex)
+        public PaginatedOutputModel(
+            IEnumerable<T> items, 
+            int totalItems, 
+            int pageSize, 
+            int pageIndex)
         {
             this.Items = items;
             this.TotalItems = totalItems;
@@ -12,12 +16,12 @@
             this.PageIndex = pageIndex;
         }
 
-        public IEnumerable<T> Items { get; set; } = null!;
+        public IEnumerable<T> Items { get; } = null!;
 
-        public int TotalItems { get; set; }
+        public int TotalItems { get; }
 
-        public int PageSize { get; set; }
+        public int PageSize { get; }
 
-        public int PageIndex { get; set; }
+        public int PageIndex { get; }
     }
 }

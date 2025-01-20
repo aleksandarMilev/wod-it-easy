@@ -8,21 +8,21 @@
 
     public class WorkoutDetailsOutputModel : IMapFrom<Workout>
     {
-        public int Id { get; init; }
+        public int Id { get; }
 
-        public string Name { get; init; } = null!;
+        public string Name { get; } = null!;
 
-        public string Description { get; init; } = null!;
+        public string Description { get; } = null!;
 
-        public int MaxParticipantsCount { get; init; }
+        public int MaxParticipantsCount { get; }
 
-        public int CurrentParticipantsCount { get; init; }
+        public int CurrentParticipantsCount { get; }
 
-        public DateTime StartsAtDate { get; init; }
+        public DateTime StartsAtDate { get; }
 
-        public TimeSpan StartsAtTime { get; init; }
+        public TimeSpan StartsAtTime { get; }
 
-        public string Type { get; init; } = null!;
+        public string Type { get; } = null!;
 
         public void Mapping(Profile profile)
             => profile

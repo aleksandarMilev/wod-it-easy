@@ -10,12 +10,16 @@
     {
         private readonly ClaimsPrincipal? user;
 
-        public CurrentUserService(IHttpContextAccessor httpContext) => this.user = httpContext.HttpContext?.User;
+        public CurrentUserService(IHttpContextAccessor httpContext) 
+            => this.user = httpContext.HttpContext?.User;
 
-        public string? UserId => this.user?.FindFirstValue(ClaimTypes.NameIdentifier);
+        public string? UserId 
+            => this.user?.FindFirstValue(ClaimTypes.NameIdentifier);
 
-        public string? Username => this.user?.Identity?.Name;
+        public string? Username 
+            => this.user?.Identity?.Name;
 
-        public bool IsAdmin => this.user?.IsInRole(AdminRoleName) ?? false;
+        public bool IsAdmin 
+            => this.user?.IsInRole(AdminRoleName) ?? false;
     }
 }
