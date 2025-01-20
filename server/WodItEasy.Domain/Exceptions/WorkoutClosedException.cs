@@ -2,10 +2,9 @@
 {
     public class WorkoutClosedException : BaseDomainException
     {
-        public WorkoutClosedException()
-        {
-        }
+        public WorkoutClosedException() { }
 
-        public WorkoutClosedException(string message) => this.Message = message;
+        public WorkoutClosedException(string message)
+            => this.Message = message;
     }
 }

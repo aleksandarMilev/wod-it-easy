@@ -42,6 +42,12 @@
                 pageSize);
         }
 
+        public async Task<Workout?> ById(int id, CancellationToken cancellationToken = default)
+            => await this
+                .AllUpcomings()
+                .AsNoTracking()
+                .FirstOrDefaultAsync(w => w.Id == id, cancellationToken);
+
         public async Task<WorkoutDetailsOutputModel?> Details(int id, CancellationToken cancellationToken = default)
             => await this
                 .AllUpcomings()

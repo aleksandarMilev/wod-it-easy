@@ -2,10 +2,9 @@
 {
     public class InvalidMembershipException : BaseDomainException
     {
-        public InvalidMembershipException()
-        {
-        }
+        public InvalidMembershipException() { }
 
-        public InvalidMembershipException(string message) => this.Message = message;
+        public InvalidMembershipException(string message)
+            => this.Message = message;
     }
 }

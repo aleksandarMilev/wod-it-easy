@@ -5,7 +5,7 @@
     using Domain.Common;
     using Domain.Models.Athletes;
     using Domain.Models.Workouts;
-    using Infrastructure.Identity;
+    using Identity;
     using Interceptors;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;

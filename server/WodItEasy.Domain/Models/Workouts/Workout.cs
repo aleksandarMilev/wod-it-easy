@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Common;
+    using Events;
     using Exceptions;
     using Participation;
 
@@ -56,15 +57,20 @@
 
         public WorkoutType Type { get; private set; }
 
-        public IReadOnlyCollection<Participation> Participations => this.participations.ToList().AsReadOnly();
+        public IReadOnlyCollection<Participation> Participations 
+            => this.participations.ToList().AsReadOnly();
 
-        internal bool IsClosed() => DateTime.Now > this.StartsAtDate;
+        internal bool IsClosed() 
+            => DateTime.Now > this.StartsAtDate;
 
-        internal bool IsFull() => this.CurrentParticipantsCount >= this.MaxParticipantsCount;
+        internal bool IsFull()
+            => this.CurrentParticipantsCount >= this.MaxParticipantsCount;
 
-        internal void IncrementParticipantsCount() => this.CurrentParticipantsCount++;
+        internal void IncrementParticipantsCount() 
+            => this.CurrentParticipantsCount++;
 
-        internal void DecrementParticipantsCount() => this.CurrentParticipantsCount--;
+        internal void DecrementParticipantsCount() 
+            => this.CurrentParticipantsCount--;
 
         public void AddParticipant(int athleteId)
         {
@@ -78,8 +84,13 @@
                 throw new WorkoutFullException("Workout is full.");
             }
 
-            //we will not focus on events for now
-            //this.RaiseEvent(new AthleteJoinedWorkoutEvent(athleteId, this.Id));
+            if (this.participations.Any(p => p.AthleteId == athleteId))
+            {
+                throw new LeaveWorkoutException("This athlete is already a participant in the workout!");
+            }
+
+            this.participations.Add(new(athleteId, this.Id));
+
             this.IncrementParticipantsCount();
         }
 
@@ -90,7 +101,14 @@
                 throw new WorkoutClosedException("Workout is closed.");
             }
 
-            //this.RaiseEvent(new AthleteLeftWorkout(athleteId, this.Id));
+            var participation = this
+                .participations
+                .FirstOrDefault(p => p.AthleteId == athleteId)
+                ?? throw new LeaveWorkoutException("This athlete is not a participant in the workout!");
+
+            participation.MarkAsLeft();
+            this.participations.Remove(participation);
+
             this.DecrementParticipantsCount();
         }
 

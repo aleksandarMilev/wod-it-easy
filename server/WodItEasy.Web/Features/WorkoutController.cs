@@ -6,6 +6,7 @@
     using Application.Features.Workouts.Commands.Create;
     using Application.Features.Workouts.Commands.Edit;
     using Application.Features.Workouts.Commands.Delete;
+    using Application.Features.Workouts.Commands.Join;
     using Application.Features.Workouts.Queries.Details;
     using Application.Features.Workouts.Queries.Search;
     using Common;
@@ -25,6 +26,10 @@
 
         [HttpPost]
         public async Task<ActionResult<int>> Create(CreateWorkoutCommand command)
+            => await this.Send(command);
+
+        [HttpPost("join")]
+        public async Task<ActionResult> Join(JoinWorkoutCommand command)
             => await this.Send(command);
 
         [HttpPut("{id}")]

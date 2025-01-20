@@ -12,7 +12,8 @@
     {
         private readonly IPublisher mediator;
 
-        public PublishDomainEventInterceptor(IPublisher mediator) => this.mediator = mediator;
+        public PublishDomainEventInterceptor(IPublisher mediator) 
+            => this.mediator = mediator;
 
         public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
         {

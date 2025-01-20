@@ -2,10 +2,9 @@
 {
     public class InvalidAthleteException : BaseDomainException
     {
-        public InvalidAthleteException()
-        {
-        }
+        public InvalidAthleteException() { }
 
-        public InvalidAthleteException(string message) => this.Message = message;
+        public InvalidAthleteException(string message)
+            => this.Message = message;
     }
 }

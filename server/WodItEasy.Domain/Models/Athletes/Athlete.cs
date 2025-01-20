@@ -31,7 +31,8 @@
 
         public Membership? Membership { get; private set; }
 
-        public IReadOnlyCollection<Participation> Participations => this.participations.ToList().AsReadOnly();
+        public IReadOnlyCollection<Participation> Participations 
+            => this.participations.ToList().AsReadOnly();
 
         public Athlete UpdateName(string name)
         {
@@ -41,23 +42,26 @@
             return this;
         }
 
-        public bool HasMembership() => this.Membership is not null;
+        public bool HasMembership() 
+            => this.Membership is not null;
 
-        public void CreateMembership(Membership membership) => this.Membership = membership;
+        public void CreateMembership(Membership membership) 
+            => this.Membership = membership;
 
-        public void UpdateMembership(Membership membership) => this.Membership = membership;
+        public void UpdateMembership(Membership membership) 
+            => this.Membership = membership;
 
-        public void DeleteMembership() => this.Membership = null;
+        public void DeleteMembership() 
+            => this.Membership = null;
 
-        private void Validate(string name) => this.ValidateName(name);
+        private void Validate(string name) 
+            => this.ValidateName(name);
 
         private void ValidateName(string name)
-        {
-            Guard.ForStringLength<InvalidAthleteException>(
+            => Guard.ForStringLength<InvalidAthleteException>(
                 name,
                 MinNameLength,
                 MaxNameLength,
                 nameof(this.Name));
-        }
     }
 }

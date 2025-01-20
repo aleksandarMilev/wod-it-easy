@@ -27,6 +27,7 @@
             this.Status = ParticipationStatus.Joined;
         }
 
-        public void MarkAsLeft() => this.Status = ParticipationStatus.Left;
+        public void MarkAsLeft() 
+            => this.Status = ParticipationStatus.Left;
     }
 }

@@ -2,10 +2,9 @@
 {
     public class MembershipExpiredException : BaseDomainException
     {
-        public MembershipExpiredException()
-        {
-        }
+        public MembershipExpiredException() { }
 
-        public MembershipExpiredException(string message) => this.Message = message;
+        public MembershipExpiredException(string message)
+            => this.Message = message;
     }
 }

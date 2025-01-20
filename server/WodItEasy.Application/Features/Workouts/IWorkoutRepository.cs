@@ -21,6 +21,8 @@
 
         Task<WorkoutDetailsOutputModel?> Details(int id, CancellationToken cancellationToken = default);
 
+        Task<Workout?> ById(int id, CancellationToken cancellationToken = default);
+
         Task<bool> Delete(int id, CancellationToken cancellationToken = default);
     }
 }

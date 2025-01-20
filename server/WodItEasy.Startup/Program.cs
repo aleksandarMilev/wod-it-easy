@@ -8,7 +8,7 @@ namespace WodItEasy.Startup
     using Microsoft.Extensions.Hosting;
     using Web;
     using Web.Extensions;
-    using Web.Middleware;
+    using Web.Middlewares;
 
     public class Program
     {

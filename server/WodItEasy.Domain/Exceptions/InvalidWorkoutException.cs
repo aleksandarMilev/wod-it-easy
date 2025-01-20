@@ -2,10 +2,9 @@
 {
     public class InvalidWorkoutException : BaseDomainException
     {
-        public InvalidWorkoutException()
-        {
-        }
+        public InvalidWorkoutException() { }
 
-        public InvalidWorkoutException(string message) => this.Message = message;
+        public InvalidWorkoutException(string message)
+            => this.Message = message;
     }
 }

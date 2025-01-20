@@ -1,4 +1,4 @@
-﻿namespace WodItEasy.Web.Middleware
+﻿namespace WodItEasy.Web.Middlewares
 {
     using System;
     using System.Net;

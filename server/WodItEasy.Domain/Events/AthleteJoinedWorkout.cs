@@ -3,8 +3,8 @@
     using System;
     using Common;
 
-    public record AthleteLeftWorkout(
+    public record AthleteJoinedWorkout(
         int AthleteId, 
         int WorkoutId, 
-        DateTime LeftAt) : IDomainEvent;
+        DateTime JoinedAt) : IDomainEvent;
 }

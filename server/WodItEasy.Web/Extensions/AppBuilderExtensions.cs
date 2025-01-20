@@ -22,9 +22,7 @@
                      opt.AllowAnyMethod();
                  });
 
-        public static async Task<IApplicationBuilder> SeedRoles(
-            this IApplicationBuilder app,
-            IConfiguration configuration)
+        public static async Task<IApplicationBuilder> SeedRoles(this IApplicationBuilder app, IConfiguration configuration)
         {
             using var scope = app.ApplicationServices.CreateScope();
             var roleSeeder = scope.ServiceProvider.GetRequiredService<IRoleSeeder>();

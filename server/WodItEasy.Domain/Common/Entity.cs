@@ -11,11 +11,17 @@
 
         public TId Id { get; protected set; } = default;
 
-        public IReadOnlyCollection<IDomainEvent> DomainEvents => this.events.AsReadOnly();
+        public IReadOnlyCollection<IDomainEvent> DomainEvents 
+            => this.events.AsReadOnly();
 
-        public void ClearDomainEvents() => this.events.Clear();
+        public void AddDomainEvent(IDomainEvent domainEvent)
+            => this.events.Add(domainEvent);
 
-        protected void RaiseEvent(IDomainEvent domainEvent) => this.events.Add(domainEvent);
+        public void ClearDomainEvents() 
+            => this.events.Clear();
+
+        protected void RaiseEvent(IDomainEvent domainEvent) 
+            => this.events.Add(domainEvent);
 
         public override bool Equals(object? obj)
         {
@@ -57,8 +63,10 @@
             return first.Equals(second);
         }
 
-        public override int GetHashCode() => (this.GetType().ToString() + this.Id).GetHashCode();
+        public override int GetHashCode()
+            => (this.GetType().ToString() + this.Id).GetHashCode();
 
-        public static bool operator !=(Entity<TId>? first, Entity<TId>? second) => !(first! == second!);
+        public static bool operator !=(Entity<TId>? first, Entity<TId>? second)
+            => !(first! == second!);
     }
 }
