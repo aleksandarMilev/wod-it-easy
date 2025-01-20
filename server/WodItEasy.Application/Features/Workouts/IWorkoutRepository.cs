@@ -11,7 +11,9 @@
    
     public interface IWorkoutRepository : IRepository<Workout>
     {
-        Task<Workout?> Find(int id, CancellationToken cancellationToken = default);
+        Task<Workout?> ById(int id, CancellationToken cancellationToken = default);
+
+        Task<Workout?> ByIdWithParticipants(int id, CancellationToken cancellationToken = default);
 
         Task<PaginatedOutputModel<SearchWorkoutOutputModel>> Paginated(
             DateTime? startsAtDate,
@@ -20,8 +22,6 @@
             CancellationToken cancellationToken = default);
 
         Task<WorkoutDetailsOutputModel?> Details(int id, CancellationToken cancellationToken = default);
-
-        Task<Workout?> ById(int id, CancellationToken cancellationToken = default);
 
         Task<bool> Delete(int id, CancellationToken cancellationToken = default);
     }

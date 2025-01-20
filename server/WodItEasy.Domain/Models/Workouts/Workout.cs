@@ -107,7 +107,6 @@
                 ?? throw new LeaveWorkoutException("This athlete is not a participant in the workout!");
 
             participation.MarkAsLeft();
-            this.participations.Remove(participation);
 
             this.DecrementParticipantsCount();
         }

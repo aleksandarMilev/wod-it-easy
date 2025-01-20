@@ -33,7 +33,7 @@
 
             public async Task<Result> Handle(EditWorkoutCommand request, CancellationToken cancellationToken)
             {
-                var workout = await this.repository.Find(request.Id, cancellationToken);
+                var workout = await this.repository.ById(request.Id, cancellationToken);
 
                 if (workout is null)
                 {
