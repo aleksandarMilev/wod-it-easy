@@ -12,7 +12,7 @@ export default function AdminRoute({ element }){
     }
 
     if(!isAdmin){
-        return <Navigate to={routes.accessDenied} replace />
+        return <Navigate to={routes.error.accessDenied} replace />
     }
 
     return element

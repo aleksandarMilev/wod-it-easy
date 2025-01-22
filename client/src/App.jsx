@@ -18,6 +18,7 @@ import WorkoutDetails from './components/workout/details/WorkoutDetails'
 import CreateWorkout from './components/workout/create/CreateWorkout'
 
 import NotFound from './components/common/errors/NotFound'
+import AccessDenied from './components/common/errors/AccessDenied'
 
 import './App.css'
 
@@ -36,7 +37,7 @@ export default function App() {
                         <Route path={routes.workout.create} element={<AdminRoute element={<CreateWorkout />} />}/>
 
                         <Route path={routes.error.notFound} element={<NotFound />} />
-                        
+                        <Route path={routes.error.accessDenied} element={<AccessDenied />} />
                     </Routes>
                     <Footer/>
                 </div>
