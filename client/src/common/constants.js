@@ -14,6 +14,7 @@ export const routes = {
 
     workout: {
         default: '/workout',
+        id: '/workout/:id',
         create: '/workout/create'
     }
 }
@@ -42,6 +43,7 @@ export const errorMessages = {
     genericError: 'Sorry, something went wrong. Please try again later.',
 
     workout: {
+        notfound: 'We couldn’t find the workout you’re looking for. Please check the URL or try again later.',
         create: 'Sorry, something went wrong while creating the workout. Please try again later. If the issue persists, contact our support.',
     }
 }

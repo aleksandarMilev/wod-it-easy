@@ -1,0 +1,121 @@
+.workout-details {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 20px auto;
+    font-family: 'Arial', sans-serif;
+    transition: box-shadow 0.3s ease
+}
+
+.workout-details:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2)
+}
+
+.workout-details__title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #343a40;
+    text-transform: uppercase;
+    text-align: center
+}
+
+.workout-details__image-container {
+    position: relative;
+    height: 250px;
+    background-color: #e0e0e0;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    overflow: hidden
+}
+
+.workout-details__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover
+}
+
+.workout-details__section {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-left: 10px;
+    justify-content: flex-start
+}
+
+.workout-details__section:last-child {
+    margin-bottom: 0
+}
+
+.workout-details__icon {
+    font-size: 30px;
+    color: #007bff;
+    margin-right: 15px;
+    flex-shrink: 0
+}
+
+.workout-details__label {
+    font-weight: bold;
+    color: #495057;
+    font-size: 18px;
+    margin-right: 10px
+}
+
+.workout-details__value {
+    font-size: 16px;
+    color: #6c757d;
+    margin-top: 5px;
+    font-style: italic
+}
+
+.workout-details__value:hover {
+    color: #007bff;
+    cursor: pointer
+}
+
+.card {
+    border-radius: 15px;
+    border: none
+}
+
+@media (max-width: 576px) {
+    .workout-details__title {
+        font-size: 24px
+    }
+
+    .workout-details__icon {
+        font-size: 25px
+    }
+
+    .workout-details__label {
+        font-size: 16px
+    }
+
+    .workout-details__value {
+        font-size: 14px
+    }
+
+    .workout-details__image-container {
+        height: 200px
+    }
+
+    .workout-details__section {
+        flex-direction: column;
+        align-items: center
+    }
+
+    .workout-details__icon {
+        margin-bottom: 10px
+    }
+
+    .workout-details__label {
+        font-size: 14px;
+        margin-bottom: 5px
+    }
+
+    .workout-details__value {
+        font-size: 14px
+    }
+}

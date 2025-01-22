@@ -33,10 +33,10 @@ async function request(
     }
 }
 
-export const get = async (url, token = null) => await request(url, token)
+export const get = async (url, token = null) => await request(url, httpActions.get, null, token)
 
 export const post = async (url, data, token = null) => await request(url, httpActions.post, data, token)
 
 export const put = async (url, data, token = null) => await request(url, httpActions.put, data, token)
 
-export const remove = async (url, token = null) => await request(url, httpActions.delete, token)
+export const remove = async (url, token = null) => await request(url, httpActions.delete, null ,token)
