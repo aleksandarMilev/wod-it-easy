@@ -1,9 +1,21 @@
 export const baseUrl = 'https://localhost:7141'
+export const baseAdminUrl = `${baseUrl}/administrator`
 
 export const routes = {
     home: '/',
     login: '/identity/login',
-    register: '/identity/register'
+    register: '/identity/register',
+
+    error: {
+        badRequest: '/error/bad-request',
+        notFound: '/error/not-found',
+        accessDenied: '/error/access-denied'
+    },
+
+    workout: {
+        default: '/workout',
+        create: '/workout/create'
+    }
 }
 
 export const httpActions = {
@@ -19,7 +31,7 @@ export const httpHeaders = {
 }
 
 export const authtenticationTypes = {
-    bearer: 'Bearer',
+    bearer: 'Bearer'
 }
 
 export const contentTypes = {
@@ -27,5 +39,19 @@ export const contentTypes = {
 }
 
 export const errorMessages = {
-    genericError: 'Sorry, something went wrong. Please try again later.'
+    genericError: 'Sorry, something went wrong. Please try again later.',
+
+    workout: {
+        create: 'Sorry, something went wrong while creating the workout. Please try again later. If the issue persists, contact our support.',
+    }
 }
+
+export const workoutTypes = [
+    { value: 1, label: 'Weightlifting' },
+    { value: 2, label: 'Gymnastic' },
+    { value: 3, label: 'Cardiovascular' },
+    { value: 4, label: 'Mobility' },
+    { value: 5, label: 'Powerlifting' },
+    { value: 6, label: 'CrossFit' },
+    { value: 7, label: 'Other' }
+]

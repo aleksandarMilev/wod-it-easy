@@ -1,8 +1,8 @@
 import { baseUrl, routes, errorMessages } from '../common/constants'
-import { postAsync } from './requester'
+import { post } from './requester'
 
-export async function loginAsync(data){
-    const response = await postAsync(baseUrl + routes.login, data)
+export async function login(data){
+    const response = await post(baseUrl + routes.login, data)
     const result = await response.json()
 
     if(response.ok){
@@ -12,8 +12,8 @@ export async function loginAsync(data){
     }
 }
 
-export async function registerAsync(data){
-    const response = await postAsync(baseUrl + routes.register, data)
+export async function register(data){
+    const response = await post(baseUrl + routes.register, data)
     const result = await response.json()
     
     if(response.ok){

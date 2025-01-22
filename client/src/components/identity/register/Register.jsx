@@ -6,7 +6,7 @@ import { useRegister } from '../../../hooks/useIdentity'
 import './Register.css'
 
 export default function Register() {
-    const onRegisterAsync = useRegister()
+    const onRegister = useRegister()
 
     const formik = useFormik({
         initialValues: {
@@ -32,7 +32,7 @@ export default function Register() {
                 .oneOf([Yup.ref('password'), null], 'Passwords must match')
                 .required('Confirm Password is required')
         }),
-        onSubmit: async (values) => await onRegisterAsync(values)
+        onSubmit: async (values) => await onRegister(values)
     })
 
     return (

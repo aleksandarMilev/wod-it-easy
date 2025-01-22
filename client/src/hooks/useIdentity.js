@@ -13,7 +13,7 @@ function useAuthentication() {
 
     const { changeAuthenticationState } = useContext(UserContext)
 
-    const onAuthenticateAsync = async (apiCall, data) => {
+    const onAuthenticate = async (apiCall, data) => {
         try {
             const token = await apiCall(data)
             const tokenEncoded = jwtDecode(token)
@@ -36,19 +36,19 @@ function useAuthentication() {
         }
     }
 
-    return onAuthenticateAsync
+    return onAuthenticate
 }
 
 export function useLogin() {
-    const onAuthenticateAsync = useAuthentication()
-    const onLoginAsync = (data) => onAuthenticateAsync(api.loginAsync, data) 
+    const onAuthenticate = useAuthentication()
+    const onLogin = (data) => onAuthenticate(api.login, data) 
 
-    return onLoginAsync
+    return onLogin
 }
 
 export function useRegister() {
-    const onAuthenticateAsync = useAuthentication()
-    const onRegisterAsync = (data) => onAuthenticateAsync(api.registerAsync, data)
+    const onAuthenticate = useAuthentication()
+    const onRegister = (data) => onAuthenticate(api.register, data)
 
-    return onRegisterAsync
+    return onRegister
 }

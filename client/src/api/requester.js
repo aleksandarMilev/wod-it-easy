@@ -6,7 +6,12 @@ import {
     contentTypes 
 } from '../common/constants'
 
-async function requestAsync(url, method = httpActions.get, data = null, token = null) {
+async function request(
+    url, 
+    method = httpActions.get, 
+    data = null, 
+    token = null
+) {
     const options = {
         method,
         headers: {}
@@ -23,15 +28,15 @@ async function requestAsync(url, method = httpActions.get, data = null, token = 
     
     try{
         return await fetch(url, options)
-    } catch {
+    } catch(error) {
         throw new Error(errorMessages.genericError)
     }
 }
 
-export const getAsync = async (url, token = null) => await requestAsync(url, token)
+export const get = async (url, token = null) => await request(url, token)
 
-export const postAsync = async (url, data, token = null) => await requestAsync(url, httpActions.post, data, token)
+export const post = async (url, data, token = null) => await request(url, httpActions.post, data, token)
 
-export const putAsync = async (url, data, token = null) => await requestAsync(url, httpActions.put, data, token)
+export const put = async (url, data, token = null) => await request(url, httpActions.put, data, token)
 
-export const deleteAsync = async (url, token = null) => await requestAsync(url, httpActions.delete, token)
+export const remove = async (url, token = null) => await request(url, httpActions.delete, token)
