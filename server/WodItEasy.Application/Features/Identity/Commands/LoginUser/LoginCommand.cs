@@ -7,11 +7,11 @@
 
     public class LoginCommand : IRequest<Result<LoginOutputModel>>
     {
-        public string Credentials { get; } = null!;
+        public string Credentials { get; set; } = null!;
 
-        public string Password { get; } = null!;
+        public string Password { get; set; } = null!;
 
-        public bool RememberMe { get; }
+        public bool RememberMe { get; set; }
 
         public class LoginCommandHandler : IRequestHandler<LoginCommand, Result<LoginOutputModel>>
         {

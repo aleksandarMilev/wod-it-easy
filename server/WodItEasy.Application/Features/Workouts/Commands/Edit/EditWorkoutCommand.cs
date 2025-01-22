@@ -10,15 +10,15 @@
 
     public class EditWorkoutCommand : EntityCommand<int>, IRequest<Result>
     {
-        public string Name { get; } = null!;
+        public string Name { get; set; } = null!;
 
-        public string Description { get; } = null!;
+        public string Description { get; set; } = null!;
 
-        public int MaxParticipantsCount { get; }
+        public int MaxParticipantsCount { get; set; }
 
-        public DateTime StartsAtDate { get; }
+        public DateTime StartsAtDate { get; set; }
 
-        public TimeSpan StartsAtTime { get; }
+        public TimeSpan StartsAtTime { get; set; }
 
         public int Type { get; }
 

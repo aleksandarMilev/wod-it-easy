@@ -1,5 +1,6 @@
 ﻿namespace WodItEasy.Application.Features.Workouts.Commands.Create
 {
+    using System;
     using FluentValidation;
 
     using static Domain.Models.ModelConstants.WorkoutConstants;
@@ -29,7 +30,7 @@
                 .WithMessage($"MaxParticipantsCount must have between {MaxParticipantsCountMinValue} and {MaxParticipantsCountMaxValue} symbols.");
 
             this
-                .RuleFor(w => w.StartsAtDate)
+                .RuleFor(w => DateTime.Parse(w.StartsAtDate))
                 .LessThanOrEqualTo(MaxStartAtDateValue)
                 .GreaterThanOrEqualTo(MinStartAtDateValue)
                 .WithMessage($"StartDate must be between {MinStartAtDateValue:O} and {MaxStartAtDateValue:O}.");

@@ -2,7 +2,6 @@
 {
     using System;
     using Models.Workouts;
-    using WodItEasy.Domain.Common;
 
     public class WorkoutFactory : IWorkoutFactory
     {

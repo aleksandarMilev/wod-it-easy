@@ -10,6 +10,7 @@
     using Application.Features.Workouts.Queries.Search;
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
+    using Domain.Models.Participation;
     using Domain.Models.Workouts;
     using Microsoft.EntityFrameworkCore;
 
@@ -60,7 +61,8 @@
             => await this
                 .AllUpcomings()
                 .AsNoTracking()
-                .Include(w => w.Participations)
+                .Include(w => w.Participations
+                    .Where(p => p.Status == ParticipationStatus.Joined))
                 .FirstOrDefaultAsync(w => w.Id == id, cancellationToken);
 
         public async Task<bool> Delete(int id, CancellationToken cancellationToken = default)

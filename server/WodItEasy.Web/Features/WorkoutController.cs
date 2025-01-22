@@ -10,10 +10,10 @@
     using Application.Features.Workouts.Commands.Leave;
     using Application.Features.Workouts.Queries.Details;
     using Application.Features.Workouts.Queries.Search;
-    using Common;
+    using Areas.Admin;
     using Microsoft.AspNetCore.Mvc;
 
-    public class WorkoutController : ApiController
+    public class WorkoutController : AdminApiController
     {
         [HttpGet("search")]
         public async Task<ActionResult<PaginatedOutputModel<SearchWorkoutOutputModel>>> Search(
@@ -26,8 +26,9 @@
                 => await this.Send(new WorkoutDetailsQuery(id));
 
         [HttpPost]
-        public async Task<ActionResult<int>> Create(CreateWorkoutCommand command)
-            => await this.Send(command);
+        public async Task<ActionResult<int>> Create(
+            [FromBody] CreateWorkoutCommand command)
+                => await this.Send(command);
 
         [HttpPost("join")]
         public async Task<ActionResult> Join(JoinWorkoutCommand command)

@@ -10,7 +10,7 @@
         public DeleteWorkoutCommand(int id)
             => this.Id = id;
 
-        public int Id { get; }
+        public int Id { get; set; }
 
         public class DeleteWorkoutCommandHandler : IRequestHandler<DeleteWorkoutCommand, Result>
         {
