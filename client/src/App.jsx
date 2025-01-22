@@ -7,10 +7,10 @@ import { MessageContextProvider } from './contexts/Message'
 import AdminRoute from './components/common/routes/AdminRoute'
 import AuthenticatedRoute from './components/common/routes/AuthenticatedRoute'
 
+import Home from './components/home/Home'
 import Navigation from './components/common/navigation/Navigation'
 import Footer from './components/common/footer/Footer'
 
-import Home from './components/home/Home'
 import Login from './components/identity/login/Login'
 import Register from './components/identity/register/Register'
 
@@ -19,6 +19,7 @@ import CreateWorkout from './components/workout/create/CreateWorkout'
 
 import NotFound from './components/common/errors/NotFound'
 import AccessDenied from './components/common/errors/AccessDenied'
+import BadRequest from './components/common/errors/BadRequest'
 
 import './App.css'
 
@@ -38,6 +39,7 @@ export default function App() {
 
                         <Route path={routes.error.notFound} element={<NotFound />} />
                         <Route path={routes.error.accessDenied} element={<AccessDenied />} />
+                        <Route path={routes.error.badRequest} element={<BadRequest />} />
                     </Routes>
                     <Footer/>
                 </div>
