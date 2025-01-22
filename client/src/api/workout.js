@@ -15,7 +15,7 @@ export async function details(id, token){
         return await response.json()
     } 
 
-    throw new Error('Workout')
+    throw new Error()
 }
 
 export async function create(data, token){

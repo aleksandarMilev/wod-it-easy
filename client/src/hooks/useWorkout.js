@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 import * as api from '../api/workout'
 import { UserContext } from '../contexts/User'
-import { routes } from '../common/constants'
+import { routes, errorMessages } from '../common/constants'
 
 export function useDetails(id){
     const navigate = useNavigate()
@@ -16,11 +16,9 @@ export function useDetails(id){
         async function fetchData() {
             try {
                 setIsFetching(true)
-                const workout = await api.details(id, token)
-                console.log(workout);
-                setWorkout(workout)
+                setWorkout(await api.details(id, token))
             } catch {
-                navigate(routes.notFound, { state: { message: 'Workout not found' } })
+                navigate(routes.error.notFound, { state: { message: errorMessages.workout.notFound } })
             } finally {
                 setIsFetching(false)
             }
