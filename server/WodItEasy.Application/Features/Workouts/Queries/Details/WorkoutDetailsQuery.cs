@@ -18,7 +18,7 @@
             public WorkoutDetailsQueryHandler(IWorkoutRepository repository) 
                 => this.repository = repository;
 
-            public Task<WorkoutDetailsOutputModel?> Handle(WorkoutDetailsQuery request, CancellationToken cancellationToken)
+            public Task<WorkoutDetailsOutputModel?> Handle(WorkoutDetailsQuery request, CancellationToken cancellationToken) 
                 => this.repository.Details(request.Id, cancellationToken);
         }
     }
