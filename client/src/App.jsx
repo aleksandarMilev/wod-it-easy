@@ -14,6 +14,7 @@ import Footer from './components/common/footer/Footer'
 import Login from './components/identity/login/Login'
 import Register from './components/identity/register/Register'
 
+import WorkoutList from './components/workout/all/WorkoutList'
 import WorkoutDetails from './components/workout/details/WorkoutDetails'
 import CreateWorkout from './components/workout/create/CreateWorkout'
 
@@ -24,6 +25,8 @@ import BadRequest from './components/common/errors/BadRequest'
 import './App.css'
 
 export default function App() {
+    const id = '/:id'
+
     return (
         <MessageContextProvider>
             <UserContextProvider>
@@ -34,7 +37,8 @@ export default function App() {
                         <Route path={routes.login} element={<Login />} />
                         <Route path={routes.register} element={<Register />} />
 
-                        <Route path={routes.workout.id} element={<AuthenticatedRoute element={<WorkoutDetails />} />}/>
+                        <Route path={routes.workout.default + id} element={<AuthenticatedRoute element={<WorkoutDetails />} />}/>
+                        <Route path={routes.workout.search} element={<AuthenticatedRoute element={<WorkoutList />} />}/>
                         <Route path={routes.workout.create} element={<AdminRoute element={<CreateWorkout />} />}/>
 
                         <Route path={routes.error.notFound} element={<NotFound />} />

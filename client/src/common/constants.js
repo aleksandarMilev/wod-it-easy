@@ -14,7 +14,7 @@ export const routes = {
 
     workout: {
         default: '/workout',
-        id: '/workout/:id',
+        search: '/workout/search',
         create: '/workout/create'
     }
 }
@@ -43,6 +43,7 @@ export const errorMessages = {
     genericError: 'Sorry, something went wrong. Please try again later.',
 
     workout: {
+        search: 'Sorry, something went wrong while searching for your workout. Please, try again.',
         notFound: 'We couldn’t find the workout you’re looking for. Please check the URL or try again later.',
         create: 'Sorry, something went wrong while creating the workout. Please try again later. If the issue persists, contact our support.',
     }
@@ -57,3 +58,8 @@ export const workoutTypes = [
     { value: 6, label: 'CrossFit' },
     { value: 7, label: 'Other' }
 ]
+
+export const pagination = {
+    defaultPageSize: 10,
+    defaultPageIndex: 1
+}

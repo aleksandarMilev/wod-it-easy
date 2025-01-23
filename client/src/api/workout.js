@@ -15,7 +15,23 @@ export async function details(id, token){
         return await response.json()
     } 
 
-    throw new Error()
+    throw new Error(errorMessages.workout.notFound)
+}
+
+export async function search(
+    searchTerm,
+    page,
+    pageSize,
+    token
+) {
+    const url = `${baseUrl}${routes.workout.search}?searchTerm=${encodeURIComponent(searchTerm)}&page=${page}&pageSize=${pageSize}`
+    const response = await requester.get(url, token)
+
+    if(response.ok){
+        return await response.json()
+    } 
+
+    throw new Error(errorMessages.workout.search)
 }
 
 export async function create(data, token){

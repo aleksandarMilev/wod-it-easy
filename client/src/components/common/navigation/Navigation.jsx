@@ -7,7 +7,12 @@ import { UserContext } from '../../../contexts/User'
 import './Navigation.css'
 
 export default function Navigation() {
-    const { username, isAuthenticated, isAdmin, logout } = useContext(UserContext)
+    const { 
+        username, 
+        isAuthenticated, 
+        isAdmin, 
+        logout 
+    } = useContext(UserContext)
 
     return (
         <header className="header">
@@ -35,6 +40,9 @@ export default function Navigation() {
                         </>
                     ) : (
                         <>
+                            <li>
+                                <Link to={routes.workout.search}>Workouts</Link>
+                            </li>
                             <li>
                                 <span>Hello, {username}!</span>
                             </li>

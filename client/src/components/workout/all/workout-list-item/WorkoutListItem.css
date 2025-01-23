@@ -1,0 +1,35 @@
+.workout-list-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between
+}
+
+.workout-list-item-icon {
+    color: #6c757d
+}
+
+.workout-list-item-content {
+    display: flex;
+    flex-direction: column
+}
+
+.workout-list-item-title {
+    font-size: 1.25rem;
+    font-weight: bold
+}
+
+.workout-list-item-type {
+    font-size: 1rem;
+    color: #6c757d
+}
+
+.workout-list-item-participants,
+.workout-list-item-time {
+    font-size: 0.875rem;
+    color: #6c757d
+}
+
+.workout-list-item-btn {
+    margin-top: 10px
+}

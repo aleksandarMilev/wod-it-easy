@@ -17,8 +17,8 @@
 
         Task<PaginatedOutputModel<SearchWorkoutOutputModel>> Paginated(
             DateTime? startsAtDate,
-            int pageSize,
             int pageIndex,
+            int pageSize,
             CancellationToken cancellationToken = default);
 
         Task<WorkoutDetailsOutputModel?> Details(int id, CancellationToken cancellationToken = default);

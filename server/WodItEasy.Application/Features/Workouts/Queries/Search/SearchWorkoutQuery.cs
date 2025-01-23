@@ -26,8 +26,8 @@
             public Task<PaginatedOutputModel<SearchWorkoutOutputModel>> Handle(SearchWorkoutQuery request, CancellationToken cancellationToken)
                 => this.repository.Paginated(
                     request.StartsAtDate,
-                    request.PageSize,
                     request.PageIndex,
+                    request.PageSize,
                     cancellationToken);
         }
     }

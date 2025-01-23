@@ -24,14 +24,14 @@
 
         public async Task<PaginatedOutputModel<SearchWorkoutOutputModel>> Paginated(
             DateTime? startsAtDate,
-            int pageSize,
             int pageIndex,
+            int pageSize,
             CancellationToken cancellationToken = default)
         {
             var workouts = await this
                 .AllUpcomings()
                 .AsNoTracking()
-                .Where(w => startsAtDate.HasValue ? w.StartsAtDate == startsAtDate : true)
+                //.Where(w => startsAtDate.HasValue ? w.StartsAtDate == startsAtDate : true)
                 .ProjectTo<SearchWorkoutOutputModel>(this.mapper.ConfigurationProvider)
                 .Skip((pageIndex - 1) * pageSize)
                 .Take(pageSize)

@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom'
 
 import * as api from '../api/workout'
 import { UserContext } from '../contexts/User'
-import { routes, errorMessages } from '../common/constants'
+import { routes } from '../common/constants'
 
-export function useDetails(id){
+export function useDetails(id) {
     const navigate = useNavigate()
     const { token } = useContext(UserContext)
     
@@ -17,8 +17,15 @@ export function useDetails(id){
             try {
                 setIsFetching(true)
                 setWorkout(await api.details(id, token))
-            } catch {
-                navigate(routes.error.notFound, { state: { message: errorMessages.workout.notFound } })
+            } catch(error) {
+                navigate(
+                    routes.error.notFound,
+                    {
+                        state: {
+                            message: error.message                       
+                        }
+                    }
+                )
             } finally {
                 setIsFetching(false)
             }
@@ -28,4 +35,45 @@ export function useDetails(id){
     }, [token, navigate])
 
     return { workout, isFetching }
+}
+
+export function useSearch(searchTerm, page, pageSize) {
+    const navigate = useNavigate()
+    const { token } = useContext(UserContext)
+
+    const [workouts, setWorkouts] = useState([])
+    const [totalItems, setTotalItems] = useState(0)
+    const [isFetching, setIsFetching] = useState(false)
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                setIsFetching(true)
+
+                const result = await api.search(
+                    searchTerm || '', 
+                    page, 
+                    pageSize,
+                    token)
+                
+                setWorkouts(result.items)
+                setTotalItems(result.totalItems)
+            } catch(error) {
+                navigate(
+                    routes.badRequest, 
+                    { 
+                        state: {
+                            message: error.message 
+                        } 
+                    }
+                )
+            } finally {
+                setIsFetching(false)
+            }
+        }
+
+        fetchData()
+    }, [searchTerm, page, pageSize, token, navigate])
+
+    return { workouts, totalItems, isFetching }
 }

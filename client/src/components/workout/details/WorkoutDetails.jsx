@@ -7,6 +7,7 @@ import {
     FaRegClock 
 } from 'react-icons/fa'
 
+import { formatDate } from '../../../common/functions'
 import { useDetails } from '../../../hooks/useWorkout'
 import DefaultSpinner from '../../common/default-spinner/DefaultSpinner'
 
@@ -62,11 +63,7 @@ export default function WorkoutDetails() {
                     <FaCalendarAlt className="workout-details__icon" />
                     <div>
                         <strong className="workout-details__label">Start Date:</strong>
-                        <p className="workout-details__value">{new Date(workout.startsAtDate).toLocaleDateString('en-GB', {
-                            day: '2-digit',
-                            month: 'long',
-                            year: 'numeric'
-                        })}</p>
+                        <p className="workout-details__value">{formatDate(workout.startsAtDate)}</p>
                     </div>
                 </div>
     
