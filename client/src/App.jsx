@@ -32,19 +32,21 @@ export default function App() {
             <UserContextProvider>
                 <div className="homepage-container">
                     <Navigation/>
-                    <Routes>
-                        <Route path={routes.home} element={<Home />} />
-                        <Route path={routes.login} element={<Login />} />
-                        <Route path={routes.register} element={<Register />} />
+                        <main>
+                            <Routes>
+                                <Route path={routes.home} element={<Home />} />
+                                <Route path={routes.login} element={<Login />} />
+                                <Route path={routes.register} element={<Register />} />
 
-                        <Route path={routes.workout.default + id} element={<AuthenticatedRoute element={<WorkoutDetails />} />}/>
-                        <Route path={routes.workout.search} element={<AuthenticatedRoute element={<WorkoutList />} />}/>
-                        <Route path={routes.workout.create} element={<AdminRoute element={<CreateWorkout />} />}/>
+                                <Route path={routes.workout.default + id} element={<AuthenticatedRoute element={<WorkoutDetails />} />}/>
+                                <Route path={routes.workout.search} element={<AuthenticatedRoute element={<WorkoutList />} />}/>
+                                <Route path={routes.workout.create} element={<AdminRoute element={<CreateWorkout />} />}/>
 
-                        <Route path={routes.error.notFound} element={<NotFound />} />
-                        <Route path={routes.error.accessDenied} element={<AccessDenied />} />
-                        <Route path={routes.error.badRequest} element={<BadRequest />} />
-                    </Routes>
+                                <Route path={routes.error.notFound} element={<NotFound />} />
+                                <Route path={routes.error.accessDenied} element={<AccessDenied />} />
+                                <Route path={routes.error.badRequest} element={<BadRequest />} />
+                            </Routes>
+                        </main>
                     <Footer/>
                 </div>
             </UserContextProvider>
