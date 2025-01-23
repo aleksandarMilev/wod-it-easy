@@ -7,6 +7,8 @@
     {
         IWorkoutFactory WithName(string name);
 
+        IWorkoutFactory WithImageUrl(string imageUrl);
+
         IWorkoutFactory WithDescription(string description);
 
         IWorkoutFactory WithMaxParticipantsCount(int maxParticipantsCount);

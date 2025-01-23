@@ -70,7 +70,7 @@
         {
             AgainstEmptyString<TException>(url, name);
 
-            if (url.Length <= MaxUrlLength && 
+            if (url.Length <= UrlMaxLength && 
                 Uri.IsWellFormedUriString(url, UriKind.Absolute))
             {
                 return;

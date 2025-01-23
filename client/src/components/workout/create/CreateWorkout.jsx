@@ -28,8 +28,9 @@ export default function CreateWorkout() {
     const onSubmit = async (data) => {
         const workout = {
             name: data.name,
+            imageUrl: data.imageUrl || defaultImageUrl,
             description: data.description,
-            maxParticipantsCount: parseInt(data.maxParticipantsCount, 10),
+            maxParticipantsCount: parseInt(data.maxParticipantsCount),
             startsAtDate: data.startsAtDate,
             startsAtTime: data.startsAtTime,
             type: parseInt(data.type)
@@ -57,6 +58,16 @@ export default function CreateWorkout() {
                     {...register('name')}
                 />
                 {errors.name && <p className="error-message">{errors.name.message}</p>}
+            </div>
+
+            <div className="form-group">
+                <label htmlFor="name">Image URL (Optional)</label>
+                <input
+                    id="imageUrl"
+                    type="url"
+                    {...register('imageUrl')}
+                />
+                {errors.imageUrl && <p className="error-message">{errors.imageUrl.message}</p>}
             </div>
 
             <div className="form-group">
@@ -134,6 +145,10 @@ const validationSchema = Yup.object({
         .min(2)
         .max(100)
         .required(),
+    imageUrl: Yup
+        .string()
+        .url()
+        .nullable(),
     description: Yup
         .string()
         .min(2)
@@ -154,3 +169,5 @@ const validationSchema = Yup.object({
         .number()
         .required()
 })
+
+const defaultImageUrl = 'https://media.licdn.com/dms/image/D4E12AQFGe4i-pReXSQ/article-cover_image-shrink_720_1280/0/1707604455346?e=2147483647&v=beta&t=HosnJc4I3061iujawviv6rc4R6aP4-vmq9Kq7KHviIg'

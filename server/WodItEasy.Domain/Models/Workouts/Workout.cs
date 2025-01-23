@@ -16,15 +16,22 @@
 
         internal Workout(
              string name,
+             string imageUrl,
              string description,
              int maxParticipantsCount,
              DateTime startsAtDate,
              TimeSpan startsAtTime,
              WorkoutType workoutType)
         {
-            this.Validate(name, description, maxParticipantsCount, startsAtDate);
+            this.Validate(
+                name, 
+                imageUrl, 
+                description, 
+                maxParticipantsCount, 
+                startsAtDate);
 
             this.Name = name;
+            this.ImageUrl = imageUrl;
             this.Description = description;
             this.MaxParticipantsCount = maxParticipantsCount;
             this.StartsAtDate = startsAtDate;
@@ -32,9 +39,13 @@
             this.Type = workoutType;
         }
 
-        private Workout(string name, string description)
+        private Workout(
+            string name, 
+            string imageUrl, 
+            string description)
         {
             this.Name = name;
+            this.ImageUrl = imageUrl;
             this.Description = description;
 
             this.MaxParticipantsCount = default;
@@ -44,6 +55,8 @@
         }
 
         public string Name { get; private set; }
+
+        public string ImageUrl { get; private set; }
 
         public string Description { get; private set; }
 
@@ -119,6 +132,14 @@
             return this;
         }
 
+        public Workout UpdateImageUrl(string imageUrl)
+        {
+            this.ValidateImageUrl(imageUrl);
+            this.ImageUrl = imageUrl;
+
+            return this;
+        }
+
         public Workout UpdateDescription(string description)
         {
             this.ValidateDescription(description);
@@ -159,11 +180,13 @@
 
         private void Validate(
             string name,
+            string imageUrl,
             string description,
             int maxParticipantsCount,
             DateTime startsAtDate)
         {
             this.ValidateName(name);
+            this.ValidateImageUrl(imageUrl);
             this.ValidateDescription(description);
             this.ValidateMaxParticipantsCount(maxParticipantsCount);
             this.ValidateStartsAtDate(startsAtDate);
@@ -175,6 +198,11 @@
                 MinNameLength,
                 MaxNameLength,
                 nameof(this.Name));
+
+        private void ValidateImageUrl(string imageUrl)
+            => Guard.ForValidUrl<InvalidWorkoutException>(
+                imageUrl,
+                nameof(this.ImageUrl));
 
         private void ValidateDescription(string description)
             => Guard.ForStringLength<InvalidWorkoutException>(

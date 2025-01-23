@@ -1,24 +1,29 @@
 import { Link } from 'react-router-dom'
-import { FaDumbbell, FaUsers, FaClock } from 'react-icons/fa'
+import { FaUsers, FaClock } from 'react-icons/fa'
 
 import { formatDate } from '../../../../common/functions'
 import { routes } from '../../../../common/constants'
 
 import './WorkoutListItem.css'
 
-export default function WorkoutListItem({ 
+export default function WorkoutListItem({
     id,
-    name, 
-    type, 
-    startsAtDate, 
-    startsAtTime, 
-    currentParticipantsCount, 
-    maxParticipantsCount 
+    name,
+    imageUrl,
+    type,
+    startsAtDate,
+    startsAtTime,
+    currentParticipantsCount,
+    maxParticipantsCount
 }) {
     return (
         <div className="row p-3 bg-light border rounded mb-3 shadow-sm workout-list-item">
             <div className="col-md-3 col-4 mt-1 d-flex justify-content-center align-items-center">
-                <FaDumbbell size={50} className="workout-list-item-icon" />
+                <img 
+                    src={imageUrl} 
+                    alt={name} 
+                    className="workout-list-item-image" 
+                />
             </div>
             <div className="col-md-6 col-8 mt-1 workout-list-item-content">
                 <h5 className="mb-2 workout-list-item-title">

@@ -12,6 +12,8 @@
     {
         public string Name { get; set; } = null!;
 
+        public string ImageUrl { get; set; } = null!;
+
         public string Description { get; set; } = null!;
 
         public int MaxParticipantsCount { get; set; }
@@ -37,6 +39,7 @@
             {
                 var workout = this.factory
                     .WithName(request.Name)
+                    .WithImageUrl(request.ImageUrl)
                     .WithDescription(request.Description)
                     .WithMaxParticipantsCount(request.MaxParticipantsCount)
                     .WithStartsAtDate(DateTime.Parse(request.StartsAtDate))

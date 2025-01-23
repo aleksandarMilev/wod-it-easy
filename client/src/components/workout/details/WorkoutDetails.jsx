@@ -9,6 +9,7 @@ import {
 
 import { formatDate } from '../../../common/functions'
 import { useDetails } from '../../../hooks/useWorkout'
+
 import DefaultSpinner from '../../common/default-spinner/DefaultSpinner'
 
 import './WorkoutDetails.css'
@@ -28,7 +29,7 @@ export default function WorkoutDetails() {
             <div className="card-body">
                 <div className="workout-details__image-container">
                     <img 
-                        src="/src/assets/workout.jpg" 
+                        src={workout.imageUrl}
                         alt="Workout" 
                         className="workout-details__image" 
                     />

@@ -4,22 +4,27 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
+    using static Domain.Models.ModelConstants.Common;
+    using static Domain.Models.ModelConstants.WorkoutConstants;
+
     public class WorkoutConfiguration : IEntityTypeConfiguration<Workout>
     {
-        private const int NameMaxLength = 100;
-        private const int DescriptionMaxLength = 500;
-
         public void Configure(EntityTypeBuilder<Workout> builder)
         {
             builder
                 .Property(w => w.Name)
                 .IsRequired()
-                .HasMaxLength(NameMaxLength);
+                .HasMaxLength(MaxNameLength);
 
             builder
                 .Property(w => w.Description)
                 .IsRequired()
-                .HasMaxLength(DescriptionMaxLength);
+                .HasMaxLength(MaxDescriptionLength);
+
+            builder
+                .Property(w => w.ImageUrl)
+                .IsRequired()
+                .HasMaxLength(UrlMaxLength);
 
             builder
                 .Property(w => w.MaxParticipantsCount)
