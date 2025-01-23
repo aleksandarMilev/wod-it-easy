@@ -12,16 +12,18 @@ import image from '../../../assets/items-not-found.jpg'
 import './WorkoutList.css'
 
 export default function WorkoutList() {
-    const [searchTerm, setSearchTerm] = useState('')
+    const [startsAtDate, setStartsAtDate] = useState(new Date())
     const [page, setPage] = useState(pagination.defaultPageIndex)
     const pageSize = pagination.defaultPageSize
 
-    const { workouts, totalItems, isFetching } = useSearch(searchTerm, page, pageSize)
+    const { workouts, totalItems, isFetching } = useSearch(startsAtDate, page, pageSize)
 
     const totalPages = Math.ceil(totalItems / pageSize)
 
     const handleSearchChange = (e) => {
-        setSearchTerm(e.target.value)
+        const value = e.target.value
+
+        setStartsAtDate(value ? new Date(value) : null)
         setPage(pagination.defaultPageIndex)
     }
 
@@ -34,13 +36,13 @@ export default function WorkoutList() {
             <div className="row mb-4">
                 <div className="col-md-10 mx-auto d-flex">
                     <div className="search-bar-container d-flex">
-                        <input
-                            type="text"
-                            className="form-control search-input"
-                            placeholder="Search workouts..."
-                            value={searchTerm}
-                            onChange={handleSearchChange}
-                        />
+                    <input
+                        type="date"
+                        className="form-control search-input"
+                        placeholder="Search workouts by date..."
+                        value={startsAtDate || ''} 
+                        onChange={handleSearchChange}
+                    />
                         <button className="btn btn-light search-btn" disabled={isFetching}>
                             <FaSearch size={20} />
                         </button>

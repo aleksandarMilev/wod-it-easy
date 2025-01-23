@@ -23,23 +23,27 @@
                 => this.mapper = mapper;
 
         public async Task<PaginatedOutputModel<SearchWorkoutOutputModel>> Paginated(
-            DateTime? startsAtDate,
+            string startsAtDate,
             int pageIndex,
             int pageSize,
             CancellationToken cancellationToken = default)
         {
-            var workouts = await this
+            var query = this
                 .AllUpcomings()
                 .AsNoTracking()
-                //.Where(w => startsAtDate.HasValue ? w.StartsAtDate == startsAtDate : true)
-                .ProjectTo<SearchWorkoutOutputModel>(this.mapper.ConfigurationProvider)
+                .Where(w => DateTime.Parse(startsAtDate).Date == w.StartsAtDate.Date)
+                .ProjectTo<SearchWorkoutOutputModel>(this.mapper.ConfigurationProvider);
+
+            var total = query.Count();
+
+            var workouts = await query
                 .Skip((pageIndex - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync(cancellationToken);
 
             return new PaginatedOutputModel<SearchWorkoutOutputModel>(
                 workouts,
-                this.Total(),
+                total,
                 pageIndex,
                 pageSize);
         }
@@ -80,11 +84,9 @@
             return true;
         }
 
-        private int Total() => this.AllUpcomings().Count();
-
         private IQueryable<Workout> AllUpcomings()
             => this
                 .All()
-                .Where(w => w.StartsAtDate > DateTime.Now);
+                .Where(w => w.StartsAtDate.Date >= DateTime.Now.Date);
     }
 }

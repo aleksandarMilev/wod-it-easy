@@ -1,6 +1,5 @@
 ﻿namespace WodItEasy.Application.Features.Workouts
 {
-    using System;
     using System.Threading;
     using System.Threading.Tasks;
     using Common;
@@ -16,7 +15,7 @@
         Task<Workout?> ByIdWithParticipants(int id, CancellationToken cancellationToken = default);
 
         Task<PaginatedOutputModel<SearchWorkoutOutputModel>> Paginated(
-            DateTime? startsAtDate,
+            string startsAtDate,
             int pageIndex,
             int pageSize,
             CancellationToken cancellationToken = default);

@@ -1,6 +1,5 @@
 ﻿namespace WodItEasy.Application.Features.Workouts.Queries.Search
 {
-    using System;
     using System.Threading;
     using System.Threading.Tasks;
     using Common;
@@ -10,11 +9,11 @@
 
     public class SearchWorkoutQuery : IRequest<PaginatedOutputModel<SearchWorkoutOutputModel>>
     {
-        public DateTime? StartsAtDate { get; }
+        public string StartsAtDate { get; set; } = null!;
 
-        public int PageSize { get; } = DefaultPageSize;
+        public int PageSize { get; set; } = DefaultPageSize;
 
-        public int PageIndex { get; } = DefaultPageIndex;
+        public int PageIndex { get; set; } = DefaultPageIndex;
 
         public class SearchWorkoutQueryHandler : IRequestHandler<SearchWorkoutQuery, PaginatedOutputModel<SearchWorkoutOutputModel>>
         {

@@ -19,12 +19,16 @@ export async function details(id, token){
 }
 
 export async function search(
-    searchTerm,
+    startsAtDate,
     page,
     pageSize,
     token
 ) {
-    const url = `${baseUrl}${routes.workout.search}?searchTerm=${encodeURIComponent(searchTerm)}&page=${page}&pageSize=${pageSize}`
+    const date = startsAtDate || new Date()
+    const formattedDate = date.toISOString().split('T')[0]
+
+    const url = `${baseUrl}${routes.workout.search}?startsAtDate=${encodeURIComponent(formattedDate)}&pageIndex=${page}&pageSize=${pageSize}`
+    
     const response = await requester.get(url, token)
 
     if(response.ok){
