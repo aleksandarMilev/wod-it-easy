@@ -12,6 +12,8 @@
    
     public interface IWorkoutRepository : IRepository<Workout>
     {
+        Task<bool> ExistsById(int id, CancellationToken cancellationToken = default);
+
         Task<Workout?> ById(int id, CancellationToken cancellationToken = default);
 
         Task<IEnumerable<Workout>> ByDate(

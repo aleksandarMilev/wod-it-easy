@@ -23,6 +23,12 @@
             : base(data) 
                 => this.mapper = mapper;
 
+        public async Task<bool> ExistsById(int id, CancellationToken cancellationToken = default)
+            => await this
+                .AllUpcomings()
+                .AsNoTracking()
+                .AnyAsync(w => w.Id == id, cancellationToken);
+
         public async Task<PaginatedOutputModel<SearchWorkoutOutputModel>> Paginated(
             string startsAtDate,
             int pageIndex,

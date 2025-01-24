@@ -9,6 +9,7 @@
         public IAthleteFactory WithName(string name)
         {
             this.name = name;
+
             return this;
         }
 

@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using Common;
-    using Events;
     using Exceptions;
     using Participation;
 
@@ -74,7 +73,7 @@
             => this.participations.ToList().AsReadOnly();
 
         internal bool IsClosed()
-            => DateTime.Now > this.StartsAtDate;
+             => DateTime.Now >= this.StartsAtDate.Add(this.StartsAtTime).AddHours(-2);
 
         internal bool IsFull()
             => this.CurrentParticipantsCount >= this.MaxParticipantsCount;
@@ -96,45 +95,6 @@
             }
 
             return false;
-        }
-
-        public void AddParticipant(int athleteId)
-        {
-            if (this.IsClosed())
-            {
-                throw new WorkoutClosedException("Workout is closed.");
-            }
-
-            if (this.IsFull())
-            {
-                throw new WorkoutFullException("Workout is full.");
-            }
-
-            if (this.participations.Any(p => p.AthleteId == athleteId))
-            {
-                throw new LeaveWorkoutException("This athlete is already a participant in the workout!");
-            }
-
-            this.participations.Add(new(athleteId, this.Id));
-
-            this.IncrementParticipantsCount();
-        }
-
-        public void RemoveParticipant(int athleteId)
-        {
-            if (this.IsClosed())
-            {
-                throw new WorkoutClosedException("Workout is closed.");
-            }
-
-            var participation = this
-                .participations
-                .FirstOrDefault(p => p.AthleteId == athleteId)
-                ?? throw new LeaveWorkoutException("This athlete is not a participant in the workout!");
-
-            participation.MarkAsLeft();
-
-            this.DecrementParticipantsCount();
         }
 
         public Workout UpdateName(string name)
@@ -191,9 +151,9 @@
             return this;
         }
 
-        private bool OverlapsWith(Workout other)
+        private bool OverlapsWith(Workout that)
         {
-            if (this.StartsAtDate.Date != other.StartsAtDate.Date)
+            if (this.StartsAtDate.Date != that.StartsAtDate.Date)
             {
                 return false;
             }
@@ -201,13 +161,12 @@
             var thisStartTime = this.StartsAtTime;
             var thisEndTime = this.StartsAtTime.Add(TimeSpan.FromMinutes(59));
 
-            var otherStartTime = other.StartsAtTime;
-            var otherEndTime = other.StartsAtTime.Add(TimeSpan.FromMinutes(59));
+            var thatStartTime = that.StartsAtTime;
+            var thatEndTime = that.StartsAtTime.Add(TimeSpan.FromMinutes(59));
 
-            return thisStartTime < otherEndTime &&
-                   otherStartTime < thisEndTime;
+            return thisStartTime < thatEndTime &&
+                   thisEndTime > thatStartTime;
         }
-
 
         private void Validate(
             string name,

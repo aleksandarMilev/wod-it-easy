@@ -1,8 +1,8 @@
 ﻿namespace WodItEasy.Infrastructure.Persistence.Configurations
 {
+    using Domain.Models.Participation;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using WodItEasy.Domain.Models.Participation;
 
     public class ParticipationConfiguration : IEntityTypeConfiguration<Participation>
     {
