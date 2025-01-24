@@ -202,11 +202,19 @@
                 nameof(this.Description));
 
         private void ValidateMaxParticipantsCount(int maxParticipantsCount)
-            => Guard.AgainstOutOfRange<InvalidWorkoutException>(
+        {
+            if (maxParticipantsCount < this.CurrentParticipantsCount)
+            {
+                throw new InvalidWorkoutException("Max participants count can not be greater than current count!");
+            }
+
+            Guard.AgainstOutOfRange<InvalidWorkoutException>(
                 maxParticipantsCount,
                 MaxParticipantsCountMinValue,
                 MaxParticipantsCountMaxValue,
                 nameof(this.MaxParticipantsCount));
+        }
+           
 
         private void ValidateStartsAtDate(DateTime startsAtDate)
             => Guard.AgainstOutOfRange<InvalidWorkoutException>(

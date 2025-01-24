@@ -27,7 +27,8 @@
         public class EditWorkoutCommandHandler : IRequestHandler<EditWorkoutCommand, Result>
         {
             private const string NotFoundErrorMessage = "Workout not found!";
-            private const string OverlappingErrorMessage = "A Workout is already scheduled in this date and time, please select another one.";
+            private const string InvalidMaxParticipantsErrorMessage = "New MaxParticipantsCount value should be greater than CurrentParticipantsCount value!";
+            private const string OverlappingErrorMessage = "A Workout is already scheduled in this date and time, please select another one!";
 
             private readonly IWorkoutRepository repository;
 
@@ -41,6 +42,11 @@
                 if (workout is null)
                 {
                     return NotFoundErrorMessage;
+                }
+
+                if (workout.CurrentParticipantsCount > request.MaxParticipantsCount)
+                {
+                    return InvalidMaxParticipantsErrorMessage;
                 }
 
                 workout
