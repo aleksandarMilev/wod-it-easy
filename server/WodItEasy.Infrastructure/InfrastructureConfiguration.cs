@@ -37,22 +37,16 @@
             {
                 var genericInterface = repoInterface
                     .GetInterfaces()
-                    .FirstOrDefault(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IRepository<>));
+                    .FirstOrDefault(i => 
+                        i.IsGenericType && 
+                        i.GetGenericTypeDefinition() == typeof(IRepository<>));
 
                 if (genericInterface is not null)
                 {
                     var matchingImplementation = repositoryImplementations
-                        .FirstOrDefault(t => 
-                        {
-                            return t
-                                .GetInterfaces()
-                                .Any(i =>
-                                {
-                                    return i
-                                        .IsGenericType && 
-                                        i.GetGenericTypeDefinition() == genericInterface.GetGenericTypeDefinition();
-                                });
-                        });
+                        .FirstOrDefault(t =>
+                            t.GetInterfaces()
+                                .Any(i => i == genericInterface));
 
                     if (matchingImplementation is not null)
                     {
