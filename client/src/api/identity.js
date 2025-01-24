@@ -1,7 +1,7 @@
 import { baseUrl, routes, errorMessages } from '../common/constants'
 import { post } from './requester'
 
-export async function login(data){
+export async function login(data) {
     const response = await post(baseUrl + routes.login, data)
     const result = await response.json()
 
@@ -12,7 +12,7 @@ export async function login(data){
     }
 }
 
-export async function register(data){
+export async function register(data) {
     const response = await post(baseUrl + routes.register, data)
     const result = await response.json()
     

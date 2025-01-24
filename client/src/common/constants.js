@@ -15,7 +15,8 @@ export const routes = {
     workout: {
         default: '/workout',
         search: '/workout/search',
-        create: '/workout/create'
+        create: '/workout/create',
+        update: '/workout/update'
     }
 }
 
@@ -46,6 +47,7 @@ export const errorMessages = {
         search: 'Sorry, something went wrong while searching for your workout. Please, try again.',
         notFound: 'We couldn’t find the workout you’re looking for. Please check the URL or try again later.',
         create: 'Sorry, something went wrong while creating the workout. Please try again later. If the issue persists, contact our support.',
+        update: 'Sorry, something went wrong while updating the workout. Please try again later. If the issue persists, contact our support.'
     }
 }
 

@@ -17,6 +17,7 @@ import Register from './components/identity/register/Register'
 import WorkoutList from './components/workout/all/WorkoutList'
 import WorkoutDetails from './components/workout/details/WorkoutDetails'
 import CreateWorkout from './components/workout/create/CreateWorkout'
+import UpdateWorkout from './components/workout/update/UpdateWorkout'
 
 import NotFound from './components/common/errors/NotFound'
 import AccessDenied from './components/common/errors/AccessDenied'
@@ -25,8 +26,6 @@ import BadRequest from './components/common/errors/BadRequest'
 import './App.css'
 
 export default function App() {
-    const id = '/:id'
-
     return (
         <MessageContextProvider>
             <UserContextProvider>
@@ -38,9 +37,10 @@ export default function App() {
                                 <Route path={routes.login} element={<Login />} />
                                 <Route path={routes.register} element={<Register />} />
 
-                                <Route path={routes.workout.default + id} element={<AuthenticatedRoute element={<WorkoutDetails />} />}/>
                                 <Route path={routes.workout.search} element={<AuthenticatedRoute element={<WorkoutList />} />}/>
+                                <Route path={`${routes.workout.default}/:id`} element={<AuthenticatedRoute element={<WorkoutDetails />} />}/>
                                 <Route path={routes.workout.create} element={<AdminRoute element={<CreateWorkout />} />}/>
+                                <Route path={`${routes.workout.update}/:id`} element={<AdminRoute element={<UpdateWorkout />} />}/>
 
                                 <Route path={routes.error.notFound} element={<NotFound />} />
                                 <Route path={routes.error.accessDenied} element={<AccessDenied />} />

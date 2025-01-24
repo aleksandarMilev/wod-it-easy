@@ -1,48 +1,48 @@
-.create-workout-form {
+.workout-form {
     max-width: 500px;
     margin: 40px auto;
     padding: 20px;
     background-color: #f7f8fc;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    font-family: 'Arial', sans-serif;
+    font-family: 'Arial', sans-serif
 }
 
-.create-workout-form label {
+.workout-form label {
     display: block;
     font-size: 1rem;
     font-weight: bold;
     color: #333;
-    margin-bottom: 5px;
+    margin-bottom: 5px
 }
 
-.create-workout-form input,
-.create-workout-form textarea,
-.create-workout-form select {
+.workout-form input,
+.workout-form textarea,
+.workout-form select {
     width: 100%;
     padding: 10px;
     font-size: 1rem;
     border: 1px solid #ddd;
     border-radius: 5px;
     margin-bottom: 15px;
-    transition: border-color 0.3s ease;
+    transition: border-color 0.3s ease
 }
 
-.create-workout-form input:focus,
-.create-workout-form textarea:focus,
-.create-workout-form select:focus {
+.workout-form input:focus,
+.workout-form textarea:focus,
+.workout-form select:focus {
     border-color: #ff4500;
     outline: none;
-    box-shadow: 0 0 5px rgba(255, 69, 0, 0.3);
+    box-shadow: 0 0 5px rgba(255, 69, 0, 0.3)
 }
 
-.create-workout-form p {
+.workout-form .error-message {
     color: #ff4500;
     font-size: 0.9rem;
-    margin: -10px 0 10px 0;
+    margin: -10px 0 10px 0
 }
 
-.create-workout-form button {
+.workout-form .submit-button {
     width: 100%;
     padding: 12px 15px;
     background-color: #ff4500;
@@ -52,25 +52,25 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease
 }
 
-.create-workout-form button:hover {
+.workout-form .submit-button:hover {
     background-color: #ff7f50;
-    transform: translateY(-2px);
+    transform: translateY(-2px)
 }
 
-.create-workout-form button:active {
+.workout-form .submit-button:active {
     background-color: #e63900;
-    transform: translateY(0);
+    transform: translateY(0)
 }
 
-.create-workout-form-heading {
+.form-title {
     text-align: center;
     font-size: 1.8rem;
     font-weight: bold;
     margin-bottom: 20px;
     color: #ff4500;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1px
 }

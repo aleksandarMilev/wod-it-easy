@@ -48,3 +48,14 @@ export async function create(data, token){
         throw new Error(errorMessages.workout.create)
     } 
 }
+
+export async function update(id, data, token){
+    const response = await requester.put(
+        `${baseAdminUrl}${routes.workout.default}/${id}`,
+        data,
+        token)
+
+    if(!response.ok){
+        throw new Error(errorMessages.workout.update)
+    } 
+}

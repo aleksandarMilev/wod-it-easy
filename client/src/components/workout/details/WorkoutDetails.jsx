@@ -1,4 +1,5 @@
-import { useParams } from 'react-router-dom'
+import { useContext } from 'react'
+import { useParams, Link } from 'react-router-dom'
 import { 
     FaCalendarAlt, 
     FaUsers, 
@@ -7,6 +8,8 @@ import {
     FaRegClock 
 } from 'react-icons/fa'
 
+import { routes } from '../../../common/constants'
+import { UserContext } from '../../../contexts/User'
 import { formatDate } from '../../../common/functions'
 import { useDetails } from '../../../hooks/useWorkout'
 
@@ -17,11 +20,10 @@ import './WorkoutDetails.css'
 export default function WorkoutDetails() {
     const { id } = useParams()
     const { workout, isFetching } = useDetails(id)
+    const { isAdmin } = useContext(UserContext)
 
     if (isFetching || !workout) {
-        return (
-            <DefaultSpinner />
-        )
+        return <DefaultSpinner />
     }
 
     return (
@@ -83,8 +85,23 @@ export default function WorkoutDetails() {
                         <p className="workout-details__value">{workout.type}</p>
                     </div>
                 </div>
+
+                {isAdmin && (
+                    <div className="workout-details__admin-actions">
+                        <Link 
+                            to={routes.workout.update + `/${id}`}  
+                            className="btn btn-primary me-2"
+                        >
+                            Update
+                        </Link>
+                        <button 
+                            className="btn btn-danger"
+                        >
+                            Delete
+                        </button>
+                    </div>
+                )}
             </div>
         </div>
     )
-    
 }
