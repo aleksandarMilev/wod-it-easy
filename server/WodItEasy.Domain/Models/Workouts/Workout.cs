@@ -24,10 +24,10 @@
              WorkoutType workoutType)
         {
             this.Validate(
-                name, 
-                imageUrl, 
-                description, 
-                maxParticipantsCount, 
+                name,
+                imageUrl,
+                description,
+                maxParticipantsCount,
                 startsAtDate);
 
             this.Name = name;
@@ -40,8 +40,8 @@
         }
 
         private Workout(
-            string name, 
-            string imageUrl, 
+            string name,
+            string imageUrl,
             string description)
         {
             this.Name = name;
@@ -70,20 +70,33 @@
 
         public WorkoutType Type { get; private set; }
 
-        public IReadOnlyCollection<Participation> Participations 
+        public IReadOnlyCollection<Participation> Participations
             => this.participations.ToList().AsReadOnly();
 
-        internal bool IsClosed() 
+        internal bool IsClosed()
             => DateTime.Now > this.StartsAtDate;
 
         internal bool IsFull()
             => this.CurrentParticipantsCount >= this.MaxParticipantsCount;
 
-        internal void IncrementParticipantsCount() 
+        internal void IncrementParticipantsCount()
             => this.CurrentParticipantsCount++;
 
-        internal void DecrementParticipantsCount() 
+        internal void DecrementParticipantsCount()
             => this.CurrentParticipantsCount--;
+
+        public bool IsOverlappingExistingOne(IEnumerable<Workout> others)
+        {
+            foreach (var that in others)
+            {
+                if (this.OverlapsWith(that))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
 
         public void AddParticipant(int athleteId)
         {
@@ -177,6 +190,24 @@
 
             return this;
         }
+
+        private bool OverlapsWith(Workout other)
+        {
+            if (this.StartsAtDate.Date != other.StartsAtDate.Date)
+            {
+                return false;
+            }
+
+            var thisStartTime = this.StartsAtTime;
+            var thisEndTime = this.StartsAtTime.Add(TimeSpan.FromMinutes(59));
+
+            var otherStartTime = other.StartsAtTime;
+            var otherEndTime = other.StartsAtTime.Add(TimeSpan.FromMinutes(59));
+
+            return thisStartTime < otherEndTime &&
+                   otherStartTime < thisEndTime;
+        }
+
 
         private void Validate(
             string name,

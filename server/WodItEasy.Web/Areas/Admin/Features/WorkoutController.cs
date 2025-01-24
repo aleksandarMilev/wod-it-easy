@@ -1,7 +1,6 @@
 ﻿namespace WodItEasy.Web.Areas.Admin.Features
 {
     using System.Threading.Tasks;
-    using Application.Common;
     using Application.Features;
     using Application.Features.Workouts.Commands.Create;
     using Application.Features.Workouts.Commands.Delete;
@@ -26,13 +25,13 @@
             => await this.Send(command);
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<Result>> Edit(
+        public async Task<ActionResult> Edit(
             [FromRoute] int id,
             [FromBody] EditWorkoutCommand command)
                 => await this.Send(command.SetId(id));
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Result>> Delete(
+        public async Task<ActionResult> Delete(
             [FromRoute] int id)
                 => await this.Send(new DeleteWorkoutCommand(id));
     }

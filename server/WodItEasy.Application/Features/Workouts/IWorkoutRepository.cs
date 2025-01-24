@@ -1,5 +1,7 @@
 ﻿namespace WodItEasy.Application.Features.Workouts
 {
+    using System;
+    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using Common;
@@ -11,6 +13,11 @@
     public interface IWorkoutRepository : IRepository<Workout>
     {
         Task<Workout?> ById(int id, CancellationToken cancellationToken = default);
+
+        Task<IEnumerable<Workout>> ByDate(
+            DateTime date, 
+            int? excludeId = null, 
+            CancellationToken cancellationToken = default);
 
         Task<Workout?> ByIdWithParticipants(int id, CancellationToken cancellationToken = default);
 

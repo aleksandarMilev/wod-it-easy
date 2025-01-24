@@ -1,6 +1,7 @@
 ﻿namespace WodItEasy.Infrastructure.Persistence.Repositories
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
@@ -60,6 +61,18 @@
                 .AllUpcomings()
                 .AsNoTracking()
                 .FirstOrDefaultAsync(w => w.Id == id, cancellationToken);
+
+        public async Task<IEnumerable<Workout>> ByDate(
+            DateTime date,
+            int? excludeId = null,
+            CancellationToken cancellationToken = default)
+                => await this
+                    .AllUpcomings()
+                    .AsNoTracking()
+                    .Where(w => 
+                        w.StartsAtDate.Date == date && 
+                        w.Id != excludeId.GetValueOrDefault())
+                    .ToListAsync(cancellationToken);
 
         public async Task<Workout?> ByIdWithParticipants(int id, CancellationToken cancellationToken = default)
             => await this
