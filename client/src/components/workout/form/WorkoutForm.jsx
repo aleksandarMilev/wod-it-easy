@@ -53,13 +53,15 @@ export default function WorkoutForm({ isEditMode = false, workout = {} }) {
         try {
             if (isEditMode) {
                 await update(workout.id, workoutData, token)
-                showMessage(`Workout updated!`, true)
-            } else {
-                await create(workoutData, token)
-                showMessage(`Workout created!`, true)
-            }
 
-            navigate(routes.home)
+                showMessage(`Workout updated!`, true)
+                navigate(routes.workout.default + `/${workout.id}`)
+            } else {
+                const id = await create(workoutData, token)
+
+                showMessage(`Workout created!`, true)
+                navigate(routes.workout.default + `/${id}`)
+            }
         } catch (error) {
             showMessage(error.message, false)
         }

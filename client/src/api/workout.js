@@ -44,9 +44,11 @@ export async function create(data, token){
         data,
         token)
 
-    if(!response.ok){
-        throw new Error(errorMessages.workout.create)
+    if(response.ok){
+        return await response.json()
     } 
+
+    throw new Error(errorMessages.workout.create)
 }
 
 export async function update(id, data, token){
