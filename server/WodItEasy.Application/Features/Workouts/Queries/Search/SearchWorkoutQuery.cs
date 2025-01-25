@@ -9,7 +9,7 @@
 
     public class SearchWorkoutQuery : IRequest<PaginatedOutputModel<SearchWorkoutOutputModel>>
     {
-        public string StartsAtDate { get; set; } = null!;
+        public string? StartsAtDate { get; set; }
 
         public int PageSize { get; set; } = DefaultPageSize;
 

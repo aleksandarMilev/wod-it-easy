@@ -30,7 +30,7 @@
                 .AnyAsync(w => w.Id == id, cancellationToken);
 
         public async Task<PaginatedOutputModel<SearchWorkoutOutputModel>> Paginated(
-            string startsAtDate,
+            string? startsAtDate,
             int pageIndex,
             int pageSize,
             CancellationToken cancellationToken = default)
@@ -38,7 +38,10 @@
             var query = this
                 .AllUpcomings()
                 .AsNoTracking()
-                .Where(w => DateTime.Parse(startsAtDate).Date == w.StartsAtDate.Date)
+                .Where(w => startsAtDate == null
+                        ? true
+                        : DateTime.Parse(startsAtDate).Date == w.StartsAtDate.Date)
+                .OrderBy(w => w.StartsAtDate.Date)
                 .ProjectTo<SearchWorkoutOutputModel>(this.mapper.ConfigurationProvider);
 
             var total = query.Count();

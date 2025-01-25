@@ -24,11 +24,10 @@ export async function search(
     pageSize,
     token
 ) {
-    const date = startsAtDate || new Date()
-    const formattedDate = date.toISOString().split('T')[0]
+    const url = startsAtDate
+        ? `${baseUrl}${routes.workout.search}?startsAtDate=${encodeURIComponent(startsAtDate.toISOString().split('T')[0])}&pageIndex=${page}&pageSize=${pageSize}`
+        : `${baseUrl}${routes.workout.search}?pageIndex=${page}&pageSize=${pageSize}`
 
-    const url = `${baseUrl}${routes.workout.search}?startsAtDate=${encodeURIComponent(formattedDate)}&pageIndex=${page}&pageSize=${pageSize}`
-    
     const response = await requester.get(url, token)
 
     if(response.ok){

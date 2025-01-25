@@ -24,7 +24,7 @@
         Task<Workout?> ByIdWithParticipants(int id, CancellationToken cancellationToken = default);
 
         Task<PaginatedOutputModel<SearchWorkoutOutputModel>> Paginated(
-            string startsAtDate,
+            string? startsAtDate,
             int pageIndex,
             int pageSize,
             CancellationToken cancellationToken = default);

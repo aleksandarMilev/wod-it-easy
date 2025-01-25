@@ -12,7 +12,7 @@ import image from '../../../assets/items-not-found.jpg'
 import './WorkoutList.css'
 
 export default function WorkoutList() {
-    const [startsAtDate, setStartsAtDate] = useState(new Date())
+    const [startsAtDate, setStartsAtDate] = useState(null)
     const [page, setPage] = useState(pagination.defaultPageIndex)
     const pageSize = pagination.defaultPageSize
 
