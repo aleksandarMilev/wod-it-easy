@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WodItEasy.Infrastructure.Persistence;
 
@@ -11,9 +12,11 @@ using WodItEasy.Infrastructure.Persistence;
 namespace WodItEasy.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(WodItEasyDbContext))]
-    partial class WodItEasyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250124134817_AuditInfoAndSoftDeletion")]
+    partial class AuditInfoAndSoftDeletion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -171,9 +174,10 @@ namespace WodItEasy.Infrastructure.Persistence.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DeletedBy")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("DeletedOn")
+                    b.Property<DateTime>("DeletedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDeleted")
@@ -214,9 +218,10 @@ namespace WodItEasy.Infrastructure.Persistence.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DeletedBy")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("DeletedOn")
+                    b.Property<DateTime>("DeletedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDeleted")
@@ -262,9 +267,10 @@ namespace WodItEasy.Infrastructure.Persistence.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("DeletedBy")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("DeletedOn")
+                    b.Property<DateTime>("DeletedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")

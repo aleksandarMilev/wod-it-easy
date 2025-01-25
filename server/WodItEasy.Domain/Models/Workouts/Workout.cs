@@ -9,7 +9,7 @@
 
     using static ModelConstants.WorkoutConstants;
 
-    public class Workout : Entity<int>, IAggregateRoot
+    public class Workout : DeletableEntity<int>, IAggregateRoot
     {
         private readonly ICollection<Participation> participations = new HashSet<Participation>();
 

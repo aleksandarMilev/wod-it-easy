@@ -5,7 +5,7 @@
     using Common;
     using Workouts;
 
-    public class Participation : Entity<int>, IAggregateRoot
+    public class Participation : DeletableEntity<int>, IAggregateRoot
     {
         public int AthleteId { get; }
 

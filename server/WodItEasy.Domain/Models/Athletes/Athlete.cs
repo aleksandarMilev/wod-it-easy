@@ -8,7 +8,7 @@
 
     using static ModelConstants.AthleteConstants;
 
-    public class Athlete : Entity<int>, IAggregateRoot
+    public class Athlete : DeletableEntity<int>, IAggregateRoot
     {
         private readonly ICollection<Participation> participations = new HashSet<Participation>();
 
@@ -19,10 +19,10 @@
             this.Name = name;
         }
 
-        public string Name { get; private set; }
-
         public IReadOnlyCollection<Participation> Participations 
             => this.participations.ToList().AsReadOnly();
+
+        public string Name { get; private set; }
 
         public Athlete UpdateName(string name)
         {
