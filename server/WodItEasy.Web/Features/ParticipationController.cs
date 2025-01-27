@@ -6,7 +6,7 @@
     using Common;
     using Microsoft.AspNetCore.Mvc;
 
-    public class ParticipationController : ApiController
+    public class ParticipationController : AuthenticatedApiController
     {
 
         [HttpPost("join")]
