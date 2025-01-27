@@ -1,19 +1,19 @@
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 20px
 }
 
 .search-bar-container {
     width: 100%;
-    position: relative;
+    position: relative
 }
 
 .search-input {
     width: calc(100% - 50px);
     border-radius: 0;
     border: 1px solid #ccc;
-    padding: 10px;
+    padding: 10px
 }
 
 .search-btn {
@@ -23,33 +23,19 @@
     bottom: 0;
     border-radius: 0;
     border: 1px solid #ccc;
-    background-color: #fff;
-}
-
-.pagination-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.pagination-btn {
-    margin: 0 10px;
-}
-
-.pagination-info {
-    margin: 0 20px;
+    background-color: #fff
 }
 
 .disabled {
     pointer-events: none;
-    opacity: 0.5;
+    opacity: 0.5
 }
 
 .img-not-found {
     max-width: 100%;
-    height: auto;
+    height: auto
 }
 
 .text-muted {
-    color: #6c757d !important;
+    color: #6c757d !important
 }

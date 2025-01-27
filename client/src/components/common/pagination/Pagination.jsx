@@ -1,33 +1,30 @@
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'
 
-export default function Pagination({
-    page, 
-    pageSize, 
-    totalItems, 
-    setPage 
-}) {
-    const totalPages = Math.ceil(totalItems / pageSize)
-    
-    const handlePageChange = (newPage) => {
-        setPage(newPage)
-    }
+import './Pagination.css'
 
+export default function Pagination({ 
+    currentPage, 
+    totalPages, 
+    onPageChange, 
+    isFetching
+}) {
     return (
         <div className="pagination-container d-flex justify-content-center mt-4">
             <button
-                className={`btn pagination-btn ${page === 1 ? 'disabled' : ''}`}
-                onClick={() => handlePageChange(page - 1)}
-                disabled={page === 1}
+                className={`btn pagination-btn ${currentPage === 1 ? 'disabled' : ''}`}
+                onClick={() => onPageChange(currentPage - 1)}
+                disabled={currentPage === 1 || isFetching}
             >
                 <FaArrowLeft /> Previous
             </button>
             <div className="pagination-info">
-                <span className="current-page">{page}</span> / <span className="total-pages">{totalPages}</span>
+                <span className="current-page">{currentPage}</span> /{" "}
+                <span className="total-pages">{totalPages}</span>
             </div>
             <button
-                className={`btn pagination-btn ${page === totalPages ? 'disabled' : ''}`}
-                onClick={() => handlePageChange(page + 1)}
-                disabled={page === totalPages}
+                className={`btn pagination-btn ${currentPage === totalPages ? 'disabled' : ''}`}
+                onClick={() => onPageChange(currentPage + 1)}
+                disabled={currentPage === totalPages || isFetching}
             >
                 Next <FaArrowRight />
             </button>

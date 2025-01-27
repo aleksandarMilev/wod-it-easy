@@ -1,9 +1,5 @@
 import { useState } from 'react'
-import { 
-    FaSearch, 
-    FaArrowLeft, 
-    FaArrowRight 
-} from 'react-icons/fa'
+import { FaSearch } from 'react-icons/fa'
 
 import { pagination } from '../../../common/constants'
 import { useSearch } from '../../../hooks/useWorkout'
@@ -12,6 +8,8 @@ import WorkoutListItem from './workout-list-item/WorkoutListItem'
 import DefaultSpinner from '../../common/default-spinner/DefaultSpinner'
 
 import image from '../../../assets/items-not-found.jpg'
+
+import Pagination from '../../common/pagination/Pagination'
 
 import './WorkoutList.css'
 
@@ -40,13 +38,13 @@ export default function WorkoutList() {
             <div className="row mb-4">
                 <div className="col-md-10 mx-auto d-flex">
                     <div className="search-bar-container d-flex">
-                    <input
-                        type="date"
-                        className="form-control search-input"
-                        placeholder="Search workouts by date..."
-                        value={startsAtDate || ''} 
-                        onChange={handleSearchChange}
-                    />
+                        <input
+                            type="date"
+                            className="form-control search-input"
+                            placeholder="Search workouts by date..."
+                            value={startsAtDate || ''} 
+                            onChange={handleSearchChange}
+                        />
                         <button className="btn btn-light search-btn" disabled={isFetching}>
                             <FaSearch size={20} />
                         </button>
@@ -62,32 +60,18 @@ export default function WorkoutList() {
                             {workouts.map(w => (
                                 <WorkoutListItem key={w.id} {...w} />
                             ))}
-                            <div className="pagination-container d-flex justify-content-center mt-4">
-                                <button
-                                    className={`btn pagination-btn ${page === 1 ? 'disabled' : ''}`}
-                                    onClick={() => handlePageChange(page - 1)}
-                                    disabled={page === 1}
-                                >
-                                    <FaArrowLeft /> Previous
-                                </button>
-                                <div className="pagination-info">
-                                    <span className="current-page">{page}</span> /{" "}
-                                    <span className="total-pages">{totalPages}</span>
-                                </div>
-                                <button
-                                    className={`btn pagination-btn ${page === totalPages ? 'disabled' : ''}`}
-                                    onClick={() => handlePageChange(page + 1)}
-                                    disabled={page === totalPages}
-                                >
-                                    Next <FaArrowRight />
-                                </button>
-                            </div>
+                            <Pagination
+                                currentPage={page}
+                                totalPages={totalPages}
+                                onPageChange={handlePageChange}
+                                isFetching={isFetching}
+                            />
                         </>
                     ) : (
                         <div className="d-flex flex-column align-items-center justify-content-center mt-5">
                             <img
                                 src={image}
-                                alt="No books found"
+                                alt="No workouts found"
                                 className="mb-4"
                                 style={{ maxWidth: '200px', opacity: 0.7 }}
                             />
