@@ -19,17 +19,17 @@
 
     internal class WodItEasyDbContext : IdentityDbContext<User>
     {
-        private readonly ICurrentUserService userService;
         private readonly PublishDomainEventInterceptor eventInterceptor;
+        private readonly ICurrentUserService userService;
 
         public WodItEasyDbContext(
             DbContextOptions<WodItEasyDbContext> options,
-            ICurrentUserService userService,
-            PublishDomainEventInterceptor eventInterceptor)
+            PublishDomainEventInterceptor eventInterceptor,
+            ICurrentUserService userService)
                 : base(options)
         {
-            this.userService = userService;
             this.eventInterceptor = eventInterceptor;
+            this.userService = userService;
         }
 
         public DbSet<Athlete> Athletes { get; init; }
@@ -115,8 +115,7 @@
                 });
 
         private static void FilterDeletedModels(ModelBuilder modelBuilder)
-        {
-            modelBuilder
+            => modelBuilder
                 .Model
                 .GetEntityTypes()
                 .ToList()
@@ -131,7 +130,6 @@
                             .HasQueryFilter(GetDeletedModelsFilterExpression(entityClrType));
                     }
                 });
-        }
 
         private static LambdaExpression? GetDeletedModelsFilterExpression(Type entityType)
         {

@@ -19,6 +19,10 @@
                 .HasMaxLength(NameMaxLength);
 
             builder
+                .Property(a => a.UserId)
+                .IsRequired();
+
+            builder
                 .HasMany(a => a.Participations)
                 .WithOne(p => p.Athlete)
                 .HasForeignKey(p => p.AthleteId);

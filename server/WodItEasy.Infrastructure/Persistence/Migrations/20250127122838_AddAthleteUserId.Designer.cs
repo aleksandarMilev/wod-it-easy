@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WodItEasy.Infrastructure.Persistence;
 
@@ -11,9 +12,11 @@ using WodItEasy.Infrastructure.Persistence;
 namespace WodItEasy.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(WodItEasyDbContext))]
-    partial class WodItEasyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250127122838_AddAthleteUserId")]
+    partial class AddAthleteUserId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

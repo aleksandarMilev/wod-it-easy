@@ -60,7 +60,7 @@
                     return OverlappingErrorMessage;
                 }
 
-                await this.repository.SaveAsync(workout, cancellationToken);
+                await this.repository.Save(workout, cancellationToken);
 
                 return workout.Id;
             }

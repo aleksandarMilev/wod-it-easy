@@ -58,7 +58,7 @@
                     .WithWorkoutId(request.WorkoutId)
                     .Build();
 
-                await participationRepository.SaveAsync(participation, cancellationToken);
+                await participationRepository.Save(participation, cancellationToken);
 
                 return Result.Success;
             }

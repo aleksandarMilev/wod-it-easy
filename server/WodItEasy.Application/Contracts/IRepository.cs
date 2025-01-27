@@ -7,6 +7,6 @@
     public interface IRepository<in TEntity>
         where TEntity : IAggregateRoot
     {
-        Task SaveAsync(TEntity entity, CancellationToken cancellationToken = default);
+        Task Save(TEntity entity, CancellationToken cancellationToken = default);
     }
 }

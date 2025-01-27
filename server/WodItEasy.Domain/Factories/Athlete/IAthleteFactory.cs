@@ -5,5 +5,7 @@
     public interface IAthleteFactory : IFactory<Athlete>
     {
         IAthleteFactory WithName(string name);
+
+        IAthleteFactory WithUserId(string userId);
     }
 }
