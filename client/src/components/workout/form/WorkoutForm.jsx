@@ -7,7 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { formatDate } from '../../../common/functions'
 import { useMessage } from '../../../contexts/Message'
 import { workoutTypes } from '../../../common/constants'
-import { create, update } from '../../../api/workout'
+import { create, update } from '../../../api/workoutApi'
 import { UserContext } from '../../../contexts/User'
 import { routes } from '../../../common/constants'
 

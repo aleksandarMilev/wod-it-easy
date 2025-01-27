@@ -1,11 +1,14 @@
+import { useNavigate } from 'react-router-dom'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 
+import { routes } from '../../../common/constants'
 import { useRegister } from '../../../hooks/useIdentity'
 
 import './Register.css'
 
 export default function Register() {
+    const navigate = useNavigate()
     const onRegister = useRegister()
 
     const formik = useFormik({
@@ -32,7 +35,10 @@ export default function Register() {
                 .oneOf([Yup.ref('password'), null], 'Passwords must match')
                 .required('Confirm Password is required')
         }),
-        onSubmit: async (values) => await onRegister(values)
+        onSubmit: async (values) => {
+            await onRegister(values)
+            navigate(routes.registrationChoice)
+        }
     })
 
     return (

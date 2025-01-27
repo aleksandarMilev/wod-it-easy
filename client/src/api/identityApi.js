@@ -7,9 +7,9 @@ export async function login(data) {
 
     if(response.ok){
         return result.token
-    } else {
-        throw new Error(result || errorMessages.genericError)
     }
+
+    throw new Error(result || errorMessages.genericError)
 }
 
 export async function register(data) {
@@ -18,7 +18,7 @@ export async function register(data) {
     
     if(response.ok){
         return result.token
-    } else {
-        throw new Error(result || errorMessages.genericError)
-    }
+    } 
+
+    throw new Error(result || errorMessages.genericError)
 }

@@ -9,7 +9,7 @@ import {
 } from 'react-icons/fa'
 
 import { formatDate } from '../../../common/functions'
-import { remove as deleteWorkout } from '../../../api/workout'
+import { remove as deleteWorkout } from '../../../api/workoutApi'
 import { routes } from '../../../common/constants'
 import { useDetails } from '../../../hooks/useWorkout'
 import { UserContext } from '../../../contexts/User'

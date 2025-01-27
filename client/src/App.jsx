@@ -13,6 +13,9 @@ import Footer from './components/common/footer/Footer'
 
 import Login from './components/identity/login/Login'
 import Register from './components/identity/register/Register'
+import RegistrationChoice from './components/identity/registration-choice/RegistrationChoice'
+
+import CreateAthlete from './components/identity/athlete-register/create/CreateAthlete'
 
 import WorkoutList from './components/workout/all/WorkoutList'
 import WorkoutDetails from './components/workout/details/WorkoutDetails'
@@ -36,6 +39,9 @@ export default function App() {
                                 <Route path={routes.home} element={<Home />} />
                                 <Route path={routes.login} element={<Login />} />
                                 <Route path={routes.register} element={<Register />} />
+                                <Route path={routes.registrationChoice} element={<RegistrationChoice />} />
+
+                                <Route path={routes.athlete.create} element={<AuthenticatedRoute element={<CreateAthlete />} />}/>
 
                                 <Route path={routes.workout.search} element={<AuthenticatedRoute element={<WorkoutList />} />}/>
                                 <Route path={`${routes.workout.default}/:id`} element={<AuthenticatedRoute element={<WorkoutDetails />} />}/>

@@ -5,11 +5,17 @@ export const routes = {
     home: '/',
     login: '/identity/login',
     register: '/identity/register',
+    registrationChoice: '/registration-choice',
 
     error: {
         badRequest: '/error/bad-request',
         notFound: '/error/not-found',
         accessDenied: '/error/access-denied'
+    },
+
+    athlete: {
+        default: '/athlete',
+        create: '/athlete/new'
     },
 
     workout: {

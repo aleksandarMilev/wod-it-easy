@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import { useContext } from 'react'
 import { jwtDecode } from 'jwt-decode'
 
-import * as api from '../api/identity'
+import * as api from '../api/identityApi'
 import { UserContext } from '../contexts/User'
 import { useMessage } from '../contexts/Message'
 import { routes } from '../common/constants'
