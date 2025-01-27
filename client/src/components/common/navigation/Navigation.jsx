@@ -19,16 +19,23 @@ export default function Navigation() {
             <Link to={routes.home}>
                 <div className="logo">
                     <h1>Wod It Easy</h1>
-                    <p>Your CrossFit Journey Starts Here</p>
+                    <p>Stronger, Faster, Better</p>
                 </div>
             </Link>
             <nav className="nav-bar">
-                <ul>
-                    {isAdmin && 
+                <ul className="nav-left">
+                    {isAdmin && (
                         <li>
                             <Link to={routes.workout.create}>Create Workout</Link>
                         </li>
-                    }
+                    )}
+                    {isAuthenticated && (
+                        <li>
+                            <Link to={routes.workout.search}>Workouts</Link>
+                        </li>
+                    )}
+                </ul>
+                <ul className="nav-right">
                     {!isAuthenticated ? (
                         <>
                             <li>
@@ -40,9 +47,6 @@ export default function Navigation() {
                         </>
                     ) : (
                         <>
-                            <li>
-                                <Link to={routes.workout.search}>Workouts</Link>
-                            </li>
                             <li>
                                 <span>Hello, {username}!</span>
                             </li>
