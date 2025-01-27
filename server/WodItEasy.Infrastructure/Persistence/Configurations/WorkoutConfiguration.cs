@@ -43,7 +43,7 @@
                 {
                     t.WithOwner();
 
-                    t.Property(type => type.Value).IsRequired();
+                    t.Property(type => type.Value);
                 });
 
 

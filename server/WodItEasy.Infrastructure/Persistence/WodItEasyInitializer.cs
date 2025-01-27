@@ -1,7 +1,7 @@
 ﻿namespace WodItEasy.Infrastructure.Persistence
 {
+    using Infrastructure;
     using Microsoft.EntityFrameworkCore;
-    using WodItEasy.Infrastructure;
 
     internal class WodItEasyDbInitializer : IInitializer
     {

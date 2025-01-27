@@ -7,6 +7,7 @@
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
+    using Application.Contracts;
     using Domain.Common;
     using Domain.Models.Athletes;
     using Domain.Models.Participation;
@@ -15,7 +16,6 @@
     using Interceptors;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
-    using WodItEasy.Application.Contracts;
 
     internal class WodItEasyDbContext : IdentityDbContext<User>
     {
@@ -85,6 +85,14 @@
                         deletableEntity.DeletedOn = utcNow;
                         deletableEntity.DeletedBy = username!;
                         deletableEntity.IsDeleted = true;
+
+                        if (e.Entity is Workout workout)
+                        {
+                            this
+                                .Entry(workout)
+                                .Reference(x => x.Type)
+                                .IsModified = false;
+                        }
 
                         e.State = EntityState.Modified;
 

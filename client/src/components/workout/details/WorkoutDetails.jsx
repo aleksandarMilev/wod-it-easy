@@ -1,5 +1,5 @@
-import { useContext } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useContext, useState } from 'react'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 import { 
     FaCalendarAlt, 
     FaUsers, 
@@ -8,19 +8,45 @@ import {
     FaRegClock 
 } from 'react-icons/fa'
 
-import { routes } from '../../../common/constants'
-import { UserContext } from '../../../contexts/User'
 import { formatDate } from '../../../common/functions'
+import { remove as deleteWorkout } from '../../../api/workout'
+import { routes } from '../../../common/constants'
 import { useDetails } from '../../../hooks/useWorkout'
+import { UserContext } from '../../../contexts/User'
+import { useMessage } from '../../../contexts/Message'
 
 import DefaultSpinner from '../../common/default-spinner/DefaultSpinner'
+import DeleteConfirmModal from '../../common/delete-modal/DeleteConfirmModal'
 
 import './WorkoutDetails.css'
 
 export default function WorkoutDetails() {
     const { id } = useParams()
+    const navigate = useNavigate()
+    const { showMessage } = useMessage()
+    const { isAdmin, token } = useContext(UserContext)
+
+    const [showModal, setShowModal] = useState(false)
+    const toggleModal = () => setShowModal(prev => !prev)
+
     const { workout, isFetching } = useDetails(id)
-    const { isAdmin } = useContext(UserContext)
+
+    const deleteHandler = async () => {
+        if(showModal){
+            try {
+                await deleteWorkout(id, token)
+
+                navigate(routes.workout.search)
+                showMessage(`${workout.name || 'This workout'} was successfully deleted!`, true)
+            } catch(error) {
+                showMessage(error.message, false)
+            }
+            
+            toggleModal()
+        } else {
+            toggleModal()
+        }
+    }
 
     if (isFetching || !workout) {
         return <DefaultSpinner />
@@ -96,11 +122,18 @@ export default function WorkoutDetails() {
                         </Link>
                         <button 
                             className="btn btn-danger"
+                            onClick={toggleModal}
                         >
                             Delete
                         </button>
                     </div>
                 )}
+
+                <DeleteConfirmModal 
+                    showModal={showModal}
+                    toggleModal={toggleModal}
+                    deleteHandler={deleteHandler}
+                />
             </div>
         </div>
     )

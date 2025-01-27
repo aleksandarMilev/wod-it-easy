@@ -60,3 +60,13 @@ export async function update(id, data, token){
         throw new Error(errorMessages.workout.update)
     } 
 }
+
+export async function remove(id, token){
+    const response = await requester.remove(
+        `${baseAdminUrl}${routes.workout.default}/${id}`,
+        token)
+
+    if(!response.ok){
+        throw new Error(errorMessages.workout.remove)
+    }
+}

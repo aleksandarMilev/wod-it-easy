@@ -1,5 +1,9 @@
 import { useState } from 'react'
-import { FaSearch, FaArrowLeft, FaArrowRight } from 'react-icons/fa'
+import { 
+    FaSearch, 
+    FaArrowLeft, 
+    FaArrowRight 
+} from 'react-icons/fa'
 
 import { pagination } from '../../../common/constants'
 import { useSearch } from '../../../hooks/useWorkout'

@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import * as api from '../api/workout'
+import { useMessage } from '../contexts/Message'
 import { UserContext } from '../contexts/User'
 import { routes } from '../common/constants'
 

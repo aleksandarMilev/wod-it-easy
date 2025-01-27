@@ -5,7 +5,7 @@ namespace WodItEasy.Infrastructure.Persistence.Migrations
     using Microsoft.EntityFrameworkCore.Migrations;
 
     /// <inheritdoc />
-    public partial class InitialDomainTables : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -55,7 +55,14 @@ namespace WodItEasy.Infrastructure.Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -69,12 +76,20 @@ namespace WodItEasy.Infrastructure.Persistence.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     MaxParticipantsCount = table.Column<int>(type: "int", nullable: false),
                     CurrentParticipantsCount = table.Column<int>(type: "int", nullable: false),
                     StartsAtDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     StartsAtTime = table.Column<TimeSpan>(type: "time", nullable: false),
-                    Type_Value = table.Column<int>(type: "int", nullable: false)
+                    Type_Value = table.Column<int>(type: "int", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -188,30 +203,7 @@ namespace WodItEasy.Infrastructure.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Memberships",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Type_Value = table.Column<int>(type: "int", nullable: false),
-                    WorkoutsCount = table.Column<int>(type: "int", nullable: false),
-                    WorkoutsLeft = table.Column<int>(type: "int", nullable: false),
-                    StartsAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    AthleteId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Memberships", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Memberships_Athletes_AthleteId",
-                        column: x => x.AthleteId,
-                        principalTable: "Athletes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Participation",
+                name: "Participations",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -219,19 +211,26 @@ namespace WodItEasy.Infrastructure.Persistence.Migrations
                     AthleteId = table.Column<int>(type: "int", nullable: false),
                     WorkoutId = table.Column<int>(type: "int", nullable: false),
                     JoinedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Status_Value = table.Column<int>(type: "int", nullable: false)
+                    Status_Value = table.Column<int>(type: "int", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Participation", x => x.Id);
+                    table.PrimaryKey("PK_Participations", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Participation_Athletes_AthleteId",
+                        name: "FK_Participations_Athletes_AthleteId",
                         column: x => x.AthleteId,
                         principalTable: "Athletes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Participation_Workouts_WorkoutId",
+                        name: "FK_Participations_Workouts_WorkoutId",
                         column: x => x.WorkoutId,
                         principalTable: "Workouts",
                         principalColumn: "Id",
@@ -278,20 +277,13 @@ namespace WodItEasy.Infrastructure.Persistence.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Memberships_AthleteId",
-                table: "Memberships",
-                column: "AthleteId",
-                unique: true,
-                filter: "[AthleteId] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Participation_AthleteId",
-                table: "Participation",
+                name: "IX_Participations_AthleteId",
+                table: "Participations",
                 column: "AthleteId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Participation_WorkoutId",
-                table: "Participation",
+                name: "IX_Participations_WorkoutId",
+                table: "Participations",
                 column: "WorkoutId");
         }
 
@@ -314,10 +306,7 @@ namespace WodItEasy.Infrastructure.Persistence.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Memberships");
-
-            migrationBuilder.DropTable(
-                name: "Participation");
+                name: "Participations");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
