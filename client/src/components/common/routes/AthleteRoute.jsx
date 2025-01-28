@@ -12,7 +12,7 @@ export default function NonAthleteRoute({ element }) {
     }
 
     if (!isAthlete) {
-        return <Navigate to={routes.athlete.create} replace />
+        return <Navigate to={routes.home} replace />
     }
 
     return element

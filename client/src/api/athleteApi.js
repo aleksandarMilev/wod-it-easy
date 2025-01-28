@@ -10,7 +10,7 @@ export async function mine(token) {
         return await response.json()
     } 
 
-    throw new Error(errorMessages.genericError)
+    throw new Error(errorMessages.athlete.mine)
 }
 
 export async function getId(token) {
@@ -24,7 +24,7 @@ export async function getId(token) {
         return null
     }
 
-    throw new Error(errorMessages.genericError)
+    throw new Error(errorMessages.athlete.getId)
 }
 
 export async function create(data, token) {
@@ -47,6 +47,16 @@ export async function update(data, token) {
         token)
 
     if(!response.ok){
-        throw new Error(errorMessages.genericError)
+        throw new Error(errorMessages.athlete.update)
+    }
+}
+
+export async function remove(token){
+    const response = await requester.remove(
+        baseUrl + routes.athlete.default,
+        token)
+
+    if(!response.ok){
+        throw new Error(errorMessages.athlete.remove)
     }
 }

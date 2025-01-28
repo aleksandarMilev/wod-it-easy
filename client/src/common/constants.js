@@ -60,6 +60,14 @@ export const errorMessages = {
         create: 'Sorry, something went wrong while creating the workout. Please try again later. If the issue persists, contact our support.',
         update: 'Sorry, something went wrong while updating the workout. Please try again later. If the issue persists, contact our support.',
         remove: 'Sorry, something went wrong while deleting the workout. Please try again later. If the issue persists, contact our support.'
+    },
+
+    athlete: {
+        mine: 'Sorry, something went wrong while loading your profile. Please try again later.',
+        getId: 'Sorry, something went wrong while fetching the athlete\'s id. Please try again later.',
+        create: 'Sorry, something went wrong while creating your profile. Please try again later. If the issue persists, contact our support.',
+        update: 'Sorry, something went wrong while updating your profile. Please try again later. If the issue persists, contact our support.',
+        remove: 'Sorry, something went wrong while deleting your profile. Please try again later. If the issue persists, contact our support'
     }
 }
 

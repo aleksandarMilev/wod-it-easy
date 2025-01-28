@@ -30,13 +30,11 @@
     box-shadow: 0 4px 16px rgba(106, 17, 203, 0.3)
 }
 
-
 .athlete-icon {
     color: #ffffff;
     font-size: 48px;
     animation: bounce 2s infinite
 }
-
 
 .athlete-name {
     font-size: 32px;
@@ -49,6 +47,7 @@
 .update-button {
     display: inline-block;
     margin-top: 20px;
+    margin-right: 10px;
     padding: 10px 20px;
     font-size: 16px;
     font-weight: 600;
@@ -69,6 +68,32 @@
 .update-button:active {
     transform: translateY(0);
     box-shadow: 0 2px 8px rgba(106, 17, 203, 0.3)
+}
+
+.delete-button {
+    display: inline-block;
+    margin-top: 20px;
+    margin-left: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+    background: linear-gradient(135deg, #ff416c, #ff4b2b);
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease
+}
+
+.delete-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 65, 108, 0.3)
+}
+
+.delete-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(255, 65, 108, 0.3)
 }
 
 @keyframes fadeIn {

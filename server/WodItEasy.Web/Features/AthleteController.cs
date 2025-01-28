@@ -29,8 +29,9 @@
         public async Task<ActionResult> Update(UpdateAthleteCommand command)
             => await this.Send(command);
 
-        [HttpPut]
-        public async Task<ActionResult> Delete(DeleteAthleteCommand command)
-            => await this.Send(command);
+        [HttpDelete]
+        public async Task<ActionResult> Delete(
+            [FromRoute] DeleteAthleteCommand command)
+                => await this.Send(command);
     }
 }

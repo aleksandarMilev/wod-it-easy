@@ -15,7 +15,7 @@ export const UserContext = createContext({
     isAthlete: false,
     isAuthenticated: false,
     changeAuthenticationState: (state) => {},
-    updateAthleteId: (isAthlete) => {},
+    updateAthleteId: (id) => {},
     logout: () => {}
 })
 
