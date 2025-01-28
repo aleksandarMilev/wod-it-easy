@@ -6,6 +6,7 @@ import { MessageContextProvider } from './contexts/Message'
 
 import AdminRoute from './components/common/routes/AdminRoute'
 import AuthenticatedRoute from './components/common/routes/AuthenticatedRoute'
+import NonAthleteRoute from './components/common/routes/NonAthleteRoute'
 
 import Home from './components/home/Home'
 import Navigation from './components/common/navigation/Navigation'
@@ -39,7 +40,7 @@ export default function App() {
                                 <Route path={routes.home} element={<Home />} />
                                 <Route path={routes.login} element={<Login />} />
                                 <Route path={routes.register} element={<Register />} />
-                                <Route path={routes.registrationChoice} element={<RegistrationChoice />} />
+                                <Route path={routes.registrationChoice} element={<NonAthleteRoute element={<RegistrationChoice />} />}/>
 
                                 <Route path={routes.athlete.create} element={<AuthenticatedRoute element={<CreateAthlete />} />}/>
 

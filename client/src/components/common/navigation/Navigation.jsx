@@ -7,11 +7,12 @@ import { UserContext } from '../../../contexts/User'
 import './Navigation.css'
 
 export default function Navigation() {
-    const { 
-        username, 
-        isAuthenticated, 
-        isAdmin, 
-        logout 
+    const {
+        username,
+        isAuthenticated,
+        isAthlete,
+        isAdmin,
+        logout
     } = useContext(UserContext)
 
     return (
@@ -24,6 +25,11 @@ export default function Navigation() {
             </Link>
             <nav className="nav-bar">
                 <ul className="nav-left">
+                    {!isAthlete && !isAdmin && isAuthenticated && (
+                        <li>
+                            <Link to={routes.athlete.create}>Become an Athlete</Link>
+                        </li>
+                    )}
                     {isAdmin && (
                         <li>
                             <Link to={routes.workout.create}>Create Workout</Link>

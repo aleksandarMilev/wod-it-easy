@@ -15,6 +15,7 @@ export const routes = {
 
     athlete: {
         default: '/athlete',
+        getId: '/athlete/id',
         create: '/athlete/new'
     },
 
