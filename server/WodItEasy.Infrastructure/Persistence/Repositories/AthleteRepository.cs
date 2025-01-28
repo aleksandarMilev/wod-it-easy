@@ -4,13 +4,31 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Application.Features.Athlete;
+    using Application.Features.Athlete.Queries.Get;
+    using AutoMapper;
+    using AutoMapper.QueryableExtensions;
     using Domain.Models.Athletes;
     using Microsoft.EntityFrameworkCore;
 
     internal class AthleteRepository : DataRepository<Athlete>, IAthleteRepository
     {
-        public AthleteRepository(WodItEasyDbContext data)
-            : base(data) { }
+        private readonly IMapper mapper;
+
+        public AthleteRepository(WodItEasyDbContext data, IMapper mapper)
+            : base(data)
+                => this.mapper = mapper;
+
+        public async Task<Athlete?> ById(string userId, CancellationToken cancellationToken = default)
+            => await this
+                .All()
+                .FirstOrDefaultAsync(a => a.UserId == userId, cancellationToken);
+
+        public async Task<GetAthleteOutputModel?> GetOutputModel(string userId, CancellationToken cancellationToken = default)
+            => await this
+                .All()
+                .Where(a => a.UserId == userId)
+                .ProjectTo<GetAthleteOutputModel>(this.mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync(cancellationToken);
 
         public async Task<int?> GetId(string userId, CancellationToken cancellationToken = default)
         {
