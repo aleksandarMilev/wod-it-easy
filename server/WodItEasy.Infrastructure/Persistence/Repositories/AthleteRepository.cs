@@ -18,7 +18,7 @@
             : base(data)
                 => this.mapper = mapper;
 
-        public async Task<Athlete?> ById(string userId, CancellationToken cancellationToken = default)
+        public async Task<Athlete?> ByUserId(string userId, CancellationToken cancellationToken = default)
             => await this
                 .All()
                 .FirstOrDefaultAsync(a => a.UserId == userId, cancellationToken);
@@ -45,5 +45,20 @@
             => await this
                 .All()
                 .AnyAsync(a => a.Id == id, cancellationToken);
+
+        public async Task<bool> Delete(string userId, CancellationToken cancellationToken = default)
+        {
+            var athlete = await this.ByUserId(userId, cancellationToken);
+
+            if (athlete is null)
+            {
+                return false;
+            }
+
+            this.Data.Remove(athlete);
+            await this.Data.SaveChangesAsync(cancellationToken);
+
+            return true;
+        }
     }
 }

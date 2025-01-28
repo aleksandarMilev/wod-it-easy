@@ -26,7 +26,7 @@
             public async Task<Result> Handle(UpdateAthleteCommand request, CancellationToken cancellationToken)
             {
                 var userId = this.userService.UserId!;
-                var athlete = await this.repository.ById(userId, cancellationToken);
+                var athlete = await this.repository.ByUserId(userId, cancellationToken);
 
                 if (athlete is null)
                 {

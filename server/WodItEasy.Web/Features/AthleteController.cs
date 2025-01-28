@@ -2,6 +2,7 @@
 {
     using System.Threading.Tasks;
     using Application.Features.Athlete.Commands.Create;
+    using Application.Features.Athlete.Commands.Delete;
     using Application.Features.Athlete.Commands.Update;
     using Application.Features.Athlete.Queries.Get;
     using Application.Features.Athlete.Queries.GetId;
@@ -26,6 +27,10 @@
 
         [HttpPut]
         public async Task<ActionResult> Update(UpdateAthleteCommand command)
+            => await this.Send(command);
+
+        [HttpPut]
+        public async Task<ActionResult> Delete(DeleteAthleteCommand command)
             => await this.Send(command);
     }
 }
