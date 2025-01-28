@@ -8,5 +8,7 @@
     public interface IAthleteRepository : IRepository<Athlete>
     {
         Task<bool> ExistsById(int id, CancellationToken cancellationToken = default);
+
+        Task<int?> GetId(string userId, CancellationToken cancellationToken = default);
     }
 }
