@@ -3,6 +3,7 @@ import { useContext } from 'react'
 import { jwtDecode } from 'jwt-decode'
 
 import * as api from '../api/identityApi'
+import { getId } from '../api/athleteApi'
 import { UserContext } from '../contexts/User'
 import { useMessage } from '../contexts/Message'
 import { routes } from '../common/constants'
@@ -25,6 +26,11 @@ function useAuthentication() {
                 email: tokenEncoded.email,
                 userId: tokenEncoded.nameid,
                 isAdmin: !!tokenEncoded.role
+            }
+
+            if(apiCall === api.login) {
+                const athleteId = await getId(token)
+                user.isAthlete = !!athleteId
             }
 
             changeAuthenticationState(user)

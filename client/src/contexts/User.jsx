@@ -11,8 +11,10 @@ export const UserContext = createContext({
     email: '',
     token: '',
     isAdmin: false,
+    isAthlete: false,
     isAuthenticated: false,
     changeAuthenticationState: (state) => {},
+    updateIsAthlete: (isAthlete) => {},
     logout: () => {}
 })
 
@@ -27,7 +29,19 @@ export function UserContextProvider(props) {
 
     const [user, setUser] = usePersistedState('user', getInitUser())
 
-    const changeAuthenticationState = (state) => setUser(state)
+    const changeAuthenticationState = state => setUser(state)
+
+    const updateIsAthlete = isAthlete => setUser({
+        userId: user.userId,
+        username: user.username,
+        email: user.email,
+        isAdmin: user.isAdmin,
+        isAthlete: isAthlete,
+        token: user.token,
+        isAuthenticated: !!user.username,
+        changeAuthenticationState,
+        logout
+    })
 
     const logout = () => {
         const username = user.username
@@ -44,9 +58,11 @@ export function UserContextProvider(props) {
         username: user.username,
         email: user.email,
         isAdmin: user.isAdmin,
+        isAthlete: user.isAthlete,
         token: user.token,
         isAuthenticated: !!user.username,
         changeAuthenticationState,
+        updateIsAthlete,
         logout
     }
 
