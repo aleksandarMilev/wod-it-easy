@@ -30,7 +30,7 @@ function useAuthentication() {
 
             if(apiCall === api.login) {
                 const athleteId = await getId(token)
-                user.isAthlete = !!athleteId
+                user.athleteId = athleteId
             }
 
             changeAuthenticationState(user)

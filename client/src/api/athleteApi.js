@@ -1,6 +1,18 @@
 import { baseUrl, routes, errorMessages } from '../common/constants'
 import * as requester from './requester'
 
+export async function mine(token) {
+    const response = await requester.get(
+        baseUrl + routes.athlete.default,
+        token)
+
+    if(response.ok){
+        return await response.json()
+    } 
+
+    throw new Error(errorMessages.genericError)
+}
+
 export async function getId(token) {
     const response = await requester.get(
         baseUrl + routes.athlete.getId,
@@ -20,19 +32,17 @@ export async function create(data, token) {
         baseUrl + routes.athlete.default, 
         data,
         token)
-
-    const result = await response.json()
-
+    
     if(response.ok){
-        return result.id
+        return await response.json()
     }
 
     throw new Error(errorMessages.genericError)
 }
 
-export async function update(id, data, token) {
+export async function update(data, token) {
     const response = await requester.put(
-        baseUrl + routes.athlete.default + `/${id}`, 
+        baseUrl + routes.athlete.default, 
         data,
         token)
 

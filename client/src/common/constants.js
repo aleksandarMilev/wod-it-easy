@@ -1,3 +1,5 @@
+import { update } from "../api/athleteApi"
+
 export const baseUrl = 'https://localhost:7141'
 export const baseAdminUrl = `${baseUrl}/administrator`
 
@@ -15,8 +17,10 @@ export const routes = {
 
     athlete: {
         default: '/athlete',
+        mine: '/athlete/mine',
         getId: '/athlete/id',
-        create: '/athlete/new'
+        create: '/athlete/new',
+        update: '/athlete/update'
     },
 
     workout: {

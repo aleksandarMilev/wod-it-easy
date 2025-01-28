@@ -7,6 +7,7 @@ import { MessageContextProvider } from './contexts/Message'
 import AdminRoute from './components/common/routes/AdminRoute'
 import AuthenticatedRoute from './components/common/routes/AuthenticatedRoute'
 import NonAthleteRoute from './components/common/routes/NonAthleteRoute'
+import AthleteRoute from './components/common/routes/AthleteRoute'
 
 import Home from './components/home/Home'
 import Navigation from './components/common/navigation/Navigation'
@@ -16,7 +17,9 @@ import Login from './components/identity/login/Login'
 import Register from './components/identity/register/Register'
 import RegistrationChoice from './components/identity/registration-choice/RegistrationChoice'
 
-import CreateAthlete from './components/identity/athlete-register/create/CreateAthlete'
+import AthleteProfile from './components/athlete/profile/AthleteProfile'
+import CreateAthlete from './components/athlete/register/create/CreateAthlete'
+import UpdateAthlete from './components/athlete/register/update/UpdateAthlete'
 
 import WorkoutList from './components/workout/all/WorkoutList'
 import WorkoutDetails from './components/workout/details/WorkoutDetails'
@@ -42,7 +45,9 @@ export default function App() {
                                 <Route path={routes.register} element={<Register />} />
                                 <Route path={routes.registrationChoice} element={<NonAthleteRoute element={<RegistrationChoice />} />}/>
 
+                                <Route path={routes.athlete.mine} element={<AthleteRoute element={<AthleteProfile />} />}/>
                                 <Route path={routes.athlete.create} element={<AuthenticatedRoute element={<CreateAthlete />} />}/>
+                                <Route path={routes.athlete.update} element={<AthleteRoute element={<UpdateAthlete />} />}/>
 
                                 <Route path={routes.workout.search} element={<AuthenticatedRoute element={<WorkoutList />} />}/>
                                 <Route path={`${routes.workout.default}/:id`} element={<AuthenticatedRoute element={<WorkoutDetails />} />}/>

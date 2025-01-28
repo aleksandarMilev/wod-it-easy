@@ -30,6 +30,11 @@ export default function Navigation() {
                             <Link to={routes.athlete.create}>Become an Athlete</Link>
                         </li>
                     )}
+                    {isAthlete && !isAdmin && isAuthenticated && (
+                        <li>
+                            <Link to={routes.athlete.mine}>Profile</Link>
+                        </li>
+                    )}
                     {isAdmin && (
                         <li>
                             <Link to={routes.workout.create}>Create Workout</Link>

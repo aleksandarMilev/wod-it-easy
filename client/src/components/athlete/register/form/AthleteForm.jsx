@@ -14,7 +14,7 @@ import './AthleteForm.css'
 export default function AthleteForm({ isEditMode = false, athlete = {} }) {
     const navigate = useNavigate()
     const { showMessage } = useMessage()
-    const { token, updateIsAthlete } = useContext(UserContext)
+    const { token, updateAthleteId } = useContext(UserContext)
 
     const {
         register,
@@ -34,16 +34,16 @@ export default function AthleteForm({ isEditMode = false, athlete = {} }) {
 
         try {
             if (isEditMode) {
-                await update(athlete.id, athleteData, token)
+                await update(athleteData, token)
 
                 showMessage(`Your profile was successfully updated!`, true)
-                navigate(routes.home)
+                navigate(routes.athlete.mine)
             } else {
-                await create(athleteData, token)
-                updateIsAthlete(true)
+                const id = await create(athleteData, token)
+                updateAthleteId(id)
 
                 showMessage(`You are now an Athlete! Go to 'View Workouts and Join!'`, true)
-                navigate(routes.home)
+                navigate(routes.athlete.mine)
             }
         } catch (error) {
             showMessage(error.message, false)
@@ -52,7 +52,7 @@ export default function AthleteForm({ isEditMode = false, athlete = {} }) {
 
     return (
         <form className="athlete-form" onSubmit={handleSubmit(onSubmit)}>
-            <h2 className="form-title">Athlete Registration</h2>
+            <h2 className="form-title">{isEditMode ? 'My Profile' : 'Athlete Registration'}</h2>
 
             <div className="form-group">
                 <label htmlFor="name">Name</label>
@@ -66,7 +66,7 @@ export default function AthleteForm({ isEditMode = false, athlete = {} }) {
                 )}
             </div>
             <button type="submit" className="submit-button">
-                Register as Athlete
+                {isEditMode ? 'Update' : 'Register'}
             </button>
         </form>
     )
