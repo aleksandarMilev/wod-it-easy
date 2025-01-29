@@ -15,6 +15,7 @@ import { routes } from '../../../common/constants'
 import { useDetails } from '../../../hooks/useWorkout'
 import { UserContext } from '../../../contexts/User'
 import { useMessage } from '../../../contexts/Message'
+import { useIsParticipant } from '../../../hooks/useParticipation.js'
 
 import DefaultSpinner from '../../common/default-spinner/DefaultSpinner'
 import DeleteConfirmModal from '../../common/delete-modal/DeleteConfirmModal'
@@ -35,6 +36,7 @@ export default function WorkoutDetails() {
     const toggleModal = () => setShowModal(prev => !prev)
 
     const { workout, isFetching } = useDetails(id)
+    const { isParticipant, setIsParticipant } = useIsParticipant(athleteId, id, token)
 
     const deleteHandler = async () => {
         if(showModal){
@@ -62,6 +64,7 @@ export default function WorkoutDetails() {
         const success = await join(participation, token)
 
         if(success) {
+            setIsParticipant(true)
             showMessage('You have successfully joined this workout!', true)
         } else {
             showMessage('Something went wrong while joining this workout, please, try again!', false)
@@ -149,7 +152,7 @@ export default function WorkoutDetails() {
                     </div>
                 )}
 
-                {isAthlete && !isAdmin && (
+                {isAthlete && !isAdmin && !isParticipant && (
                     <div className="workout-details__athlete-actions">
                         <button 
                             className="btn btn-success"

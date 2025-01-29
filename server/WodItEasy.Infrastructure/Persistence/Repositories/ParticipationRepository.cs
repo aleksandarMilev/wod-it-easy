@@ -33,5 +33,16 @@
 
             return true;
         }
+
+        public async Task<bool> IsParticipant(
+            int athleteId,
+            int workoutId,
+            CancellationToken cancellationToken)
+                => await this
+                    .All()
+                    .AsNoTracking()
+                    .AnyAsync(
+                        p => p.AthleteId == athleteId && p.WorkoutId == workoutId,
+                        cancellationToken);
     }
 }

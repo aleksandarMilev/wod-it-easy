@@ -7,6 +7,11 @@
 
     public interface IParticipationRepository : IRepository<Participation>
     {
+        Task<bool> IsParticipant(
+            int athleteId,
+            int workoutId,
+            CancellationToken cancellationToken);
+
         Task<bool> Delete(
             int athleteId,
             int workoutId,
