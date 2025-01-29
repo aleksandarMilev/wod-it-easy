@@ -17,8 +17,8 @@
         public async Task<ActionResult> Join(CreateParticipationCommand command)
             => await this.Send(command);
 
-        [HttpDelete]
-        public async Task<ActionResult> Leave(DeleteParticipationCommand command)
-            => await this.Send(command);
+        [HttpDelete("{athleteId}/{workoutId}")]
+        public async Task<ActionResult<bool>> Leave(int athleteId, int workoutId)
+            => await this.Send(new DeleteParticipationCommand(athleteId, workoutId));
     }
 }

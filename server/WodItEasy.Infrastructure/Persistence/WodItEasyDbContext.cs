@@ -94,6 +94,14 @@
                                 .IsModified = false;
                         }
 
+                        if (e.Entity is Participation participation)
+                        {
+                            this
+                                .Entry(participation)
+                                .Reference(x => x.Status)
+                                .IsModified = false;
+                        }
+
                         e.State = EntityState.Modified;
 
                         return;

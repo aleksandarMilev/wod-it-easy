@@ -29,3 +29,19 @@ export async function join(data, token) {
 
     return false
 }
+
+export async function leave(
+    athleteId, 
+    workoutId, 
+    token
+) {
+    const response = await requester.remove(
+        `${baseUrl}${routes.participation.default}/${athleteId}/${workoutId}`,
+        token)
+
+    if(response.ok){
+        return true
+    }
+
+    return false
+}

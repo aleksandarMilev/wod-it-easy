@@ -12,7 +12,7 @@ using WodItEasy.Infrastructure.Persistence;
 namespace WodItEasy.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(WodItEasyDbContext))]
-    [Migration("20250125153425_Init")]
+    [Migration("20250129135043_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -192,6 +192,10 @@ namespace WodItEasy.Infrastructure.Persistence.Migrations
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

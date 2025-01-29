@@ -7,14 +7,20 @@
 
     public class DeleteParticipationCommand : IRequest<Result>
     {
-        private const string NotFoundErrorMessage = "Athlete with Id: {0} is not a participant in Workout with Id: {1}!";
-
-        public int WorkoutId { get; set; }
+        public DeleteParticipationCommand(int athleteId, int workoutId)
+        {
+            this.AthleteId = athleteId;
+            this.WorkoutId = workoutId;
+        }
 
         public int AthleteId { get; set; }
 
+        public int WorkoutId { get; set; }
+
         public class DeleteParticipationCommandHandler : IRequestHandler<DeleteParticipationCommand, Result>
         {
+            private const string NotFoundErrorMessage = "Athlete with Id: {0} is not a participant in Workout with Id: {1}!";
+
             private readonly IParticipationRepository repository;
 
             public DeleteParticipationCommandHandler(IParticipationRepository repository) 

@@ -10,7 +10,7 @@ import {
 
 import { formatDate } from '../../../common/functions'
 import { remove as deleteWorkout } from '../../../api/workoutApi'
-import { join } from '../../../api/participationApi.js'
+import { join, leave } from '../../../api/participationApi'
 import { routes } from '../../../common/constants'
 import { useDetails } from '../../../hooks/useWorkout'
 import { UserContext } from '../../../contexts/User'
@@ -68,6 +68,17 @@ export default function WorkoutDetails() {
             showMessage('You have successfully joined this workout!', true)
         } else {
             showMessage('Something went wrong while joining this workout, please, try again!', false)
+        }
+    }
+
+    const leaveHandler = async () => {
+        const success = await leave(athleteId, id, token)
+
+        if(success) {
+            setIsParticipant(false)
+            showMessage('You have successfully left this workout!', true)
+        } else {
+            showMessage('Something went wrong while removing you from this workout, please, try again!', false)
         }
     }
 
@@ -159,6 +170,17 @@ export default function WorkoutDetails() {
                             onClick={joinHandler}
                         >
                             Join
+                        </button>
+                    </div>
+                )}
+
+                {isAthlete && !isAdmin && isParticipant && (
+                    <div className="workout-details__athlete-actions">
+                        <button 
+                            className="btn btn-success"
+                            onClick={leaveHandler}
+                        >
+                            Leave
                         </button>
                     </div>
                 )}
