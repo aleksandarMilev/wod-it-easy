@@ -28,6 +28,10 @@ export const routes = {
         search: '/workout/search',
         create: '/workout/create',
         update: '/workout/update'
+    },
+
+    participation: {
+        default: '/participation'
     }
 }
 

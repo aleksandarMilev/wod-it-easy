@@ -9,11 +9,11 @@
     public class ParticipationController : AuthenticatedApiController
     {
 
-        [HttpPost("join")]
+        [HttpPost]
         public async Task<ActionResult> Join(CreateParticipationCommand command)
             => await this.Send(command);
 
-        [HttpPost("leave")]
+        [HttpDelete]
         public async Task<ActionResult> Leave(DeleteParticipationCommand command)
             => await this.Send(command);
     }

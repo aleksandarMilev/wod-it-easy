@@ -46,7 +46,7 @@
                     return string.Format(NotFoundErrorMessage, nameof(Athlete), request.AthleteId);
                 }
 
-                var workoutExists = await this.workoutRepository.ExistsById(request.AthleteId, cancellationToken);
+                var workoutExists = await this.workoutRepository.ExistsById(request.WorkoutId, cancellationToken);
 
                 if (!workoutExists)
                 {

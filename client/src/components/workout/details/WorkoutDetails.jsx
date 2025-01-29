@@ -10,6 +10,7 @@ import {
 
 import { formatDate } from '../../../common/functions'
 import { remove as deleteWorkout } from '../../../api/workoutApi'
+import { join } from '../../../api/participationApi.js'
 import { routes } from '../../../common/constants'
 import { useDetails } from '../../../hooks/useWorkout'
 import { UserContext } from '../../../contexts/User'
@@ -24,7 +25,11 @@ export default function WorkoutDetails() {
     const { id } = useParams()
     const navigate = useNavigate()
     const { showMessage } = useMessage()
-    const { isAdmin, token } = useContext(UserContext)
+    const { 
+        isAdmin, 
+        isAthlete,
+        athleteId, 
+        token } = useContext(UserContext)
 
     const [showModal, setShowModal] = useState(false)
     const toggleModal = () => setShowModal(prev => !prev)
@@ -45,6 +50,21 @@ export default function WorkoutDetails() {
             toggleModal()
         } else {
             toggleModal()
+        }
+    }
+
+    const joinHandler = async () => {
+        const participation = {
+            workoutId: id,
+            athleteId: athleteId
+        }
+
+        const success = await join(participation, token)
+
+        if(success) {
+            showMessage('You have successfully joined this workout!', true)
+        } else {
+            showMessage('Something went wrong while joining this workout, please, try again!', false)
         }
     }
 
@@ -128,6 +148,18 @@ export default function WorkoutDetails() {
                         </button>
                     </div>
                 )}
+
+                {isAthlete && !isAdmin && (
+                    <div className="workout-details__athlete-actions">
+                        <button 
+                            className="btn btn-success"
+                            onClick={joinHandler}
+                        >
+                            Join
+                        </button>
+                    </div>
+                )}
+
 
                 <DeleteConfirmModal 
                     showModal={showModal}
