@@ -5,6 +5,7 @@
     using Application.Features.Participations.Commands.Cancel;
     using Application.Features.Participations.Commands.Create;
     using Application.Features.Participations.Commands.Delete;
+    using Application.Features.Participations.Commands.ReJoin;
     using Application.Features.Participations.Queries.IsParticipant;
     using Application.Features.Participations.Queries.Mine;
     using Common;
@@ -32,5 +33,9 @@
         [HttpPatch("cancel/{id}")]
         public async Task<ActionResult> Cancel(int id)
             => await this.Send(new CancelParticipationCommand(id));
+
+        [HttpPatch("re-join/{id}")]
+        public async Task<ActionResult> ReJoin(int id)
+            => await this.Send(new ReJoinParticipationCommand(id));
     }
 }

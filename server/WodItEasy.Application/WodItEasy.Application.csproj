@@ -17,8 +17,4 @@
     <ProjectReference Include="..\WodItEasy.Domain\WodItEasy.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\Participations\Commands\ReJoin\" />
-  </ItemGroup>
-
 </Project>
