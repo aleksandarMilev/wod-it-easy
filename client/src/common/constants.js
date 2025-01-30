@@ -1,5 +1,3 @@
-import { update } from "../api/athleteApi"
-
 export const baseUrl = 'https://localhost:7141'
 export const baseAdminUrl = `${baseUrl}/administrator`
 
@@ -31,7 +29,8 @@ export const routes = {
     },
 
     participation: {
-        default: '/participation'
+        default: '/participation',
+        cancel: '/participation/cancel'
     }
 }
 
@@ -39,7 +38,8 @@ export const httpActions = {
     get: 'GET',
     post: 'POST',
     put: 'PUT',
-    delete: 'DELETE'
+    delete: 'DELETE',
+    patch: 'PATCH'
 }
 
 export const httpHeaders = {
@@ -88,6 +88,11 @@ export const workoutTypes = [
     { value: 6, label: 'CrossFit' },
     { value: 7, label: 'Other' }
 ]
+
+export const participationStatuses = {
+    joined: 'joined',
+    left: 'left'
+}
 
 export const pagination = {
     defaultPageSize: 10,

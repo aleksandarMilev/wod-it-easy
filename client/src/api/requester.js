@@ -39,4 +39,6 @@ export const post = async (url, data, token = null) => await request(url, httpAc
 
 export const put = async (url, data, token = null) => await request(url, httpActions.put, data, token)
 
-export const remove = async (url, token = null) => await request(url, httpActions.delete, null ,token)
+export const remove = async (url, token = null) => await request(url, httpActions.delete, null, token)
+
+export const patch = async (url, token = null) => await request(url, httpActions.patch, null, token)

@@ -1,18 +1,47 @@
+import { useContext, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-import { routes } from '../../../../common/constants'
+import { cancel } from '../../../../api/participationApi'
+import { UserContext } from '../../../../contexts/User'
+import { useMessage } from '../../../../contexts/Message'
+import { routes, participationStatuses } from '../../../../common/constants'
 import { formatDate, formatDateAndTime } from '../../../../common/functions'
 
 import './ParticipationListItem.css'
 
-export default function ParticipationListItem({ 
+export default function ParticipationListItem({
+    id,
     workoutId,
     workoutName, 
     workoutStartsAtDate, 
     workoutStartsAtTime, 
-    joinedAt, 
-    status
+    joinedAt,
+    modifiedOn,
+    status: initialStatus
 }) {
+    const { showMessage } = useMessage()
+    const { token } = useContext(UserContext)
+
+    const [status, setStatus] = useState(initialStatus)
+
+    useEffect(() => {
+        setStatus(initialStatus)
+    }, [initialStatus])
+
+    const isJoined = status.toLowerCase() === participationStatuses.joined.toLowerCase()
+    const isLeft = status.toLowerCase() === participationStatuses.left.toLowerCase()
+
+    const cancelHandler = async () => {
+        const success = await cancel(id, token)
+
+        if (success) {
+            setStatus(participationStatuses.left)
+            showMessage('You have successfully canceled this workout!', true)
+        } else {
+            showMessage('Something went wrong while canceling this workout, please try again!', false)
+        }
+    }
+
     return (
         <div className="participation-list-item-card card mb-3 shadow-sm">
             <div className="card-body">
@@ -24,16 +53,22 @@ export default function ParticipationListItem({
                     <strong>Start Time:</strong> {workoutStartsAtTime.slice(0, 5)}
                 </p>
                 <p className="card-text" data-icon="joined">
-                    <strong>Joined At:</strong> {formatDateAndTime(joinedAt)}
+                    <strong>{isJoined ? 'Joined At:' : 'Left At:'}</strong> 
+                    {formatDateAndTime(modifiedOn || joinedAt)}
                 </p>
-                <p className={`card-text ${status.value === 1 ? 'text-success' : 'text-warning'}`} data-icon="status">
-                    <strong>Status:</strong> {status.name}
-                </p>
-                <Link 
-                    to={routes.workout.default + `/${workoutId}`}
-                >
+                {status && (
+                    <p 
+                        data-icon="status"
+                        className={`card-text ${isJoined ? 'text-success' : 'text-warning'}`} 
+                    >
+                        <strong>Status:</strong> {status}
+                    </p>
+                )}
+                <Link to={routes.workout.default + `/${workoutId}`}>
                     View
                 </Link>
+                {isJoined && <button onClick={cancelHandler}>Cancel</button>}
+                {isLeft && <button onClick={() => setStatus(participationStatuses.joined)}>Join Again</button>}
             </div>
         </div>
     )

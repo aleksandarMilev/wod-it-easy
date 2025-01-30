@@ -61,3 +61,15 @@ export async function leave(
 
     return false
 }
+
+export async function cancel(id, token) {
+    const response = await requester.patch(
+        `${baseUrl}${routes.participation.cancel}/${id}`,
+        token)
+
+    if(response.ok){
+        return true
+    }
+
+    return false
+}

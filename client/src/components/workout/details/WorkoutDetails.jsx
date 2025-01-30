@@ -75,7 +75,7 @@ export default function WorkoutDetails() {
             setIsParticipant(true)
             setParticipantsCount(prev => prev + 1)
 
-            showMessage('You have successfully joined this workout!', true)
+            showMessage('You have successfully joined this workout! Go to \'Participations\' for more details.', true)
         } else {
             showMessage('Something went wrong while joining this workout, please, try again!', false)
         }
@@ -88,7 +88,7 @@ export default function WorkoutDetails() {
             setIsParticipant(false)
             setParticipantsCount(prev => prev - 1)
 
-            showMessage('You have successfully left this workout!', true)
+            showMessage('You have successfully left this workout! Go to \'Participations\' for more details.', true)
         } else {
             showMessage('Something went wrong while removing you from this workout, please, try again!', false)
         }
