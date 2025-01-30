@@ -22,18 +22,18 @@
                 ICurrentUserService userService)
             {
                 this.factory = factory;
-                this.userService = userService;
                 this.repository = repository;
+                this.userService = userService;
             }
 
             public async Task<int> Handle(CreateAthleteCommand request, CancellationToken cancellationToken)
             {
-                var athlete = factory
+                var athlete = this.factory
                     .WithName(request.Name)
                     .WithUserId(userService.UserId!)
                     .Build();
 
-                await repository.Save(athlete, cancellationToken);
+                await this.repository.Save(athlete, cancellationToken);
 
                 return athlete.Id;
             }

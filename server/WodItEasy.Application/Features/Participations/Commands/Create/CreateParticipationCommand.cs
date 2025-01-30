@@ -1,11 +1,13 @@
 ﻿namespace WodItEasy.Application.Features.Participations.Commands.Create
 {
+    using System;
     using System.Threading;
     using System.Threading.Tasks;
     using Athlete;
     using Common;
     using Domain.Factories.Participation;
     using Domain.Models.Athletes;
+    using Domain.Models.Participation;
     using Domain.Models.Workouts;
     using MediatR;
     using Workouts;
@@ -39,26 +41,29 @@
 
             public async Task<Result> Handle(CreateParticipationCommand request, CancellationToken cancellationToken)
             {
-                var athleteExists = await this.athleteRepository.ExistsById(request.AthleteId, cancellationToken);
+                var athlete = await this.athleteRepository.ById(request.AthleteId, cancellationToken);
 
-                if (!athleteExists)
+                if (athlete is null)
                 {
                     return string.Format(NotFoundErrorMessage, nameof(Athlete), request.AthleteId);
                 }
 
-                var workoutExists = await this.workoutRepository.ExistsById(request.WorkoutId, cancellationToken);
+                var workout = await this.workoutRepository.ById(request.WorkoutId, cancellationToken);
 
-                if (!workoutExists)
+                if (workout is null)
                 {
                     return string.Format(NotFoundErrorMessage, nameof(Workout), request.WorkoutId);
                 }
 
                 var participation = this.factory
-                    .WithAthleteId(request.AthleteId)
-                    .WithWorkoutId(request.WorkoutId)
+                    .ForAthlete(athlete)
+                    .ForWorkout(workout)
+                    .JoinedAt(DateTime.UtcNow.Date)
+                    .WithStatus(ParticipationStatus.Joined)
                     .Build();
 
-                await participationRepository.Save(participation, cancellationToken);
+                await this.participationRepository.Save(participation, cancellationToken);
+                await this.workoutRepository.Save(workout, cancellationToken);
 
                 return Result.Success;
             }

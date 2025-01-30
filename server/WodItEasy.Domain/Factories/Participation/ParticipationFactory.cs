@@ -1,27 +1,50 @@
 ﻿namespace WodItEasy.Domain.Factories.Participation
 {
+    using Models.Athletes;
     using Models.Participation;
+    using Models.Workouts;
+    using System;
 
     public class ParticipationFactory : IParticipationFactory
     {
-        private int athleteId;
-        private int workoutId;
+        private Athlete athlete = default!;
+        private Workout workout = default!;
+        private DateTime joinedAt;
+        private ParticipationStatus status = default!;
 
-        public IParticipationFactory WithAthleteId(int athleteId)
+        public IParticipationFactory ForAthlete(Athlete athlete)
         {
-            this.athleteId = athleteId;
+            this.athlete = athlete;
 
             return this;
         }
 
-        public IParticipationFactory WithWorkoutId(int workoutId)
+        public IParticipationFactory ForWorkout(Workout workout)
         {
-            this.workoutId = workoutId;
+            this.workout = workout;
+
+            return this;
+        }
+
+        public IParticipationFactory JoinedAt(DateTime joinedAt)
+        {
+            this.joinedAt = joinedAt;
+
+            return this;
+        }
+
+        public IParticipationFactory WithStatus(ParticipationStatus status)
+        {
+            this.status = status;
 
             return this;
         }
 
         public Participation Build()
-            => new(this.athleteId, this.workoutId);
+            => new(
+                this.athlete, 
+                this.workout,
+                this.joinedAt,
+                this.status);
     }
 }

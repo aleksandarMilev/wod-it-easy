@@ -5,12 +5,10 @@
     using Application.Features.Workouts.Queries.Details;
     using Application.Features.Workouts.Queries.Search;
     using Common;
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     public class WorkoutController : ApiController
     {
-        [AllowAnonymous]
         [HttpGet("search")]
         public async Task<ActionResult<PaginatedOutputModel<SearchWorkoutOutputModel>>> Search(
             [FromQuery] SearchWorkoutQuery query)

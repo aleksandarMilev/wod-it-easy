@@ -23,6 +23,11 @@
                 .All()
                 .FirstOrDefaultAsync(a => a.UserId == userId, cancellationToken);
 
+        public async Task<Athlete?> ById(int id, CancellationToken cancellationToken = default)
+            => await this
+                .All()
+                .FirstOrDefaultAsync(a => a.Id == id, cancellationToken);
+
         public async Task<GetAthleteOutputModel?> GetOutputModel(string userId, CancellationToken cancellationToken = default)
             => await this
                 .All()

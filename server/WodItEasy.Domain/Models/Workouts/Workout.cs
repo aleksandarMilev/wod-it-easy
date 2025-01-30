@@ -72,16 +72,16 @@
         public IReadOnlyCollection<Participation> Participations
             => this.participations.ToList().AsReadOnly();
 
-        internal bool IsClosed()
+        public bool IsClosed()
              => DateTime.Now >= this.StartsAtDate.Add(this.StartsAtTime).AddHours(-2);
 
-        internal bool IsFull()
+        public bool IsFull()
             => this.CurrentParticipantsCount >= this.MaxParticipantsCount;
 
-        internal void IncrementParticipantsCount()
+        public void IncrementParticipantsCount()
             => this.CurrentParticipantsCount++;
 
-        internal void DecrementParticipantsCount()
+        public void DecrementParticipantsCount()
             => this.CurrentParticipantsCount--;
 
         public bool IsOverlappingExistingOne(IEnumerable<Workout> others)

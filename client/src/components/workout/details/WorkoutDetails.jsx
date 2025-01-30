@@ -1,11 +1,11 @@
-import { useContext, useState } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { 
-    FaCalendarAlt, 
-    FaUsers, 
-    FaRegFileAlt, 
-    FaSwimmer, 
-    FaRegClock 
+    FaCalendarAlt,
+    FaUsers,
+    FaRegFileAlt,
+    FaSwimmer,
+    FaRegClock
 } from 'react-icons/fa'
 
 import { formatDate } from '../../../common/functions'
@@ -26,8 +26,8 @@ export default function WorkoutDetails() {
     const { id } = useParams()
     const navigate = useNavigate()
     const { showMessage } = useMessage()
-    const { 
-        isAdmin, 
+    const {
+        isAdmin,
         isAthlete,
         athleteId, 
         token } = useContext(UserContext)
@@ -37,6 +37,14 @@ export default function WorkoutDetails() {
 
     const { workout, isFetching } = useDetails(id)
     const { isParticipant, setIsParticipant } = useIsParticipant(athleteId, id, token)
+
+    const [participantsCount, setParticipantsCount] = useState(0)
+
+    useEffect(() => {
+        if (workout) {
+            setParticipantsCount(workout.currentParticipantsCount)
+        }
+    }, [workout])
 
     const deleteHandler = async () => {
         if(showModal){
@@ -65,6 +73,8 @@ export default function WorkoutDetails() {
 
         if(success) {
             setIsParticipant(true)
+            setParticipantsCount(prev => prev + 1)
+
             showMessage('You have successfully joined this workout!', true)
         } else {
             showMessage('Something went wrong while joining this workout, please, try again!', false)
@@ -76,6 +86,8 @@ export default function WorkoutDetails() {
 
         if(success) {
             setIsParticipant(false)
+            setParticipantsCount(prev => prev - 1)
+
             showMessage('You have successfully left this workout!', true)
         } else {
             showMessage('Something went wrong while removing you from this workout, please, try again!', false)
@@ -118,7 +130,7 @@ export default function WorkoutDetails() {
                     <FaUsers className="workout-details__icon" />
                     <div>
                         <strong className="workout-details__label">Current Participants:</strong>
-                        <p className="workout-details__value">{workout.currentParticipantsCount}</p>
+                        <p className="workout-details__value">{participantsCount}</p>
                     </div>
                 </div>
     

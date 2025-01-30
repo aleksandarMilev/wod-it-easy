@@ -10,6 +10,8 @@
     {
         Task<GetAthleteOutputModel?> GetOutputModel(string userId, CancellationToken cancellationToken = default);
 
+        Task<Athlete?> ById(int id, CancellationToken cancellationToken = default);
+
         Task<Athlete?> ByUserId(string userId, CancellationToken cancellationToken = default);
 
         Task<bool> ExistsById(int id, CancellationToken cancellationToken = default);
