@@ -14,14 +14,14 @@
 
     public class CreateParticipationCommand : IRequest<Result>
     {
-        private const string NotFoundErrorMessage = "{0} with Id: {1} not found!";
-
         public int WorkoutId { get; set; }
 
         public int AthleteId { get; set; }
 
         public class CreateParticipationCommandHandler : IRequestHandler<CreateParticipationCommand, Result>
         {
+            private const string NotFoundErrorMessage = "{0} with Id: {1} not found!";
+
             private readonly IParticipationFactory factory;
             private readonly IParticipationRepository participationRepository;
             private readonly IWorkoutRepository workoutRepository;
@@ -58,7 +58,7 @@
                 var participation = this.factory
                     .ForAthlete(athlete)
                     .ForWorkout(workout)
-                    .JoinedAt(DateTime.UtcNow.Date)
+                    .JoinedAt(DateTime.UtcNow)
                     .WithStatus(ParticipationStatus.Joined)
                     .Build();
 

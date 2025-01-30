@@ -46,6 +46,9 @@
         public void MarkAsLeft() 
             => this.Status = ParticipationStatus.Left;
 
+        public void MarkAsJoined()
+            => this.Status = ParticipationStatus.Joined;
+
         private static void Validate(Workout workout)
         {
             if (workout.IsClosed())

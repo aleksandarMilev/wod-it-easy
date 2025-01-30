@@ -1,4 +1,4 @@
-﻿namespace WodItEasy.Application.Features.Workouts
+﻿namespace WodItEasy.Application.Common
 {
     public static class DefaultValues
     {

@@ -5,15 +5,15 @@
     using Common;
     using MediatR;
 
-    using static DefaultValues;
+    using static Common.DefaultValues;
 
     public class SearchWorkoutQuery : IRequest<PaginatedOutputModel<SearchWorkoutOutputModel>>
     {
         public string? StartsAtDate { get; set; }
 
-        public int PageSize { get; set; } = DefaultPageSize;
-
         public int PageIndex { get; set; } = DefaultPageIndex;
+
+        public int PageSize { get; set; } = DefaultPageSize;
 
         public class SearchWorkoutQueryHandler : IRequestHandler<SearchWorkoutQuery, PaginatedOutputModel<SearchWorkoutOutputModel>>
         {
