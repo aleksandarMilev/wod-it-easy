@@ -6,7 +6,7 @@
     using Exceptions;
     using Workouts;
 
-    public class Participation : DeletableEntity<int>, IAggregateRoot
+    public class Participation : AuditableEntity<int>, IAggregateRoot
     {
         public Athlete? Athlete { get; }
 

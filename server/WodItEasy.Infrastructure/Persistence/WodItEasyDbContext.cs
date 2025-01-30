@@ -86,22 +86,6 @@
                         deletableEntity.DeletedBy = username!;
                         deletableEntity.IsDeleted = true;
 
-                        if (e.Entity is Workout workout)
-                        {
-                            this
-                                .Entry(workout)
-                                .Reference(x => x.Type)
-                                .IsModified = false;
-                        }
-
-                        if (e.Entity is Participation participation)
-                        {
-                            this
-                                .Entry(participation)
-                                .Reference(x => x.Status)
-                                .IsModified = false;
-                        }
-
                         e.State = EntityState.Modified;
 
                         return;

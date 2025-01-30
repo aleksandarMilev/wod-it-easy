@@ -4,7 +4,6 @@ namespace WodItEasy.Infrastructure.Persistence.Migrations
     using System;
     using Microsoft.EntityFrameworkCore.Migrations;
 
-    /// <inheritdoc />
     public partial class Init : Migration
     {
         /// <inheritdoc />
@@ -216,10 +215,7 @@ namespace WodItEasy.Infrastructure.Persistence.Migrations
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
