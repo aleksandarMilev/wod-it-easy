@@ -72,6 +72,10 @@ export const errorMessages = {
         create: 'Sorry, something went wrong while creating your profile. Please try again later. If the issue persists, contact our support.',
         update: 'Sorry, something went wrong while updating your profile. Please try again later. If the issue persists, contact our support.',
         remove: 'Sorry, something went wrong while deleting your profile. Please try again later. If the issue persists, contact our support'
+    },
+
+    participation: {
+        all: 'Sorry, something went wrong while loading the participation list. Please try again later.',
     }
 }
 

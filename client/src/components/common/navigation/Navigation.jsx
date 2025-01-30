@@ -31,9 +31,14 @@ export default function Navigation() {
                         </li>
                     )}
                     {isAthlete && !isAdmin && isAuthenticated && (
-                        <li>
-                            <Link to={routes.athlete.mine}>Profile</Link>
-                        </li>
+                        <>
+                            <li>
+                                <Link to={routes.athlete.mine}>Profile</Link>
+                            </li>
+                            <li>
+                                <Link to={routes.participation.default}>Participations</Link>
+                            </li>
+                        </>
                     )}
                     {isAdmin && (
                         <li>

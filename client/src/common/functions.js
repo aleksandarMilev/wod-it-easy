@@ -1,7 +1,18 @@
 export function formatDate(dateString) {
-    return new Date(dateString).toLocaleDateString('en-GB', {
+    return new Date(dateString + 'Z').toLocaleDateString('en-GB', {
         day: '2-digit',
         month: 'long',
         year: 'numeric'
+    })
+}
+
+export function formatDateAndTime(dateString) {
+    return new Date(dateString + 'Z').toLocaleString('en-GB', {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true
     })
 }

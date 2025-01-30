@@ -26,6 +26,8 @@ import WorkoutDetails from './components/workout/details/WorkoutDetails'
 import CreateWorkout from './components/workout/create/CreateWorkout'
 import UpdateWorkout from './components/workout/update/UpdateWorkout'
 
+import ParticipationList from './components/participation/all/ParticipationList'
+
 import NotFound from './components/common/errors/NotFound'
 import AccessDenied from './components/common/errors/AccessDenied'
 import BadRequest from './components/common/errors/BadRequest'
@@ -53,6 +55,8 @@ export default function App() {
                                 <Route path={`${routes.workout.default}/:id`} element={<AuthenticatedRoute element={<WorkoutDetails />} />}/>
                                 <Route path={routes.workout.create} element={<AdminRoute element={<CreateWorkout />} />}/>
                                 <Route path={`${routes.workout.update}/:id`} element={<AdminRoute element={<UpdateWorkout />} />}/>
+
+                                <Route path={routes.participation.default} element={<AthleteRoute element={<ParticipationList />} />}/>
 
                                 <Route path={routes.error.notFound} element={<NotFound />} />
                                 <Route path={routes.error.accessDenied} element={<AccessDenied />} />
