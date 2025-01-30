@@ -2,6 +2,7 @@
 {
     using System.Threading.Tasks;
     using Application.Common;
+    using Application.Features.Participations.Commands.Cancel;
     using Application.Features.Participations.Commands.Create;
     using Application.Features.Participations.Commands.Delete;
     using Application.Features.Participations.Queries.IsParticipant;
@@ -27,5 +28,9 @@
         [HttpDelete("{athleteId}/{workoutId}")]
         public async Task<ActionResult<bool>> Leave(int athleteId, int workoutId)
             => await this.Send(new DeleteParticipationCommand(athleteId, workoutId));
+
+        [HttpPatch("cancel/{id}")]
+        public async Task<ActionResult> Cancel(int id)
+            => await this.Send(new CancelParticipationCommand(id));
     }
 }

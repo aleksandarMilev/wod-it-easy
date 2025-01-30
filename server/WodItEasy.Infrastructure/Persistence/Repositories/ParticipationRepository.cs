@@ -20,6 +20,14 @@
             : base(data)
                 => this.mapper = mapper;
 
+        public async Task<Participation?> ById(int id, CancellationToken cancellationToken = default)
+            => await this
+                .All()
+                .AsNoTracking()
+                .FirstOrDefaultAsync(
+                    p => p.Id == id,
+                    cancellationToken);
+
         public async Task<bool> IsParticipant(
             int athleteId,
             int workoutId,
@@ -41,7 +49,7 @@
                 .All()
                 .AsNoTracking()
                 .Where(p => p.AthleteId == athleteId)
-                .OrderBy(p => p.Workout!.StartsAtDate.Date)
+                .OrderByDescending(p => p.Workout!.StartsAtDate)
                 .ProjectTo<MyParticipationsOutputModel>(this.mapper.ConfigurationProvider);
 
             var total = query.Count();
