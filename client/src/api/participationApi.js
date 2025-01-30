@@ -73,3 +73,15 @@ export async function cancel(id, token) {
 
     return false
 }
+
+export async function reJoin(id, token) {
+    const response = await requester.patch(
+        `${baseUrl}${routes.participation.reJoin}/${id}`,
+        token)
+
+    if(response.ok){
+        return true
+    }
+
+    return false
+}

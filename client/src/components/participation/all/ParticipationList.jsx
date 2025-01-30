@@ -37,7 +37,7 @@ export default function ParticipationList() {
                         <>
                             <div className="participation-list-items">
                                 {participations.map(p => (
-                                    console.log(p), <ParticipationListItem key={p.workoutId} {...p} />
+                                    <ParticipationListItem key={p.workoutId} {...p} />
                                 ))}
                             </div>
                             <Pagination

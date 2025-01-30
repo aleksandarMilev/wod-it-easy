@@ -16,3 +16,9 @@ export function formatDateAndTime(dateString) {
         hour12: true
     })
 }
+
+export function jsNow() {
+    return new Date()
+        .toISOString()
+        .slice(0, 23)
+}

@@ -9,7 +9,7 @@
 
 .participation-list-item-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15)
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
 .participation-list-item-card .card-body {
@@ -107,4 +107,37 @@
 
 .participation-list-item-card .card-body a:active {
     transform: translateY(0)
+}
+
+.participation-list-item-card .card-body button {
+    display: inline-block;
+    margin-top: 1rem;
+    margin-right: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #fff;
+    background: linear-gradient(90deg, #dc3545, #c82333);
+    border: none;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease
+}
+
+.participation-list-item-card .card-body button:hover {
+    background: linear-gradient(90deg, #c82333, #dc3545);
+    transform: translateY(-2px);
+}
+
+.participation-list-item-card .card-body button:active {
+    transform: translateY(0)
+}
+
+.participation-list-item-card .card-body button.join-again {
+    background: linear-gradient(90deg, #28a745, #218838)
+}
+
+.participation-list-item-card .card-body button.join-again:hover {
+    background: linear-gradient(90deg, #218838, #28a745)
 }
