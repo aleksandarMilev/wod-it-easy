@@ -77,6 +77,7 @@ export const errorMessages = {
 
     participation: {
         all: 'Sorry, something went wrong while loading the participation list. Please try again later.',
+        join: 'Sorry, something went wrong while joining the workout. Please try again later. If the issue persists, contact our support.',
     }
 }
 

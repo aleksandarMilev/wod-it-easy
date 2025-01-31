@@ -60,8 +60,6 @@
             {
                 throw new WorkoutFullException("The workout reached max participants count!");
             }
-
-            workout.IncrementParticipantsCount();
         }
     }
 }

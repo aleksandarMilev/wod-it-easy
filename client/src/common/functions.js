@@ -17,7 +17,7 @@ export function formatDateAndTime(dateString) {
     })
 }
 
-export function jsNow() {
+export function getDateTimeNow() {
     return new Date()
         .toISOString()
         .slice(0, 23)

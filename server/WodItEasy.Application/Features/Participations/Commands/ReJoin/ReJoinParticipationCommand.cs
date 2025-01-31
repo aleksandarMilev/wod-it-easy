@@ -8,14 +8,14 @@
     using Features.Workouts;
     using MediatR;
 
-    public class ReJoinParticipationCommand : IRequest<Result>
+    public class ReJoinParticipationCommand : IRequest<Result<int>>
     {
         public int ParticipationId { get; set; }
 
         public ReJoinParticipationCommand(int participationId)
             => this.ParticipationId = participationId;
 
-        public class ReJoinParticipationCommandHandler : IRequestHandler<ReJoinParticipationCommand, Result>
+        public class ReJoinParticipationCommandHandler : IRequestHandler<ReJoinParticipationCommand, Result<int>>
         {
             private const string ParticipationNotFoundErrorMessage = "Participation with Id: {0} does not exist!";
             private const string UnauthorizedErrorMessage = "Current user can not modify this participation!";
@@ -37,7 +37,7 @@
                 this.userService = userService;
             }
 
-            public async Task<Result> Handle(ReJoinParticipationCommand request, CancellationToken cancellationToken)
+            public async Task<Result<int>> Handle(ReJoinParticipationCommand request, CancellationToken cancellationToken)
             {
                 var participation = await this.participationRepository.ById(request.ParticipationId, cancellationToken);
                 var athleteId = await this.athleteRepository.GetId(this.userService.UserId!, cancellationToken);
@@ -65,7 +65,7 @@
                     await this.workoutRepository.Save(workout, cancellationToken);
                 }
 
-                return Result.Success;
+                return participation.Id;
             }
         }
     }

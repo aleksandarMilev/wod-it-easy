@@ -17,7 +17,7 @@
              int pageSize,
              CancellationToken cancellationToken = default);
 
-        Task<bool> IsParticipant(
+        Task<int> GetId(
             int athleteId,
             int workoutId,
             CancellationToken cancellationToken = default);

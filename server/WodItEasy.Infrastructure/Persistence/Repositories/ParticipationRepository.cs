@@ -28,16 +28,16 @@
                     p => p.Id == id,
                     cancellationToken);
 
-        public async Task<bool> IsParticipant(
+        public async Task<int> GetId(
             int athleteId,
             int workoutId,
             CancellationToken cancellationToken)
                 => await this
                     .All()
                     .AsNoTracking()
-                    .AnyAsync(
-                        p => p.AthleteId == athleteId && p.WorkoutId == workoutId,
-                        cancellationToken);
+                    .Where(p => p.AthleteId == athleteId && p.WorkoutId == workoutId)
+                    .Select(p => p.Id)
+                    .FirstOrDefaultAsync(cancellationToken);
 
         public async Task<PaginatedOutputModel<MyParticipationsOutputModel>> Mine(
             int athleteId,

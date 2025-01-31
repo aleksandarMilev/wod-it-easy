@@ -66,11 +66,21 @@
 }
 
 .participation-list-item-card .card-text.text-success {
-    color: #28a745
+    font-size: 1em;
+    font-weight: 600
 }
 
 .participation-list-item-card .card-text.text-warning {
-    color: #ffc107
+    font-size: 1em;
+    font-weight: 600
+}
+
+.text-success {
+    color: green !important
+}
+
+.text-warning {
+    color: red !important
 }
 
 .participation-list-item-card::after {

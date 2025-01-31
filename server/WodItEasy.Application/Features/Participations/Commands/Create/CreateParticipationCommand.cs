@@ -12,13 +12,13 @@
     using MediatR;
     using Workouts;
 
-    public class CreateParticipationCommand : IRequest<Result>
+    public class CreateParticipationCommand : IRequest<Result<int>>
     {
         public int WorkoutId { get; set; }
 
         public int AthleteId { get; set; }
 
-        public class CreateParticipationCommandHandler : IRequestHandler<CreateParticipationCommand, Result>
+        public class CreateParticipationCommandHandler : IRequestHandler<CreateParticipationCommand, Result<int>>
         {
             private const string NotFoundErrorMessage = "{0} with Id: {1} not found!";
 
@@ -39,7 +39,7 @@
                 this.athleteRepository = athleteRepository;
             }
 
-            public async Task<Result> Handle(CreateParticipationCommand request, CancellationToken cancellationToken)
+            public async Task<Result<int>> Handle(CreateParticipationCommand request, CancellationToken cancellationToken)
             {
                 var athlete = await this.athleteRepository.ById(request.AthleteId, cancellationToken);
 
@@ -63,9 +63,12 @@
                     .Build();
 
                 await this.participationRepository.Save(participation, cancellationToken);
+
+                workout.IncrementParticipantsCount();
+
                 await this.workoutRepository.Save(workout, cancellationToken);
 
-                return Result.Success;
+                return participation.Id;
             }
         }
     }

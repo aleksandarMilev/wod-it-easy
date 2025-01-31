@@ -6,7 +6,7 @@
     using Application.Features.Participations.Commands.Create;
     using Application.Features.Participations.Commands.Delete;
     using Application.Features.Participations.Commands.ReJoin;
-    using Application.Features.Participations.Queries.IsParticipant;
+    using Application.Features.Participations.Queries.GetId;
     using Application.Features.Participations.Queries.Mine;
     using Common;
     using Microsoft.AspNetCore.Mvc;
@@ -19,11 +19,11 @@
                 => await this.Send(query);
 
         [HttpGet("{athleteId}/{workoutId}")]
-        public async Task<ActionResult<bool>> IsParticipant(int athleteId, int workoutId)
-            => await this.Send(new IsParticipantQuery(athleteId, workoutId)); 
+        public async Task<ActionResult<int>> GetId(int athleteId, int workoutId)
+            => await this.Send(new GetParticipationIdQuery(athleteId, workoutId)); 
 
         [HttpPost]
-        public async Task<ActionResult> Join(CreateParticipationCommand command)
+        public async Task<ActionResult<int>> Join(CreateParticipationCommand command)
             => await this.Send(command);
 
         [HttpDelete("{athleteId}/{workoutId}")]
@@ -35,7 +35,7 @@
             => await this.Send(new CancelParticipationCommand(id));
 
         [HttpPatch("re-join/{id}")]
-        public async Task<ActionResult> ReJoin(int id)
+        public async Task<ActionResult<int>> ReJoin(int id)
             => await this.Send(new ReJoinParticipationCommand(id));
     }
 }

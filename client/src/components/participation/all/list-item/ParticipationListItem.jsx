@@ -1,11 +1,19 @@
-import { useContext, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { 
+    useContext, 
+    useState, 
+    useEffect
+} from 'react'
 
-import { cancel, reJoin } from '../../../../api/participationApi'
+import { reJoin, leave } from '../../../../api/participationApi'
 import { UserContext } from '../../../../contexts/User'
 import { useMessage } from '../../../../contexts/Message'
 import { routes, participationStatuses } from '../../../../common/constants'
-import { formatDate, formatDateAndTime, jsNow } from '../../../../common/functions'
+import { 
+    formatDate, 
+    formatDateAndTime, 
+    getDateTimeNow 
+} from '../../../../common/functions'
 
 import './ParticipationListItem.css'
 
@@ -36,11 +44,11 @@ export default function ParticipationListItem({
     const isLeft = status.toLowerCase() === participationStatuses.left.toLowerCase()
 
     const cancelHandler = async () => {
-        const success = await cancel(id, token)
+        const success = await leave(id, token)
 
         if (success) {
             setStatus(participationStatuses.left)
-            setModifiedOn(jsNow())
+            setModifiedOn(getDateTimeNow())
 
             showMessage('You have successfully canceled this workout!', true)
         } else {
@@ -53,7 +61,7 @@ export default function ParticipationListItem({
 
         if (success) {
             setStatus(participationStatuses.joined)
-            setModifiedOn(jsNow())
+            setModifiedOn(getDateTimeNow())
 
             showMessage('You are again a participant in this workout!', true)
         } else {
@@ -80,7 +88,7 @@ export default function ParticipationListItem({
                         data-icon="status"
                         className={`card-text ${isJoined ? 'text-success' : 'text-warning'}`} 
                     >
-                        <strong>Status:</strong> {status}
+                        <strong>Status:</strong> {status.toUpperCase()}
                     </p>
                 )}
                 <Link to={routes.workout.default + `/${workoutId}`}>

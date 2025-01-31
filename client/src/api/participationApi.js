@@ -17,7 +17,7 @@ export async function all(
     throw new Error(errorMessages.participation.all)
 }
 
-export async function isParticipant(
+export async function getParticipationId(
     athleteId, 
     workoutId, 
     token
@@ -38,31 +38,15 @@ export async function join(data, token) {
         baseUrl + routes.participation.default,
         data,
         token)
-
+    
     if(response.ok){
-        return true
+        return await response.json()
     }
 
-    return false
+    throw new Error(errorMessages.participation.join)
 }
 
-export async function leave(
-    athleteId, 
-    workoutId, 
-    token
-) {
-    const response = await requester.remove(
-        `${baseUrl}${routes.participation.default}/${athleteId}/${workoutId}`,
-        token)
-
-    if(response.ok){
-        return true
-    }
-
-    return false
-}
-
-export async function cancel(id, token) {
+export async function leave(id, token) {
     const response = await requester.patch(
         `${baseUrl}${routes.participation.cancel}/${id}`,
         token)
@@ -80,8 +64,8 @@ export async function reJoin(id, token) {
         token)
 
     if(response.ok){
-        return true
+        return await response.json()
     }
 
-    return false
+    throw new Error(errorMessages.participation.join)
 }

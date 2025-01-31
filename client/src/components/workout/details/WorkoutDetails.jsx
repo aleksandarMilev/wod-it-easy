@@ -10,12 +10,16 @@ import {
 
 import { formatDate } from '../../../common/functions'
 import { remove as deleteWorkout } from '../../../api/workoutApi'
-import { join, leave } from '../../../api/participationApi'
 import { routes } from '../../../common/constants'
 import { useDetails } from '../../../hooks/useWorkout'
 import { UserContext } from '../../../contexts/User'
 import { useMessage } from '../../../contexts/Message'
-import { useIsParticipant } from '../../../hooks/useParticipation.js'
+import { 
+    join, 
+    reJoin, 
+    leave, 
+    getParticipationId,
+} from '../../../api/participationApi'
 
 import DefaultSpinner from '../../common/default-spinner/DefaultSpinner'
 import DeleteConfirmModal from '../../common/delete-modal/DeleteConfirmModal'
@@ -29,22 +33,67 @@ export default function WorkoutDetails() {
     const {
         isAdmin,
         isAthlete,
-        athleteId, 
+        athleteId,
         token } = useContext(UserContext)
 
     const [showModal, setShowModal] = useState(false)
     const toggleModal = () => setShowModal(prev => !prev)
 
     const { workout, isFetching } = useDetails(id)
-    const { isParticipant, setIsParticipant } = useIsParticipant(athleteId, id, token)
 
     const [participantsCount, setParticipantsCount] = useState(0)
-
     useEffect(() => {
-        if (workout) {
-            setParticipantsCount(workout.currentParticipantsCount)
-        }
+       setParticipantsCount(workout?.currentParticipantsCount || 0)
     }, [workout])
+
+    const [participationId, setParticipationId] = useState(0)
+    useEffect(() => {
+        const fetchParticipationId = async() => {
+            setParticipationId(await getParticipationId(athleteId, id, token))
+        }
+
+        fetchParticipationId()
+    }, [athleteId, id, token])
+
+    const [showJoin, setShowJoin] = useState(false)
+    useEffect(() => {
+        setShowJoin(participantsCount === 0)
+    }, [participationId])
+
+    const joinHandler = async() => {
+        try {
+            if(participationId === 0){
+                const participation = {
+                    athleteId: athleteId,
+                    workoutId: id
+                }
+                
+                const createdParticipationId = await join(participation, token)
+                setParticipationId(createdParticipationId)
+            } else {
+                const existingParticipationId = await reJoin(participationId, token)
+                setParticipationId(existingParticipationId)
+            }
+        } catch (error) {
+            showMessage(error.message, false)
+        }
+      
+        setShowJoin(false)
+        setParticipantsCount(prev => prev + 1)
+        showMessage('You have successfully joined in the workout! Go to \'Participations\' for more details.')
+    }
+
+    const leaveHandler = async() => {
+        const success = await leave(participationId, token)
+
+        if(success){
+            setShowJoin(true)
+            setParticipantsCount(prev => prev - 1)
+            showMessage('You have successfully left the workout! Go to \'Participations\' for more details.')
+        } else {
+            showMessage('Something went wrong while canceling your participation, please, try again.')
+        }
+    }
 
     const deleteHandler = async () => {
         if(showModal){
@@ -62,38 +111,7 @@ export default function WorkoutDetails() {
             toggleModal()
         }
     }
-
-    const joinHandler = async () => {
-        const participation = {
-            workoutId: id,
-            athleteId: athleteId
-        }
-
-        const success = await join(participation, token)
-
-        if(success) {
-            setIsParticipant(true)
-            setParticipantsCount(prev => prev + 1)
-
-            showMessage('You have successfully joined this workout! Go to \'Participations\' for more details.', true)
-        } else {
-            showMessage('Something went wrong while joining this workout, please, try again!', false)
-        }
-    }
-
-    const leaveHandler = async () => {
-        const success = await leave(athleteId, id, token)
-
-        if(success) {
-            setIsParticipant(false)
-            setParticipantsCount(prev => prev - 1)
-
-            showMessage('You have successfully left this workout! Go to \'Participations\' for more details.', true)
-        } else {
-            showMessage('Something went wrong while removing you from this workout, please, try again!', false)
-        }
-    }
-
+ 
     if (isFetching || !workout) {
         return <DefaultSpinner />
     }
@@ -175,7 +193,7 @@ export default function WorkoutDetails() {
                     </div>
                 )}
 
-                {isAthlete && !isAdmin && !isParticipant && (
+                {isAthlete && !isAdmin && showJoin && (
                     <div className="workout-details__athlete-actions">
                         <button 
                             className="btn btn-success"
@@ -186,7 +204,7 @@ export default function WorkoutDetails() {
                     </div>
                 )}
 
-                {isAthlete && !isAdmin && isParticipant && (
+                {isAthlete && !isAdmin && !showJoin && (
                     <div className="workout-details__athlete-actions">
                         <button 
                             className="btn btn-success"
@@ -196,7 +214,6 @@ export default function WorkoutDetails() {
                         </button>
                     </div>
                 )}
-
 
                 <DeleteConfirmModal 
                     showModal={showModal}
