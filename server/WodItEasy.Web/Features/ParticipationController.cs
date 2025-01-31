@@ -23,12 +23,12 @@
             => await this.Send(new GetParticipationIdQuery(athleteId, workoutId)); 
 
         [HttpPost]
-        public async Task<ActionResult<int>> Join(CreateParticipationCommand command)
+        public async Task<ActionResult<int>> Create(CreateParticipationCommand command)
             => await this.Send(command);
 
-        [HttpDelete("{athleteId}/{workoutId}")]
-        public async Task<ActionResult<bool>> Leave(int athleteId, int workoutId)
-            => await this.Send(new DeleteParticipationCommand(athleteId, workoutId));
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<bool>> Delete(int id)
+            => await this.Send(new DeleteParticipationCommand(id));
 
         [HttpPatch("cancel/{id}")]
         public async Task<ActionResult> Cancel(int id)

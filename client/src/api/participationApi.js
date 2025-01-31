@@ -69,3 +69,15 @@ export async function reJoin(id, token) {
 
     throw new Error(errorMessages.participation.join)
 }
+
+export async function remove(id, token) {
+    const response = await requester.remove(
+        `${baseUrl}${routes.participation.default}/${id}`,
+        token)
+
+    if(response.ok){
+        return true
+    }
+
+    return false
+}

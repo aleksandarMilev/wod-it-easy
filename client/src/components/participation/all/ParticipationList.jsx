@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import { pagination } from '../../../common/constants'
 import { useAll } from '../../../hooks/useParticipation'
@@ -15,7 +15,16 @@ export default function ParticipationList() {
     const [page, setPage] = useState(pagination.defaultPageIndex)
     const pageSize = pagination.defaultPageSize
 
-    const { participations, totalItems, isFetching } = useAll(page, pageSize)
+    const { participations: fetchedParticipations, totalItems, isFetching } = useAll(page, pageSize)
+    const [participations, setParticipations] = useState([])
+
+    useEffect(() => {
+        setParticipations(fetchedParticipations)
+    }, [fetchedParticipations])
+
+    const handleDelete = (id) => {
+        setParticipations(prev => prev.filter(p => p.id !== id))
+    }
 
     const totalPages = Math.ceil(totalItems / pageSize)
 
@@ -37,7 +46,11 @@ export default function ParticipationList() {
                         <>
                             <div className="participation-list-items">
                                 {participations.map(p => (
-                                    <ParticipationListItem key={p.workoutId} {...p} />
+                                    <ParticipationListItem 
+                                        key={p.workoutId} 
+                                        {...p}
+                                        onDelete={handleDelete}
+                                    />
                                 ))}
                             </div>
                             <Pagination

@@ -3,13 +3,13 @@
     border-radius: 12px;
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    background: linear-gradient(145deg, #ffffff, #f9f9f9);
+    background: linear-gradient(145deg, #f0f4ff, #e6e9f2);
     position: relative
 }
 
 .participation-list-item-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15)
 }
 
 .participation-list-item-card .card-body {
@@ -95,6 +95,7 @@
 }
 
 .participation-list-item-card .card-body a {
+    margin-right: 1em;
     display: inline-block;
     margin-top: 1rem;
     padding: 0.5rem 1rem;
@@ -137,7 +138,7 @@
 
 .participation-list-item-card .card-body button:hover {
     background: linear-gradient(90deg, #c82333, #dc3545);
-    transform: translateY(-2px);
+    transform: translateY(-2px)
 }
 
 .participation-list-item-card .card-body button:active {
@@ -150,4 +151,25 @@
 
 .participation-list-item-card .card-body button.join-again:hover {
     background: linear-gradient(90deg, #218838, #28a745)
+}
+
+.participation-list-item-card .delete-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: #dc3545;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease
+}
+
+.participation-list-item-card .delete-button:hover {
+    background-color: #c82333;
+    transform: scale(1.1)
+}
+
+.participation-list-item-card .delete-button:active {
+    transform: scale(1)
 }

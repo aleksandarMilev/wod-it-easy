@@ -22,9 +22,6 @@
             int workoutId,
             CancellationToken cancellationToken = default);
 
-        Task<bool> Delete(
-            int athleteId,
-            int workoutId,
-            CancellationToken cancellationToken = default);
+        Task<bool> Delete(int id, CancellationToken cancellationToken = default);
     }
 }

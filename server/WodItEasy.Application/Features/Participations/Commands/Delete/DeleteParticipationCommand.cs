@@ -2,56 +2,69 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using Application.Features.Workouts;
+    using Athlete;
     using Common;
+    using Contracts;
     using MediatR;
+    using Workouts;
 
     public class DeleteParticipationCommand : IRequest<Result>
     {
-        public DeleteParticipationCommand(int athleteId, int workoutId)
-        {
-            this.AthleteId = athleteId;
-            this.WorkoutId = workoutId;
-        }
+        public DeleteParticipationCommand(int participationId)
+            => this.ParticipationId = participationId;
 
-        public int AthleteId { get; set; }
-
-        public int WorkoutId { get; set; }
+        public int ParticipationId { get; set; }
 
         public class DeleteParticipationCommandHandler : IRequestHandler<DeleteParticipationCommand, Result>
         {
-            private const string NotFoundErrorMessage = "Athlete with Id: {0} is not a participant in Workout with Id: {1}!";
+            private const string ParticipationNotFoundErrorMessage = "Participation with Id: {0} does not exist!";
+            private const string UnauthorizedErrorMessage = "Current user can not modify this participation!";
 
             private readonly IParticipationRepository participationRepository;
+            private readonly IAthleteRepository athleteRepository;
             private readonly IWorkoutRepository workoutRepository;
+            private readonly ICurrentUserService userService;
 
-            public DeleteParticipationCommandHandler(IParticipationRepository participationRepository, IWorkoutRepository workoutRepository)
+            public DeleteParticipationCommandHandler(
+                IParticipationRepository participationRepository,
+                IAthleteRepository athleteRepository,
+                IWorkoutRepository workoutRepository,
+                ICurrentUserService userService)
             {
                 this.participationRepository = participationRepository;
+                this.athleteRepository = athleteRepository;
                 this.workoutRepository = workoutRepository;
+                this.userService = userService;
             }
 
             public async Task<Result> Handle(DeleteParticipationCommand request, CancellationToken cancellationToken)
             {
-                var workout = await this.workoutRepository.ById(request.WorkoutId, cancellationToken);
+                var participation = await this.participationRepository.ById(request.ParticipationId, cancellationToken);
+
+                if (participation is null)
+                {
+                    return ParticipationNotFoundErrorMessage;
+                }
+
+                var athleteId = await this.athleteRepository.GetId(this.userService.UserId!, cancellationToken);
+
+                if (participation.AthleteId != athleteId)
+                {
+                    return UnauthorizedErrorMessage;
+                }
+
+                _ = await this.participationRepository.Delete(request.ParticipationId, cancellationToken);
+
+                var workout = await this.workoutRepository.ById(participation.WorkoutId, cancellationToken);
 
                 if (workout is not null)
                 {
                     workout.DecrementParticipantsCount();
+
                     await this.workoutRepository.Save(workout, cancellationToken);
                 }
 
-                var success = await this.participationRepository.Delete(
-                    request.AthleteId,
-                    request.WorkoutId,
-                    cancellationToken);
-
-                if (success)
-                {
-                    return Result.Success;
-                }
-
-                return string.Format(NotFoundErrorMessage, request.AthleteId, request.WorkoutId);
+                return Result.Success;
             }
         }
     }

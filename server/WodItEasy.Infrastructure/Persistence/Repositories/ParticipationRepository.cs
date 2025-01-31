@@ -24,9 +24,7 @@
             => await this
                 .All()
                 .AsNoTracking()
-                .FirstOrDefaultAsync(
-                    p => p.Id == id,
-                    cancellationToken);
+                .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
 
         public async Task<int> GetId(
             int athleteId,
@@ -66,17 +64,12 @@
                 pageSize);
         }
 
-        public async Task<bool> Delete(
-            int athleteId,
-            int workoutId,
-            CancellationToken cancellationToken)
+        public async Task<bool> Delete(int id, CancellationToken cancellationToken)
         {
             var participation = await this
                 .All()
                 .AsNoTracking()
-                .FirstOrDefaultAsync(
-                    p => p.AthleteId == athleteId && p.WorkoutId == workoutId,
-                    cancellationToken);
+                .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
 
             if (participation is null)
             {
