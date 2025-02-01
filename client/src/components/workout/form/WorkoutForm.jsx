@@ -57,6 +57,7 @@ export default function WorkoutForm({ isEditMode = false, workout = {} }) {
                 showMessage(`Workout updated!`, true)
                 navigate(routes.workout.default + `/${workout.id}`)
             } else {
+                console.log(workoutData);
                 const id = await create(workoutData, token)
 
                 showMessage(`Workout created!`, true)
@@ -160,14 +161,8 @@ const maxStartDate = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
 const validationSchema = Yup.object({
     name: Yup
         .string()
-        .min(
-            2,
-            "Name must be at least 2 characters long"
-        )
-        .max(
-            100,
-            "Name must not exceed 100 characters"
-        )
+        .min(2, "Name must be at least 2 characters long")
+        .max(100, "Name must not exceed 100 characters")
         .required("Name is required"),
     imageUrl: Yup
         .string()
@@ -175,41 +170,42 @@ const validationSchema = Yup.object({
         .nullable(),
     description: Yup
         .string()
-        .min(
-            2,
-            "Description must be at least 2 characters long"
-        )
-        .max(
-            500,
-            "Description must not exceed 500 characters"
-        )
+        .min(2, "Description must be at least 2 characters long")
+        .max(500, "Description must not exceed 500 characters")
         .required("Description is required"),
     maxParticipantsCount: Yup
         .number()
-        .min(
-            1,
-            "Participants count must be at least 1"
-        )
-        .max(
-            15,
-            "Participants count must not exceed 15"
-        )
+        .min(1, "Participants count must be at least 1")
+        .max(15, "Participants count must not exceed 15")
         .required("Participants count is required"),
     startsAtDate: Yup
         .date()
-        .min(
-            minStartDate,
-            `Start Date must be no earlier than ${formatDate(minStartDate)}`
-        )
-        .max(
-            maxStartDate,
-            `Start Date must be no later than ${formatDate(maxStartDate)}`
-        )
-        .required(`Start Date is required and must be between ${formatDate(minStartDate)} and ${formatDate(maxStartDate)}`)
-        .typeError(`Start Date is required and must be between ${formatDate(minStartDate)} and ${formatDate(maxStartDate)}`),
+        .required("Start Date is required")
+        .typeError("Start Date must be a valid date"),
     startsAtTime: Yup
         .string()
-        .required("Start Time is required"),
+        .required("Start Time is required")
+        .test(
+            'is-future',
+            'Start Time must be in the future',
+            function() {
+                const selectDateIsNotToday = this.parent.startsAtDate.toDateString() !== new Date().toDateString()
+
+                if(selectDateIsNotToday){
+                   return true
+                }
+
+                const now = new Date()
+                const hours = now.getHours()
+                const minutes = String(now.getMinutes()).padStart(2, '0')
+
+                const minValidTime = `${hours}:${minutes}`
+                const selectedTime = this.parent.startsAtTime
+
+                const isValid = minValidTime < selectedTime
+                return isValid
+            }
+        ),
     type: Yup
         .number()
         .required("Type is required")
@@ -223,4 +219,4 @@ const mapTypeToNumber = type => {
         : workoutTypes[0].value
 }
 
-const defaultImageUrl = 'https://media.licdn.com/dms/image/D4E12AQFGe4i-pReXSQ/article-cover_image-shrink_720_1280/0/1707604455346?e=2147483647&v=beta&t=HosnJc4I3061iujawviv6rc4R6aP4-vmq9Kq7KHviIg';
+const defaultImageUrl = 'https://media.licdn.com/dms/image/D4E12AQFGe4i-pReXSQ/article-cover_image-shrink_720_1280/0/1707604455346?e=2147483647&v=beta&t=HosnJc4I3061iujawviv6rc4R6aP4-vmq9Kq7KHviIg'

@@ -22,9 +22,9 @@ import './ParticipationListItem.css'
 export default function ParticipationListItem({
     id,
     workoutId,
-    workoutName, 
-    workoutStartsAtDate, 
-    workoutStartsAtTime, 
+    workoutName,
+    workoutStartsAtDate,
+    workoutStartsAtTime,
     joinedAt: initialJoinedAt,
     modifiedOn: initialModifiedOn,
     status: initialStatus,
