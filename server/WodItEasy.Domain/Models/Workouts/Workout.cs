@@ -67,7 +67,7 @@
 
         public TimeSpan StartsAtTime { get; private set; }
 
-        public WorkoutType Type { get; private set; }
+        public WorkoutType? Type { get; private set; }
 
         public IReadOnlyCollection<Participation> Participations
             => this.participations.ToList().AsReadOnly();
@@ -164,8 +164,8 @@
             var thatStartTime = that.StartsAtTime;
             var thatEndTime = that.StartsAtTime.Add(TimeSpan.FromMinutes(59));
 
-            return thisStartTime < thatEndTime &&
-                   thisEndTime > thatStartTime;
+            return thisStartTime <= thatEndTime &&
+                   thisEndTime >= thatStartTime;
         }
 
         private void Validate(
@@ -205,20 +205,19 @@
         {
             if (maxParticipantsCount < this.CurrentParticipantsCount)
             {
-                throw new InvalidWorkoutException("Max participants count can not be greater than current count!");
+                throw new InvalidWorkoutException("Max participants count can not be greater than the current participants count!");
             }
 
             Guard.AgainstOutOfRange<InvalidWorkoutException>(
                 maxParticipantsCount,
-                MaxParticipantsCountMinValue,
+                0,
                 MaxParticipantsCountMaxValue,
                 nameof(this.MaxParticipantsCount));
         }
-           
 
         private void ValidateStartsAtDate(DateTime startsAtDate)
             => Guard.AgainstOutOfRange<InvalidWorkoutException>(
-                startsAtDate,
+                startsAtDate.Date,
                 MinStartAtDateValue,
                 MaxStartAtDateValue,
                 nameof(this.StartsAtDate));

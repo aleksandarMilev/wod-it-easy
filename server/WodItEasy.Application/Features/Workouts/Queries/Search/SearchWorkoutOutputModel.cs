@@ -28,7 +28,8 @@
             => profile
                 .CreateMap<Workout, SearchWorkoutOutputModel>()
                 .ForMember(
-                    dest => dest.Type, 
-                    opt => opt.MapFrom(src => Enumeration.NameFromValue<WorkoutType>(src.Type.Value)));
+                    dest => dest.Type,
+                    opt => opt.MapFrom(
+                        src => Enumeration.NameFromValue<WorkoutType>(src.Type.Value)));
     }
 }

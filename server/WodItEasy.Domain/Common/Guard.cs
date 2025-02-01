@@ -62,7 +62,7 @@
                 return;
             }
 
-            ThrowException<TException>($"{name} must be between {min:O} and {max:O}.");
+            ThrowException<TException>($"{name} must be between {min.Date.ToShortDateString()} and {max.Date.ToShortDateString()}.");
         }
 
         public static void ForValidUrl<TException>(string url, string name = "Value")

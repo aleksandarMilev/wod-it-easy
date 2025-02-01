@@ -12,8 +12,8 @@ using WodItEasy.Infrastructure.Persistence;
 namespace WodItEasy.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(WodItEasyDbContext))]
-    [Migration("20250130165018_Init")]
-    partial class Init
+    [Migration("20250201124637_WorkoutTypeIsNullable")]
+    partial class WorkoutTypeIsNullable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -475,8 +475,7 @@ namespace WodItEasy.Infrastructure.Persistence.Migrations
                                 .HasForeignKey("WorkoutId");
                         });
 
-                    b.Navigation("Type")
-                        .IsRequired();
+                    b.Navigation("Type");
                 });
 
             modelBuilder.Entity("WodItEasy.Domain.Models.Athletes.Athlete", b =>

@@ -31,6 +31,7 @@
                 .CreateMap<Workout, WorkoutDetailsOutputModel>()
                 .ForMember(
                     dest => dest.Type,
-                    opt => opt.MapFrom(src => Enumeration.NameFromValue<WorkoutType>(src.Type.Value)));
+                    opt => opt.MapFrom(
+                        src => Enumeration.NameFromValue<WorkoutType>(src.Type.Value)));
     }
 }

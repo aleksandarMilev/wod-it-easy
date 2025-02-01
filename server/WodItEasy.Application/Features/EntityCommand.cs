@@ -11,6 +11,7 @@
             where TCommand : EntityCommand<TId>
         {
             command.Id = id;
+
             return command;
         }
     }

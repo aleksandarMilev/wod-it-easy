@@ -30,10 +30,10 @@
                 .WithMessage($"MaxParticipantsCount must have between {MaxParticipantsCountMinValue} and {MaxParticipantsCountMaxValue} symbols.");
 
             this
-                .RuleFor(w => DateTime.Parse(w.StartsAtDate))
+                .RuleFor(w => DateTime.Parse(w.StartsAtDate).Date)
                 .LessThanOrEqualTo(MaxStartAtDateValue)
                 .GreaterThanOrEqualTo(MinStartAtDateValue)
-                .WithMessage($"StartDate must be between {MinStartAtDateValue:O} and {MaxStartAtDateValue:O}.");
+                .WithMessage($"StartDate must be between {MinStartAtDateValue.ToShortDateString()} and {MaxStartAtDateValue.ToShortDateString()}.");
         }
     }
 }

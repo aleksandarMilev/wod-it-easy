@@ -15,7 +15,6 @@
                 .Property(p => p.JoinedAt)
                 .IsRequired();
 
-
             builder
                .OwnsOne(b => b.Status, t =>
                {
@@ -37,5 +36,4 @@
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }
-
 }

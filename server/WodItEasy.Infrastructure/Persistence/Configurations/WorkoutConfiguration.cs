@@ -46,7 +46,6 @@
                     t.Property(type => type.Value);
                 });
 
-
             builder
                 .HasMany(w => w.Participations)
                 .WithOne(p => p.Workout)

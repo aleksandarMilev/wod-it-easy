@@ -42,6 +42,7 @@
                         ? true
                         : DateTime.Parse(startsAtDate).Date == w.StartsAtDate.Date)
                 .OrderBy(w => w.StartsAtDate.Date)
+                .ThenByDescending(w => w.StartsAtTime)
                 .ProjectTo<SearchWorkoutOutputModel>(this.mapper.ConfigurationProvider);
 
             var total = query.Count();
