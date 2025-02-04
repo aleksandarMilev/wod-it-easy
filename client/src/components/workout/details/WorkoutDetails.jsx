@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
-import { 
+import {
     FaCalendarAlt,
     FaUsers,
     FaRegFileAlt,
@@ -15,9 +15,8 @@ import { useDetails } from '../../../hooks/useWorkout'
 import { UserContext } from '../../../contexts/User'
 import { useMessage } from '../../../contexts/Message'
 import { 
-    join, 
-    reJoin, 
-    leave, 
+    join,
+    reJoin,
     getParticipationId,
 } from '../../../api/participationApi'
 
@@ -57,8 +56,44 @@ export default function WorkoutDetails() {
 
     const [showJoin, setShowJoin] = useState(false)
     useEffect(() => {
-        setShowJoin(participantsCount === 0)
+        setShowJoin(participationId === 0)
     }, [participationId])
+
+    const [isFull, setIsFull] = useState(false)
+    useEffect(() => {
+        const result = workout
+        ? workout.currentParticipantsCount === workout.maxParticipantsCount
+        : false
+
+        setIsFull(result)
+    }, [workout])
+
+    const isClosed = (() => {
+        if (!workout) {
+            return false
+        }
+        const now = new Date()
+        const workoutStartDate = new Date(workout.startsAtDate)
+        const isNotToday = now.toDateString() !== workoutStartDate.toDateString()
+
+        if(isNotToday) {
+            return false
+        }
+    
+        const [workoutHours, workoutMinutes, workoutSeconds] = workout.startsAtTime.split(':').map(Number)
+    
+        const workoutStartTime = new Date(now)
+        workoutStartTime.setHours(workoutHours, workoutMinutes, workoutSeconds, 0)
+    
+        const timeDifference = (workoutStartTime - now) / (1000 * 60 * 60)
+        const thereIsLessThanTwoHoursToTheWorkout = timeDifference <= 2
+
+        if(thereIsLessThanTwoHoursToTheWorkout) {
+            return true
+        } else {
+            return false
+        }
+    })()
 
     const joinHandler = async() => {
         try {
@@ -81,18 +116,6 @@ export default function WorkoutDetails() {
         setShowJoin(false)
         setParticipantsCount(prev => prev + 1)
         showMessage('You have successfully joined in the workout! Go to \'Participations\' for more details.')
-    }
-
-    const leaveHandler = async() => {
-        const success = await leave(participationId, token)
-
-        if(success){
-            setShowJoin(true)
-            setParticipantsCount(prev => prev - 1)
-            showMessage('You have successfully left the workout! Go to \'Participations\' for more details.')
-        } else {
-            showMessage('Something went wrong while canceling your participation, please, try again.')
-        }
     }
 
     const deleteHandler = async () => {
@@ -193,7 +216,12 @@ export default function WorkoutDetails() {
                     </div>
                 )}
 
-                {isAthlete && !isAdmin && showJoin && (
+                {
+                    isAthlete &&
+                    !isAdmin &&
+                    showJoin &&
+                    !isClosed &&
+                    !isFull && (
                     <div className="workout-details__athlete-actions">
                         <button 
                             className="btn btn-success"
@@ -204,15 +232,26 @@ export default function WorkoutDetails() {
                     </div>
                 )}
 
-                {isAthlete && !isAdmin && !showJoin && (
+                {
+                    isAthlete && 
+                    !isAdmin && 
+                    !showJoin && (
                     <div className="workout-details__athlete-actions">
-                        <button 
+                        <Link
+                            to={`${routes.participation.default}?scrollTo=${participationId}`}
                             className="btn btn-success"
-                            onClick={leaveHandler}
                         >
-                            Leave
-                        </button>
+                            Participation
+                        </Link>
                     </div>
+                )}
+
+                {isClosed && (
+                    <p className="text-danger mt-3">This workout is closed for participation.</p>
+                )}
+
+                {isFull && (
+                    <p className="text-danger mt-3">This workout has reached the max participants count.</p>
                 )}
 
                 <DeleteConfirmModal 

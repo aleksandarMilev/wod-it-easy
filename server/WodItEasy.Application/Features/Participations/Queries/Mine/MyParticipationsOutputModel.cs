@@ -18,6 +18,8 @@
 
         public TimeSpan WorkoutStartsAtTime { get; set; }
 
+        public bool WorkoutIsFull { get; set; }
+
         public DateTime JoinedAt { get; set; }
 
         public DateTime? ModifiedOn { get; set; }
@@ -30,6 +32,10 @@
                 .ForMember(
                     dest => dest.Status,
                     opt => opt.MapFrom(
-                        src => Enumeration.NameFromValue<ParticipationStatus>(src.Status.Value)));
+                        src => Enumeration.NameFromValue<ParticipationStatus>(src.Status.Value)))
+                .ForMember(
+                    dest => dest.WorkoutIsFull,
+                    opt => opt.MapFrom(
+                        src => src.Workout!.CurrentParticipantsCount == src.Workout.MaxParticipantsCount));
     }
 }

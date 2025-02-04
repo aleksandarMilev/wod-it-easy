@@ -25,6 +25,7 @@ export default function ParticipationListItem({
     workoutName,
     workoutStartsAtDate,
     workoutStartsAtTime,
+    workoutIsFull,
     joinedAt: initialJoinedAt,
     modifiedOn: initialModifiedOn,
     status: initialStatus,
@@ -46,12 +47,39 @@ export default function ParticipationListItem({
     const isJoined = status.toLowerCase() === participationStatuses.joined.toLowerCase()
     const isLeft = status.toLowerCase() === participationStatuses.left.toLowerCase()
 
+    const isClosed = (() => {
+        const now = new Date()
+        const workoutStartDate = new Date(workoutStartsAtDate)
+        const isNotToday = now.toDateString() !== workoutStartDate.toDateString()
+
+        if(isNotToday) {
+            return false
+        }
+    
+        const [workoutHours, workoutMinutes, workoutSeconds] = workoutStartsAtTime.split(':').map(Number)
+    
+        const workoutStartTime = new Date(now)
+        workoutStartTime.setHours(workoutHours, workoutMinutes, workoutSeconds, 0)
+    
+        const timeDifference = (workoutStartTime - now) / (1000 * 60 * 60)
+        const thereIsLessThanTwoHoursToTheWorkout = timeDifference <= 2
+        
+        if(thereIsLessThanTwoHoursToTheWorkout) {
+            return true
+        } else {
+            return false
+        }
+    })()
+
+    const [isFull, setIsFull] = useState(workoutIsFull)
+
     const cancelHandler = async() => {
         const success = await api.leave(id, token)
 
         if (success) {
             setStatus(participationStatuses.left)
             setModifiedOn(getDateTimeNow())
+            setIsFull(false)
 
             showMessage('You have successfully canceled this workout!', true)
         } else {
@@ -124,10 +152,21 @@ export default function ParticipationListItem({
                 <Link to={routes.workout.default + `/${workoutId}`}>
                     View
                 </Link>
-                {isJoined && <button onClick={cancelHandler}>Cancel</button>}
-                {isLeft && <button onClick={reJoinHandler}>Join Again</button>}
-            </div>
 
+                {isJoined && !isClosed && <button onClick={cancelHandler}>Cancel</button>}
+                {isLeft && !isClosed && !isFull && <button onClick={reJoinHandler}>Join Again</button>}
+
+                {isClosed && isLeft && (
+                    <p className="text-danger mt-3">
+                        This workout is already closed, so you can not join it again. You can delete the participation from the delete icon.
+                    </p>
+                )}
+                {isFull && isLeft && (
+                    <p className="text-danger mt-3">
+                        This workout has reached its full capacity. You can delete the participation from the delete icon.
+                    </p>
+                )}
+            </div>
             <DeleteConfirmModal 
                 showModal={showModal}
                 toggleModal={toggleModal}

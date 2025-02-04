@@ -57,7 +57,6 @@ export default function WorkoutForm({ isEditMode = false, workout = {} }) {
                 showMessage(`Workout updated!`, true)
                 navigate(routes.workout.default + `/${workout.id}`)
             } else {
-                console.log(workoutData);
                 const id = await create(workoutData, token)
 
                 showMessage(`Workout created!`, true)

@@ -47,7 +47,7 @@
                 .All()
                 .AsNoTracking()
                 .Where(p => p.AthleteId == athleteId)
-                .OrderByDescending(p => p.Workout!.StartsAtDate)
+                .OrderByDescending(p => p.JoinedAt)
                 .ProjectTo<MyParticipationsOutputModel>(this.mapper.ConfigurationProvider);
 
             var total = query.Count();

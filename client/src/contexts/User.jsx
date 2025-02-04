@@ -38,7 +38,7 @@ export function UserContextProvider(props) {
         username: user.username,
         email: user.email,
         isAdmin: user.isAdmin,
-        isAthlete: !!athleteId,
+        isAthlete: athleteId && athleteId !== 0,
         token: user.token,
         isAuthenticated: !!user.username,
         changeAuthenticationState,

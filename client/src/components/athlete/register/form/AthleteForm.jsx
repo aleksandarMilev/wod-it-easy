@@ -14,7 +14,7 @@ import './AthleteForm.css'
 export default function AthleteForm({ isEditMode = false, athlete = {} }) {
     const navigate = useNavigate()
     const { showMessage } = useMessage()
-    const { token, updateAthleteId } = useContext(UserContext)
+    const { token, updateAthleteId} = useContext(UserContext)
 
     const {
         register,

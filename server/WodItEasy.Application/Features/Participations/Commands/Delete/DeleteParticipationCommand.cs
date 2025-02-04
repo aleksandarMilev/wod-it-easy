@@ -5,6 +5,7 @@
     using Athlete;
     using Common;
     using Contracts;
+    using Domain.Models.Participation;
     using MediatR;
     using Workouts;
 
@@ -55,13 +56,16 @@
 
                 _ = await this.participationRepository.Delete(request.ParticipationId, cancellationToken);
 
-                var workout = await this.workoutRepository.ById(participation.WorkoutId, cancellationToken);
-
-                if (workout is not null)
+                if (participation.Status.Equals(ParticipationStatus.Joined))
                 {
-                    workout.DecrementParticipantsCount();
+                    var workout = await this.workoutRepository.ById(participation.WorkoutId, cancellationToken);
 
-                    await this.workoutRepository.Save(workout, cancellationToken);
+                    if (workout is not null)
+                    {
+                        workout.DecrementParticipantsCount();
+
+                        await this.workoutRepository.Save(workout, cancellationToken);
+                    }
                 }
 
                 return Result.Success;

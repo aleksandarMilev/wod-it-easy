@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import { useLocation } from 'react-router-dom'
 
 import { pagination } from '../../../common/constants'
 import { useAll } from '../../../hooks/useParticipation'
@@ -32,6 +33,28 @@ export default function ParticipationList() {
         setPage(newPage)
     }
 
+    const location = useLocation()
+    const searchParams = new URLSearchParams(location.search)
+    const scrollToId = searchParams.get('scrollTo')
+
+    useEffect(() => {
+        if (scrollToId) {
+            const index = participations.findIndex(p => p.id === parseInt(scrollToId))
+            
+            if (index !== -1) {
+                scrollToParticipation(index)
+            }
+        }
+    }, [scrollToId, participations])
+
+    const participationRefs = useRef([])
+
+    const scrollToParticipation = (index) => {
+        if (participationRefs.current[index]) {
+            participationRefs.current[index].scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }
+    }
+
     return (
         <div className="participation-list-container container mt-5 mb-5">
             <h2 className="mb-4">Your Workout Participations</h2>
@@ -45,12 +68,17 @@ export default function ParticipationList() {
                     ) : participations.length > 0 ? (
                         <>
                             <div className="participation-list-items">
-                                {participations.map(p => (
-                                    <ParticipationListItem 
+                                {participations.map((p, index) => (
+                                    <div 
                                         key={p.workoutId} 
-                                        {...p}
-                                        onDelete={handleDelete}
-                                    />
+                                        ref={el => participationRefs.current[index] = el}
+                                    >
+                                        <ParticipationListItem
+                                            {...p}
+                                            onDelete={handleDelete}
+                                            onScrollTo={() => scrollToParticipation(index)}
+                                        />
+                                    </div>
                                 ))}
                             </div>
                             <Pagination
