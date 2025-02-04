@@ -9,8 +9,18 @@
         {
             public int Value { get; }
 
-            public TestValueObject(int value) => this.Value = value;
+            public TestValueObject(int value)
+                => this.Value = value;
         }
+
+        private class AnotherTestValueObject : ValueObject
+        {
+            public int Value { get; }
+
+            public AnotherTestValueObject(int value)
+                => this.Value = value;
+        }
+
 
         [Fact]
         public void EqualsShouldReturnTrueIfValuesAreSame()
@@ -42,16 +52,9 @@
         public void EqualsShouldReturnFalseIfTypesAreDifferent()
         {
             var obj1 = new TestValueObject(1);
-            var obj2 = new AnotherValueObject(1);
+            var obj2 = new AnotherTestValueObject(1);
 
             obj1.Equals(obj2).Should().BeFalse();
-        }
-
-        private class AnotherValueObject : ValueObject
-        {
-            public int Value { get; }
-
-            public AnotherValueObject(int value) => this.Value = value;
         }
 
         [Fact]

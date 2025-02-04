@@ -12,25 +12,25 @@
         [Fact]
         public void AgainstEmptyStringShouldThrowExceptionIfStringIsEmpty()
         {
-            var againstEmtpyString = () => Guard.AgainstEmptyString<TestException>("");
+            var againstEmptyString = () => Guard.AgainstEmptyString<TestException>("");
 
-            againstEmtpyString.Should().Throw<TestException>();
+            againstEmptyString.Should().Throw<TestException>();
         }
 
         [Fact]
         public void AgainstEmptyStringShouldThrowExceptionIfStringIsNull()
         {
-            var againstEmtpyString = () => Guard.AgainstEmptyString<TestException>(null);
+            var againstEmptyString = () => Guard.AgainstEmptyString<TestException>(null);
 
-            againstEmtpyString.Should().Throw<TestException>();
+            againstEmptyString.Should().Throw<TestException>();
         }
 
         [Fact]
         public void AgainstEmptyStringShouldNotThrowIfStringIsValid()
         {
-            var againstEmtpyString = () => Guard.AgainstEmptyString<TestException>("Test");
+            var againstEmptyString = () => Guard.AgainstEmptyString<TestException>("Test");
 
-            againstEmtpyString.Should().NotThrow();
+            againstEmptyString.Should().NotThrow();
         }
 
         [Theory]

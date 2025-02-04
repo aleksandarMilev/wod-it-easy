@@ -210,7 +210,7 @@
 
             Guard.AgainstOutOfRange<InvalidWorkoutException>(
                 maxParticipantsCount,
-                0,
+                MaxParticipantsCountMinValue,
                 MaxParticipantsCountMaxValue,
                 nameof(this.MaxParticipantsCount));
         }

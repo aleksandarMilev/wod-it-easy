@@ -14,12 +14,12 @@
         [HttpGet]
         public async Task<ActionResult<GetAthleteOutputModel?>> Get(
             [FromRoute] GetAthleteQuery query)
-                => await this.Send(query);
+            => await this.Send(query);
 
         [HttpGet("id")]
         public async Task<ActionResult<int?>> GetId(
             [FromRoute] GetAthleteIdQuery query)
-                => await this.Send(query);
+            => await this.Send(query);
 
         [HttpPost]
         public async Task<ActionResult<int>> Create(CreateAthleteCommand command)
@@ -32,6 +32,6 @@
         [HttpDelete]
         public async Task<ActionResult> Delete(
             [FromRoute] DeleteAthleteCommand command)
-                => await this.Send(command);
+            => await this.Send(command);
     }
 }

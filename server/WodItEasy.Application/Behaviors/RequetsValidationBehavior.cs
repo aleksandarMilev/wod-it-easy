@@ -22,8 +22,7 @@
             RequestHandlerDelegate<TResponse> next,
             CancellationToken cancellationToken)
         {
-            var errors = this
-                .validators
+            var errors = this.validators
                 .SelectMany(v => v.Validate(request).Errors)
                 .Where(f => f is not null)
                 .ToList();

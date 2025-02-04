@@ -1,9 +1,9 @@
 ﻿namespace WodItEasy.Domain.Factories.Participation
 {
+    using System;
     using Models.Athletes;
     using Models.Participation;
     using Models.Workouts;
-    using System;
 
     public class ParticipationFactory : IParticipationFactory
     {

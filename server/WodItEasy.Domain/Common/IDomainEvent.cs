@@ -2,8 +2,5 @@
 {
     using MediatR;
 
-    public interface IDomainEvent : INotification
-    {
-
-    }
+    public interface IDomainEvent : INotification { }
 }

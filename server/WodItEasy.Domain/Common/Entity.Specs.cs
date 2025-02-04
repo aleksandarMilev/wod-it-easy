@@ -7,7 +7,14 @@
     {
         private class TestEntity : Entity<int>
         {
-            public TestEntity(int id) => this.Id = id;
+            public TestEntity(int id)
+                => this.Id = id;
+        }
+
+        private class AnotherEntity : Entity<int>
+        {
+            public AnotherEntity(int id)
+                => this.Id = id;
         }
 
         [Fact]
@@ -44,11 +51,6 @@
             var entity2 = new AnotherEntity(1);
 
             entity1.Equals(entity2).Should().BeFalse();
-        }
-
-        private class AnotherEntity : Entity<int>
-        {
-            public AnotherEntity(int id) => this.Id = id;
         }
 
         [Fact]

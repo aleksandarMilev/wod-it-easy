@@ -12,11 +12,11 @@
         [HttpGet("search")]
         public async Task<ActionResult<PaginatedOutputModel<SearchWorkoutOutputModel>>> Search(
             [FromQuery] SearchWorkoutQuery query)
-                => await this.Send(query);
+            => await this.Send(query);
 
         [HttpGet("{id}")]
         public async Task<ActionResult<WorkoutDetailsOutputModel?>> Details(
             [FromRoute] int id)
-                => await this.Send(new WorkoutDetailsQuery(id));
+            => await this.Send(new WorkoutDetailsQuery(id));
     }
 }

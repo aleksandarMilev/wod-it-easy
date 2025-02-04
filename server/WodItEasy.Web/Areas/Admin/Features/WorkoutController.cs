@@ -12,17 +12,17 @@
         [HttpPost]
         public async Task<ActionResult<int>> Create(
             [FromBody] CreateWorkoutCommand command)
-                => await this.Send(command);
+            => await this.Send(command);
 
         [HttpPut("{id}")]
         public async Task<ActionResult> Edit(
             [FromRoute] int id,
             [FromBody] EditWorkoutCommand command)
-                => await this.Send(command.SetId(id));
+            => await this.Send(command.SetId(id));
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(
             [FromRoute] int id)
-                => await this.Send(new DeleteWorkoutCommand(id));
+            => await this.Send(new DeleteWorkoutCommand(id));
     }
 }

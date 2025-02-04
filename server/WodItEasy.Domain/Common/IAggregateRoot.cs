@@ -1,6 +1,4 @@
 ﻿namespace WodItEasy.Domain.Common
 {
-    public interface IAggregateRoot
-    {
-    }
+    public interface IAggregateRoot { }
 }

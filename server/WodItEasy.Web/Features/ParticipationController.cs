@@ -16,7 +16,7 @@
         [HttpGet]
         public async Task<ActionResult<PaginatedOutputModel<MyParticipationsOutputModel>>> Mine(
             [FromQuery] MyParticipationsQuery query)
-                => await this.Send(query);
+            => await this.Send(query);
 
         [HttpGet("{athleteId}/{workoutId}")]
         public async Task<ActionResult<int>> GetId(int athleteId, int workoutId)

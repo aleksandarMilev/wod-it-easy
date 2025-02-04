@@ -41,7 +41,7 @@ namespace WodItEasy.Startup
             
             await app.SeedRoles(builder.Configuration);
 
-            app.Run();
+            await app.RunAsync();
         }
     }
 }
