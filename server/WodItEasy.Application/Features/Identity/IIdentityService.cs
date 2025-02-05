@@ -1,17 +1,17 @@
 ﻿namespace WodItEasy.Application.Features.Identity
 {
     using System.Threading.Tasks;
-    using Commands.LoginUser;
-    using Common;
+    using Application.Common;
+    using Commands.Common;
 
     public interface IIdentityService
     {
-        Task<Result<LoginOutputModel>> Register(
+        Task<Result<IdentityOutputModel>> Register(
             string username, 
             string email, 
             string password);
 
-        Task<Result<LoginOutputModel>> Login(
+        Task<Result<IdentityOutputModel>> Login(
             string credentials, 
             string password, 
             bool rememberMe);
