@@ -8,21 +8,21 @@
 
     public class SearchWorkoutOutputModel : IMapFrom<Workout>
     {
-        public int Id { get; set; }
+        public int Id { get; private set; }
 
-        public string Name { get; set; } = null!;
+        public string Name { get; private set; } = null!;
 
-        public string ImageUrl { get; set; } = null!;
+        public string ImageUrl { get; private set; } = null!;
 
-        public int MaxParticipantsCount { get; set; }
+        public int MaxParticipantsCount { get; private set; }
 
-        public int CurrentParticipantsCount { get; set; }
+        public int CurrentParticipantsCount { get; private set; }
 
-        public DateTime StartsAtDate { get; set; }
+        public DateTime StartsAtDate { get; private set; }
 
-        public TimeSpan StartsAtTime { get; set; }
+        public TimeSpan StartsAtTime { get; private set; }
 
-        public string Type { get; set; } = null!;
+        public string Type { get; private set; } = null!;
 
         public void Mapping(Profile profile)
             => profile

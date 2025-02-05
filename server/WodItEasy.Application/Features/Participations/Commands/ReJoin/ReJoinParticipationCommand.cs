@@ -10,10 +10,10 @@
 
     public class ReJoinParticipationCommand : IRequest<Result<int>>
     {
-        public int ParticipationId { get; set; }
-
         public ReJoinParticipationCommand(int participationId)
             => this.ParticipationId = participationId;
+
+        public int ParticipationId { get; private set; }
 
         public class ReJoinParticipationCommandHandler : IRequestHandler<ReJoinParticipationCommand, Result<int>>
         {

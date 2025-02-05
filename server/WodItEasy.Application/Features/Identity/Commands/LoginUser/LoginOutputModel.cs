@@ -5,6 +5,6 @@
         public LoginOutputModel(string token) 
             => this.Token = token;
 
-        public string Token { get; }
+        public string Token { get; private set; }
     }
 }

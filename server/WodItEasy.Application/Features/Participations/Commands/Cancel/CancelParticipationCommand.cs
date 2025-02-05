@@ -10,10 +10,10 @@
 
     public class CancelParticipationCommand : IRequest<Result>
     {
-        public int ParticipationId { get; set; }
-
         public CancelParticipationCommand(int participationId) 
             => this.ParticipationId = participationId;
+
+        public int ParticipationId { get; private set; }
 
         public class CancelParticipationCommandHandler : IRequestHandler<CancelParticipationCommand, Result>
         {

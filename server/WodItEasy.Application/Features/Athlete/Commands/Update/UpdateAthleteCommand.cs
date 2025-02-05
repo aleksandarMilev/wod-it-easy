@@ -8,7 +8,7 @@
 
     public class UpdateAthleteCommand : IRequest<Result>
     {
-        public string Name { get; set; } = null!;
+        public string Name { get; private set; } = null!;
 
         public class UpdateAthleteCommandHandler : IRequestHandler<UpdateAthleteCommand, Result>
         {

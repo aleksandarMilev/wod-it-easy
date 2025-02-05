@@ -9,11 +9,11 @@
 
     public class SearchWorkoutQuery : IRequest<PaginatedOutputModel<SearchWorkoutOutputModel>>
     {
-        public string? StartsAtDate { get; set; }
+        public string? StartsAtDate { get; private set; }
 
-        public int PageIndex { get; set; } = DefaultPageIndex;
+        public int PageIndex { get; private set; } = DefaultPageIndex;
 
-        public int PageSize { get; set; } = DefaultPageSize;
+        public int PageSize { get; private set; } = DefaultPageSize;
 
         public class SearchWorkoutQueryHandler : IRequestHandler<SearchWorkoutQuery, PaginatedOutputModel<SearchWorkoutOutputModel>>
         {

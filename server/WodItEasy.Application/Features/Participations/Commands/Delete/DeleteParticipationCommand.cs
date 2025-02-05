@@ -14,7 +14,7 @@
         public DeleteParticipationCommand(int participationId)
             => this.ParticipationId = participationId;
 
-        public int ParticipationId { get; set; }
+        public int ParticipationId { get; private set; }
 
         public class DeleteParticipationCommandHandler : IRequestHandler<DeleteParticipationCommand, Result>
         {

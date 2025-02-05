@@ -8,21 +8,21 @@
 
     public class RegisterCommand : IRequest<Result<LoginOutputModel>>
     {
-        public string Username { get; set; } = null!;
+        public string Username { get; private set; } = null!;
 
-        public string Email { get; set; } = null!;
+        public string Email { get; private set; } = null!;
 
-        public string Password { get; set; } = null!;
+        public string Password { get; private set; } = null!;
 
         public class RegisterCommandHandler : IRequestHandler<RegisterCommand, Result<LoginOutputModel>>
         {
-            private readonly IIdentityService identityService;
+            private readonly IIdentityService service;
 
-            public RegisterCommandHandler(IIdentityService identity) 
-                => this.identityService = identity;
+            public RegisterCommandHandler(IIdentityService service) 
+                => this.service = service;
 
             public Task<Result<LoginOutputModel>> Handle(RegisterCommand request, CancellationToken cancellationToken)
-                => this.identityService.Register(
+                => this.service.Register(
                     request.Username, 
                     request.Email,
                     request.Password);
