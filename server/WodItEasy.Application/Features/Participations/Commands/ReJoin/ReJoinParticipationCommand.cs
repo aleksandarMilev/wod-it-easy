@@ -2,20 +2,16 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using Common;
+    using Application.Common;
+    using Commands.Common;
     using Contracts;
     using Features.Athlete;
     using Features.Workouts;
     using MediatR;
 
-    public class ReJoinParticipationCommand : IRequest<Result<int>>
+    public class ReJoinParticipationCommand : ParticipationCommand<ReJoinParticipationCommand>, IRequest<Result<ParticipationOutputModel>>
     {
-        public ReJoinParticipationCommand(int participationId)
-            => this.ParticipationId = participationId;
-
-        public int ParticipationId { get; set; }
-
-        public class ReJoinParticipationCommandHandler : IRequestHandler<ReJoinParticipationCommand, Result<int>>
+        public class ReJoinParticipationCommandHandler : IRequestHandler<ReJoinParticipationCommand, Result<ParticipationOutputModel>>
         {
             private const string ParticipationNotFoundErrorMessage = "Participation with Id: {0} does not exist!";
             private const string UnauthorizedErrorMessage = "Current user can not modify this participation!";
@@ -37,9 +33,9 @@
                 this.userService = userService;
             }
 
-            public async Task<Result<int>> Handle(ReJoinParticipationCommand request, CancellationToken cancellationToken)
+            public async Task<Result<ParticipationOutputModel>> Handle(ReJoinParticipationCommand request, CancellationToken cancellationToken)
             {
-                var participation = await this.participationRepository.ById(request.ParticipationId, cancellationToken);
+                var participation = await this.participationRepository.ById(request.Id, cancellationToken);
                 var athleteId = await this.athleteRepository.GetId(this.userService.UserId!, cancellationToken);
 
                 if (participation is null)
@@ -65,7 +61,7 @@
                     await this.workoutRepository.Save(workout, cancellationToken);
                 }
 
-                return participation.Id;
+                return new ParticipationOutputModel(participation.Id);
             }
         }
     }

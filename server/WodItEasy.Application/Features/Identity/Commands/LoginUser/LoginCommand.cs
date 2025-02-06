@@ -1,4 +1,4 @@
-﻿namespace WodItEasy.Application.Features.Identity.Commands.LoginUser
+﻿namespace WodItEasy.Application.Features.Identity.Commands.Login
 {
     using System.Threading;
     using System.Threading.Tasks;
@@ -8,9 +8,9 @@
 
     public class LoginCommand : IRequest<Result<IdentityOutputModel>>
     {
-        public string Credentials { get; set; } = null!;
+        public string Credentials { get; set; } = default!;
 
-        public string Password { get; set; } = null!;
+        public string Password { get; set; } = default!;
 
         public bool RememberMe { get; set; }
 

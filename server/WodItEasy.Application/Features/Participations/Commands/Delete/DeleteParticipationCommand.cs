@@ -2,20 +2,16 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
+    using Application.Common;
     using Athlete;
-    using Common;
+    using Commands.Common;
     using Contracts;
     using Domain.Models.Participation;
     using MediatR;
     using Workouts;
 
-    public class DeleteParticipationCommand : IRequest<Result>
+    public class DeleteParticipationCommand : ParticipationCommand<DeleteParticipationCommand>, IRequest<Result>
     {
-        public DeleteParticipationCommand(int participationId)
-            => this.ParticipationId = participationId;
-
-        public int ParticipationId { get; set; }
-
         public class DeleteParticipationCommandHandler : IRequestHandler<DeleteParticipationCommand, Result>
         {
             private const string ParticipationNotFoundErrorMessage = "Participation with Id: {0} does not exist!";
@@ -40,7 +36,7 @@
 
             public async Task<Result> Handle(DeleteParticipationCommand request, CancellationToken cancellationToken)
             {
-                var participation = await this.participationRepository.ById(request.ParticipationId, cancellationToken);
+                var participation = await this.participationRepository.ById(request.Id, cancellationToken);
 
                 if (participation is null)
                 {
@@ -54,7 +50,7 @@
                     return UnauthorizedErrorMessage;
                 }
 
-                _ = await this.participationRepository.Delete(request.ParticipationId, cancellationToken);
+                _ = await this.participationRepository.Delete(request.Id, cancellationToken);
 
                 if (participation.Status.Equals(ParticipationStatus.Joined))
                 {

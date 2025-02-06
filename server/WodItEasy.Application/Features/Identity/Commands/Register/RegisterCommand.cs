@@ -1,4 +1,4 @@
-﻿namespace WodItEasy.Application.Features.Identity.Commands.CreateUser
+﻿namespace WodItEasy.Application.Features.Identity.Commands.Register
 {
     using System.Threading;
     using System.Threading.Tasks;
@@ -8,11 +8,11 @@
 
     public class RegisterCommand : IRequest<Result<IdentityOutputModel>>
     {
-        public string Username { get; set; } = null!;
+        public string Username { get; set; } = default!;
 
-        public string Email { get; set; } = null!;
+        public string Email { get; set; } = default!;
 
-        public string Password { get; set; } = null!;
+        public string Password { get; set; } = default!;
 
         public class RegisterCommandHandler : IRequestHandler<RegisterCommand, Result<IdentityOutputModel>>
         {

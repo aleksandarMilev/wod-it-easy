@@ -6,26 +6,17 @@
     using Domain.Models.Participation;
     using Mapping;
 
-    public class MyParticipationsOutputModel : IMapFrom<Participation>
+    public record MyParticipationsOutputModel(
+        int Id,
+        int WorkoutId,
+        string WorkoutName,
+        DateTime WorkoutStartsAtDate,
+        TimeSpan WorkoutStartsAtTime,
+        bool WorkoutIsFull,
+        DateTime JoinedAt,
+        DateTime? ModifiedOn,
+        string Status) : IMapFrom<Participation>
     {
-        public int Id { get; set; }
-
-        public int WorkoutId { get; set; }
-
-        public string WorkoutName { get; set; } = default!;
-
-        public DateTime WorkoutStartsAtDate { get; set; }
-
-        public TimeSpan WorkoutStartsAtTime { get; set; }
-
-        public bool WorkoutIsFull { get; set; }
-
-        public DateTime JoinedAt { get; set; }
-
-        public DateTime? ModifiedOn { get; set; }
-
-        public string Status { get; set; } = default!;
-
         public void Mapping(Profile mapper)
             => mapper
                 .CreateMap<Participation, MyParticipationsOutputModel>()

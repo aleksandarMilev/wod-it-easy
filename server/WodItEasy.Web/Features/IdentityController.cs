@@ -2,8 +2,8 @@
 {
     using System.Threading.Tasks;
     using Application.Features.Identity.Commands.Common;
-    using Application.Features.Identity.Commands.CreateUser;
-    using Application.Features.Identity.Commands.LoginUser;
+    using Application.Features.Identity.Commands.Login;
+    using Application.Features.Identity.Commands.Register;
     using Common;
     using Microsoft.AspNetCore.Mvc;
 

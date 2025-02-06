@@ -4,13 +4,8 @@
     using System.Threading.Tasks;
     using MediatR;
 
-    public class WorkoutDetailsQuery : IRequest<WorkoutDetailsOutputModel?>
+    public class WorkoutDetailsQuery : EntityQuery<int>, IRequest<WorkoutDetailsOutputModel?>
     {
-        public WorkoutDetailsQuery(int id)
-            => this.Id = id;
-
-        public int Id { get; set; }
-
         public class WorkoutDetailsQueryHandler : IRequestHandler<WorkoutDetailsQuery, WorkoutDetailsOutputModel?>
         {
             private readonly IWorkoutRepository repository;

@@ -17,12 +17,12 @@
             => await this.Send(query);
 
         [HttpGet("id")]
-        public async Task<ActionResult<int?>> GetId(
+        public async Task<ActionResult<GetAthleteIdOutputModel>> GetId(
             [FromRoute] GetAthleteIdQuery query)
             => await this.Send(query);
 
         [HttpPost]
-        public async Task<ActionResult<int>> Create(CreateAthleteCommand command)
+        public async Task<ActionResult<CreateAthleteOutputModel>> Create(CreateAthleteCommand command)
             => await this.Send(command);
 
         [HttpPut]

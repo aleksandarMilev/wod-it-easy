@@ -3,8 +3,9 @@
     using System;
     using System.Threading;
     using System.Threading.Tasks;
+    using Application.Common;
     using Athlete;
-    using Common;
+    using Commands.Common;
     using Domain.Factories.Participation;
     using Domain.Models.Athletes;
     using Domain.Models.Participation;
@@ -12,13 +13,13 @@
     using MediatR;
     using Workouts;
 
-    public class CreateParticipationCommand : IRequest<Result<int>>
+    public class CreateParticipationCommand : IRequest<Result<ParticipationOutputModel>>
     {
         public int WorkoutId { get; set; }
 
         public int AthleteId { get; set; }
 
-        public class CreateParticipationCommandHandler : IRequestHandler<CreateParticipationCommand, Result<int>>
+        public class CreateParticipationCommandHandler : IRequestHandler<CreateParticipationCommand, Result<ParticipationOutputModel>>
         {
             private const string NotFoundErrorMessage = "{0} with Id: {1} not found!";
 
@@ -39,7 +40,7 @@
                 this.athleteRepository = athleteRepository;
             }
 
-            public async Task<Result<int>> Handle(CreateParticipationCommand request, CancellationToken cancellationToken)
+            public async Task<Result<ParticipationOutputModel>> Handle(CreateParticipationCommand request, CancellationToken cancellationToken)
             {
                 var athlete = await this.athleteRepository.ById(request.AthleteId, cancellationToken);
 
@@ -68,7 +69,7 @@
 
                 await this.workoutRepository.Save(workout, cancellationToken);
 
-                return participation.Id;
+                return new ParticipationOutputModel(participation.Id);
             }
         }
     }

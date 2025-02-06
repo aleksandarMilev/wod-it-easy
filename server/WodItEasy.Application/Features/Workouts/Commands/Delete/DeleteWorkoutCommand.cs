@@ -2,25 +2,31 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using Common;
+    using Application.Common;
     using MediatR;
 
-    public class DeleteWorkoutCommand : IRequest<Result>
+    public class DeleteWorkoutCommand : EntityCommand<int>, IRequest<Result>
     {
-        public DeleteWorkoutCommand(int id)
-            => this.Id = id;
-
-        public int Id { get; set; }
-
         public class DeleteWorkoutCommandHandler : IRequestHandler<DeleteWorkoutCommand, Result>
         {
+            private const string NotFoundErrorMessage = "Workout with Id: {0} not found!";
+
             private readonly IWorkoutRepository repository;
 
             public DeleteWorkoutCommandHandler(IWorkoutRepository repository) 
                 => this.repository = repository;
 
             public async Task<Result> Handle(DeleteWorkoutCommand request, CancellationToken cancellationToken)
-                => await this.repository.Delete(request.Id, cancellationToken);
+            {
+                 var success = await this.repository.Delete(request.Id, cancellationToken);
+
+                if (success)
+                {
+                    return Result.Success;
+                }
+
+                return string.Format(NotFoundErrorMessage, request.Id);
+            }
         }
     }
 }

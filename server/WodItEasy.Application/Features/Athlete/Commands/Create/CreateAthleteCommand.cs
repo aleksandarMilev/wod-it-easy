@@ -2,15 +2,14 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
+    using Common;
     using Contracts;
     using Domain.Factories.Athlete;
     using MediatR;
 
-    public class CreateAthleteCommand : IRequest<int>
+    public class CreateAthleteCommand : AthleteCommand<CreateAthleteCommand>, IRequest<CreateAthleteOutputModel>
     {
-        public string Name { get; set; } = null!;
-
-        public class CreateAthleteCommandHandler : IRequestHandler<CreateAthleteCommand, int>
+        public class CreateAthleteCommandHandler : IRequestHandler<CreateAthleteCommand, CreateAthleteOutputModel>
         {
             private readonly IAthleteFactory factory;
             private readonly IAthleteRepository repository;
@@ -26,7 +25,7 @@
                 this.userService = userService;
             }
 
-            public async Task<int> Handle(CreateAthleteCommand request, CancellationToken cancellationToken)
+            public async Task<CreateAthleteOutputModel> Handle(CreateAthleteCommand request, CancellationToken cancellationToken)
             {
                 var athlete = this.factory
                     .WithName(request.Name)
@@ -35,7 +34,7 @@
 
                 await this.repository.Save(athlete, cancellationToken);
 
-                return athlete.Id;
+                return new CreateAthleteOutputModel(athlete.Id);
             }
         }
     }

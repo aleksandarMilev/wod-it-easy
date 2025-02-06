@@ -2,10 +2,10 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using Common;
+    using Application.Common;
     using MediatR;
 
-    using static Common.DefaultValues;
+    using static Application.Common.DefaultValues;
 
     public class SearchWorkoutQuery : IRequest<PaginatedOutputModel<SearchWorkoutOutputModel>>
     {

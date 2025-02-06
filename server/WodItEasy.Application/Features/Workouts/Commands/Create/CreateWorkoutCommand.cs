@@ -4,28 +4,15 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Application.Common;
+    using Commands.Common;
     using Domain.Common;
     using Domain.Factories.Workout;
     using Domain.Models.Workouts;
     using MediatR;
-
-    public class CreateWorkoutCommand : IRequest<Result<int>>
+    
+    public class CreateWorkoutCommand : WorkoutCommand<CreateWorkoutCommand>, IRequest<Result<CreateWorkoutOutputModel>>
     {
-        public string Name { get; set; } = null!;
-
-        public string ImageUrl { get; set; } = null!;
-
-        public string Description { get; set; } = null!;
-
-        public int MaxParticipantsCount { get; set; }
-
-        public string StartsAtDate { get; set; } = null!;
-
-        public string StartsAtTime { get; set; } = null!;
-
-        public int Type { get; set; }
-
-        public class CreateWorkoutCommandHandler : IRequestHandler<CreateWorkoutCommand, Result<int>>
+        public class CreateWorkoutCommandHandler : IRequestHandler<CreateWorkoutCommand, Result<CreateWorkoutOutputModel>>
         {
             private const string OverlappingErrorMessage = "A Workout is already scheduled in this date and time, please select another one.";
 
@@ -38,7 +25,7 @@
                 this.factory = factory;
             }
 
-            public async Task<Result<int>> Handle(CreateWorkoutCommand request, CancellationToken cancellationToken)
+            public async Task<Result<CreateWorkoutOutputModel>> Handle(CreateWorkoutCommand request, CancellationToken cancellationToken)
             {
                 var workout = this.factory
                     .WithName(request.Name)
@@ -62,7 +49,7 @@
 
                 await this.repository.Save(workout, cancellationToken);
 
-                return workout.Id;
+                return new CreateWorkoutOutputModel(workout.Id);
             }
         }
     }

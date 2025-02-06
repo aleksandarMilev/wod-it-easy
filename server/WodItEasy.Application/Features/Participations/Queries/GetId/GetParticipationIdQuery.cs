@@ -4,7 +4,7 @@
     using System.Threading.Tasks;
     using MediatR;
 
-    public class GetParticipationIdQuery : IRequest<int>
+    public class GetParticipationIdQuery : IRequest<GetParticipationIdOutputModel>
     {
         public GetParticipationIdQuery(int athleteId, int workoutId)
         {
@@ -16,18 +16,22 @@
 
         public int WorkoutId { get; set; }
 
-        public class GetParticipationIdQueryHandler : IRequestHandler<GetParticipationIdQuery, int>
+        public class GetParticipationIdQueryHandler : IRequestHandler<GetParticipationIdQuery, GetParticipationIdOutputModel>
         {
             private readonly IParticipationRepository repository;
 
             public GetParticipationIdQueryHandler(IParticipationRepository repository)
                 => this.repository = repository;
 
-            public async Task<int> Handle(GetParticipationIdQuery request, CancellationToken cancellationToken)
-                => await this.repository.GetId(
-                    request.AthleteId, 
-                    request.WorkoutId, 
+            public async Task<GetParticipationIdOutputModel> Handle(GetParticipationIdQuery request, CancellationToken cancellationToken)
+            {
+                var id = await this.repository.GetId(
+                    request.AthleteId,
+                    request.WorkoutId,
                     cancellationToken);
+
+                return new GetParticipationIdOutputModel(id);
+            }
         }
     }
 }

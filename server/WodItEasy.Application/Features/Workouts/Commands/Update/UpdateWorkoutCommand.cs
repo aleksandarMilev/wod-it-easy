@@ -1,30 +1,17 @@
-﻿namespace WodItEasy.Application.Features.Workouts.Commands.Edit
+﻿namespace WodItEasy.Application.Features.Workouts.Commands.Update
 {
     using System;
     using System.Threading;
     using System.Threading.Tasks;
-    using Common;
+    using Application.Common;
+    using Commands.Common;
     using Domain.Common;
     using Domain.Models.Workouts;
     using MediatR;
-
-    public class EditWorkoutCommand : EntityCommand<int>, IRequest<Result>
+    
+    public class UpdateWorkoutCommand : WorkoutCommand<UpdateWorkoutCommand>, IRequest<Result>
     {
-        public string Name { get; set; } = null!;
-
-        public string ImageUrl { get; set; } = null!;
-
-        public string Description { get; set; } = null!;
-
-        public int MaxParticipantsCount { get; set; }
-
-        public string StartsAtDate { get; set; } = null!;
-
-        public string StartsAtTime { get; set; } = null!;
-
-        public int Type { get; set; }
-
-        public class EditWorkoutCommandHandler : IRequestHandler<EditWorkoutCommand, Result>
+        public class EditWorkoutCommandHandler : IRequestHandler<UpdateWorkoutCommand, Result>
         {
             private const string NotFoundErrorMessage = "Workout not found!";
             private const string InvalidMaxParticipantsErrorMessage = "New MaxParticipantsCount value should be greater than CurrentParticipantsCount value!";
@@ -35,7 +22,7 @@
             public EditWorkoutCommandHandler(IWorkoutRepository repository) 
                 => this.repository = repository;
 
-            public async Task<Result> Handle(EditWorkoutCommand request, CancellationToken cancellationToken)
+            public async Task<Result> Handle(UpdateWorkoutCommand request, CancellationToken cancellationToken)
             {
                 var workout = await this.repository.ById(request.Id, cancellationToken);
                 

@@ -3,13 +3,12 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Application.Common;
+    using Commands.Common;
     using Contracts;
     using MediatR;
 
-    public class UpdateAthleteCommand : IRequest<Result>
+    public class UpdateAthleteCommand : AthleteCommand<UpdateAthleteCommand>, IRequest<Result>
     {
-        public string Name { get; set; } = null!;
-
         public class UpdateAthleteCommandHandler : IRequestHandler<UpdateAthleteCommand, Result>
         {
             const string NotFoundErrorMessage = "Athlete with UserId: {0} was not found!";

@@ -2,19 +2,15 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using Common;
+    using Application.Common;
+    using Commands.Common;
     using Contracts;
     using Features.Athlete;
     using Features.Workouts;
     using MediatR;
 
-    public class CancelParticipationCommand : IRequest<Result>
+    public class CancelParticipationCommand : ParticipationCommand<CancelParticipationCommand>, IRequest<Result>
     {
-        public CancelParticipationCommand(int participationId) 
-            => this.ParticipationId = participationId;
-
-        public int ParticipationId { get; set; }
-
         public class CancelParticipationCommandHandler : IRequestHandler<CancelParticipationCommand, Result>
         {
             private const string ParticipationNotFoundErrorMessage = "Participation with Id: {0} does not exist!";
@@ -39,7 +35,7 @@
 
             public async Task<Result> Handle(CancelParticipationCommand request, CancellationToken cancellationToken)
             {
-                var participation = await this.participationRepository.ById(request.ParticipationId, cancellationToken);
+                var participation = await this.participationRepository.ById(request.Id, cancellationToken);
                 var athleteId = await this.athleteRepository.GetId(this.userService.UserId!, cancellationToken);
 
                 if (participation is null)

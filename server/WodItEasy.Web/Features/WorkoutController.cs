@@ -16,7 +16,7 @@
 
         [HttpGet("{id}")]
         public async Task<ActionResult<WorkoutDetailsOutputModel?>> Details(
-            [FromRoute] int id)
-            => await this.Send(new WorkoutDetailsQuery(id));
+            [FromRoute] WorkoutDetailsQuery query)
+            => await this.Send(query);
     }
 }
