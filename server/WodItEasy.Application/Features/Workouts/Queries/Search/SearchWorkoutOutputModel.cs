@@ -1,25 +1,15 @@
 ﻿namespace WodItEasy.Application.Features.Workouts.Queries.Search
 {
-    using System;
+    using AutoMapper;
     using Common;
+    using Domain.Models.Workouts;
+    using Mapping;
 
-    public record SearchWorkoutOutputModel(
-        int Id,
-        string Name,
-        string ImageUrl,
-        int MaxParticipantsCount,
-        int CurrentParticipantsCount,
-        DateTime StartsAtDate,
-        TimeSpan StartsAtTime,
-        string Type) : WorkoutOutputModel(
-            Id,
-            Name,
-            ImageUrl,
-            MaxParticipantsCount,
-            CurrentParticipantsCount,
-            StartsAtDate,
-            StartsAtTime,
-            Type)
+    public class SearchWorkoutOutputModel : WorkoutOutputModel, IMapFrom<Workout>
     {
+        public override void Mapping(Profile mapper)
+            => mapper
+                .CreateMap<Workout, SearchWorkoutOutputModel>()
+                .IncludeBase<Workout, WorkoutOutputModel>();
     }
 }

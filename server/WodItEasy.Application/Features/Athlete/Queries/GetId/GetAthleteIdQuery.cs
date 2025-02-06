@@ -5,9 +5,9 @@
     using Contracts;
     using MediatR;
 
-    public class GetAthleteIdQuery : IRequest<GetAthleteIdOutputModel>
+    public class GetAthleteIdQuery : IRequest<GetAthleteIdOutputModel?>
     {
-        public class GetAthleteIdQueryHandler : IRequestHandler<GetAthleteIdQuery, GetAthleteIdOutputModel>
+        public class GetAthleteIdQueryHandler : IRequestHandler<GetAthleteIdQuery, GetAthleteIdOutputModel?>
         {
             private readonly IAthleteRepository repository;
             private readonly ICurrentUserService userService;
@@ -18,13 +18,18 @@
                 this.userService = userService;
             }
 
-            public async Task<GetAthleteIdOutputModel> Handle(GetAthleteIdQuery request, CancellationToken cancellationToken)
+            public async Task<GetAthleteIdOutputModel?> Handle(GetAthleteIdQuery request, CancellationToken cancellationToken)
             {
                 var id = await this.repository.GetId(
                     this.userService.UserId!,
                     cancellationToken);
 
-                return new GetAthleteIdOutputModel(id);
+                if (id is null)
+                {
+                    return null;
+                }
+
+                return new GetAthleteIdOutputModel() { Id = id.Value };
             }
         }
     }

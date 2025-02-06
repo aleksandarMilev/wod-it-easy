@@ -26,7 +26,8 @@
             => await this.Send(new GetParticipationIdQuery(athleteId, workoutId)); 
 
         [HttpPost]
-        public async Task<ActionResult<ParticipationOutputModel>> Create(CreateParticipationCommand command)
+        public async Task<ActionResult<ParticipationOutputModel>> Create(
+            CreateParticipationCommand command)
             => await this.Send(command);
 
         [HttpDelete("{id}")]

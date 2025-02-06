@@ -1,26 +1,17 @@
 ﻿namespace WodItEasy.Application.Features.Workouts.Queries.Details
 {
-    using System;
+    using AutoMapper;
     using Common;
+    using Domain.Models.Workouts;
+    using Mapping;
 
-    public record WorkoutDetailsOutputModel(
-        int Id,
-        string Name,
-        string ImageUrl,
-        int MaxParticipantsCount,
-        int CurrentParticipantsCount,
-        DateTime StartsAtDate,
-        TimeSpan StartsAtTime,
-        string Type,
-        string Description) : WorkoutOutputModel(
-            Id,
-            Name,
-            ImageUrl,
-            MaxParticipantsCount,
-            CurrentParticipantsCount,
-            StartsAtDate,
-            StartsAtTime,
-            Type)
+    public class WorkoutDetailsOutputModel : WorkoutOutputModel, IMapFrom<Workout>
     {
+        public string Description { get; set; } = default!;
+
+        public override void Mapping(Profile mapper)
+            => mapper
+                .CreateMap<Workout, WorkoutDetailsOutputModel>()
+                .IncludeBase<Workout, WorkoutOutputModel>();
     }
 }

@@ -30,7 +30,7 @@
                     request.WorkoutId,
                     cancellationToken);
 
-                return new GetParticipationIdOutputModel(id);
+                return new GetParticipationIdOutputModel() { Id = id };
             }
         }
     }

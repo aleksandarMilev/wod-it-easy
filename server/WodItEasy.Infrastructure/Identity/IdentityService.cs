@@ -4,10 +4,11 @@
     using System.Threading.Tasks;
     using Application.Common;
     using Application.Features.Identity;
-    using Application.Features.Identity.Commands.Common;
+    using Application.Features.Identity.Commands.Login;
+    using Application.Features.Identity.Commands.Register;
     using Jwt;
     using Microsoft.AspNetCore.Identity;
-
+   
     using static Constants;
 
     public class IdentityService : IIdentityService
@@ -21,7 +22,7 @@
             this.jwtTokenGenerator = jwtTokenGenerator;
         }
 
-        public async Task<Result<IdentityOutputModel>> Register(string username, string email, string password)
+        public async Task<Result<RegisterOutputModel>> Register(string username, string email, string password)
         {
             var user = new User()
             {
@@ -35,13 +36,13 @@
             {
                 var token = this.jwtTokenGenerator.GenerateJwtToken(user.Id, user.UserName, user.Email!);
 
-                return new IdentityOutputModel(token);
+                return new RegisterOutputModel() { Token = token };
             }
 
             return string.Join("; ", identityResult.Errors.Select(e => e.Description));
         }
 
-        public async Task<Result<IdentityOutputModel>> Login(string credentials, string password, bool rememberMe)
+        public async Task<Result<LoginOutputModel>> Login(string credentials, string password, bool rememberMe)
         {
             var user = await this.userManager.FindByNameAsync(credentials);
             user ??= await this.userManager.FindByEmailAsync(credentials);
@@ -64,7 +65,7 @@
                     rememberMe,
                     isAdmin);
 
-                return new IdentityOutputModel(token);
+                return new LoginOutputModel() { Token = token };
             }
 
             return InvalidLoginErrorMessage;

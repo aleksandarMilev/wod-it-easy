@@ -34,7 +34,7 @@
 
                 await this.repository.Save(athlete, cancellationToken);
 
-                return new CreateAthleteOutputModel(athlete.Id);
+                return new CreateAthleteOutputModel() { Id = athlete.Id };
             }
         }
     }

@@ -6,23 +6,31 @@
     using Domain.Models.Workouts;
     using Mapping;
 
-    public record WorkoutOutputModel(
-        int Id,
-        string Name,
-        string ImageUrl,
-        int MaxParticipantsCount,
-        int CurrentParticipantsCount,
-        DateTime StartsAtDate,
-        TimeSpan StartsAtTime,
-        string Type) : IMapFrom<Workout>
+    public class WorkoutOutputModel : IMapFrom<Workout>
     {
-        public void Mapping(Profile mapper)
+        public int Id { get; set; }
+
+        public string Name { get; set; } = default!;
+
+        public string ImageUrl { get; set; } = default!;
+
+        public int MaxParticipantsCount { get; set; }
+
+        public int CurrentParticipantsCount { get; set; }
+
+        public DateTime StartsAtDate { get; set; }
+
+        public TimeSpan StartsAtTime { get; set; }
+
+        public string Type { get; set; } = default!;
+
+        public virtual void Mapping(Profile mapper)
             => mapper
                 .CreateMap<Workout, WorkoutOutputModel>()
                 .ForMember(
                     dest => dest.Type,
                     opt => opt.MapFrom(
-                         src => Enumeration.NameFromValue<WorkoutType>(
+                        src => Enumeration.NameFromValue<WorkoutType>(
                             src.Type != null
                                 ? src.Type.Value
                                 : WorkoutType.CrossFit.Value)));

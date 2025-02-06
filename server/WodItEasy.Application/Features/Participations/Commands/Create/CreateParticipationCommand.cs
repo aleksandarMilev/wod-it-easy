@@ -69,7 +69,7 @@
 
                 await this.workoutRepository.Save(workout, cancellationToken);
 
-                return new ParticipationOutputModel(participation.Id);
+                return new ParticipationOutputModel() { Id = participation.Id };
             }
         }
     }

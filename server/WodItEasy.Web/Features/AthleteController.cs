@@ -1,5 +1,6 @@
 ﻿namespace WodItEasy.Web.Features
 {
+    using System;
     using System.Threading.Tasks;
     using Application.Features.Athlete.Commands.Create;
     using Application.Features.Athlete.Commands.Delete;
@@ -11,22 +12,25 @@
 
     public class AthleteController : AuthenticatedApiController
     {
-        [HttpGet]
-        public async Task<ActionResult<GetAthleteOutputModel?>> Get(
-            [FromRoute] GetAthleteQuery query)
-            => await this.Send(query);
 
         [HttpGet("id")]
-        public async Task<ActionResult<GetAthleteIdOutputModel>> GetId(
+        public async Task<ActionResult<GetAthleteIdOutputModel?>> Id(
             [FromRoute] GetAthleteIdQuery query)
             => await this.Send(query);
 
+        [HttpGet]
+        public async Task<ActionResult<GetAthleteOutputModel?>> Details(
+            [FromRoute] GetAthleteQuery query)
+            => await this.Send(query);
+
         [HttpPost]
-        public async Task<ActionResult<CreateAthleteOutputModel>> Create(CreateAthleteCommand command)
+        public async Task<ActionResult<CreateAthleteOutputModel>> Create(
+            CreateAthleteCommand command)
             => await this.Send(command);
 
         [HttpPut]
-        public async Task<ActionResult> Update(UpdateAthleteCommand command)
+        public async Task<ActionResult> Update(
+            UpdateAthleteCommand command)
             => await this.Send(command);
 
         [HttpDelete]

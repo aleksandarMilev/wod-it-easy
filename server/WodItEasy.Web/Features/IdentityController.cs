@@ -1,7 +1,6 @@
 ﻿namespace WodItEasy.Web.Features
 {
     using System.Threading.Tasks;
-    using Application.Features.Identity.Commands.Common;
     using Application.Features.Identity.Commands.Login;
     using Application.Features.Identity.Commands.Register;
     using Common;
@@ -10,11 +9,13 @@
     public class IdentityController : ApiController
     {
         [HttpPost("register")]
-        public async Task<ActionResult<IdentityOutputModel>> Register(RegisterCommand command) 
+        public async Task<ActionResult<RegisterOutputModel>> Register(
+            RegisterCommand command) 
             => await this.Send(command);
 
         [HttpPost("login")]
-        public async Task<ActionResult<IdentityOutputModel>> Login(LoginCommand command) 
+        public async Task<ActionResult<LoginOutputModel>> Login(
+            LoginCommand command) 
             => await this.Send(command);
     }
 }

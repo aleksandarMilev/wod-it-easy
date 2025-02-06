@@ -1,4 +1,4 @@
 ﻿namespace WodItEasy.Application.Features.Participations.Commands.Common
 {
-    public record ParticipationOutputModel(int Id) { }
+    public class ParticipationOutputModel : EntityOutputModel<int> { }
 }

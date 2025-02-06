@@ -49,7 +49,7 @@
 
                 await this.repository.Save(workout, cancellationToken);
 
-                return new CreateWorkoutOutputModel(workout.Id);
+                return new CreateWorkoutOutputModel() { Id = workout.Id };
             }
         }
     }

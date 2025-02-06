@@ -3,5 +3,8 @@
     using Domain.Models.Athletes;
     using Mapping;
 
-    public record GetAthleteOutputModel(string Name) : IMapFrom<Athlete> { }
+    public class GetAthleteOutputModel : IMapFrom<Athlete>
+    {
+        public string Name { get; set; } = default!;
+    }
 }

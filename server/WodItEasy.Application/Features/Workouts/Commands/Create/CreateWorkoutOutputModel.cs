@@ -1,4 +1,4 @@
 ﻿namespace WodItEasy.Application.Features.Workouts.Commands.Create
 {
-    public record CreateWorkoutOutputModel(int Id) { }
+    public class CreateWorkoutOutputModel : EntityOutputModel<int> { }
 }
