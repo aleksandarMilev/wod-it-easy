@@ -13,7 +13,7 @@
         public CancelParticipationCommand(int participationId) 
             => this.ParticipationId = participationId;
 
-        public int ParticipationId { get; private set; }
+        public int ParticipationId { get; set; }
 
         public class CancelParticipationCommandHandler : IRequestHandler<CancelParticipationCommand, Result>
         {

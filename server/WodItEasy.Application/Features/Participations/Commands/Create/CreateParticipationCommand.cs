@@ -14,9 +14,9 @@
 
     public class CreateParticipationCommand : IRequest<Result<int>>
     {
-        public int WorkoutId { get; private set; }
+        public int WorkoutId { get; set; }
 
-        public int AthleteId { get; private set; }
+        public int AthleteId { get; set; }
 
         public class CreateParticipationCommandHandler : IRequestHandler<CreateParticipationCommand, Result<int>>
         {

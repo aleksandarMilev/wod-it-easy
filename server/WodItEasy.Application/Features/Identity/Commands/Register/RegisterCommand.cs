@@ -8,11 +8,11 @@
 
     public class RegisterCommand : IRequest<Result<IdentityOutputModel>>
     {
-        public string Username { get; private set; } = null!;
+        public string Username { get; set; } = null!;
 
-        public string Email { get; private set; } = null!;
+        public string Email { get; set; } = null!;
 
-        public string Password { get; private set; } = null!;
+        public string Password { get; set; } = null!;
 
         public class RegisterCommandHandler : IRequestHandler<RegisterCommand, Result<IdentityOutputModel>>
         {

@@ -8,11 +8,11 @@
 
     public class LoginCommand : IRequest<Result<IdentityOutputModel>>
     {
-        public string Credentials { get; private set; } = null!;
+        public string Credentials { get; set; } = null!;
 
-        public string Password { get; private set; } = null!;
+        public string Password { get; set; } = null!;
 
-        public bool RememberMe { get; private set; }
+        public bool RememberMe { get; set; }
 
         public class LoginCommandHandler : IRequestHandler<LoginCommand, Result<IdentityOutputModel>>
         {

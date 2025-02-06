@@ -10,19 +10,19 @@
 
     public class EditWorkoutCommand : EntityCommand<int>, IRequest<Result>
     {
-        public string Name { get; private set; } = null!;
+        public string Name { get; set; } = null!;
 
-        public string ImageUrl { get; private set; } = null!;
+        public string ImageUrl { get; set; } = null!;
 
-        public string Description { get; private set; } = null!;
+        public string Description { get; set; } = null!;
 
-        public int MaxParticipantsCount { get; private set; }
+        public int MaxParticipantsCount { get; set; }
 
-        public string StartsAtDate { get; private set; } = null!;
+        public string StartsAtDate { get; set; } = null!;
 
-        public string StartsAtTime { get; private set; } = null!;
+        public string StartsAtTime { get; set; } = null!;
 
-        public int Type { get; private set; }
+        public int Type { get; set; }
 
         public class EditWorkoutCommandHandler : IRequestHandler<EditWorkoutCommand, Result>
         {
