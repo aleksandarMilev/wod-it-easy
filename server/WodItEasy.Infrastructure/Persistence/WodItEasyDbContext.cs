@@ -17,6 +17,8 @@
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
 
+    using static Common.Constants;
+
     internal class WodItEasyDbContext : IdentityDbContext<User>
     {
         private readonly PublishDomainEventInterceptor eventInterceptor;
@@ -77,13 +79,13 @@
                 .ForEach(e =>
                 {
                     var utcNow = DateTime.UtcNow;
-                    var username = this.userService.Username;
+                    var username = this.userService.Username ?? AdminRoleName;
 
                     if (e.State == EntityState.Deleted && 
                         e.Entity is IDeletableEntity deletableEntity)
                     {
                         deletableEntity.DeletedOn = utcNow;
-                        deletableEntity.DeletedBy = username!;
+                        deletableEntity.DeletedBy = username;
                         deletableEntity.IsDeleted = true;
 
                         e.State = EntityState.Modified;
@@ -96,7 +98,7 @@
                         if (e.State == EntityState.Added)
                         {
                             entity.CreatedOn = utcNow;
-                            entity.CreatedBy = username!;
+                            entity.CreatedBy = username;
                         }
                         else if (e.State == EntityState.Modified)
                         {

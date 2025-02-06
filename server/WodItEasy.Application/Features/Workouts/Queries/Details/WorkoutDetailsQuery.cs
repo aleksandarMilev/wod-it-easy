@@ -9,7 +9,7 @@
         public WorkoutDetailsQuery(int id)
             => this.Id = id;
 
-        public int Id { get; private set; }
+        public int Id { get; set; }
 
         public class WorkoutDetailsQueryHandler : IRequestHandler<WorkoutDetailsQuery, WorkoutDetailsOutputModel?>
         {

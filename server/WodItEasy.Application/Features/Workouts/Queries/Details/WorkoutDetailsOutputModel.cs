@@ -8,30 +8,33 @@
 
     public class WorkoutDetailsOutputModel : IMapFrom<Workout>
     {
-        public int Id { get; private set; }
+        public int Id { get; set; }
 
-        public string Name { get; private set; } = null!;
+        public string Name { get; set; } = null!;
 
-        public string ImageUrl { get; private set; } = null!;
+        public string ImageUrl { get; set; } = null!;
 
-        public string Description { get; private set; } = null!;
+        public string Description { get; set; } = null!;
 
-        public int MaxParticipantsCount { get; private set; }
+        public int MaxParticipantsCount { get; set; }
 
-        public int CurrentParticipantsCount { get; private set; }
+        public int CurrentParticipantsCount { get; set; }
 
-        public DateTime StartsAtDate { get; private set; }
+        public DateTime StartsAtDate { get; set; }
 
-        public TimeSpan StartsAtTime { get; private set; }
+        public TimeSpan StartsAtTime { get; set; }
 
-        public string Type { get; private set; } = null!;
+        public string Type { get; set; } = null!;
 
-        public void Mapping(Profile profile)
-            => profile
+        public void Mapping(Profile mapper)
+            => mapper
                 .CreateMap<Workout, WorkoutDetailsOutputModel>()
                 .ForMember(
                     dest => dest.Type,
                     opt => opt.MapFrom(
-                        src => Enumeration.NameFromValue<WorkoutType>(src.Type.Value)));
+                         src => Enumeration.NameFromValue<WorkoutType>(
+                            src.Type != null
+                                ? src.Type.Value
+                                : WorkoutType.CrossFit.Value)));
     }
 }

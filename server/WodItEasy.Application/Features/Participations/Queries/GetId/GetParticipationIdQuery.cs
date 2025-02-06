@@ -12,9 +12,9 @@
             this.WorkoutId = workoutId;
         }
 
-        public int AthleteId { get; private set; }
+        public int AthleteId { get; set; }
 
-        public int WorkoutId { get; private set; }
+        public int WorkoutId { get; set; }
 
         public class GetParticipationIdQueryHandler : IRequestHandler<GetParticipationIdQuery, int>
         {

@@ -12,9 +12,9 @@
 
     public class MyParticipationsQuery : IRequest<PaginatedOutputModel<MyParticipationsOutputModel>>
     {
-        public int PageIndex { get; private set; } = DefaultPageIndex;
+        public int PageIndex { get; set; } = DefaultPageIndex;
 
-        public int PageSize { get; private set; } = DefaultPageSize;
+        public int PageSize { get; set; } = DefaultPageSize;
 
         public class MyParticipationsQueryHandler : IRequestHandler<MyParticipationsQuery, PaginatedOutputModel<MyParticipationsOutputModel>>
         {

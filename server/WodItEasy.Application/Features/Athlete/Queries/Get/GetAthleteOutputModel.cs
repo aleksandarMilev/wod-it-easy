@@ -5,6 +5,6 @@
 
     public class GetAthleteOutputModel : IMapFrom<Athlete>
     {
-        public string Name { get; private set; } = null!;
+        public string Name { get; set; } = null!;
     }
 }

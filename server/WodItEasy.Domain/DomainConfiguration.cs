@@ -1,8 +1,10 @@
 ﻿namespace WodItEasy.Domain
 {
     using System.Reflection;
+    using Common;
     using Factories;
     using Microsoft.Extensions.DependencyInjection;
+    using Models.Workouts;
 
     public static class DomainConfiguration
     {
@@ -16,6 +18,7 @@
                         .AsMatchingInterface()
                         .WithTransientLifetime();
                 })
-                .AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+                .AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()))
+                .AddTransient<IInitialData, WorkoutData>();
     }
 }
