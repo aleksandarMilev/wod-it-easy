@@ -1,19 +1,19 @@
 .footer {
-    background-color: #333;
-    color: white;
-    padding: 20px;
-    text-align: center;
-    flex-shrink: 0
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  flex-shrink: 0;
 }
 
 .footer p {
-    font-size: 1rem;
-    font-family: cursive
+  font-size: 1rem;
+  font-family: cursive;
 }
 
 .footer a {
-    font-family: Arial, sans-serif;
-    text-decoration: none;
-    color: inherit;
-    margin-left: 5px
+  font-family: Arial, sans-serif;
+  text-decoration: none;
+  color: inherit;
+  margin-left: 5px;
 }

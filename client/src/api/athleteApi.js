@@ -15,7 +15,8 @@ export async function getId(token) {
   const response = await requester.get(baseUrl + routes.athlete.getId, token);
 
   if (response.ok) {
-    return await response.json();
+    const result = await response.json();
+    return result.id;
   } else if (response.status === 404) {
     return null;
   }
@@ -31,9 +32,8 @@ export async function create(data, token) {
   );
 
   if (response.ok) {
-    return await response.json();
-  } else {
-    console.log(response);
+    const result = await response.json();
+    return result.id;
   }
 
   throw new Error(errorMessages.genericError);

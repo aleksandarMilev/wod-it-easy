@@ -1,7 +1,5 @@
-import WorkoutForm from '../form/WorkoutForm'
+import WorkoutForm from "../form/WorkoutForm";
 
-export default function CreateWorkout(){
-    return(
-        <WorkoutForm />
-    )
+export default function CreateWorkout() {
+  return <WorkoutForm />;
 }

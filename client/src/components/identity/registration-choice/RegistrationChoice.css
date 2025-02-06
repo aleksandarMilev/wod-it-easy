@@ -1,65 +1,65 @@
 .registration-choice {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 20px;
-    height: 100vh
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  height: 100vh;
 }
 
 .registration-choice h2 {
-    font-size: 2rem;
-    color: #333;
-    margin-bottom: 30px
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 30px;
 }
 
 .options-container {
-    display: flex;
-    justify-content: center;
-    gap: 20px
+  display: flex;
+  justify-content: center;
+  gap: 20px;
 }
 
 .option-card {
-    background-color: #f7f7f7;
-    border-radius: 8px;
-    padding: 30px;
-    width: 280px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1)
+  background-color: #f7f7f7;
+  border-radius: 8px;
+  padding: 30px;
+  width: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .option-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2)
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 .icon {
-    font-size: 3rem;
-    color: #2e7d32;
-    margin-bottom: 15px
+  font-size: 3rem;
+  color: #2e7d32;
+  margin-bottom: 15px;
 }
 
 .option-card h3 {
-    font-size: 1.5rem;
-    color: #333;
-    margin-bottom: 10px
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 10px;
 }
 
 a {
-    text-decoration: none;
-    color: inherit
+  text-decoration: none;
+  color: inherit;
 }
 
 .option-card:first-child {
-    background-color: #e1f5fe
+  background-color: #e1f5fe;
 }
 
 .option-card:last-child {
-    background-color: #c8e6c9
+  background-color: #c8e6c9;
 }

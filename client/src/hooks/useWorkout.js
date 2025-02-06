@@ -1,79 +1,69 @@
-import { useState, useEffect, useContext } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
-import * as api from '../api/workoutApi'
-import { UserContext } from '../contexts/User'
-import { routes } from '../common/constants'
+import * as api from "../api/workoutApi";
+import { UserContext } from "../contexts/User";
+import { routes } from "../common/constants";
 
 export function useDetails(id) {
-    const navigate = useNavigate()
-    const { token } = useContext(UserContext)
-    
-    const [workout, setWorkout] = useState(null)
-    const [isFetching, setIsFetching] = useState(false)
+  const navigate = useNavigate();
+  const { token } = useContext(UserContext);
 
-    useEffect(() => {
-        async function fetchData() {
-            try {
-                setIsFetching(true)
-                setWorkout(await api.details(id, token))
-            } catch(error) {
-                navigate(
-                    routes.error.notFound,
-                    {
-                        state: {
-                            message: error.message                       
-                        }
-                    }
-                )
-            } finally {
-                setIsFetching(false)
-            }
-        }
+  const [workout, setWorkout] = useState(null);
+  const [isFetching, setIsFetching] = useState(false);
 
-        fetchData()
-    }, [token, navigate])
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        setIsFetching(true);
+        setWorkout(await api.details(id, token));
+      } catch (error) {
+        navigate(routes.error.notFound, {
+          state: {
+            message: error.message,
+          },
+        });
+      } finally {
+        setIsFetching(false);
+      }
+    }
 
-    return { workout, isFetching }
+    fetchData();
+  }, [token, navigate]);
+
+  return { workout, isFetching };
 }
 
 export function useSearch(startsAtDate, page, pageSize) {
-    const navigate = useNavigate()
-    const { token } = useContext(UserContext)
+  const navigate = useNavigate();
+  const { token } = useContext(UserContext);
 
-    const [workouts, setWorkouts] = useState([])
-    const [totalItems, setTotalItems] = useState(0)
-    const [isFetching, setIsFetching] = useState(false)
+  const [workouts, setWorkouts] = useState([]);
+  const [totalItems, setTotalItems] = useState(0);
+  const [isFetching, setIsFetching] = useState(false);
 
-    useEffect(() => {
-        async function fetchData() {
-            try {
-                setIsFetching(true)
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        setIsFetching(true);
 
-                const result = await api.search(
-                    startsAtDate, 
-                    page, 
-                    pageSize,
-                    token)
-                
-                setWorkouts(result.items)
-                setTotalItems(result.totalItems)
-            } catch(error) {
-                navigate(
-                    routes.badRequest, 
-                    { 
-                        state: {
-                            message: error.message 
-                        } 
-                    }
-                )
-            } finally {
-                setIsFetching(false)
-            }
-        }
+        const result = await api.search(startsAtDate, page, pageSize, token);
 
-        fetchData()
-    }, [startsAtDate, page, pageSize, token, navigate])
+        setWorkouts(result.items);
+        setTotalItems(result.totalItems);
+      } catch (error) {
+        navigate(routes.badRequest, {
+          state: {
+            message: error.message,
+          },
+        });
+      } finally {
+        setIsFetching(false);
+      }
+    }
 
-    return { workouts, totalItems, isFetching }
+    fetchData();
+  }, [startsAtDate, page, pageSize, token, navigate]);
+
+  return { workouts, totalItems, isFetching };
 }

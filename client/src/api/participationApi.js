@@ -1,83 +1,83 @@
-import { baseUrl, routes, errorMessages } from '../common/constants'
-import * as requester from './requester'
+import { baseUrl, routes, errorMessages } from "../common/constants";
+import * as requester from "./requester";
 
-export async function all(
-    page,
-    pageSize,
-    token
-) {
-    const url = `${baseUrl}${routes.participation.default}?pageIndex=${page}&pageSize=${pageSize}`
+export async function all(page, pageSize, token) {
+  const url = `${baseUrl}${routes.participation.default}?pageIndex=${page}&pageSize=${pageSize}`;
 
-    const response = await requester.get(url, token)
+  const response = await requester.get(url, token);
 
-    if(response.ok){
-        return await response.json()
-    }
+  if (response.ok) {
+    return await response.json();
+  }
 
-    throw new Error(errorMessages.participation.all)
+  throw new Error(errorMessages.participation.all);
 }
 
-export async function getParticipationId(
-    athleteId, 
-    workoutId, 
+export async function getParticipationId(athleteId, workoutId, token) {
+  const response = await requester.get(
+    `${baseUrl}${routes.participation.default}/${athleteId}/${workoutId}`,
     token
-) {
-    const response = await requester.get(
-        `${baseUrl}${routes.participation.default}/${athleteId}/${workoutId}`,
-        token)
+  );
 
-    if(response.ok){
-        return await response.json()
-    }
+  if (response.ok) {
+    const result = await response.json();
+    return result.id;
+  }
 
-    throw new Error()
+  throw new Error();
 }
 
 export async function join(data, token) {
-    const response = await requester.post(
-        baseUrl + routes.participation.default,
-        data,
-        token)
-    
-    if(response.ok){
-        return await response.json()
-    }
+  const response = await requester.post(
+    baseUrl + routes.participation.default,
+    data,
+    token
+  );
 
-    throw new Error(errorMessages.participation.join)
+  if (response.ok) {
+    const result = await response.json();
+    return result.id;
+  }
+
+  throw new Error(errorMessages.participation.join);
 }
 
 export async function leave(id, token) {
-    const response = await requester.patch(
-        `${baseUrl}${routes.participation.cancel}/${id}`,
-        token)
+  const response = await requester.patch(
+    `${baseUrl}${routes.participation.cancel}/${id}`,
+    token
+  );
 
-    if(response.ok){
-        return true
-    }
+  if (response.ok) {
+    return true;
+  }
 
-    return false
+  return false;
 }
 
 export async function reJoin(id, token) {
-    const response = await requester.patch(
-        `${baseUrl}${routes.participation.reJoin}/${id}`,
-        token)
+  const response = await requester.patch(
+    `${baseUrl}${routes.participation.reJoin}/${id}`,
+    token
+  );
 
-    if(response.ok){
-        return await response.json()
-    }
+  if (response.ok) {
+    const result = await response.json();
+    return result.id;
+  }
 
-    throw new Error(errorMessages.participation.join)
+  throw new Error(errorMessages.participation.join);
 }
 
 export async function remove(id, token) {
-    const response = await requester.remove(
-        `${baseUrl}${routes.participation.default}/${id}`,
-        token)
+  const response = await requester.remove(
+    `${baseUrl}${routes.participation.default}/${id}`,
+    token
+  );
 
-    if(response.ok){
-        return true
-    }
+  if (response.ok) {
+    return true;
+  }
 
-    return false
+  return false;
 }

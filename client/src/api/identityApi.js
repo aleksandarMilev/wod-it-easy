@@ -1,24 +1,24 @@
-import { baseUrl, routes, errorMessages } from '../common/constants'
-import { post } from './requester'
+import { baseUrl, routes, errorMessages } from "../common/constants";
+import { post } from "./requester";
 
 export async function login(data) {
-    const response = await post(baseUrl + routes.login, data)
-    const result = await response.json()
+  const response = await post(baseUrl + routes.login, data);
+  const result = await response.json();
 
-    if(response.ok){
-        return result.token
-    }
+  if (response.ok) {
+    return result.token;
+  }
 
-    throw new Error(result || errorMessages.genericError)
+  throw new Error(result || errorMessages.genericError);
 }
 
 export async function register(data) {
-    const response = await post(baseUrl + routes.register, data)
-    const result = await response.json()
-    
-    if(response.ok){
-        return result.token
-    } 
+  const response = await post(baseUrl + routes.register, data);
+  const result = await response.json();
 
-    throw new Error(result || errorMessages.genericError)
+  if (response.ok) {
+    return result.token;
+  }
+
+  throw new Error(result || errorMessages.genericError);
 }

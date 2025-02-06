@@ -1,131 +1,135 @@
 .athlete-profile-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: linear-gradient(135deg, #6a11cb, #2575fc);
-    padding: 20px
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  padding: 20px;
 }
 
 .athlete-profile-card {
-    background: #ffffff;
-    border-radius: 16px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-    padding: 40px;
-    text-align: center;
-    max-width: 400px;
-    width: 100%;
-    animation: fadeIn 0.8s ease-in-out
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  padding: 40px;
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+  animation: fadeIn 0.8s ease-in-out;
 }
 
 .athlete-icon-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100px;
-    height: 100px;
-    margin: 0 auto 20px;
-    background: linear-gradient(135deg, #6a11cb, #2575fc);
-    border-radius: 50%;
-    box-shadow: 0 4px 16px rgba(106, 17, 203, 0.3)
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 20px;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  border-radius: 50%;
+  box-shadow: 0 4px 16px rgba(106, 17, 203, 0.3);
 }
 
 .athlete-icon {
-    color: #ffffff;
-    font-size: 48px;
-    animation: bounce 2s infinite
+  color: #ffffff;
+  font-size: 48px;
+  animation: bounce 2s infinite;
 }
 
 .athlete-name {
-    font-size: 32px;
-    font-weight: 600;
-    color: #333333;
-    margin: 0;
-    animation: slideIn 0.8s ease-in-out
+  font-size: 32px;
+  font-weight: 600;
+  color: #333333;
+  margin: 0;
+  animation: slideIn 0.8s ease-in-out;
 }
 
 .update-button {
-    display: inline-block;
-    margin-top: 20px;
-    margin-right: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: 600;
-    color: #ffffff;
-    background: linear-gradient(135deg, #6a11cb, #2575fc);
-    border: none;
-    border-radius: 8px;
-    text-decoration: none;
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease
+  display: inline-block;
+  margin-top: 20px;
+  margin-right: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .update-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(106, 17, 203, 0.3)
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(106, 17, 203, 0.3);
 }
 
 .update-button:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 8px rgba(106, 17, 203, 0.3)
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(106, 17, 203, 0.3);
 }
 
 .delete-button {
-    display: inline-block;
-    margin-top: 20px;
-    margin-left: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: 600;
-    color: #ffffff;
-    background: linear-gradient(135deg, #ff416c, #ff4b2b);
-    border: none;
-    border-radius: 8px;
-    text-decoration: none;
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease
+  display: inline-block;
+  margin-top: 20px;
+  margin-left: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  background: linear-gradient(135deg, #ff416c, #ff4b2b);
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .delete-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(255, 65, 108, 0.3)
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 65, 108, 0.3);
 }
 
 .delete-button:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 8px rgba(255, 65, 108, 0.3)
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(255, 65, 108, 0.3);
 }
 
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-20px)
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0)
-    }
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateX(-20px)
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0)
-    }
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 @keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {
-        transform: translateY(0)
-    }
-    40% {
-        transform: translateY(-20px)
-    }
-    60% {
-        transform: translateY(-10px)
-    }
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-20px);
+  }
+  60% {
+    transform: translateY(-10px);
+  }
 }

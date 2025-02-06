@@ -1,177 +1,192 @@
-import { Link } from 'react-router-dom'
-import { 
-    useContext, 
-    useState, 
-    useEffect
-} from 'react'
+import { Link } from "react-router-dom";
+import { useContext, useState, useEffect } from "react";
 
-import * as api from '../../../../api/participationApi'
-import { UserContext } from '../../../../contexts/User'
-import { useMessage } from '../../../../contexts/Message'
-import { routes, participationStatuses } from '../../../../common/constants'
-import { 
-    formatDate, 
-    formatDateAndTime, 
-    getDateTimeNow 
-} from '../../../../common/functions'
+import * as api from "../../../../api/participationApi";
+import { UserContext } from "../../../../contexts/User";
+import { useMessage } from "../../../../contexts/Message";
+import { routes, participationStatuses } from "../../../../common/constants";
+import {
+  formatDate,
+  formatDateAndTime,
+  getDateTimeNow,
+} from "../../../../common/functions";
 
-import DeleteConfirmModal from '../../../common/delete-modal/DeleteConfirmModal'
+import DeleteConfirmModal from "../../../common/delete-modal/DeleteConfirmModal";
 
-import './ParticipationListItem.css'
+import "./ParticipationListItem.css";
 
 export default function ParticipationListItem({
-    id,
-    workoutId,
-    workoutName,
-    workoutStartsAtDate,
-    workoutStartsAtTime,
-    workoutIsFull,
-    joinedAt: initialJoinedAt,
-    modifiedOn: initialModifiedOn,
-    status: initialStatus,
-    onDelete
+  id,
+  workoutId,
+  workoutName,
+  workoutStartsAtDate,
+  workoutStartsAtTime,
+  workoutIsFull,
+  joinedAt: initialJoinedAt,
+  modifiedOn: initialModifiedOn,
+  status: initialStatus,
+  onDelete,
 }) {
-    const { showMessage } = useMessage()
-    const { token } = useContext(UserContext)
+  const { showMessage } = useMessage();
+  const { token } = useContext(UserContext);
 
-    const [status, setStatus] = useState(initialStatus)
-    const [joinedAt, setJoinedAt] = useState(initialJoinedAt)
-    const [modifiedOn, setModifiedOn] = useState(initialModifiedOn)
+  const [status, setStatus] = useState(initialStatus);
+  const [joinedAt, setJoinedAt] = useState(initialJoinedAt);
+  const [modifiedOn, setModifiedOn] = useState(initialModifiedOn);
 
-    useEffect(() => {
-        setStatus(initialStatus)
-        setJoinedAt(initialJoinedAt)
-        setModifiedOn(initialModifiedOn)
-    }, [initialStatus, initialJoinedAt, initialModifiedOn])
+  useEffect(() => {
+    setStatus(initialStatus);
+    setJoinedAt(initialJoinedAt);
+    setModifiedOn(initialModifiedOn);
+  }, [initialStatus, initialJoinedAt, initialModifiedOn]);
 
-    const isJoined = status.toLowerCase() === participationStatuses.joined.toLowerCase()
-    const isLeft = status.toLowerCase() === participationStatuses.left.toLowerCase()
+  const isJoined =
+    status.toLowerCase() === participationStatuses.joined.toLowerCase();
+  const isLeft =
+    status.toLowerCase() === participationStatuses.left.toLowerCase();
 
-    const isClosed = (() => {
-        const now = new Date()
-        const workoutStartDate = new Date(workoutStartsAtDate)
-        const isNotToday = now.toDateString() !== workoutStartDate.toDateString()
+  const isClosed = (() => {
+    const now = new Date();
+    const workoutStartDate = new Date(workoutStartsAtDate);
+    const isNotToday = now.toDateString() !== workoutStartDate.toDateString();
 
-        if(isNotToday) {
-            return false
-        }
-    
-        const [workoutHours, workoutMinutes, workoutSeconds] = workoutStartsAtTime.split(':').map(Number)
-    
-        const workoutStartTime = new Date(now)
-        workoutStartTime.setHours(workoutHours, workoutMinutes, workoutSeconds, 0)
-    
-        const timeDifference = (workoutStartTime - now) / (1000 * 60 * 60)
-        const thereIsLessThanTwoHoursToTheWorkout = timeDifference <= 2
-        
-        if(thereIsLessThanTwoHoursToTheWorkout) {
-            return true
-        } else {
-            return false
-        }
-    })()
-
-    const [isFull, setIsFull] = useState(workoutIsFull)
-
-    const cancelHandler = async() => {
-        const success = await api.leave(id, token)
-
-        if (success) {
-            setStatus(participationStatuses.left)
-            setModifiedOn(getDateTimeNow())
-            setIsFull(false)
-
-            showMessage('You have successfully canceled this workout!', true)
-        } else {
-            showMessage('Something went wrong while canceling this workout, please try again!', false)
-        }
+    if (isNotToday) {
+      return false;
     }
 
-    const reJoinHandler = async() => {
-        const success = await api.reJoin(id, token)
+    const [workoutHours, workoutMinutes, workoutSeconds] = workoutStartsAtTime
+      .split(":")
+      .map(Number);
 
-        if (success) {
-            setStatus(participationStatuses.joined)
-            setModifiedOn(getDateTimeNow())
+    const workoutStartTime = new Date(now);
+    workoutStartTime.setHours(workoutHours, workoutMinutes, workoutSeconds, 0);
 
-            showMessage('You are again a participant in this workout!', true)
-        } else {
-            showMessage('Something went wrong while adding you to this workout, please try again!', false)
-        }
+    const timeDifference = (workoutStartTime - now) / (1000 * 60 * 60);
+    const thereIsLessThanTwoHoursToTheWorkout = timeDifference <= 2;
+
+    if (thereIsLessThanTwoHoursToTheWorkout) {
+      return true;
+    } else {
+      return false;
     }
+  })();
 
-    const [showModal, setShowModal] = useState(false)
-    const toggleModal = () => setShowModal(prev => !prev)
+  const [isFull, setIsFull] = useState(workoutIsFull);
 
-    const deleteHandler = async() => {
-        if(showModal){
-            const success = await api.remove(id, token)
+  const cancelHandler = async () => {
+    const success = await api.leave(id, token);
 
-            if(success){
-                showMessage(`The participation was successfully deleted!`, true)
-                onDelete(id)
-            } else {
-                showMessage("Something went wrong while deleting your participation, please, try again.", false)
-            }
-            toggleModal()
-        } else {
-            toggleModal()
-        }
+    if (success) {
+      setStatus(participationStatuses.left);
+      setModifiedOn(getDateTimeNow());
+      setIsFull(false);
+
+      showMessage("You have successfully canceled this workout!", true);
+    } else {
+      showMessage(
+        "Something went wrong while canceling this workout, please try again!",
+        false
+      );
     }
+  };
 
-    return (
-        <div className="participation-list-item-card card mb-3 shadow-sm">
-            <div className="card-body">
-                <button 
-                    className="delete-button" 
-                    onClick={toggleModal} 
-                    aria-label="Delete"
-                >
-                    Delete 🗑️
-                </button>
-    
-                <h5 className="card-title">{workoutName}</h5>
-                <p className="card-text" data-icon="date">
-                    <strong>Start Date:</strong> {formatDate(workoutStartsAtDate)}
-                </p>
-                <p className="card-text" data-icon="time">
-                    <strong>Start Time:</strong> {workoutStartsAtTime.slice(0, 5)}
-                </p>
-                <p className="card-text" data-icon="joined">
-                    <strong>{isJoined ? 'Joined At:' : 'Left At:'}</strong> 
-                    {formatDateAndTime(modifiedOn || joinedAt)}
-                </p>
-                {status && (
-                    <p 
-                        data-icon="status"
-                        className={`card-text ${isJoined ? 'text-success' : 'text-warning'}`} 
-                    >
-                        <strong>Status:</strong> {status.toUpperCase()}
-                    </p>
-                )}
-                <Link to={routes.workout.default + `/${workoutId}`}>
-                    View
-                </Link>
+  const reJoinHandler = async () => {
+    const success = await api.reJoin(id, token);
 
-                {isJoined && !isClosed && <button onClick={cancelHandler}>Cancel</button>}
-                {isLeft && !isClosed && !isFull && <button onClick={reJoinHandler}>Join Again</button>}
+    if (success) {
+      setStatus(participationStatuses.joined);
+      setModifiedOn(getDateTimeNow());
 
-                {isClosed && isLeft && (
-                    <p className="text-danger mt-3">
-                        This workout is already closed, so you can not join it again. You can delete the participation from the delete icon.
-                    </p>
-                )}
-                {isFull && isLeft && (
-                    <p className="text-danger mt-3">
-                        This workout has reached its full capacity. You can delete the participation from the delete icon.
-                    </p>
-                )}
-            </div>
-            <DeleteConfirmModal 
-                showModal={showModal}
-                toggleModal={toggleModal}
-                deleteHandler={deleteHandler}
-            />
-        </div>
-    )
+      showMessage("You are again a participant in this workout!", true);
+    } else {
+      showMessage(
+        "Something went wrong while adding you to this workout, please try again!",
+        false
+      );
+    }
+  };
+
+  const [showModal, setShowModal] = useState(false);
+  const toggleModal = () => setShowModal((prev) => !prev);
+
+  const deleteHandler = async () => {
+    if (showModal) {
+      const success = await api.remove(id, token);
+
+      if (success) {
+        showMessage(`The participation was successfully deleted!`, true);
+        onDelete(id);
+      } else {
+        showMessage(
+          "Something went wrong while deleting your participation, please, try again.",
+          false
+        );
+      }
+      toggleModal();
+    } else {
+      toggleModal();
+    }
+  };
+
+  return (
+    <div className="participation-list-item-card card mb-3 shadow-sm">
+      <div className="card-body">
+        <button
+          className="delete-button"
+          onClick={toggleModal}
+          aria-label="Delete"
+        >
+          Delete 🗑️
+        </button>
+
+        <h5 className="card-title">{workoutName}</h5>
+        <p className="card-text" data-icon="date">
+          <strong>Start Date:</strong> {formatDate(workoutStartsAtDate)}
+        </p>
+        <p className="card-text" data-icon="time">
+          <strong>Start Time:</strong> {workoutStartsAtTime.slice(0, 5)}
+        </p>
+        <p className="card-text" data-icon="joined">
+          <strong>{isJoined ? "Joined At:" : "Left At:"}</strong>
+          {formatDateAndTime(modifiedOn || joinedAt)}
+        </p>
+        {status && (
+          <p
+            data-icon="status"
+            className={`card-text ${
+              isJoined ? "text-success" : "text-warning"
+            }`}
+          >
+            <strong>Status:</strong> {status.toUpperCase()}
+          </p>
+        )}
+        <Link to={routes.workout.default + `/${workoutId}`}>View</Link>
+
+        {isJoined && !isClosed && (
+          <button onClick={cancelHandler}>Cancel</button>
+        )}
+        {isLeft && !isClosed && !isFull && (
+          <button onClick={reJoinHandler}>Join Again</button>
+        )}
+
+        {isClosed && isLeft && (
+          <p className="text-danger mt-3">
+            This workout is already closed, so you can not join it again. You
+            can delete the participation from the delete icon.
+          </p>
+        )}
+        {isFull && isLeft && (
+          <p className="text-danger mt-3">
+            This workout has reached its full capacity. You can delete the
+            participation from the delete icon.
+          </p>
+        )}
+      </div>
+      <DeleteConfirmModal
+        showModal={showModal}
+        toggleModal={toggleModal}
+        deleteHandler={deleteHandler}
+      />
+    </div>
+  );
 }

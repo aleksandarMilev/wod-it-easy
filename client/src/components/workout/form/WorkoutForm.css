@@ -1,76 +1,76 @@
 .workout-form {
-    max-width: 500px;
-    margin: 40px auto;
-    padding: 20px;
-    background-color: #f7f8fc;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    font-family: 'Arial', sans-serif
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #f7f8fc;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: "Arial", sans-serif;
 }
 
 .workout-form label {
-    display: block;
-    font-size: 1rem;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 5px
+  display: block;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
 }
 
 .workout-form input,
 .workout-form textarea,
 .workout-form select {
-    width: 100%;
-    padding: 10px;
-    font-size: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-bottom: 15px;
-    transition: border-color 0.3s ease
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  transition: border-color 0.3s ease;
 }
 
 .workout-form input:focus,
 .workout-form textarea:focus,
 .workout-form select:focus {
-    border-color: #ff4500;
-    outline: none;
-    box-shadow: 0 0 5px rgba(255, 69, 0, 0.3)
+  border-color: #ff4500;
+  outline: none;
+  box-shadow: 0 0 5px rgba(255, 69, 0, 0.3);
 }
 
 .workout-form .error-message {
-    color: #ff4500;
-    font-size: 0.9rem;
-    margin: -10px 0 10px 0
+  color: #ff4500;
+  font-size: 0.9rem;
+  margin: -10px 0 10px 0;
 }
 
 .workout-form .submit-button {
-    width: 100%;
-    padding: 12px 15px;
-    background-color: #ff4500;
-    color: white;
-    font-size: 1.1rem;
-    font-weight: bold;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease
+  width: 100%;
+  padding: 12px 15px;
+  background-color: #ff4500;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .workout-form .submit-button:hover {
-    background-color: #ff7f50;
-    transform: translateY(-2px)
+  background-color: #ff7f50;
+  transform: translateY(-2px);
 }
 
 .workout-form .submit-button:active {
-    background-color: #e63900;
-    transform: translateY(0)
+  background-color: #e63900;
+  transform: translateY(0);
 }
 
 .form-title {
-    text-align: center;
-    font-size: 1.8rem;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #ff4500;
-    text-transform: uppercase;
-    letter-spacing: 1px
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #ff4500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }

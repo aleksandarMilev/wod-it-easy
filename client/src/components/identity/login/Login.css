@@ -1,137 +1,137 @@
 .login-container {
-    background: rgba(255, 255, 255, 0.95);
-    padding: 50px;
-    border-radius: 12px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-    max-width: 600px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 50px auto
+  background: rgba(255, 255, 255, 0.95);
+  padding: 50px;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  max-width: 600px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 50px auto;
 }
 
 .login-image {
-    width: 100%;
-    height: 300px;
-    background: url('../../../assets/login.jpg') no-repeat center center;
-    background-size: cover;
-    border-radius: 12px;
-    margin-bottom: 20px
+  width: 100%;
+  height: 300px;
+  background: url("../../../assets/login.jpg") no-repeat center center;
+  background-size: cover;
+  border-radius: 12px;
+  margin-bottom: 20px;
 }
 
 .login-form-container {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .login-heading {
-    margin-bottom: 40px;
-    color: #333;
-    font-size: 28px;
-    font-weight: bold;
-    text-align: center
+  margin-bottom: 40px;
+  color: #333;
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
 }
 
 .login-form {
-    display: flex;
-    flex-direction: column;
-    width: 100%
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 .login-form-group {
-    margin-bottom: 25px;
-    width: 100%;
-    position: relative
+  margin-bottom: 25px;
+  width: 100%;
+  position: relative;
 }
 
 .login-form-label {
-    display: block;
-    margin-bottom: 10px;
-    color: #555;
-    font-size: 16px
+  display: block;
+  margin-bottom: 10px;
+  color: #555;
+  font-size: 16px;
 }
 
 .login-form-input {
-    width: 100%;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 18px
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 18px;
 }
 
 .login-form-input:focus {
-    outline: none;
-    border-color: #007BFF;
-    box-shadow: 0 0 6px rgba(0, 123, 255, 0.6)
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 6px rgba(0, 123, 255, 0.6);
 }
 
 .login-button {
-    padding: 15px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 20px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: 100%
+  padding: 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
 }
 
 .login-button:hover {
-    background-color: #0056b3
+  background-color: #0056b3;
 }
 
 .login-register-link {
-    margin-top: 20px;
-    text-align: center
+  margin-top: 20px;
+  text-align: center;
 }
 
 .login-register-link a {
-    text-decoration: none;
-    color: #007BFF;
-    font-size: 16px
+  text-decoration: none;
+  color: #007bff;
+  font-size: 16px;
 }
 
 .login-register-link a:hover {
-    text-decoration: underline
+  text-decoration: underline;
 }
 
 .login-form-group.login-remember-me {
-    display: flex;
-    align-items: center
+  display: flex;
+  align-items: center;
 }
 
 .login-form-checkbox {
-    margin-right: 10px
+  margin-right: 10px;
 }
 
 .login-form-error {
-    color: #d9534f;
-    font-size: 16px;
-    font-weight: bold;
-    position: absolute;
-    top: -20px; 
-    left: 0;
-    width: 100%;
-    text-align: center
+  color: #d9534f;
+  font-size: 16px;
+  font-weight: bold;
+  position: absolute;
+  top: -20px;
+  left: 0;
+  width: 100%;
+  text-align: center;
 }
 
 .login-form-group.error .login-form-input {
-    border-color: #d9534f;
-    box-shadow: 0 0 6px rgba(217, 83, 79, 0.6)
+  border-color: #d9534f;
+  box-shadow: 0 0 6px rgba(217, 83, 79, 0.6);
 }
 
 .login-form-group.error .login-form-label {
-    color: #d9534f
+  color: #d9534f;
 }
 
 .login-form-group.error {
-    margin-bottom: 25px;
-    border: 1px solid #d9534f;
-    padding: 5px;
-    border-radius: 6px
+  margin-bottom: 25px;
+  border: 1px solid #d9534f;
+  padding: 5px;
+  border-radius: 6px;
 }

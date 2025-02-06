@@ -1,7 +1,5 @@
-import AthleteForm from '../form/AthleteForm'
+import AthleteForm from "../form/AthleteForm";
 
 export default function CreateAthlete() {
-    return (
-        <AthleteForm />
-    )
+  return <AthleteForm />;
 }
