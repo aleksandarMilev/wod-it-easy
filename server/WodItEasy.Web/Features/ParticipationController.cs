@@ -21,18 +21,17 @@
 
         [HttpGet("{athleteId}/{workoutId}")]
         public async Task<ActionResult<GetParticipationIdOutputModel>> GetId(
-            int athleteId, 
-            int workoutId)
-            => await this.Send(new GetParticipationIdQuery(athleteId, workoutId)); 
+            [FromRoute] GetParticipationIdQuery query)
+            => await this.Send(query);
 
         [HttpPost]
         public async Task<ActionResult<ParticipationOutputModel>> Create(
-            CreateParticipationCommand command)
+            [FromBody] CreateParticipationCommand command)
             => await this.Send(command);
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete([
-            FromRoute] DeleteParticipationCommand command)
+        public async Task<ActionResult> Delete(
+            [FromRoute] DeleteParticipationCommand command)
             => await this.Send(command);
 
         [HttpPatch("cancel/{id}")]

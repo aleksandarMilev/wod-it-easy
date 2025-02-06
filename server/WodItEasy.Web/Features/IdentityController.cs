@@ -10,12 +10,12 @@
     {
         [HttpPost("register")]
         public async Task<ActionResult<RegisterOutputModel>> Register(
-            RegisterCommand command) 
+            [FromBody] RegisterCommand command) 
             => await this.Send(command);
 
         [HttpPost("login")]
         public async Task<ActionResult<LoginOutputModel>> Login(
-            LoginCommand command) 
+            [FromBody] LoginCommand command) 
             => await this.Send(command);
     }
 }

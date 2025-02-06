@@ -12,19 +12,7 @@
         [HttpGet("search")]
         public async Task<ActionResult<PaginatedOutputModel<SearchWorkoutOutputModel>>> Search(
             [FromQuery] SearchWorkoutQuery query)
-        {
-            try
-            {
-                return await this.Send(query);
-            }
-            catch (System.Exception ex)
-            {
-                await System.Console.Out.WriteLineAsync(ex.Message);
-                await System.Console.Out.WriteLineAsync(ex.InnerException?.Message);
-
-                throw new System.Exception();
-            }
-        }
+            => await this.Send(query);
 
         [HttpGet("{id}")]
         public async Task<ActionResult<WorkoutDetailsOutputModel?>> Details(

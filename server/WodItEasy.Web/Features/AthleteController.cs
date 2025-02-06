@@ -25,12 +25,12 @@
 
         [HttpPost]
         public async Task<ActionResult<CreateAthleteOutputModel>> Create(
-            CreateAthleteCommand command)
+            [FromBody] CreateAthleteCommand command)
             => await this.Send(command);
 
         [HttpPut]
         public async Task<ActionResult> Update(
-            UpdateAthleteCommand command)
+            [FromBody] UpdateAthleteCommand command)
             => await this.Send(command);
 
         [HttpDelete]

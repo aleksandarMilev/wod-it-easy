@@ -15,7 +15,7 @@
             => await this.Send(command);
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> Edit(
+        public async Task<ActionResult> Update(
             [FromRoute] int id,
             [FromBody] UpdateWorkoutCommand command)
             => await this.Send(command.SetId(id));
