@@ -10,7 +10,12 @@
     public interface IParticipationRepository : IRepository<Participation>
     {
         Task<Participation?> ById(int id, CancellationToken cancellationToken = default);
- 
+
+        Task<bool> Exists(
+            int athleteId,
+            int workoutId,
+            CancellationToken cancellationToken = default);
+
         Task<PaginatedOutputModel<MyParticipationsOutputModel>> Mine(
              int athleteId,
              int pageIndex,

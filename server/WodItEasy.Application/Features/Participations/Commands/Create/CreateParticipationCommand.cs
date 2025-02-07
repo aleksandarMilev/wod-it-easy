@@ -22,6 +22,7 @@
         public class CreateParticipationCommandHandler : IRequestHandler<CreateParticipationCommand, Result<ParticipationOutputModel>>
         {
             private const string NotFoundErrorMessage = "{0} with Id: {1} not found!";
+            private const string AlreadyAParticipantErrorMessage = "Athlete with Id: {0} is already a participant in workout with Id: {1}!";
 
             private readonly IParticipationFactory factory;
             private readonly IParticipationRepository participationRepository;
@@ -46,14 +47,33 @@
 
                 if (athlete is null)
                 {
-                    return string.Format(NotFoundErrorMessage, nameof(Athlete), request.AthleteId);
+                    return string.Format(
+                        NotFoundErrorMessage, 
+                        nameof(Athlete), 
+                        request.AthleteId);
                 }
 
                 var workout = await this.workoutRepository.ById(request.WorkoutId, cancellationToken);
 
                 if (workout is null)
                 {
-                    return string.Format(NotFoundErrorMessage, nameof(Workout), request.WorkoutId);
+                    return string.Format(
+                        NotFoundErrorMessage, 
+                        nameof(Workout), 
+                        request.WorkoutId);
+                }
+
+                var athleteIsAlreadyAParticipant = await this.participationRepository.Exists(
+                    request.AthleteId, 
+                    request.WorkoutId,
+                    cancellationToken);
+
+                if (athleteIsAlreadyAParticipant)
+                {
+                    return string.Format(
+                        AlreadyAParticipantErrorMessage, 
+                        request.AthleteId, 
+                        request.WorkoutId);
                 }
 
                 var participation = this.factory

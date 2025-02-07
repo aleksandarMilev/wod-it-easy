@@ -26,6 +26,17 @@
                 .AsNoTracking()
                 .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
 
+        public async Task<bool> Exists(
+            int athleteId,
+            int workoutId,
+            CancellationToken cancellationToken)
+                => await this
+                    .All()
+                    .AsNoTracking()
+                    .AnyAsync(
+                        p => p.AthleteId == athleteId && p.WorkoutId == workoutId,
+                        cancellationToken);
+
         public async Task<int> GetId(
             int athleteId,
             int workoutId,
