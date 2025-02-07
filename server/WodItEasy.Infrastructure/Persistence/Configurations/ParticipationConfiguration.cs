@@ -34,6 +34,12 @@
                 .WithMany(w => w.Participations)
                 .HasForeignKey(p => p.WorkoutId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .HasIndex(p => new { p.AthleteId, p.WorkoutId });
+
+            builder
+                .HasIndex(p => new { p.AthleteId, p.JoinedAt });
         }
     }
 }

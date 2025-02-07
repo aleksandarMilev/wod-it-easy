@@ -20,7 +20,9 @@
             : base(data)
                 => this.mapper = mapper;
 
-        public async Task<Participation?> ById(int id, CancellationToken cancellationToken = default)
+        public async Task<Participation?> ById(
+            int id, 
+            CancellationToken cancellationToken = default)
             => await this
                 .All()
                 .AsNoTracking()
@@ -75,7 +77,9 @@
                 pageSize);
         }
 
-        public async Task<bool> Delete(int id, CancellationToken cancellationToken)
+        public async Task<bool> Delete(
+            int id, 
+            CancellationToken cancellationToken)
         {
             var participation = await this
                 .All()

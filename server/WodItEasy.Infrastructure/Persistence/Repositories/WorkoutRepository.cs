@@ -23,9 +23,11 @@
             : base(data) 
                 => this.mapper = mapper;
 
-        public async Task<bool> ExistsById(int id, CancellationToken cancellationToken = default)
+        public async Task<bool> ExistsById(
+            int id, 
+            CancellationToken cancellationToken = default)
             => await this
-                .AllUpcomings()
+                .All()
                 .AsNoTracking()
                 .AnyAsync(w => w.Id == id, cancellationToken);
 
@@ -36,7 +38,7 @@
             CancellationToken cancellationToken = default)
         {
             var query = this
-                .AllUpcomings()
+                .All()
                 .AsNoTracking()
                 .Where(w => startsAtDate == null
                         ? true
@@ -59,16 +61,20 @@
                 pageSize);
         }
 
-        public async Task<WorkoutDetailsOutputModel?> Details(int id, CancellationToken cancellationToken = default)
+        public async Task<WorkoutDetailsOutputModel?> Details(
+            int id, 
+            CancellationToken cancellationToken = default)
             => await this
-                .AllUpcomings()
+                .All()
                 .AsNoTracking()
                 .ProjectTo<WorkoutDetailsOutputModel>(this.mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(w => w.Id == id, cancellationToken);
 
-        public async Task<Workout?> ById(int id, CancellationToken cancellationToken = default)
+        public async Task<Workout?> ById(
+            int id, 
+            CancellationToken cancellationToken = default)
             => await this
-                .AllUpcomings()
+                .All()
                 .AsNoTracking()
                 .FirstOrDefaultAsync(w => w.Id == id, cancellationToken);
 
@@ -77,22 +83,26 @@
             int? excludeId = null,
             CancellationToken cancellationToken = default)
                 => await this
-                    .AllUpcomings()
+                    .All()
                     .AsNoTracking()
                     .Where(w => 
                         w.StartsAtDate.Date == date && 
                         w.Id != excludeId.GetValueOrDefault())
                     .ToListAsync(cancellationToken);
 
-        public async Task<Workout?> ByIdWithParticipants(int id, CancellationToken cancellationToken = default)
+        public async Task<Workout?> ByIdWithParticipants(
+            int id, 
+            CancellationToken cancellationToken = default)
             => await this
-                .AllUpcomings()
+                .All()
                 .AsNoTracking()
                 .Include(w => w.Participations
                     .Where(p => p.Status == ParticipationStatus.Joined))
                 .FirstOrDefaultAsync(w => w.Id == id, cancellationToken);
 
-        public async Task<bool> Delete(int id, CancellationToken cancellationToken = default)
+        public async Task<bool> Delete(
+            int id, 
+            CancellationToken cancellationToken = default)
         {
             var workout = await this.ById(id, cancellationToken);
 
@@ -106,10 +116,5 @@
 
             return true;
         }
-
-        private IQueryable<Workout> AllUpcomings()
-            => this
-                .All()
-                .Where(w => w.StartsAtDate.Date >= DateTime.Now.Date);
     }
 }

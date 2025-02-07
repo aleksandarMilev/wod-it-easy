@@ -26,6 +26,9 @@
                 .HasMany(a => a.Participations)
                 .WithOne(p => p.Athlete)
                 .HasForeignKey(p => p.AthleteId);
+
+            builder
+                .HasIndex(a => a.UserId);
         }
     }
 }

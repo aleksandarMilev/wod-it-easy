@@ -50,6 +50,12 @@
                 .HasMany(w => w.Participations)
                 .WithOne(p => p.Workout)
                 .HasForeignKey(p => p.WorkoutId);
+
+            builder
+                .HasIndex(w => new { w.StartsAtDate, w.StartsAtTime });
+
+            builder
+                .HasIndex(w => new { w.StartsAtDate, w.Id });
         }
     }
 }
