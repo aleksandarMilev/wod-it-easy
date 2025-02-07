@@ -177,8 +177,14 @@ export default function ParticipationListItem({
         )}
         {isFull && isLeft && (
           <p className="text-danger mt-3">
-            This workout has reached its full capacity. You can delete the
-            participation from the delete icon.
+            This workout has reached its full capacity so you can not join it
+            again. You can delete the participation from the delete icon.
+          </p>
+        )}
+        {!isClosed && !isFull && isLeft && (
+          <p className="text-danger mt-3">
+            You are currently not a participant in this workout. You can delete
+            the participation from the delete icon.
           </p>
         )}
       </div>
