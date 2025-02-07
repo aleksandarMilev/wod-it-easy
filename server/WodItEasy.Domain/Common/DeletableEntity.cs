@@ -10,5 +10,8 @@
         public DateTime? DeletedOn { get; set; }
 
         public string? DeletedBy { get; set; }
+
+        public void Restore()
+            => this.IsDeleted = false;
     }
 }

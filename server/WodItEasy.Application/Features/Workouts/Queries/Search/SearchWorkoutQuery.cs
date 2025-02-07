@@ -22,8 +22,8 @@
             public SearchWorkoutQueryHandler(IWorkoutRepository repository) 
                 => this.repository = repository;
 
-            public Task<PaginatedOutputModel<SearchWorkoutOutputModel>> Handle(SearchWorkoutQuery request, CancellationToken cancellationToken)
-                => this.repository.Paginated(
+            public async Task<PaginatedOutputModel<SearchWorkoutOutputModel>> Handle(SearchWorkoutQuery request, CancellationToken cancellationToken)
+                => await this.repository.Paginated(
                     request.StartsAtDate,
                     request.PageIndex,
                     request.PageSize,

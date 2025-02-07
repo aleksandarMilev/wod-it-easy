@@ -9,5 +9,7 @@
         DateTime? DeletedOn { get; set; }
 
         string? DeletedBy { get; set; }
+
+        void Restore();
     }
 }

@@ -6,12 +6,6 @@
 
     public class GetParticipationIdQuery : IRequest<GetParticipationIdOutputModel>
     {
-        public GetParticipationIdQuery(int athleteId, int workoutId)
-        {
-            this.AthleteId = athleteId;
-            this.WorkoutId = workoutId;
-        }
-
         public int AthleteId { get; set; }
 
         public int WorkoutId { get; set; }

@@ -34,7 +34,7 @@
 
                 athlete.UpdateName(request.Name);
 
-                await repository.Save(athlete, cancellationToken);
+                await this.repository.Save(athlete, cancellationToken);
 
                 return Result.Success;
             }

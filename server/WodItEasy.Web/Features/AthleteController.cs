@@ -1,6 +1,5 @@
 ﻿namespace WodItEasy.Web.Features
 {
-    using System;
     using System.Threading.Tasks;
     using Application.Features.Athlete.Commands.Create;
     using Application.Features.Athlete.Commands.Delete;
@@ -12,7 +11,6 @@
 
     public class AthleteController : AuthenticatedApiController
     {
-
         [HttpGet("id")]
         public async Task<ActionResult<GetAthleteIdOutputModel?>> Id(
             [FromRoute] GetAthleteIdQuery query)

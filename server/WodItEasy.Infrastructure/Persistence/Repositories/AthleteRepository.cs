@@ -23,6 +23,12 @@
                 .All()
                 .FirstOrDefaultAsync(a => a.UserId == userId, cancellationToken);
 
+        public async Task<Athlete?> GetDeleted(string userId, CancellationToken cancellationToken = default)
+            => await this
+                .All()
+                .IgnoreQueryFilters()
+                .FirstOrDefaultAsync(a => a.UserId == userId, cancellationToken);
+
         public async Task<Athlete?> ById(int id, CancellationToken cancellationToken = default)
             => await this
                 .All()
