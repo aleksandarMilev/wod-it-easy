@@ -28,7 +28,7 @@ function useAuthentication() {
         isAdmin: !!tokenEncoded.role,
       };
 
-      if (apiCall === api.login) {
+      if (apiCall === api.login && !user.isAdmin) {
         const athleteId = await getId(token);
 
         user.athleteId = athleteId;
