@@ -19,7 +19,7 @@ export default function AthleteProfile() {
   const { showMessage } = useMessage();
   const { token, updateAthleteId } = useContext(UserContext);
 
-  const { isFetching, athlete } = useMine();
+  const { isFetching, athlete } = useMine(token);
 
   const [showModal, setShowModal] = useState(false);
   const toggleModal = () => setShowModal((prev) => !prev);
@@ -66,6 +66,13 @@ export default function AthleteProfile() {
         showModal={showModal}
         toggleModal={toggleModal}
         deleteHandler={deleteHandler}
+        message={
+          athlete?.participationsCount == 0
+            ? null
+            : athlete?.participationsCount == 1
+            ? `You are currently participating in 1 workout. If you delete your account, your participation in it will also be deleted. Are you sure you want to continue?`
+            : `You are currently participating in ${athlete?.participationsCount} workouts. If you delete your account, your participation in them will also be deleted. Are you sure you want to continue?`
+        }
       />
     </>
   );

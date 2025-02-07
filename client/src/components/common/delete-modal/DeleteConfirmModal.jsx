@@ -4,6 +4,7 @@ export default function DeleteConfirmModal({
   showModal,
   toggleModal,
   deleteHandler,
+  message = null,
 }) {
   return (
     <div
@@ -28,8 +29,9 @@ export default function DeleteConfirmModal({
           </div>
           <div className="modal-body">
             <p className="text-center">
-              Are you sure you want to delete this? This action cannot be
-              undone.
+              {message ||
+                "Are you sure you want to delete this? This action cannot beundone"}
+              .
             </p>
           </div>
           <div className="modal-footer">

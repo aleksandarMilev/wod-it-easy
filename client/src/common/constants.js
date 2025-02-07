@@ -32,6 +32,7 @@ export const routes = {
     default: "/participation",
     cancel: "/participation/cancel",
     reJoin: "/participation/re-join",
+    count: "participation/count",
   },
 };
 
