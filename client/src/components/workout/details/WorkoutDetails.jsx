@@ -261,6 +261,13 @@ export default function WorkoutDetails() {
           showModal={showModal}
           toggleModal={toggleModal}
           deleteHandler={deleteHandler}
+          message={
+            workout?.currentParticipantsCount == 0
+              ? null
+              : workout?.currentParticipantsCount == 1
+              ? "An athlete has joined this workout. Deleting the workout won't cancel their participation. Are you sure you want to continue?"
+              : `There are ${workout?.currentParticipantsCount} athletes joined in this workout. Deleting the workout won't cancel their participation. Are you sure you want to continue?`
+          }
         />
       </div>
     </div>

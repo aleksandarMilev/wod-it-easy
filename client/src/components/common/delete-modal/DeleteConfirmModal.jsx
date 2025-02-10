@@ -1,5 +1,7 @@
 import { FaExclamationTriangle, FaTrashAlt } from "react-icons/fa";
 
+import "./DeleteConfirmModal.css";
+
 export default function DeleteConfirmModal({
   showModal,
   toggleModal,
@@ -28,10 +30,9 @@ export default function DeleteConfirmModal({
             ></button>
           </div>
           <div className="modal-body">
-            <p className="text-center">
+            <p>
               {message ||
-                "Are you sure you want to delete this? This action cannot beundone"}
-              .
+                "Are you sure you want to delete this? This action cannot be undone."}
             </p>
           </div>
           <div className="modal-footer">
