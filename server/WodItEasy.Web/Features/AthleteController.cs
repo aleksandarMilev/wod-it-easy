@@ -11,8 +11,8 @@
 
     public class AthleteController : AuthenticatedApiController
     {
-        [HttpGet("id")]
-        public async Task<ActionResult<GetAthleteIdOutputModel?>> Id(
+        [HttpGet(nameof(Id))]
+        public async Task<ActionResult<GetAthleteIdOutputModel?>> GetId(
             [FromRoute] GetAthleteIdQuery query)
             => await this.Send(query);
 

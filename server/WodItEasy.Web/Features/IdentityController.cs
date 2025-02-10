@@ -8,12 +8,12 @@
 
     public class IdentityController : ApiController
     {
-        [HttpPost("register")]
+        [HttpPost(nameof(this.Register))]
         public async Task<ActionResult<RegisterOutputModel>> Register(
             [FromBody] RegisterCommand command) 
             => await this.Send(command);
 
-        [HttpPost("login")]
+        [HttpPost(nameof(this.Login))]
         public async Task<ActionResult<LoginOutputModel>> Login(
             [FromBody] LoginCommand command) 
             => await this.Send(command);

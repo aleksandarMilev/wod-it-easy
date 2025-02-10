@@ -30,8 +30,9 @@ export const routes = {
 
   participation: {
     default: "/participation",
+    mine: "/participation/mine",
     cancel: "/participation/cancel",
-    reJoin: "/participation/re-join",
+    reJoin: "/participation/rejoin",
     count: "participation/count",
   },
 };

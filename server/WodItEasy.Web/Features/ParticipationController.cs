@@ -14,12 +14,15 @@
 
     public class ParticipationController : AuthenticatedApiController
     {
-        [HttpGet]
+        private const string AthleteId = "{athleteId}";
+        private const string WorkoutId = "{workoutId}";
+
+        [HttpGet(nameof(this.Mine))]
         public async Task<ActionResult<PaginatedOutputModel<MyParticipationsOutputModel>>> Mine(
             [FromQuery] MyParticipationsQuery query)
             => await this.Send(query);
 
-        [HttpGet("{athleteId}/{workoutId}")]
+        [HttpGet(AthleteId + PathSeparator + WorkoutId)]
         public async Task<ActionResult<GetParticipationIdOutputModel>> GetId(
             [FromRoute] GetParticipationIdQuery query)
             => await this.Send(query);
@@ -29,17 +32,17 @@
             [FromBody] CreateParticipationCommand command)
             => await this.Send(command);
 
-        [HttpDelete("{id}")]
+        [HttpDelete(Id)]
         public async Task<ActionResult> Delete(
             [FromRoute] DeleteParticipationCommand command)
             => await this.Send(command);
 
-        [HttpPatch("cancel/{id}")]
+        [HttpPatch(nameof(this.Cancel) + PathSeparator + Id)]
         public async Task<ActionResult> Cancel(
             [FromRoute] CancelParticipationCommand command)
             => await this.Send(command);
 
-        [HttpPatch("re-join/{id}")]
+        [HttpPatch(nameof(this.ReJoin) + PathSeparator + Id)]
         public async Task<ActionResult<ParticipationOutputModel>> ReJoin(
             [FromRoute] ReJoinParticipationCommand command)
             => await this.Send(command);

@@ -2,7 +2,7 @@ import { baseUrl, routes, errorMessages } from "../common/constants";
 import * as requester from "./requester";
 
 export async function all(page, pageSize, token) {
-  const url = `${baseUrl}${routes.participation.default}?pageIndex=${page}&pageSize=${pageSize}`;
+  const url = `${baseUrl}${routes.participation.mine}?pageIndex=${page}&pageSize=${pageSize}`;
 
   const response = await requester.get(url, token);
 

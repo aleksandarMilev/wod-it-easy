@@ -9,12 +9,12 @@
 
     public class WorkoutController : ApiController
     {
-        [HttpGet("search")]
+        [HttpGet(nameof(this.Search))]
         public async Task<ActionResult<PaginatedOutputModel<SearchWorkoutOutputModel>>> Search(
             [FromQuery] SearchWorkoutQuery query)
             => await this.Send(query);
 
-        [HttpGet("{id}")]
+        [HttpGet(Id)]
         public async Task<ActionResult<WorkoutDetailsOutputModel?>> Details(
             [FromRoute] WorkoutDetailsQuery query)
             => await this.Send(query);

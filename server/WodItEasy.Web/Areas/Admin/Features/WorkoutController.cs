@@ -14,13 +14,13 @@
             [FromBody] CreateWorkoutCommand command)
             => await this.Send(command);
 
-        [HttpPut("{id}")]
+        [HttpPut(Id)]
         public async Task<ActionResult> Update(
             [FromRoute] int id,
             [FromBody] UpdateWorkoutCommand command)
             => await this.Send(command.SetId(id));
 
-        [HttpDelete("{id}")]
+        [HttpDelete(Id)]
         public async Task<ActionResult> Delete(
             [FromRoute] DeleteWorkoutCommand command)
             => await this.Send(command);
