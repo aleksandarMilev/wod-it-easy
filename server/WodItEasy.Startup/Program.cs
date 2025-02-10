@@ -26,7 +26,12 @@ namespace WodItEasy.Startup
 
             if (app.Environment.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                app
+                    .UseSwagger()
+                    .UseSwaggerUI(config => {
+                        config.SwaggerEndpoint("/swagger/v1/swagger.json", "WodItEasy v1");
+                    })
+                    .UseDeveloperExceptionPage();
             }
 
             app
