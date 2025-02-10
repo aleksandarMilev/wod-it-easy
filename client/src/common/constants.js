@@ -60,6 +60,11 @@ export const contentTypes = {
 export const errorMessages = {
   genericError: "Sorry, something went wrong. Please try again later.",
 
+  serverErrors: {
+    updateWorkout:
+      "The new MaxParticipantsCount value should be greater than or equal to the CurrentParticipantsCount value!",
+  },
+
   workout: {
     search:
       "Sorry, something went wrong while searching for your workout. Please, try again.",

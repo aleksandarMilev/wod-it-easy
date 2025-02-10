@@ -203,9 +203,9 @@
 
         private void ValidateMaxParticipantsCount(int maxParticipantsCount)
         {
-            if (maxParticipantsCount < this.CurrentParticipantsCount)
+            if (this.CurrentParticipantsCount > maxParticipantsCount)
             {
-                throw new InvalidWorkoutException("Max participants count can not be greater than the current participants count!");
+                throw new InvalidWorkoutException("MaxParticipantsCount value should be greater than or equal to the CurrentParticipantsCount value!");
             }
 
             Guard.AgainstOutOfRange<InvalidWorkoutException>(

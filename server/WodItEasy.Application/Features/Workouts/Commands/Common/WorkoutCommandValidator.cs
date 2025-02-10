@@ -28,7 +28,7 @@
                 .RuleFor(w => w.MaxParticipantsCount)
                 .LessThanOrEqualTo(MaxParticipantsCountMaxValue)
                 .GreaterThanOrEqualTo(MaxParticipantsCountMinValue)
-                .WithMessage($"MaxParticipantsCount must have between {MaxParticipantsCountMinValue} and {MaxParticipantsCountMaxValue} symbols.");
+                .WithMessage($"MaxParticipantsCount should be between {MaxParticipantsCountMinValue} and {MaxParticipantsCountMaxValue}.");
 
             this
                 .RuleFor(w => DateTime.Parse(w.StartsAtDate).Date)

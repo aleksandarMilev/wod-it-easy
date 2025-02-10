@@ -61,6 +61,13 @@ export async function update(id, data, token) {
   );
 
   if (!response.ok) {
+    let errorMessage;
+    const serverErrorMessage = await response.json();
+
+    if (serverErrorMessage === errorMessages.serverErrors.updateWorkout) {
+      throw new Error(serverErrorMessage);
+    }
+
     throw new Error(errorMessages.workout.update);
   }
 }

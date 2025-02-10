@@ -16,6 +16,7 @@
         {
             private const string ParticipationNotFoundErrorMessage = "Participation with Id: {0} does not exist!";
             private const string UnauthorizedErrorMessage = "Current user can not modify this participation!";
+            private const string WorkoutClosedErrorMessage = "You can not cancel a participation when the workout is already closed!";
 
             private readonly IParticipationRepository participationRepository;
             private readonly IAthleteRepository athleteRepository;
@@ -40,7 +41,7 @@
 
                 if (participation is null)
                 {
-                    return ParticipationNotFoundErrorMessage;
+                    return string.Format(ParticipationNotFoundErrorMessage, request.Id);
                 }
 
                 var athleteId = await this.athleteRepository.GetId(this.userService.UserId!, cancellationToken);
@@ -50,18 +51,20 @@
                     return UnauthorizedErrorMessage;
                 }
 
+                var workout = await this.workoutRepository.ById(participation.WorkoutId, cancellationToken);
+
+                if (workout!.IsClosed())
+                {
+                     return WorkoutClosedErrorMessage;
+                }
+
                 _ = await this.participationRepository.Delete(request.Id, cancellationToken);
 
                 if (participation.Status.Equals(ParticipationStatus.Joined))
                 {
-                    var workout = await this.workoutRepository.ById(participation.WorkoutId, cancellationToken);
+                    workout.DecrementParticipantsCount();
 
-                    if (workout is not null)
-                    {
-                        workout.DecrementParticipantsCount();
-
-                        await this.workoutRepository.Save(workout, cancellationToken);
-                    }
+                    await this.workoutRepository.Save(workout, cancellationToken);
                 }
 
                 return Result.Success;

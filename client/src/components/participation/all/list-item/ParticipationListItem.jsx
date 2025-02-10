@@ -131,13 +131,15 @@ export default function ParticipationListItem({
   return (
     <div className="participation-list-item-card card mb-3 shadow-sm">
       <div className="card-body">
-        <button
-          className="delete-button"
-          onClick={toggleModal}
-          aria-label="Delete"
-        >
-          Delete 🗑️
-        </button>
+        {!isClosed && (
+          <button
+            className="delete-button"
+            onClick={toggleModal}
+            aria-label="Delete"
+          >
+            Delete 🗑️
+          </button>
+        )}
 
         <h5 className="card-title">{workoutName}</h5>
         <p className="card-text" data-icon="date">
