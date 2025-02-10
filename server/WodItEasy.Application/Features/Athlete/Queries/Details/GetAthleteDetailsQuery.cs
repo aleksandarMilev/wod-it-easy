@@ -1,13 +1,13 @@
-﻿namespace WodItEasy.Application.Features.Athlete.Queries.Get
+﻿namespace WodItEasy.Application.Features.Athlete.Queries.Details
 {
     using System.Threading;
     using System.Threading.Tasks;
     using Contracts;
     using MediatR;
 
-    public class GetAthleteQuery : IRequest<GetAthleteOutputModel?>
+    public class GetAthleteDetailsQuery : IRequest<GetAthleteDetailsOutputModel?>
     {
-        public class GetAthleteQueryHandler : IRequestHandler<GetAthleteQuery, GetAthleteOutputModel?>
+        public class GetAthleteQueryHandler : IRequestHandler<GetAthleteDetailsQuery, GetAthleteDetailsOutputModel?>
         {
             private readonly IAthleteRepository repository;
             private readonly ICurrentUserService userService;
@@ -18,7 +18,7 @@
                 this.userService = userService;
             }
 
-            public async Task<GetAthleteOutputModel?> Handle(GetAthleteQuery request, CancellationToken cancellationToken)
+            public async Task<GetAthleteDetailsOutputModel?> Handle(GetAthleteDetailsQuery request, CancellationToken cancellationToken)
                 => await this.repository.GetOutputModel(this.userService.UserId!, cancellationToken);
         }
     }

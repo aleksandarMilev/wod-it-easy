@@ -4,21 +4,23 @@
     using Application.Features.Athlete.Commands.Create;
     using Application.Features.Athlete.Commands.Delete;
     using Application.Features.Athlete.Commands.Update;
-    using Application.Features.Athlete.Queries.Get;
+    using Application.Features.Athlete.Queries.Details;
     using Application.Features.Athlete.Queries.GetId;
     using Common;
     using Microsoft.AspNetCore.Mvc;
 
     public class AthleteController : AuthenticatedApiController
     {
-        [HttpGet(nameof(Id))]
+        private const string GetIdRoute = "id";
+
+        [HttpGet(GetIdRoute)]
         public async Task<ActionResult<GetAthleteIdOutputModel?>> GetId(
             [FromRoute] GetAthleteIdQuery query)
             => await this.Send(query);
 
         [HttpGet]
-        public async Task<ActionResult<GetAthleteOutputModel?>> Details(
-            [FromRoute] GetAthleteQuery query)
+        public async Task<ActionResult<GetAthleteDetailsOutputModel?>> Details(
+            [FromRoute] GetAthleteDetailsQuery query)
             => await this.Send(query);
 
         [HttpPost]

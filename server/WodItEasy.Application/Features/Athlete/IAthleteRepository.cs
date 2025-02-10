@@ -4,11 +4,11 @@
     using System.Threading.Tasks;
     using Contracts;
     using Domain.Models.Athletes;
-    using Queries.Get;
+    using Queries.Details;
 
     public interface IAthleteRepository : IRepository<Athlete>
     {
-        Task<GetAthleteOutputModel?> GetOutputModel(string userId, CancellationToken cancellationToken = default);
+        Task<GetAthleteDetailsOutputModel?> GetOutputModel(string userId, CancellationToken cancellationToken = default);
 
         Task<int?> GetId(string userId, CancellationToken cancellationToken = default);
 

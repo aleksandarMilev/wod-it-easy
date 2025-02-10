@@ -72,11 +72,14 @@
         public IReadOnlyCollection<Participation> Participations
             => this.participations.ToList().AsReadOnly();
 
-        public bool IsClosed()
-             => DateTime.Now >= this.StartsAtDate.Add(this.StartsAtTime).AddHours(-2);
+        public bool IsClosed() 
+            => DateTime.Now >= this.StartsAtDate.Add(this.StartsAtTime).AddHours(-2);
 
         public bool IsFull()
             => this.CurrentParticipantsCount >= this.MaxParticipantsCount;
+
+        public bool HasPassed() 
+            => DateTime.Now > this.StartsAtDate.Add(this.StartsAtTime);
 
         public void IncrementParticipantsCount()
             => this.CurrentParticipantsCount++;

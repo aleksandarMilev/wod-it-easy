@@ -4,7 +4,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Application.Features.Athlete;
-    using Application.Features.Athlete.Queries.Get;
+    using Application.Features.Athlete.Queries.Details;
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
     using Domain.Models.Athletes;
@@ -40,13 +40,13 @@
                 .All()
                 .FirstOrDefaultAsync(a => a.Id == id, cancellationToken);
 
-        public async Task<GetAthleteOutputModel?> GetOutputModel(
+        public async Task<GetAthleteDetailsOutputModel?> GetOutputModel(
             string userId, 
             CancellationToken cancellationToken = default)
             => await this
                 .All()
                 .Where(a => a.UserId == userId)
-                .ProjectTo<GetAthleteOutputModel>(this.mapper.ConfigurationProvider)
+                .ProjectTo<GetAthleteDetailsOutputModel>(this.mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(cancellationToken);
 
         public async Task<int?> GetId(

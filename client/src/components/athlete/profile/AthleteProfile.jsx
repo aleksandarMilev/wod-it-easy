@@ -44,6 +44,8 @@ export default function AthleteProfile() {
 
   if (isFetching || !athlete) {
     return <DefaultSpinner />;
+  } else {
+    console.log(athlete);
   }
 
   return (
@@ -67,11 +69,11 @@ export default function AthleteProfile() {
         toggleModal={toggleModal}
         deleteHandler={deleteHandler}
         message={
-          athlete?.participationsCount == 0
+          athlete?.upcomingParticipationsCount == 0
             ? null
-            : athlete?.participationsCount == 1
-            ? `You are currently participating in 1 workout. If you delete your account, your participation in it will also be deleted. Are you sure you want to continue?`
-            : `You are currently participating in ${athlete?.participationsCount} workouts. If you delete your account, your participation in them will also be deleted. Are you sure you want to continue?`
+            : athlete?.upcomingParticipationsCount == 1
+            ? `You are registered for one upcoming workout. Deleting your account won't cancel it. To cancel, go to 'Participations' and delete it.`
+            : `You are registered for ${athlete?.upcomingParticipationsCount} upcoming workouts. Deleting your account won't cancel them. To cancel, go to 'Participations' and delete them.`
         }
       />
     </>
