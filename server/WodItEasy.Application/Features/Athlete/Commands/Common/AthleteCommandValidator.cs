@@ -1,5 +1,6 @@
 ﻿namespace WodItEasy.Application.Features.Athlete.Commands.Common
 {
+    using Application.Common;
     using FluentValidation;
 
     using static Domain.Models.ModelConstants.AthleteConstants;

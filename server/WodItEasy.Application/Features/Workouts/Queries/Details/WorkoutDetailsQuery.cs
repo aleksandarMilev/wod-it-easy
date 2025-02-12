@@ -2,6 +2,7 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
+    using Application.Common;
     using MediatR;
 
     public class WorkoutDetailsQuery : EntityQuery<int>, IRequest<WorkoutDetailsOutputModel?>

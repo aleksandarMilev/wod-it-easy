@@ -1,7 +1,8 @@
 ﻿namespace WodItEasy.Application.Features.Workouts.Commands.Common
 {
-    using FluentValidation;
     using System;
+    using Application.Common;
+    using FluentValidation;
 
     using static Domain.Models.ModelConstants.WorkoutConstants;
 

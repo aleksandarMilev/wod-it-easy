@@ -1,5 +1,7 @@
 ﻿namespace WodItEasy.Application.Features.Workouts.Commands.Common
 {
+    using Application.Common;
+
     public abstract class WorkoutCommand<TCommand> : EntityCommand<int>
         where TCommand : EntityCommand<int>
     {

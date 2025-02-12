@@ -2,9 +2,9 @@
 {
     using AutoMapper;
 
-    public interface IMapFrom<T>
+    public interface IMapFrom<TSource>
     {
         void Mapping(Profile mapper) 
-            => mapper.CreateMap(typeof(T), this.GetType());
+            => mapper.CreateMap(typeof(TSource), this.GetType());
     }
 }

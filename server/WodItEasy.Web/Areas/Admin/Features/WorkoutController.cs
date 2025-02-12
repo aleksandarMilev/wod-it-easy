@@ -6,6 +6,7 @@
     using Application.Features.Workouts.Commands.Delete;
     using Application.Features.Workouts.Commands.Update;
     using Microsoft.AspNetCore.Mvc;
+    using WodItEasy.Application.Common;
 
     public class WorkoutController : AdminApiController
     {

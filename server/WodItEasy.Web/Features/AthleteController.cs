@@ -7,17 +7,11 @@
     using Application.Features.Athlete.Queries.Details;
     using Application.Features.Athlete.Queries.GetId;
     using Common;
-    using Microsoft.AspNetCore.Authorization;
-
     using Microsoft.AspNetCore.Mvc;
 
     public class AthleteController : AuthenticatedApiController
     {
         private const string GetIdRoute = "id";
-
-        [AllowAnonymous]
-        [HttpGet("test")]
-        public ActionResult Test() => this.Ok("Server is listening...");
 
         [HttpGet(GetIdRoute)]
         public async Task<ActionResult<GetAthleteIdOutputModel?>> GetId(

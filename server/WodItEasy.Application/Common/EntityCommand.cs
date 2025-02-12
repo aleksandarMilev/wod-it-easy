@@ -1,4 +1,4 @@
-﻿namespace WodItEasy.Application.Features
+﻿namespace WodItEasy.Application.Common
 {
     public class EntityCommand<TId>
     {

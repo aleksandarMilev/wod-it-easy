@@ -2,8 +2,8 @@
 {
     using System.Threading.Tasks;
     using Application.Common;
-    using Application.Features.Identity.Commands.Login;
-    using Application.Features.Identity.Commands.Register;
+    using Commands.Login;
+    using Commands.Register;
 
     public interface IIdentityService
     {
