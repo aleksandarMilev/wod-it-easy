@@ -7,11 +7,7 @@
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(Configuration)' == 'Release'">
-		<ProjectCapability Include="DynamicFileNesting" />
-	</ItemGroup>
-
-	<ItemGroup Condition="'$(Configuration)' == 'Release'">
-		<Compile Remove="**\*.Tests.cs" />
+		<Compile Remove="**\*.Specs.cs" />
 		<Compile Remove="**\*.Fakes.cs" />
 	</ItemGroup>
 
@@ -23,10 +19,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="FakeItEasy" Version="8.3.0" />
-	  <PackageReference Include="MediatR" Version="12.4.1" />
-	  <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
-	  <PackageReference Include="Scrutor" Version="5.1.0" />
+		<PackageReference Include="FakeItEasy" Version="8.3.0" />
+		<PackageReference Include="MediatR" Version="12.4.1" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
+		<PackageReference Include="Scrutor" Version="5.1.0" />
 	</ItemGroup>
 
 </Project>

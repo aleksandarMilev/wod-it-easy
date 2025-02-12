@@ -1,0 +1,50 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver
+    restart: always
+    environment:
+      SA_PASSWORD: "YourStrong!Passw0rd"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    networks:
+      - backend
+    volumes:
+      - sql_data:/var/opt/mssql
+
+  app:
+    build:
+      context: .
+      dockerfile: server/WodItEasy.Startup/Dockerfile
+    container_name: server
+    depends_on:
+      - sqlserver
+    ports:
+      - "8080:8080"
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=WodItEasy;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;
+      - Admin__Password=admin1234
+      - Admin__Email=admin@mail.com
+      - ApplicationSettings__Secret=A_very_strong_secret_key_that_is_at_least_16_characters_long
+    networks:
+      - backend
+
+  react-client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: react-client
+    ports:
+      - "80:80"
+    environment:
+      - VITE_REACT_APP_SERVER_URL=http://localhost:8080
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  sql_data:
