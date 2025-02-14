@@ -33,7 +33,7 @@ WodItEasy is a **web application** designed to help users manage and participate
 - 🔎 Scrutor  
 - 🧪 XUnit, FakeItEasy  
 - ✅ FluentValidator, FluentAssertions  
-- 📖 Swagger (API Documentation)  
+- 📖 Swagger
 
 ---
 
@@ -103,9 +103,10 @@ WodItEasy.StartUp/
 ### 📌 Prerequisites  
 Ensure you have the following installed:
 - 🐳 Docker & Docker Compose
-- 🟢 Node.js *(if running without Docker)*
-- 🔵 .NET SDK *(if running without Docker)*
-- 🗄️ MS SQL Server *(if running without Docker)*
+Or:
+- 🟢 Node.js 
+- 🔵 .NET SDK
+- 🗄️ MS SQL Server
 
 ### 📥 Installation & Setup  
 #### 1️⃣ With docker
