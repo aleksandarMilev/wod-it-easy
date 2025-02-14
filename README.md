@@ -1,7 +1,7 @@
 # WodItEasy
 
 ## 🚀 Overview  
-WodItEasy is a **web application** designed to help users manage and participate in workouts. Built with **React (Vite)** on the frontend and **ASP.NET Core** on the backend, it follows **Domain-Driven Design** and **Clean Architecture** principles. The application is fully containerized using **Docker** and utilizes **MS SQL Server** as the database.
+WodItEasy is a **web application** designed to help users manage and participate in workouts. Built with **React** on the frontend and **ASP.NET Core** on the backend, it follows **Domain-Driven Design** and **Clean Architecture** principles. The application is fully containerized using **Docker** and utilizes **MS SQL Server** as the database.
 
 ---
 
@@ -16,24 +16,25 @@ WodItEasy is a **web application** designed to help users manage and participate
 
 ## 🛠 Tech Stack  
 ### **Frontend**  
-- ⚡ React (Vite)  
+- React (Vite)  
 
 ### **Backend**  
-- 🏗️ ASP.NET Core  
-- 🔍 Entity Framework Core  
-- 🗄️ MS SQL Server  
+- ASP.NET Core  
+- Entity Framework Core  
+- MS SQL Server  
 
 ### **Infrastructure**  
-- 🐳 Docker (Containerized environment)  
-- 🏗️ Docker Compose  
+- Docker
 
 ### **Other Tools & Libraries**  
-- 🔄 AutoMapper  
-- 🎯 MediatR  
-- 🔎 Scrutor  
-- 🧪 XUnit, FakeItEasy  
-- ✅ FluentValidator, FluentAssertions  
-- 📖 Swagger
+- AutoMapper  
+- MediatR  
+- Scrutor  
+- XUnit
+- FakeItEasy  
+- FluentValidator
+- FluentAssertions  
+- Swagger
 
 ---
 
@@ -102,7 +103,8 @@ WodItEasy.StartUp/
 ## ⚡ Getting Started  
 ### 📌 Prerequisites  
 Ensure you have the following installed:
-- 🐳 Docker & Docker Compose
+- 🐳 Docker
+  
 Or:
 - 🟢 Node.js 
 - 🔵 .NET SDK
@@ -135,7 +137,7 @@ dotnet run
 ---
 
 ## 📜 License  
-This project is licensed under the [MIT License](LICENSE).  
+This project is licensed under MIT License.  
 
 ---
 
