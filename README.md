@@ -1,108 +1,145 @@
 # WodItEasy
 
-## Overview
-WodItEasy is a web application built using **React** for the frontend and **ASP.NET Core** for the backend. It follows **DDD (Domain-Driven Design)** and **Clean Architecture** principles. The application is fully containerized using **Docker** and utilizes **MS SQL Server** as the database.
+## 🚀 Overview  
+WodItEasy is a **web application** designed to help users manage and participate in workouts. Built with **React** on the frontend and **ASP.NET Core** on the backend, it follows **Domain-Driven Design** and **Clean Architecture** principles. The application is fully containerized using **Docker** and utilizes **MS SQL Server** as the database.
 
-## Features
-- **Identity Management**  
-  Users can register and log in.
-- **Workout Scheduling**  
-  Administrators can create, update, and delete workouts, which users can access.
-- **Participation in Workouts**  
-  Athletes can join, cancel, and rejoin scheduled workouts.
-- **Calories Tracking (Upcoming Feature)**  
-  Users will be able to track their calorie intake and nutrition.
-- **1RM Calculator & Daily Results Logging (Upcoming Feature)**  
-  Users will be able to monitor their progress using a one-rep max calculator and logging daily workout results.
+---
 
-## Tech Stack
-### Frontend
-- React (Vite)
+## 🎯 Features  
+- 🔐 **Identity Management** – User registration and authentication.  
+- 📅 **Workout Scheduling** – Admins can create, update, and delete workouts.  
+- 🏋️ **Workout Participation** – Athletes can join, cancel, and rejoin workouts.  
+- 🔥 **Calories Tracking** *(Upcoming)* – Track calorie intake and nutrition.  
+- 📊 **1RM Calculator & Daily Results Logging** *(Upcoming)* – Monitor progress using a one-rep max calculator and daily workout logs.  
 
-### Backend
-- ASP.NET Core
-- Entity Framework Core
-- MS SQL Server
+---
 
-### Infrastructure
-- Docker (Containerized environment)
-- Docker Compose
+## 🛠 Tech Stack  
+### **Frontend**  
+- React (Vite)  
 
-### Other Tools & Libraries
-- AutoMapper
-- MediatR
-- Scrutor
+### **Backend**  
+- ASP.NET Core  
+- Entity Framework Core  
+- MS SQL Server  
+
+### **Infrastructure**  
+- Docker
+
+### **Other Tools & Libraries**  
+- AutoMapper  
+- MediatR  
+- Scrutor  
 - XUnit
-- FakeItEasy
+- FakeItEasy  
 - FluentValidator
-- FluentAssertions
+- FluentAssertions  
+- Swagger
 
-## Backend Architecture
+---
 
-### **Domain Layer**
-- The Domain Layer contains the core business logic, rules, and validation. It remains independent of any external frameworks or dependencies, ensuring a clean separation of concerns.
+## 🏛 Backend Architecture  
 
-```
+### 📂 **Domain Layer**  
+The **Domain Layer** contains core business logic, rules, and validation. It is independent of any external frameworks and technologies.  
+```plaintext
 WodItEasy.Domain/
-│── Common/                  # Shared base classes and utilities used across the domain
+│── Common/                  # Shared base classes and utilities
 │── Exceptions/              # Custom domain-specific exceptions
-│── Factories/               # Factories for creating domain entities and aggregates
-│── Models/                  # Core domain entities and value objects
-│── DomainConfiguration.cs   # Extension method for registering domain services in the DI container 
+│── Factories/               # Factories for domain entities
+│── Models/                  # Core domain entities, value objects and enumerations
+│── DomainConfiguration.cs   # Registers domain services in DI
 ```
 
-### **Application Layer**
-- Implements the application's use cases and business logic. It follows the CQRS (Command Query Responsibility Segregation) pattern.
-
-```
+### ⚙️ **Application Layer**  
+Implements **use cases** and business logic, following the **CQRS (Command Query Responsibility Segregation) pattern**.  
+```plaintext
 WodItEasy.Application/
-│── Behaviors/                    # MediatR pipeline behavior for validation
+│── Behaviors/                    # MediatR pipeline behavior
 │── Common/                       # Shared utilities and base classes
-│── Contracts/                    # Interfaces for repositories and some services
+│── Contracts/                    # Repository & service interfaces
 │── Exceptions/                   # Custom application-specific exceptions
-│── Features/                     # Feature-specific command and query handlers (CQRS)
+│── Features/                     # CQRS command/query handlers for each app feature
 │── Mapping/                      # AutoMapper additional logic
-│── ApplicationConfiguration.cs   # Extension method for registering application services in the DI container
-│── ApplicationSettings.cs        # The JWT secret string
-│── Result.cs                     # Utility class for encapsulating command (and in some cases query) results
+│── ApplicationConfiguration.cs   # Registers application services in DI
+│── ApplicationSettings.cs        # JWT secret settings
+│── Result.cs                     # Util class for simplifying result returning from commands and, in some cases, queries.
 ```
-## Getting Started
-### Prerequisites
-Ensure you have the following installed:
-- Docker & Docker Compose
-- Node.js (for frontend development)
-- .NET SDK (for backend development)
-- SQL Server (if running without Docker)
 
-### Installation & Setup
-#### Clone the Repository
+### 🏗 **Infrastructure Layer**  
+Handles **database access, authentication, and external service integrations**.  
+```plaintext
+WodItEasy.Infrastructure/
+│── Identity/                       # User authentication & JWT
+│── Persistence/                    # ApplictionDbContext, Fluent API configurations & Repository implementations
+│── IInitializer.cs                 # Database initialization interface
+│── InfrastructureConfiguration.cs  # Registers infrastructure services in DI
+```
+
+### 🌍 **Web Layer**  
+The **Web Layer** is the entry point for HTTP requests, handling API routing, middleware, and presentation logic.  
+```plaintext
+WodItEasy.Web/
+│── Areas/                          # Admin-specific endpoints
+│── Common/                         # Shared utilities and base classes
+│── Extensions/                     # Extension methods for IConfiguration and IApplicationBuilder
+│── Features/                       # Controllers for API endpoints
+│── Middlewares/                    # Custom Middlewares 
+│── Services/                       # Current user service implementation
+│── WebConfiguration.cs             # Registers Web layer services in DI
+```
+
+### 🚀 **Startup Layer**  
+Responsible for **bootstrapping and running** the application.  
+```plaintext
+WodItEasy.StartUp/
+│── ApplicationInitializer.cs       # Calls the Initialize() on each IInitializer.cs implementation
+│── appsettings.json                # App configuration settings
+│── Program.cs                      # Entry point of the application
+```
+
+---
+
+## ⚡ Getting Started  
+### 📌 Prerequisites  
+Ensure you have the following installed:
+- 🐳 Docker
+  
+Or:
+- 🟢 Node.js 
+- 🔵 .NET SDK
+- 🗄️ MS SQL Server
+
+### 📥 Installation & Setup  
+#### 1️⃣ With docker
 ```sh
 git clone https://github.com/aleksandarMilev/wod-it-easy.git
 cd WodItEasy
+docker-compose up --build -d
 ```
 
-#### Run with Docker
+#### 2️⃣ If you want to run the client locally:
 ```sh
-docker-compose up --build
-```
-
-#### Run Frontend Locally
-```sh
-cd client
+git clone https://github.com/aleksandarMilev/wod-it-easy.git
+cd WodItEasy/client
 npm install
 npm run dev
 ```
 
-#### Run Backend Locally
+#### 3️⃣ If you want to run the server locally:
 ```sh
-cd server
+git clone https://github.com/aleksandarMilev/wod-it-easy.git
+cd WodItEasy/server
 dotnet restore
 dotnet run
 ```
 
-## License
-[MIT License](LICENSE)
+---
+
+## 📜 License  
+This project is licensed under MIT License.  
 
 ---
+
 🚧 **Work in Progress** 🚧  
-***This project is still under development. Active improvements are ongoing.***
+***This project is not finished yet! I am actively working on it!***
