@@ -82,17 +82,26 @@
                 ?? throw new InvalidOperationException("Could not load .Infrastructure assembly!");
 
         private static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration)
-            => services
+        {
+            var connectionString = Environment
+                .GetEnvironmentVariable("ConnectionStrings__DefaultConnection") 
+                ?? configuration.GetConnectionString("DefaultConnection");
+                
+            return services
                 .AddDbContext<WodItEasyDbContext>(options =>
                 {
-                    options.UseSqlServer(
-                        configuration.GetConnectionString("DefaultConnection"),
-                        b => b.MigrationsAssembly(typeof(WodItEasyDbContext).Assembly.FullName));
+                   options
+                        .UseSqlServer(connectionString, sqlOptions =>
+                        {
+                            sqlOptions.MigrationsAssembly(typeof(WodItEasyDbContext).Assembly.FullName);
+                            sqlOptions.EnableRetryOnFailure();
+                        });
                 })
                 .AddTransient<IInitializer, WodItEasyDbInitializer>()
                 .AddTransient<IJwtTokenGeneratorService, JwtTokenGeneratorService>()
                 .AddScoped<IRoleSeeder, RoleSeeder>()
                 .AddScoped<PublishDomainEventInterceptor>();
+        }
 
         private static IServiceCollection AddIdentity(this IServiceCollection services, IConfiguration configuration)
         {

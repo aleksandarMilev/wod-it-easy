@@ -22,6 +22,7 @@ services:
       - sqlserver
     ports:
       - "8080:8080"
+      - "8081:8081"
     environment:
       - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=WodItEasy;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;
       - Admin__Password=admin1234
