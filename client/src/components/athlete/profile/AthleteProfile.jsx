@@ -44,8 +44,6 @@ export default function AthleteProfile() {
 
   if (isFetching || !athlete) {
     return <DefaultSpinner />;
-  } else {
-    console.log(athlete);
   }
 
   return (
