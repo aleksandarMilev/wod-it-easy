@@ -114,14 +114,14 @@ Or:
 #### 1️⃣ With docker
 ```sh
 git clone https://github.com/aleksandarMilev/wod-it-easy.git
-cd WodItEasy
+cd wod-it-easy
 docker-compose up --build -d
 ```
 
 #### 2️⃣ If you want to run the client locally:
 ```sh
 git clone https://github.com/aleksandarMilev/wod-it-easy.git
-cd WodItEasy/client
+cd wod-it-easy/client
 npm install
 npm run dev
 ```
@@ -129,7 +129,7 @@ npm run dev
 #### 3️⃣ If you want to run the server locally:
 ```sh
 git clone https://github.com/aleksandarMilev/wod-it-easy.git
-cd WodItEasy/server
+cd wod-it-easy/server
 dotnet restore
 dotnet run
 ```
