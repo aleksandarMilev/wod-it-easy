@@ -19,10 +19,10 @@ export async function details(id, token) {
   throw new Error(errorMessages.workout.notFound);
 }
 
-export async function search(startsAtDate, page, pageSize, token) {
-  const url = startsAtDate
-    ? `${baseUrl}${routes.workout.search}?startsAtDate=${encodeURIComponent(
-        startsAtDate.toISOString().split("T")[0]
+export async function search(startsAt, page, pageSize, token) {
+  const url = startsAt
+    ? `${baseUrl}${routes.workout.search}?startsAt=${encodeURIComponent(
+        startsAt.toISOString().split("T")[0]
       )}&pageIndex=${page}&pageSize=${pageSize}`
     : `${baseUrl}${routes.workout.search}?pageIndex=${page}&pageSize=${pageSize}`;
 

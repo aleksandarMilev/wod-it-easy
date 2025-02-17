@@ -14,12 +14,12 @@ import Pagination from "../../common/pagination/Pagination";
 import "./WorkoutList.css";
 
 export default function WorkoutList() {
-  const [startsAtDate, setStartsAtDate] = useState(null);
+  const [startsAt, setStartsAt] = useState(null);
   const [page, setPage] = useState(pagination.defaultPageIndex);
   const pageSize = pagination.defaultPageSize;
 
   const { workouts, totalItems, isFetching } = useSearch(
-    startsAtDate,
+    startsAt,
     page,
     pageSize
   );
@@ -29,7 +29,7 @@ export default function WorkoutList() {
   const handleSearchChange = (e) => {
     const value = e.target.value;
 
-    setStartsAtDate(value ? new Date(value) : null);
+    setStartsAt(value ? new Date(value) : null);
     setPage(pagination.defaultPageIndex);
   };
 
@@ -46,7 +46,7 @@ export default function WorkoutList() {
               type="date"
               className="form-control search-input"
               placeholder="Search workouts by date..."
-              value={startsAtDate || ""}
+              value={startsAt ? startsAt.toISOString().split("T")[0] : ""}
               onChange={handleSearchChange}
             />
             <button className="btn btn-light search-btn" disabled={isFetching}>

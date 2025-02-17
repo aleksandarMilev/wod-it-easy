@@ -20,18 +20,18 @@
         {
             private readonly IWorkoutRepository repository;
 
-            public SearchWorkoutQueryHandler(IWorkoutRepository repository) 
+            public SearchWorkoutQueryHandler(IWorkoutRepository repository)
                 => this.repository = repository;
 
             public async Task<PaginatedOutputModel<SearchWorkoutOutputModel>> Handle(
                 SearchWorkoutQuery request,
                 CancellationToken cancellationToken)
             {
-                var startsAt = request.StartsAt == null 
+                var startsAt = request.StartsAt == null
                     ? null
-                    : DateTime.Parse(request.StartsAt).ToUniversalTime() as DateTime?;
+                    : DateTime.Parse(request.StartsAt) as DateTime?;
 
-                 return await this.repository.Paginated(
+                return await this.repository.Paginated(
                     startsAt,
                     request.PageIndex,
                     request.PageSize,

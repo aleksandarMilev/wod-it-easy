@@ -34,7 +34,7 @@ export function useDetails(id) {
   return { workout, isFetching };
 }
 
-export function useSearch(startsAtDate, page, pageSize) {
+export function useSearch(startsAt, page, pageSize) {
   const navigate = useNavigate();
   const { token } = useContext(UserContext);
 
@@ -47,7 +47,7 @@ export function useSearch(startsAtDate, page, pageSize) {
       try {
         setIsFetching(true);
 
-        const result = await api.search(startsAtDate, page, pageSize, token);
+        const result = await api.search(startsAt, page, pageSize, token);
 
         setWorkouts(result.items);
         setTotalItems(result.totalItems);
@@ -63,7 +63,7 @@ export function useSearch(startsAtDate, page, pageSize) {
     }
 
     fetchData();
-  }, [startsAtDate, page, pageSize, token, navigate]);
+  }, [startsAt, page, pageSize, token, navigate]);
 
   return { workouts, totalItems, isFetching };
 }
