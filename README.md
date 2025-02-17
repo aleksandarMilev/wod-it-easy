@@ -134,6 +134,28 @@ dotnet restore
 dotnet run
 ```
 
+### 📝 Configuration Notes  
+
+You can configure the **URLs** and **Database** connection in the following files:
+
+#### Client Configuration:
+- **Server Endpoint**: In the `.env` file, set the server URL where the client makes requests. If not specified, it defaults to **http://localhost:8080**.
+- **Client URL**: In the `Dockerfile`, configure the client’s URL. By default, it runs on **http://localhost:80**.
+
+#### Server Configuration:
+- **Server URLs**: In the `launchSettings.json` file, set the server URLs. If not specified, it defaults to:
+  - **http://localhost:5097** for HTTP
+  - **https://localhost:7141** for HTTPS
+  - **http://localhost:8080** for Docker (HTTP)
+  - **https://localhost:8081** for Docker (HTTPS)
+
+- **Database Connection**: In the `appsettings.json` file, configure the database connection string. If not specified, the default is:
+  
+  ```json
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=sqlserver,1433;Database=WodItEasy;User Id=sa;Password=!Passw0rd;TrustServerCertificate=True;"
+  }
+
 ---
 
 ## 📜 License  
