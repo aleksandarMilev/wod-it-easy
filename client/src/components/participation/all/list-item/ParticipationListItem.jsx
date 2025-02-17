@@ -6,7 +6,7 @@ import { UserContext } from "../../../../contexts/User";
 import { useMessage } from "../../../../contexts/Message";
 import { routes, participationStatuses } from "../../../../common/constants";
 import {
-  formatDateAndTime,
+  formatUtcDateAndTime,
   getDateTimeNow,
 } from "../../../../common/functions";
 
@@ -131,11 +131,11 @@ export default function ParticipationListItem({
 
         <h5 className="card-title">{workoutName}</h5>
         <p className="card-text" data-icon="date">
-          <strong>Start At:</strong> {formatDateAndTime(workoutStartsAt)}
+          <strong>Start At:</strong> {formatUtcDateAndTime(workoutStartsAt)}
         </p>
         <p className="card-text" data-icon="joined">
           <strong>{isJoined ? "Joined At:" : "Left At:"}</strong>
-          {formatDateAndTime(modifiedOn || joinedAt)}
+          {formatUtcDateAndTime(modifiedOn || joinedAt)}
         </p>
         {status && (
           <p

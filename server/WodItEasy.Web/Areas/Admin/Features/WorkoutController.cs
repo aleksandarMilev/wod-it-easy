@@ -12,18 +12,7 @@
         [HttpPost]
         public async Task<ActionResult<CreateWorkoutOutputModel>> Create(
             [FromBody] CreateWorkoutCommand command)
-        {
-            try
-            {
-                return await this.Send(command);
-            }
-            catch (System.Exception ex)
-            {
-                await System.Console.Out.WriteLineAsync(ex.Message);
-                await System.Console.Out.WriteLineAsync(ex?.InnerException.Message);
-                throw;
-            }
-        }
+            => await this.Send(command);
 
         [HttpPut(Id)]
         public async Task<ActionResult> Update(

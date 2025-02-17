@@ -25,7 +25,9 @@
                 this.factory = factory;
             }
 
-            public async Task<Result<CreateWorkoutOutputModel>> Handle(CreateWorkoutCommand request, CancellationToken cancellationToken)
+            public async Task<Result<CreateWorkoutOutputModel>> Handle(
+                CreateWorkoutCommand request, 
+                CancellationToken cancellationToken = default)
             {
                 var workout = this.factory
                     .WithName(request.Name)

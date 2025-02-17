@@ -24,6 +24,6 @@
                             .Count(p =>
                                 p.Status.Value == ParticipationStatus.Joined.Value
                                 && p.Workout != null
-                                && p.Workout.StartsAt > DateTime.UtcNow.Date)));
+                                && p.Workout.StartsAt > DateTime.UtcNow)));
     }
 }

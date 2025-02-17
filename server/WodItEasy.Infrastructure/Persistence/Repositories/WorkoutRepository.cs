@@ -14,6 +14,7 @@
     using Domain.Models.Participation;
     using Domain.Models.Workouts;
     using Microsoft.EntityFrameworkCore;
+ 
 
     internal class WorkoutRepository : DataRepository<Workout>, IWorkoutRepository
     {
@@ -42,7 +43,7 @@
                 .AsNoTracking()
                 .Where(w => startsAt == null
                         ? true
-                        : startsAt == w.StartsAt)
+                        : startsAt.Value.Date == w.StartsAt.Date)
                 .OrderBy(w => w.StartsAt)
                 .ProjectTo<SearchWorkoutOutputModel>(this.mapper.ConfigurationProvider);
 
@@ -85,7 +86,7 @@
                     .All()
                     .AsNoTracking()
                     .Where(w => 
-                        w.StartsAt == date && 
+                        w.StartsAt.Date == date.Date && 
                         w.Id != excludeId.GetValueOrDefault())
                     .ToListAsync(cancellationToken);
 

@@ -4,6 +4,10 @@ import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
+import {
+  formatLocalDateAndTime,
+  formatUtcDateAndTimeForFormData,
+} from "../../../common/functions";
 import { useMessage } from "../../../contexts/Message";
 import { workoutTypes } from "../../../common/constants";
 import { create, update } from "../../../api/workoutApi";
@@ -27,7 +31,9 @@ export default function WorkoutForm({ isEditMode = false, workout = {} }) {
       imageUrl: workout.imageUrl || "",
       description: workout.description || "",
       maxParticipantsCount: workout.maxParticipantsCount || 1,
-      startsAt: isEditMode ? workout.startsAt.toLocaleString() : "",
+      startsAt: isEditMode
+        ? formatUtcDateAndTimeForFormData(workout.startsAt)
+        : "",
       type:
         isEditMode && workout.type
           ? mapTypeToNumber(workout.type)
@@ -130,7 +136,7 @@ export default function WorkoutForm({ isEditMode = false, workout = {} }) {
   );
 }
 
-const minStartDate = new Date(Date.now() - 1 * 24 * 60 * 60 * 1000);
+const minStartDate = new Date();
 const maxStartDate = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
 
 const validationSchema = Yup.object({
@@ -150,14 +156,16 @@ const validationSchema = Yup.object({
   startsAt: Yup.date()
     .min(
       minStartDate,
-      `Start Date must be later than ${minStartDate.toDateString()}`
+      `Start Date and Time must be later than ${formatLocalDateAndTime(
+        minStartDate
+      )}`
     )
     .max(
       maxStartDate,
-      `Start Date must be before ${maxStartDate.toDateString()}`
+      `Start Date must be before ${formatLocalDateAndTime(maxStartDate)}`
     )
-    .required("Start Date is required")
-    .typeError("Start Date must be a valid date"),
+    .required("Start Date and Time is required")
+    .typeError("Start Date and Time must be a valid date and time"),
   type: Yup.number().required("Type is required"),
 });
 

@@ -73,9 +73,6 @@
         public bool IsFull()
             => this.CurrentParticipantsCount >= this.MaxParticipantsCount;
 
-        public bool HasPassed()
-            => DateTime.UtcNow > this.StartsAt;
-
         public void IncrementParticipantsCount()
             => this.CurrentParticipantsCount++;
 
@@ -203,11 +200,11 @@
 
         private void ValidateStartsAt(DateTime startsAt)
         {
-            var minStartAt = DateTime.UtcNow;
-            var maxStartAt = DateTime.UtcNow.AddDays(7);
+            var minStartAt = DateTime.UtcNow.AddMinutes(-2);
+            var maxStartAt = DateTime.UtcNow.AddDays(7).AddMinutes(2);
 
             Guard.AgainstOutOfRange<InvalidWorkoutException>(
-                startsAt,
+                startsAt.ToUniversalTime(),
                 minStartAt,
                 maxStartAt,
                 nameof(this.StartsAt));

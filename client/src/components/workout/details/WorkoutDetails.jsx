@@ -7,7 +7,7 @@ import {
   FaSwimmer,
 } from "react-icons/fa";
 
-import { formatDateAndTime } from "../../../common/functions";
+import { formatUtcDateAndTime } from "../../../common/functions";
 import { remove as deleteWorkout } from "../../../api/workoutApi";
 import { routes } from "../../../common/constants";
 import { useDetails } from "../../../hooks/useWorkout";
@@ -177,7 +177,7 @@ export default function WorkoutDetails() {
           <div>
             <strong className="workout-details__label">Start At:</strong>
             <p className="workout-details__value">
-              {formatDateAndTime(workout.startsAt)}
+              {formatUtcDateAndTime(workout.startsAt)}
             </p>
           </div>
         </div>
