@@ -11,24 +11,23 @@
         [Fact]
         public void ConstructorShouldCreateValidWorkout()
         {
-            var startDate = DateTime.Now.AddDays(1);
+            var startDate = DateTime.Now.AddDays(1).Date;
             var startTime = TimeSpan.FromHours(9);
+            var startsAt = startDate.Add(startTime);
 
             var workout = new Workout(
                 "Test",
                 "https://test-url.com/some-image",
                 "A Test Test Test",
                 10,
-                startDate,
-                startTime,
+                startsAt,
                 WorkoutType.CrossFit);
 
             workout.Should().NotBeNull();
             workout.Name.Should().Be("Test");
             workout.Description.Should().Be("A Test Test Test");
             workout.MaxParticipantsCount.Should().Be(10);
-            workout.StartsAtDate.Should().Be(startDate);
-            workout.StartsAtTime.Should().Be(startTime);
+            workout.StartsAt.Should().Be(startsAt);
             workout.Type.Should().Be(WorkoutType.CrossFit);
             workout.CurrentParticipantsCount.Should().Be(0);
         }
@@ -43,7 +42,6 @@
                 "A Test Test Test",
                 10,
                 DateTime.Now.AddDays(1),
-                TimeSpan.FromHours(9),
                 WorkoutType.CrossFit);
 
             constructor.Should().Throw<InvalidWorkoutException>();
@@ -59,7 +57,6 @@
                 "A Test Test Test",
                 10,
                 DateTime.Now.AddDays(1),
-                TimeSpan.FromHours(9),
                 WorkoutType.CrossFit);
 
             constructor.Should().Throw<InvalidWorkoutException>();
@@ -75,7 +72,6 @@
                 description,
                 10,
                 DateTime.Now.AddDays(1),
-                TimeSpan.FromHours(9),
                 WorkoutType.CrossFit);
 
             constructor.Should().Throw<InvalidWorkoutException>();
@@ -91,7 +87,6 @@
                 "A Test Test Test",
                 maxParticipants,
                 DateTime.Now.AddDays(1),
-                TimeSpan.FromHours(9),
                 WorkoutType.CrossFit);
 
             constructor.Should().Throw<InvalidWorkoutException>();
@@ -107,7 +102,6 @@
                 "A Test Test Test",
                 10,
                 startDate,
-                TimeSpan.FromHours(9),
                 WorkoutType.CrossFit);
 
             constructor.Should().Throw<InvalidWorkoutException>();
@@ -122,7 +116,6 @@
                 "A Test Test Test",
                 10,
                 DateTime.Now.AddHours(1),
-                TimeSpan.FromHours(6),
                 WorkoutType.CrossFit);
 
             workout.IsClosed().Should().BeFalse();
@@ -145,7 +138,6 @@
                 "A Test Test Test",
                 1,
                 DateTime.Now.AddHours(1),
-                TimeSpan.FromHours(6),
                 WorkoutType.CrossFit);
 
             workout.IncrementParticipantsCount();
@@ -172,7 +164,7 @@
 
             workout.CurrentParticipantsCount.Should().Be(-1);
         }
-      
+
         [Theory]
         [MemberData(nameof(InvalidNames))]
         public void UpdateNameShouldThrowExceptionIfNameIsInvalid(string name)
@@ -212,9 +204,9 @@
             var workout = A.Dummy<Workout>();
             var newImageUlr = "https://new-image-url.com";
 
-            workout.UpdateName(newImageUlr);
+            workout.UpdateImageUrl(newImageUlr);
 
-            workout.Name.Should().Be(newImageUlr);
+            workout.ImageUrl.Should().Be(newImageUlr);
         }
 
         [Theory]
@@ -267,7 +259,7 @@
         {
             var workout = A.Dummy<Workout>();
 
-            var updateStartsAtDate = () => workout.UpdateStartsAtDate(startDate);
+            var updateStartsAtDate = () => workout.UpdateStartsAt(startDate);
 
             updateStartsAtDate.Should().Throw<InvalidWorkoutException>();
         }
@@ -278,20 +270,9 @@
             var workout = A.Dummy<Workout>();
             var newStartDate = DateTime.Now.AddDays(2);
 
-            workout.UpdateStartsAtDate(newStartDate);
+            workout.UpdateStartsAt(newStartDate);
 
-            workout.StartsAtDate.Should().Be(newStartDate);
-        }
-
-        [Fact]
-        public void UpdateStartsAtTimeShouldUpdateStartTime()
-        {
-            var workout = A.Dummy<Workout>();
-            var newStartTime = TimeSpan.FromHours(10);
-
-            workout.UpdateStartsAtTime(newStartTime);
-
-            workout.StartsAtTime.Should().Be(newStartTime);
+            workout.StartsAt.Should().Be(newStartDate);
         }
 
         [Fact]
@@ -305,40 +286,24 @@
             workout.Type.Should().Be(newType);
         }
 
-        public static TheoryData<string> InvalidNames =>
-            [
-                null!,
-                string.Empty,
-                "a",
-                new('a', 101)
-            ];
+        public static TheoryData<string> InvalidNames
+            => [ null!, string.Empty, "a",  new string('a', 101) ];
 
-        public static TheoryData<string> InvalidImageUrls =>
-            [
-                null!,
-                string.Empty,
-                "a",
-                new('a', 2_049),
-                new("Invalid-Url")
-            ];
+        public static TheoryData<string> InvalidImageUrls
+            => [ null!, string.Empty, "a", new string('a', 2_049), "Invalid-Url" ];
 
-        public static TheoryData<string> InvalidDescriptions =>
-            [
-                null!,
-                string.Empty,
-                "a",
-                new('a', 501)
-            ];
+        public static TheoryData<string> InvalidDescriptions
+            => [ null!, string.Empty, "a", new string('a', 501) ];
 
         public static TheoryData<int> InvalidMaxParticipantsCounts
-            => [-124421, 0, 16, 124124421];
+            => [ -124421, 0, 16, 124124421 ];
 
-        public static TheoryData<DateTime> InvalidStartDates =>
-            [
-                DateTime.Now.AddDays(-1),
-                DateTime.Now.AddMonths(-12),
-                DateTime.Now.AddDays(8),
-                DateTime.Now.AddMonths(12)
-            ];
+        public static TheoryData<DateTime> InvalidStartDates 
+            => [
+                    DateTime.Now.AddDays(-1), 
+                    DateTime.Now.AddMonths(-12), 
+                    DateTime.Now.AddDays(8), 
+                    DateTime.Now.AddMonths(12)
+                ];
     }
 }

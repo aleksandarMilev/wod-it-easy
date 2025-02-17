@@ -9,8 +9,7 @@
         private string imageUrl = default!;
         private string description = default!;
         private int maxParticipantsCount;
-        private DateTime startsAtDate;
-        private TimeSpan startsAtTime;
+        private DateTime startsAt;
         private WorkoutType type = default!;
 
         public IWorkoutFactory WithName(string name)
@@ -41,16 +40,9 @@
             return this;
         }
 
-        public IWorkoutFactory WithStartsAtDate(DateTime startsAtDate)
+        public IWorkoutFactory StartsAt(DateTime startsAt)
         {
-            this.startsAtDate = startsAtDate;
-
-            return this;
-        }
-
-        public IWorkoutFactory WithStartsAtTime(TimeSpan startsAtTime)
-        {
-            this.startsAtTime = startsAtTime;
+            this.startsAt = startsAt;
 
             return this;
         }
@@ -68,8 +60,7 @@
                 this.imageUrl,
                 this.description,
                 this.maxParticipantsCount,
-                this.startsAtDate,
-                this.startsAtTime,
+                this.startsAt,
                 this.type);
     }
 }

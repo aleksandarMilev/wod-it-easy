@@ -31,11 +31,7 @@
                 .IsRequired();
 
             builder
-                .Property(w => w.StartsAtDate)
-                .IsRequired();
-
-            builder
-                .Property(w => w.StartsAtTime)
+                .Property(w => w.StartsAt)
                 .IsRequired();
 
             builder
@@ -52,10 +48,10 @@
                 .HasForeignKey(p => p.WorkoutId);
 
             builder
-                .HasIndex(w => new { w.StartsAtDate, w.StartsAtTime });
+                .HasIndex(w => w.StartsAt);
 
             builder
-                .HasIndex(w => new { w.StartsAtDate, w.Id });
+                .HasIndex(w => new { w.StartsAt, w.Id });
         }
     }
 }

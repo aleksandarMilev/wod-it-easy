@@ -14,9 +14,7 @@
 
         public string WorkoutName { get; set; } = default!;
 
-        public DateTime WorkoutStartsAtDate { get; set; }
-
-        public TimeSpan WorkoutStartsAtTime { get; set; }
+        public DateTime WorkoutStartsAt { get; set; }
 
         public bool WorkoutIsFull { get; set; }
 

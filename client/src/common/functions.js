@@ -1,13 +1,5 @@
-export function formatDate(dateString) {
-  return new Date(dateString + "Z").toLocaleDateString("en-GB", {
-    day: "2-digit",
-    month: "long",
-    year: "numeric",
-  });
-}
-
-export function formatDateAndTime(dateString) {
-  return new Date(dateString + "Z").toLocaleString("en-GB", {
+export function formatDateAndTime(dateTimeString) {
+  return new Date(dateTimeString + "Z").toLocaleString("en-GB", {
     day: "2-digit",
     month: "long",
     year: "numeric",

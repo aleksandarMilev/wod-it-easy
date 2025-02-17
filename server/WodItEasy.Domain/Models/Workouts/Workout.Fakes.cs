@@ -5,9 +5,11 @@
 
     public class WorkoutFakes : IDummyFactory
     {
-        public Priority Priority => Priority.Default;
+        public Priority Priority
+            => Priority.Default;
 
-        public bool CanCreate(Type type) => type == typeof(Workout);
+        public bool CanCreate(Type type)
+            => type == typeof(Workout);
 
         public object? Create(Type type)
             => new Workout(
@@ -15,8 +17,7 @@
                 "https://test-image.com",
                 "A Test Test Test",
                 10,
-                DateTime.Now.AddDays(1),
-                TimeSpan.FromMinutes(60),
+                DateTime.UtcNow.AddDays(1).Add(TimeSpan.FromHours(12)),
                 WorkoutType.CrossFit);
     }
 }

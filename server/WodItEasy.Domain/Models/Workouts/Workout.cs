@@ -18,8 +18,7 @@
              string imageUrl,
              string description,
              int maxParticipantsCount,
-             DateTime startsAtDate,
-             TimeSpan startsAtTime,
+             DateTime startsAt,
              WorkoutType workoutType)
         {
             this.Validate(
@@ -27,14 +26,13 @@
                 imageUrl,
                 description,
                 maxParticipantsCount,
-                startsAtDate);
+                startsAt);
 
             this.Name = name;
             this.ImageUrl = imageUrl;
             this.Description = description;
             this.MaxParticipantsCount = maxParticipantsCount;
-            this.StartsAtDate = startsAtDate;
-            this.StartsAtTime = startsAtTime;
+            this.StartsAt = DateTime.SpecifyKind(startsAt, DateTimeKind.Utc);
             this.Type = workoutType;
         }
 
@@ -48,8 +46,7 @@
             this.Description = description;
 
             this.MaxParticipantsCount = default;
-            this.StartsAtDate = default;
-            this.StartsAtTime = default;
+            this.StartsAt = default;
             this.Type = default!;
         }
 
@@ -63,23 +60,21 @@
 
         public int CurrentParticipantsCount { get; private set; }
 
-        public DateTime StartsAtDate { get; private set; }
-
-        public TimeSpan StartsAtTime { get; private set; }
+        public DateTime StartsAt { get; private set; }
 
         public WorkoutType? Type { get; private set; }
 
         public IReadOnlyCollection<Participation> Participations
             => this.participations.ToList().AsReadOnly();
 
-        public bool IsClosed() 
-            => DateTime.Now >= this.StartsAtDate.Add(this.StartsAtTime).AddHours(-2);
+        public bool IsClosed()
+            => DateTime.UtcNow >= this.StartsAt.AddHours(-2);
 
         public bool IsFull()
             => this.CurrentParticipantsCount >= this.MaxParticipantsCount;
 
-        public bool HasPassed() 
-            => DateTime.Now > this.StartsAtDate.Add(this.StartsAtTime);
+        public bool HasPassed()
+            => DateTime.UtcNow > this.StartsAt;
 
         public void IncrementParticipantsCount()
             => this.CurrentParticipantsCount++;
@@ -132,17 +127,10 @@
             return this;
         }
 
-        public Workout UpdateStartsAtDate(DateTime startsAtDate)
+        public Workout UpdateStartsAt(DateTime startsAt)
         {
-            this.ValidateStartsAtDate(startsAtDate);
-            this.StartsAtDate = startsAtDate;
-
-            return this;
-        }
-
-        public Workout UpdateStartsAtTime(TimeSpan startsAtTime)
-        {
-            this.StartsAtTime = startsAtTime;
+            this.ValidateStartsAt(startsAt);
+            this.StartsAt = DateTime.SpecifyKind(startsAt, DateTimeKind.Utc);
 
             return this;
         }
@@ -156,16 +144,11 @@
 
         private bool OverlapsWith(Workout that)
         {
-            if (this.StartsAtDate.Date != that.StartsAtDate.Date)
-            {
-                return false;
-            }
+            var thisStartTime = this.StartsAt;
+            var thisEndTime = this.StartsAt.Add(TimeSpan.FromMinutes(59));
 
-            var thisStartTime = this.StartsAtTime;
-            var thisEndTime = this.StartsAtTime.Add(TimeSpan.FromMinutes(59));
-
-            var thatStartTime = that.StartsAtTime;
-            var thatEndTime = that.StartsAtTime.Add(TimeSpan.FromMinutes(59));
+            var thatStartTime = that.StartsAt;
+            var thatEndTime = that.StartsAt.Add(TimeSpan.FromMinutes(59));
 
             return thisStartTime <= thatEndTime &&
                    thisEndTime >= thatStartTime;
@@ -176,13 +159,13 @@
             string imageUrl,
             string description,
             int maxParticipantsCount,
-            DateTime startsAtDate)
+            DateTime startsAt)
         {
             this.ValidateName(name);
             this.ValidateImageUrl(imageUrl);
             this.ValidateDescription(description);
             this.ValidateMaxParticipantsCount(maxParticipantsCount);
-            this.ValidateStartsAtDate(startsAtDate);
+            this.ValidateStartsAt(startsAt);
         }
 
         private void ValidateName(string name)
@@ -218,11 +201,17 @@
                 nameof(this.MaxParticipantsCount));
         }
 
-        private void ValidateStartsAtDate(DateTime startsAtDate)
-            => Guard.AgainstOutOfRange<InvalidWorkoutException>(
-                startsAtDate.Date,
-                MinStartAtDateValue,
-                MaxStartAtDateValue,
-                nameof(this.StartsAtDate));
+        private void ValidateStartsAt(DateTime startsAt)
+        {
+            var minStartAt = DateTime.UtcNow;
+            var maxStartAt = DateTime.UtcNow.AddDays(7);
+
+            Guard.AgainstOutOfRange<InvalidWorkoutException>(
+                startsAt,
+                minStartAt,
+                maxStartAt,
+                nameof(this.StartsAt));
+        }
+
     }
 }

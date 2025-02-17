@@ -290,17 +290,14 @@ namespace WodItEasy.Infrastructure.Persistence.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<DateTime>("StartsAtDate")
+                    b.Property<DateTime>("StartsAt")
                         .HasColumnType("datetime2");
-
-                    b.Property<TimeSpan>("StartsAtTime")
-                        .HasColumnType("time");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("StartsAtDate", "Id");
+                    b.HasIndex("StartsAt");
 
-                    b.HasIndex("StartsAtDate", "StartsAtTime");
+                    b.HasIndex("StartsAt", "Id");
 
                     b.ToTable("Workouts");
                 });

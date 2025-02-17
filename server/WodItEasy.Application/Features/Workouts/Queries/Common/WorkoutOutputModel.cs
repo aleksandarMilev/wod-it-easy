@@ -18,9 +18,7 @@
 
         public int CurrentParticipantsCount { get; set; }
 
-        public DateTime StartsAtDate { get; set; }
-
-        public TimeSpan StartsAtTime { get; set; }
+        public DateTime StartsAt { get; set; }
 
         public string Type { get; set; } = default!;
 

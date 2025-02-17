@@ -13,9 +13,7 @@
 
         public int MaxParticipantsCount { get; set; }
 
-        public string StartsAtDate { get; set; } = default!;
-
-        public string StartsAtTime { get; set; } = default!;
+        public string StartsAt { get; set; } = default!;
 
         public int Type { get; set; }
     }

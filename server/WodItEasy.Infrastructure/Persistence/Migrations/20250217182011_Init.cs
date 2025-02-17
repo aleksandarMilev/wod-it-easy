@@ -82,8 +82,7 @@ namespace WodItEasy.Infrastructure.Persistence.Migrations
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     MaxParticipantsCount = table.Column<int>(type: "int", nullable: false),
                     CurrentParticipantsCount = table.Column<int>(type: "int", nullable: false),
-                    StartsAtDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    StartsAtTime = table.Column<TimeSpan>(type: "time", nullable: false),
+                    StartsAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Type_Value = table.Column<int>(type: "int", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -296,14 +295,14 @@ namespace WodItEasy.Infrastructure.Persistence.Migrations
                 column: "WorkoutId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Workouts_StartsAtDate_Id",
+                name: "IX_Workouts_StartsAt",
                 table: "Workouts",
-                columns: new[] { "StartsAtDate", "Id" });
+                column: "StartsAt");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Workouts_StartsAtDate_StartsAtTime",
+                name: "IX_Workouts_StartsAt_Id",
                 table: "Workouts",
-                columns: new[] { "StartsAtDate", "StartsAtTime" });
+                columns: new[] { "StartsAt", "Id" });
         }
 
         /// <inheritdoc />

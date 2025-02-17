@@ -6,7 +6,6 @@ import { UserContext } from "../../../../contexts/User";
 import { useMessage } from "../../../../contexts/Message";
 import { routes, participationStatuses } from "../../../../common/constants";
 import {
-  formatDate,
   formatDateAndTime,
   getDateTimeNow,
 } from "../../../../common/functions";
@@ -19,8 +18,7 @@ export default function ParticipationListItem({
   id,
   workoutId,
   workoutName,
-  workoutStartsAtDate,
-  workoutStartsAtTime,
+  workoutStartsAt,
   workoutIsFull,
   joinedAt: initialJoinedAt,
   modifiedOn: initialModifiedOn,
@@ -47,28 +45,18 @@ export default function ParticipationListItem({
 
   const isClosed = (() => {
     const now = new Date();
-    const workoutStartDate = new Date(workoutStartsAtDate);
-    const isNotToday = now.toDateString() !== workoutStartDate.toDateString();
+    const workoutStart = new Date(workoutStartsAt);
+
+    const isNotToday = now.toDateString() !== workoutStart.toDateString();
 
     if (isNotToday) {
       return false;
     }
 
-    const [workoutHours, workoutMinutes, workoutSeconds] = workoutStartsAtTime
-      .split(":")
-      .map(Number);
-
-    const workoutStartTime = new Date(now);
-    workoutStartTime.setHours(workoutHours, workoutMinutes, workoutSeconds, 0);
-
-    const timeDifference = (workoutStartTime - now) / (1000 * 60 * 60);
+    const timeDifference = (workoutStart - now) / (1000 * 60 * 60);
     const thereIsLessThanTwoHoursToTheWorkout = timeDifference <= 2;
 
-    if (thereIsLessThanTwoHoursToTheWorkout) {
-      return true;
-    } else {
-      return false;
-    }
+    return thereIsLessThanTwoHoursToTheWorkout;
   })();
 
   const [isFull, setIsFull] = useState(workoutIsFull);
@@ -143,10 +131,7 @@ export default function ParticipationListItem({
 
         <h5 className="card-title">{workoutName}</h5>
         <p className="card-text" data-icon="date">
-          <strong>Start Date:</strong> {formatDate(workoutStartsAtDate)}
-        </p>
-        <p className="card-text" data-icon="time">
-          <strong>Start Time:</strong> {workoutStartsAtTime.slice(0, 5)}
+          <strong>Start At:</strong> {formatDateAndTime(workoutStartsAt)}
         </p>
         <p className="card-text" data-icon="joined">
           <strong>{isJoined ? "Joined At:" : "Left At:"}</strong>

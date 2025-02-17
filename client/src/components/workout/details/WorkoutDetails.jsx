@@ -5,10 +5,9 @@ import {
   FaUsers,
   FaRegFileAlt,
   FaSwimmer,
-  FaRegClock,
 } from "react-icons/fa";
 
-import { formatDate } from "../../../common/functions";
+import { formatDateAndTime } from "../../../common/functions";
 import { remove as deleteWorkout } from "../../../api/workoutApi";
 import { routes } from "../../../common/constants";
 import { useDetails } from "../../../hooks/useWorkout";
@@ -68,29 +67,18 @@ export default function WorkoutDetails() {
     if (!workout) {
       return false;
     }
+
     const now = new Date();
-    const workoutStartDate = new Date(workout.startsAtDate);
-    const isNotToday = now.toDateString() !== workoutStartDate.toDateString();
+    const workoutStart = new Date(workout.startsAt);
+    const localWorkoutStart = new Date(workoutStart.toLocaleString());
 
-    if (isNotToday) {
-      return false;
-    }
-
-    const [workoutHours, workoutMinutes, workoutSeconds] = workout.startsAtTime
-      .split(":")
-      .map(Number);
-
-    const workoutStartTime = new Date(now);
-    workoutStartTime.setHours(workoutHours, workoutMinutes, workoutSeconds, 0);
-
-    const timeDifference = (workoutStartTime - now) / (1000 * 60 * 60);
-    const thereIsLessThanTwoHoursToTheWorkout = timeDifference <= 2;
-
-    if (thereIsLessThanTwoHoursToTheWorkout) {
+    if (now > localWorkoutStart) {
       return true;
-    } else {
-      return false;
     }
+
+    const timeDifference = (localWorkoutStart - now) / (1000 * 60 * 60);
+
+    return timeDifference <= 2;
   })();
 
   const joinHandler = async () => {
@@ -187,19 +175,9 @@ export default function WorkoutDetails() {
         <div className="workout-details__section">
           <FaCalendarAlt className="workout-details__icon" />
           <div>
-            <strong className="workout-details__label">Start Date:</strong>
+            <strong className="workout-details__label">Start At:</strong>
             <p className="workout-details__value">
-              {formatDate(workout.startsAtDate)}
-            </p>
-          </div>
-        </div>
-
-        <div className="workout-details__section">
-          <FaRegClock className="workout-details__icon" />
-          <div>
-            <strong className="workout-details__label">Start Time:</strong>
-            <p className="workout-details__value">
-              {workout.startsAtTime.slice(0, 5)}
+              {formatDateAndTime(workout.startsAt)}
             </p>
           </div>
         </div>

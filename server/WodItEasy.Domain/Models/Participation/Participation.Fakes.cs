@@ -24,8 +24,7 @@
                     "https://test-url.com/some-image",
                     "Description",
                     10,
-                    DateTime.Now.AddDays(1),
-                    TimeSpan.FromHours(9),
+                    DateTime.UtcNow.AddDays(1).Add(TimeSpan.FromHours(12)),
                     WorkoutType.CrossFit);
 
                 return new Participation(

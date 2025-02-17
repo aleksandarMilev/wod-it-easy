@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { FaUsers, FaClock } from "react-icons/fa";
 
-import { formatDate } from "../../../../common/functions";
+import { formatDateAndTime } from "../../../../common/functions";
 import { routes } from "../../../../common/constants";
 
 import "./WorkoutListItem.css";
@@ -11,8 +11,7 @@ export default function WorkoutListItem({
   name,
   imageUrl,
   type,
-  startsAtDate,
-  startsAtTime,
+  startsAt,
   currentParticipantsCount,
   maxParticipantsCount,
 }) {
@@ -29,8 +28,7 @@ export default function WorkoutListItem({
           {maxParticipantsCount} Participants
         </div>
         <div className="mt-1 mb-2 workout-list-item-time">
-          <FaClock className="me-2" /> {formatDate(startsAtDate)} at{" "}
-          {startsAtTime.slice(0, 5)}
+          <FaClock className="me-2" /> {formatDateAndTime(startsAt)}
         </div>
       </div>
 

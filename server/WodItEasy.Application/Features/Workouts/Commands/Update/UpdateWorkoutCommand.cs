@@ -41,12 +41,11 @@
                     .UpdateImageUrl(request.ImageUrl)
                     .UpdateDescription(request.Description)
                     .UpdateMaxParticipantsCount(request.MaxParticipantsCount)
-                    .UpdateStartsAtDate(DateTime.Parse(request.StartsAtDate))
-                    .UpdateStartsAtTime(TimeSpan.Parse(request.StartsAtTime))
+                    .UpdateStartsAt(DateTime.Parse(request.StartsAt).ToUniversalTime())
                     .UpdateType(Enumeration.FromValue<WorkoutType>(request.Type));
 
                 var others = await this.repository.ByDate(
-                    workout.StartsAtDate.Date,
+                    workout.StartsAt,
                     request.Id,
                     cancellationToken);
 

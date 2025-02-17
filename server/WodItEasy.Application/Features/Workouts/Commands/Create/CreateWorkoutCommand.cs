@@ -32,13 +32,12 @@
                     .WithImageUrl(request.ImageUrl)
                     .WithDescription(request.Description)
                     .WithMaxParticipantsCount(request.MaxParticipantsCount)
-                    .WithStartsAtDate(DateTime.Parse(request.StartsAtDate))
-                    .WithStartsAtTime(TimeSpan.Parse(request.StartsAtTime))
+                    .StartsAt(DateTime.Parse(request.StartsAt).ToUniversalTime())
                     .WithType(Enumeration.FromValue<WorkoutType>(request.Type))
                     .Build();
 
                 var others = await this.repository.ByDate(
-                    workout.StartsAtDate.Date,
+                    workout.StartsAt,
                     null,
                     cancellationToken);
 

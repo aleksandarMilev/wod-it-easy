@@ -13,9 +13,7 @@
 
         IWorkoutFactory WithMaxParticipantsCount(int maxParticipantsCount);
 
-        IWorkoutFactory WithStartsAtDate(DateTime startsAtDate);
-
-        IWorkoutFactory WithStartsAtTime(TimeSpan startsAtTime);
+        IWorkoutFactory StartsAt(DateTime startsAt);
 
         IWorkoutFactory WithType(WorkoutType type);
     }

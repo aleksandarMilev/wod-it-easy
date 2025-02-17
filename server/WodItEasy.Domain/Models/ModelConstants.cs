@@ -29,9 +29,6 @@
 
             public const int MaxParticipantsCountMinValue = 1;
             public const int MaxParticipantsCountMaxValue = 15;
-
-            public static readonly DateTime MinStartAtDateValue = DateTime.Now.Date;
-            public static readonly DateTime MaxStartAtDateValue = DateTime.Now.AddDays(7).Date;
         }
     }
 }

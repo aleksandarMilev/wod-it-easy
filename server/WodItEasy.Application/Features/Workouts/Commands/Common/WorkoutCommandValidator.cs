@@ -1,6 +1,5 @@
 ﻿namespace WodItEasy.Application.Features.Workouts.Commands.Common
 {
-    using System;
     using Application.Common;
     using FluentValidation;
 
@@ -30,12 +29,6 @@
                 .LessThanOrEqualTo(MaxParticipantsCountMaxValue)
                 .GreaterThanOrEqualTo(MaxParticipantsCountMinValue)
                 .WithMessage($"MaxParticipantsCount should be between {MaxParticipantsCountMinValue} and {MaxParticipantsCountMaxValue}.");
-
-            this
-                .RuleFor(w => DateTime.Parse(w.StartsAtDate).Date)
-                .LessThanOrEqualTo(MaxStartAtDateValue)
-                .GreaterThanOrEqualTo(MinStartAtDateValue)
-                .WithMessage($"StartDate must be between {MinStartAtDateValue.ToShortDateString()} and {MaxStartAtDateValue.ToShortDateString()}.");
         }
     }
 }

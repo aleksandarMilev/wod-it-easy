@@ -27,8 +27,7 @@ export default function WorkoutForm({ isEditMode = false, workout = {} }) {
       imageUrl: workout.imageUrl || "",
       description: workout.description || "",
       maxParticipantsCount: workout.maxParticipantsCount || 1,
-      startsAtDate: isEditMode ? workout.startsAtDate.split("T")[0] : "",
-      startsAtTime: workout.startsAtTime || "",
+      startsAt: isEditMode ? workout.startsAt.toLocaleString() : "",
       type:
         isEditMode && workout.type
           ? mapTypeToNumber(workout.type)
@@ -43,8 +42,7 @@ export default function WorkoutForm({ isEditMode = false, workout = {} }) {
       imageUrl: data.imageUrl || defaultImageUrl,
       description: data.description,
       maxParticipantsCount: parseInt(data.maxParticipantsCount),
-      startsAtDate: data.startsAtDate,
-      startsAtTime: data.startsAtTime,
+      startsAt: data.startsAt,
       type: parseInt(data.type),
     };
 
@@ -106,18 +104,10 @@ export default function WorkoutForm({ isEditMode = false, workout = {} }) {
       </div>
 
       <div className="form-group">
-        <label htmlFor="startsAtDate">Start Date</label>
-        <input id="startsAtDate" type="date" {...register("startsAtDate")} />
-        {errors.startsAtDate && (
-          <p className="error-message">{errors.startsAtDate.message}</p>
-        )}
-      </div>
-
-      <div className="form-group">
-        <label htmlFor="startsAtTime">Start Time</label>
-        <input id="startsAtTime" type="time" {...register("startsAtTime")} />
-        {errors.startsAtTime && (
-          <p className="error-message">{errors.startsAtTime.message}</p>
+        <label htmlFor="startsAt">Start Date and Time</label>
+        <input id="startsAt" type="datetime-local" {...register("startsAt")} />
+        {errors.startsAt && (
+          <p className="error-message">{errors.startsAt.message}</p>
         )}
       </div>
 
@@ -157,7 +147,7 @@ const validationSchema = Yup.object({
     .min(1, "Participants count must be at least 1")
     .max(15, "Participants count must not exceed 15")
     .required("Participants count is required"),
-  startsAtDate: Yup.date()
+  startsAt: Yup.date()
     .min(
       minStartDate,
       `Start Date must be later than ${minStartDate.toDateString()}`
@@ -168,26 +158,6 @@ const validationSchema = Yup.object({
     )
     .required("Start Date is required")
     .typeError("Start Date must be a valid date"),
-  startsAtTime: Yup.string()
-    .required("Start Time is required")
-    .test("is-future", "Start Time must be in the future", function () {
-      const selectDateIsNotToday =
-        this.parent.startsAtDate.toDateString() !== new Date().toDateString();
-
-      if (selectDateIsNotToday) {
-        return true;
-      }
-
-      const now = new Date();
-      const hours = now.getHours();
-      const minutes = String(now.getMinutes()).padStart(2, "0");
-
-      const minValidTime = `${hours}:${minutes}`;
-      const selectedTime = this.parent.startsAtTime;
-
-      const isValid = minValidTime < selectedTime;
-      return isValid;
-    }),
   type: Yup.number().required("Type is required"),
 });
 
