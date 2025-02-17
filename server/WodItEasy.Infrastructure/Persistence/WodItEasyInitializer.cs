@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+    using System.Threading;
     using Domain.Common;
     using Microsoft.EntityFrameworkCore;
 
@@ -22,6 +23,10 @@
 
         public void Initialize()
         {
+            // When run in Docker, migrate will be invoked before the DB is freshly loaded, which causes bugs (trying to create a new DB even though it already exists).
+            // So, the smartest thing I came up with was Thread.Sleep.
+            Thread.Sleep(8_000);
+
             this.data.Database.Migrate();
 
             foreach (var initialDataProvider in this.initialDataProviders)
