@@ -1,7 +1,6 @@
-// export const baseUrl =
-//   import.meta?.env?.VITE_REACT_APP_SERVER_URL ?? "http://localhost:8080";
+export const baseUrl =
+  import.meta?.env?.VITE_REACT_APP_SERVER_URL ?? "http://localhost:8080";
 
-export const baseUrl = "https://localhost:7141";
 export const baseAdminUrl = `${baseUrl}/administrator`;
 
 export const routes = {
