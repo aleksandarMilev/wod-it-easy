@@ -4,7 +4,7 @@ services:
     container_name: sqlserver
     restart: always
     environment:
-      SA_PASSWORD: "YourStrong!Passw0rd"
+      SA_PASSWORD: "!Passw0rd"
       ACCEPT_EULA: "Y"
     ports:
       - "1433:1433"
@@ -13,7 +13,7 @@ services:
     volumes:
       - sql_data:/var/opt/mssql
 
-  app:
+  server:
     build:
       context: .
       dockerfile: server/WodItEasy.Startup/Dockerfile
@@ -24,18 +24,18 @@ services:
       - "8080:8080"
       - "8081:8081"
     environment:
-      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=WodItEasy;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;
+      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=WodItEasy;User Id=sa;Password=!Passw0rd;TrustServerCertificate=True;
       - Admin__Password=admin1234
       - Admin__Email=admin@mail.com
       - ApplicationSettings__Secret=A_very_strong_secret_key_that_is_at_least_16_characters_long
     networks:
       - backend
 
-  react-client:
+  client:
     build:
       context: ./client
       dockerfile: Dockerfile
-    container_name: react-client
+    container_name: client
     ports:
       - "80:80"
     environment:
