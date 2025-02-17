@@ -61,11 +61,8 @@ export async function update(id, data, token) {
   );
 
   if (!response.ok) {
-    let errorMessage;
-    const serverErrorMessage = await response.json();
-
-    if (serverErrorMessage === errorMessages.serverErrors.updateWorkout) {
-      throw new Error(serverErrorMessage);
+    if (response.status === 400) {
+      throw new Error(await response.json());
     }
 
     throw new Error(errorMessages.workout.update);

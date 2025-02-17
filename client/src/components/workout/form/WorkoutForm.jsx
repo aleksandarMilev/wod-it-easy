@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { formatDate } from "../../../common/functions";
 import { useMessage } from "../../../contexts/Message";
 import { workoutTypes } from "../../../common/constants";
 import { create, update } from "../../../api/workoutApi";
@@ -141,7 +140,7 @@ export default function WorkoutForm({ isEditMode = false, workout = {} }) {
   );
 }
 
-const minStartDate = new Date(Date.now() - 60000);
+const minStartDate = new Date(Date.now() - 1 * 24 * 60 * 60 * 1000);
 const maxStartDate = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
 
 const validationSchema = Yup.object({
@@ -159,6 +158,14 @@ const validationSchema = Yup.object({
     .max(15, "Participants count must not exceed 15")
     .required("Participants count is required"),
   startsAtDate: Yup.date()
+    .min(
+      minStartDate,
+      `Start Date must be later than ${minStartDate.toDateString()}`
+    )
+    .max(
+      maxStartDate,
+      `Start Date must be before ${maxStartDate.toDateString()}`
+    )
     .required("Start Date is required")
     .typeError("Start Date must be a valid date"),
   startsAtTime: Yup.string()

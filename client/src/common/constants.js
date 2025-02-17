@@ -1,5 +1,7 @@
-export const baseUrl =
-  import.meta?.env?.VITE_REACT_APP_SERVER_URL ?? "http://localhost:8080";
+// export const baseUrl =
+//   import.meta?.env?.VITE_REACT_APP_SERVER_URL ?? "http://localhost:8080";
+
+export const baseUrl = "https://localhost:7141";
 export const baseAdminUrl = `${baseUrl}/administrator`;
 
 export const routes = {
@@ -61,11 +63,6 @@ export const contentTypes = {
 
 export const errorMessages = {
   genericError: "Sorry, something went wrong. Please try again later.",
-
-  serverErrors: {
-    updateWorkout:
-      "The new MaxParticipantsCount value should be greater than or equal to the CurrentParticipantsCount value!",
-  },
 
   workout: {
     search:
