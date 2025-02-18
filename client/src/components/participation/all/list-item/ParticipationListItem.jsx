@@ -119,7 +119,7 @@ export default function ParticipationListItem({
   return (
     <div className="participation-list-item-card card mb-3 shadow-sm">
       <div className="card-body">
-        {!isClosed && (
+        {(!isClosed || isLeft) && (
           <button
             className="delete-button"
             onClick={toggleModal}

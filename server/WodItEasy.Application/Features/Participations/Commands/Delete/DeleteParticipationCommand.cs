@@ -61,16 +61,18 @@
                     participation.WorkoutId, 
                     cancellationToken);
 
-                if (workout!.IsClosed())
+                var athleteIsJoined = (participation.Status.Equals(ParticipationStatus.Joined));
+
+                if (athleteIsJoined && workout!.IsClosed())
                 {
-                     return WorkoutClosedErrorMessage;
+                    return WorkoutClosedErrorMessage;
                 }
 
                 _ = await this.participationRepository.Delete(request.Id, cancellationToken);
 
-                if (participation.Status.Equals(ParticipationStatus.Joined))
+                if (athleteIsJoined)
                 {
-                    workout.DecrementParticipantsCount();
+                    workout!.DecrementParticipantsCount();
 
                     await this.workoutRepository.Save(workout, cancellationToken);
                 }
