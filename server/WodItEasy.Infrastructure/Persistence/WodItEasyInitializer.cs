@@ -24,7 +24,7 @@
         public void Initialize()
         {
             // when run in docker, migrate() will be invoked before the db is freshly loaded, which causes bugs (trying to create a new db even though it already exists).
-            // do, the smartest thing i came up with was thread.sleep, pls do not kill me..
+            // so, the smartest thing i came up with was thread.sleep, pls do not kill me..
             Thread.Sleep(8_000);
 
             this.data.Database.Migrate();

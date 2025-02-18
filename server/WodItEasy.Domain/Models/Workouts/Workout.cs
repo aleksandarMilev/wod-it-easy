@@ -188,7 +188,8 @@
         {
             if (this.CurrentParticipantsCount > maxParticipantsCount)
             {
-                throw new InvalidWorkoutException("MaxParticipantsCount value should be greater than or equal to the CurrentParticipantsCount value!");
+                throw new InvalidWorkoutException(
+                    $"There are {this.CurrentParticipantsCount} participants in the workout. You can't set the Max Participants value to less than that.");
             }
 
             Guard.AgainstOutOfRange<InvalidWorkoutException>(

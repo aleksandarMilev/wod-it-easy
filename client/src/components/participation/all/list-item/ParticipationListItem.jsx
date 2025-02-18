@@ -45,17 +45,17 @@ export default function ParticipationListItem({
 
   const isClosed = (() => {
     const now = new Date();
-    const workoutStart = new Date(workoutStartsAt);
+    const workoutStartLocal = new Date(workoutStartsAt + "z");
 
-    const isNotToday = now.toDateString() !== workoutStart.toDateString();
+    const isNotToday = now.getDate() !== workoutStartLocal.getDate();
 
     if (isNotToday) {
       return false;
     }
 
-    const timeDifference = (workoutStart - now) / (1000 * 60 * 60);
-    const thereIsLessThanTwoHoursToTheWorkout = timeDifference <= 2;
+    const timeDifference = (workoutStartLocal - now) / (1000 * 60 * 60);
 
+    const thereIsLessThanTwoHoursToTheWorkout = timeDifference <= 2;
     return thereIsLessThanTwoHoursToTheWorkout;
   })();
 

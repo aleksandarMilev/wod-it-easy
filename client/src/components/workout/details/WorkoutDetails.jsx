@@ -70,7 +70,7 @@ export default function WorkoutDetails() {
 
     const now = new Date();
     const workoutStart = new Date(workout.startsAt);
-    const localWorkoutStart = new Date(workoutStart.toLocaleString());
+    const localWorkoutStart = new Date(workoutStart + "Z");
 
     if (now > localWorkoutStart) {
       return true;

@@ -7,7 +7,7 @@ namespace WodItEasy.Infrastructure.Persistence.Migrations
     using Microsoft.EntityFrameworkCore.Migrations;
 
     [DbContext(typeof(WodItEasyDbContext))]
-    [Migration("20250217182011_Init")]
+    [Migration("20250218094853_Init")]
     partial class Init
     {
         /// <inheritdoc />
