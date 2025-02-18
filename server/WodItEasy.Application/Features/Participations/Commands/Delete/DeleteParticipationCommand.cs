@@ -61,7 +61,7 @@
                     participation.WorkoutId, 
                     cancellationToken);
 
-                var athleteIsJoined = (participation.Status.Equals(ParticipationStatus.Joined));
+                var athleteIsJoined = participation.Status.Equals(ParticipationStatus.Joined);
 
                 if (athleteIsJoined && workout!.IsClosed())
                 {
