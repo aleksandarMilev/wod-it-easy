@@ -14,6 +14,14 @@ WodItEasy is a **web application** designed to help users manage and participate
 
 ---
 
+## 👤 Built-in Admin Profile  
+The application includes a built-in profile with admin privileges:  
+
+- **Email:** `admin@mail.com`  
+- **Password:** `admin1234`
+
+---
+
 ## 🛠 Tech Stack  
 ### **Frontend**  
 - React (Vite)  
