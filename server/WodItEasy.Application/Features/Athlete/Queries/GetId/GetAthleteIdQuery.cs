@@ -12,13 +12,17 @@
             private readonly IAthleteRepository repository;
             private readonly ICurrentUserService userService;
 
-            public GetAthleteIdQueryHandler(IAthleteRepository repository, ICurrentUserService userService)
+            public GetAthleteIdQueryHandler(
+                IAthleteRepository repository, 
+                ICurrentUserService userService)
             {
                 this.repository = repository;
                 this.userService = userService;
             }
 
-            public async Task<GetAthleteIdOutputModel?> Handle(GetAthleteIdQuery request, CancellationToken cancellationToken)
+            public async Task<GetAthleteIdOutputModel?> Handle(
+                GetAthleteIdQuery request, 
+                CancellationToken cancellationToken)
             {
                 var id = await this.repository.GetId(
                     this.userService.UserId!,

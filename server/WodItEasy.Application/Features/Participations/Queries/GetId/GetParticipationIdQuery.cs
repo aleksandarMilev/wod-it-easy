@@ -17,7 +17,9 @@
             public GetParticipationIdQueryHandler(IParticipationRepository repository)
                 => this.repository = repository;
 
-            public async Task<GetParticipationIdOutputModel> Handle(GetParticipationIdQuery request, CancellationToken cancellationToken)
+            public async Task<GetParticipationIdOutputModel> Handle(
+                GetParticipationIdQuery request, 
+                CancellationToken cancellationToken)
             {
                 var id = await this.repository.GetId(
                     request.AthleteId,

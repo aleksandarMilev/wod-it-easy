@@ -23,7 +23,9 @@
    
     public static class InfrastructureConfiguration
     {
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddInfrastructure(
+            this IServiceCollection services, 
+            IConfiguration configuration)
             => services
                 .RegisterRepositoriesWithTransientLifetime()
                 .AddDatabase(configuration)
@@ -81,7 +83,9 @@
                 .ToList()
                 ?? throw new InvalidOperationException("Could not load .Infrastructure assembly!");
 
-        private static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration)
+        private static IServiceCollection AddDatabase(
+            this IServiceCollection services, 
+            IConfiguration configuration)
         {
             var connectionString = Environment
                 .GetEnvironmentVariable("ConnectionStrings__DefaultConnection") 
@@ -103,7 +107,9 @@
                 .AddScoped<PublishDomainEventInterceptor>();
         }
 
-        private static IServiceCollection AddIdentity(this IServiceCollection services, IConfiguration configuration)
+        private static IServiceCollection AddIdentity(
+            this IServiceCollection services, 
+            IConfiguration configuration)
         {
             services
                 .AddIdentity<User, IdentityRole>(opt =>

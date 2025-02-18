@@ -18,7 +18,7 @@
 
         public ParticipationRepository(WodItEasyDbContext data, IMapper mapper)
             : base(data)
-                => this.mapper = mapper;
+            => this.mapper = mapper;
 
         public async Task<Participation?> ById(
             int id, 
@@ -31,7 +31,7 @@
         public async Task<bool> Exists(
             int athleteId,
             int workoutId,
-            CancellationToken cancellationToken)
+            CancellationToken cancellationToken = default)
                 => await this
                     .All()
                     .AsNoTracking()
@@ -42,7 +42,7 @@
         public async Task<int> GetId(
             int athleteId,
             int workoutId,
-            CancellationToken cancellationToken)
+            CancellationToken cancellationToken = default)
                 => await this
                     .All()
                     .AsNoTracking()
@@ -79,7 +79,7 @@
 
         public async Task<bool> Delete(
             int id, 
-            CancellationToken cancellationToken)
+            CancellationToken cancellationToken = default)
         {
             var participation = await this
                 .All()

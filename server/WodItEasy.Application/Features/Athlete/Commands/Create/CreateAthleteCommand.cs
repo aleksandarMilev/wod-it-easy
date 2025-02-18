@@ -25,7 +25,9 @@
                 this.userService = userService;
             }
 
-            public async Task<CreateAthleteOutputModel> Handle(CreateAthleteCommand request, CancellationToken cancellationToken)
+            public async Task<CreateAthleteOutputModel> Handle(
+                CreateAthleteCommand request, 
+                CancellationToken cancellationToken)
             {
                 var userId = this.userService.UserId;
                 var deletedAthlete = await this.repository.GetDeleted(userId!, cancellationToken);

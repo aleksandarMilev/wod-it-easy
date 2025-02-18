@@ -35,23 +35,31 @@
                 this.userService = userService;
             }
 
-            public async Task<Result> Handle(DeleteParticipationCommand request, CancellationToken cancellationToken)
+            public async Task<Result> Handle(
+                DeleteParticipationCommand request, 
+                CancellationToken cancellationToken)
             {
-                var participation = await this.participationRepository.ById(request.Id, cancellationToken);
+                var participation = await this.participationRepository.ById(
+                    request.Id, 
+                    cancellationToken);
 
                 if (participation is null)
                 {
                     return string.Format(ParticipationNotFoundErrorMessage, request.Id);
                 }
 
-                var athleteId = await this.athleteRepository.GetId(this.userService.UserId!, cancellationToken);
+                var athleteId = await this.athleteRepository.GetId(
+                    this.userService.UserId!, 
+                    cancellationToken);
 
                 if (participation.AthleteId != athleteId)
                 {
                     return UnauthorizedErrorMessage;
                 }
 
-                var workout = await this.workoutRepository.ById(participation.WorkoutId, cancellationToken);
+                var workout = await this.workoutRepository.ById(
+                    participation.WorkoutId, 
+                    cancellationToken);
 
                 if (workout!.IsClosed())
                 {

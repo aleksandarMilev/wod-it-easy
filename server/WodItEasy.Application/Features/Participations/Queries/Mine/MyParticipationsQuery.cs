@@ -32,7 +32,9 @@
                 this.userService = userService;
             }
 
-            public async Task<PaginatedOutputModel<MyParticipationsOutputModel>> Handle(MyParticipationsQuery request, CancellationToken cancellationToken)
+            public async Task<PaginatedOutputModel<MyParticipationsOutputModel>> Handle(
+                MyParticipationsQuery request, 
+                CancellationToken cancellationToken)
             {
                 var athleteId = await this.athleteRepository
                     .GetId(this.userService.UserId!, cancellationToken)

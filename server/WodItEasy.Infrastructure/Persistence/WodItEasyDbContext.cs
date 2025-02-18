@@ -47,7 +47,9 @@
             return base.SaveChanges(acceptAllChangesOnSuccess);
         }
 
-        public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
+        public override Task<int> SaveChangesAsync(
+            bool acceptAllChangesOnSuccess, 
+            CancellationToken cancellationToken = default)
         {
             this.ApplyAuditInfo();
 

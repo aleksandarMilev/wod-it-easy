@@ -20,7 +20,9 @@
             public LoginCommandHandler(IIdentityService service) 
                 => this.service = service;
 
-            public async Task<Result<LoginOutputModel>> Handle(LoginCommand request, CancellationToken cancellationToken) 
+            public async Task<Result<LoginOutputModel>> Handle(
+                LoginCommand request, 
+                CancellationToken cancellationToken) 
                 => await this.service.Login(
                     request.Credentials,
                     request.Password,

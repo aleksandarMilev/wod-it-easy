@@ -20,7 +20,9 @@
             public RegisterCommandHandler(IIdentityService service) 
                 => this.service = service;
 
-            public async Task<Result<RegisterOutputModel>> Handle(RegisterCommand request, CancellationToken cancellationToken)
+            public async Task<Result<RegisterOutputModel>> Handle(
+                RegisterCommand request, 
+                CancellationToken cancellationToken)
                 => await this.service.Register(
                     request.Username, 
                     request.Email,

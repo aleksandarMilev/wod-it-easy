@@ -41,9 +41,13 @@
                 this.athleteRepository = athleteRepository;
             }
 
-            public async Task<Result<ParticipationOutputModel>> Handle(CreateParticipationCommand request, CancellationToken cancellationToken)
+            public async Task<Result<ParticipationOutputModel>> Handle(
+                CreateParticipationCommand request, 
+                CancellationToken cancellationToken)
             {
-                var athlete = await this.athleteRepository.ById(request.AthleteId, cancellationToken);
+                var athlete = await this.athleteRepository.ById(
+                    request.AthleteId, 
+                    cancellationToken);
 
                 if (athlete is null)
                 {
@@ -53,7 +57,9 @@
                         request.AthleteId);
                 }
 
-                var workout = await this.workoutRepository.ById(request.WorkoutId, cancellationToken);
+                var workout = await this.workoutRepository.ById(
+                    request.WorkoutId, 
+                    cancellationToken);
 
                 if (workout is null)
                 {

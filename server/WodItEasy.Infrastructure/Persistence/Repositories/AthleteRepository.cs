@@ -16,7 +16,7 @@
 
         public AthleteRepository(WodItEasyDbContext data, IMapper mapper)
             : base(data)
-                => this.mapper = mapper;
+            => this.mapper = mapper;
 
         public async Task<Athlete?> ByUserId(
             string userId, 

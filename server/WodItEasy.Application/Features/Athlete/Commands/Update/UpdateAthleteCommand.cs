@@ -16,13 +16,17 @@
             private readonly IAthleteRepository repository;
             private readonly ICurrentUserService userService;
 
-            public UpdateAthleteCommandHandler(IAthleteRepository repository, ICurrentUserService userService)
+            public UpdateAthleteCommandHandler(
+                IAthleteRepository repository, 
+                ICurrentUserService userService)
             {
                 this.repository = repository;
                 this.userService = userService;
             }
 
-            public async Task<Result> Handle(UpdateAthleteCommand request, CancellationToken cancellationToken)
+            public async Task<Result> Handle(
+                UpdateAthleteCommand request, 
+                CancellationToken cancellationToken)
             {
                 var userId = this.userService.UserId!;
                 var athlete = await this.repository.ByUserId(userId, cancellationToken);

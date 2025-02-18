@@ -15,13 +15,17 @@
             private readonly IAthleteRepository repository;
             private readonly ICurrentUserService userService;
 
-            public DeleteAthleteCommandHandler(IAthleteRepository repository, ICurrentUserService userService)
+            public DeleteAthleteCommandHandler(
+                IAthleteRepository repository, 
+                ICurrentUserService userService)
             {
                 this.repository = repository;
                 this.userService = userService;
             }
 
-            public async Task<Result> Handle(DeleteAthleteCommand request, CancellationToken cancellationToken)
+            public async Task<Result> Handle(
+                DeleteAthleteCommand request, 
+                CancellationToken cancellationToken)
             {
                 var userId = this.userService.UserId!;
                 var success = await this.repository.Delete(userId, cancellationToken);

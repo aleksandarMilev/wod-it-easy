@@ -29,7 +29,9 @@
             }
         }
 
-        private static Task HandleExceptionAsync(HttpContext context, Exception exception)
+        private static Task HandleExceptionAsync(
+            HttpContext context, 
+            Exception exception)
         {
             var code = HttpStatusCode.InternalServerError;
 

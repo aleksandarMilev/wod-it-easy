@@ -1,11 +1,11 @@
 ﻿namespace WodItEasy.Web.Areas.Admin.Features
 {
     using System.Threading.Tasks;
+    using Application.Common;
     using Application.Features.Workouts.Commands.Create;
     using Application.Features.Workouts.Commands.Delete;
     using Application.Features.Workouts.Commands.Update;
     using Microsoft.AspNetCore.Mvc;
-    using WodItEasy.Application.Common;
 
     public class WorkoutController : AdminApiController
     {

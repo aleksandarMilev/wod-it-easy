@@ -209,6 +209,5 @@
                 maxStartAt,
                 nameof(this.StartsAt));
         }
-
     }
 }

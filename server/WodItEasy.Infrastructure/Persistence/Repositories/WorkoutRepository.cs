@@ -14,7 +14,6 @@
     using Domain.Models.Participation;
     using Domain.Models.Workouts;
     using Microsoft.EntityFrameworkCore;
- 
 
     internal class WorkoutRepository : DataRepository<Workout>, IWorkoutRepository
     {
@@ -22,7 +21,7 @@
 
         public WorkoutRepository(WodItEasyDbContext data, IMapper mapper)
             : base(data) 
-                => this.mapper = mapper;
+            => this.mapper = mapper;
 
         public async Task<bool> ExistsById(
             int id, 

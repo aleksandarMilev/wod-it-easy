@@ -22,7 +22,17 @@
                      opt.AllowAnyMethod();
                  });
 
-        public static async Task<IApplicationBuilder> SeedRoles(this IApplicationBuilder app, IConfiguration configuration)
+        public static IApplicationBuilder UseSwaggerDocs(this IApplicationBuilder app)
+            => app
+                .UseSwagger()
+                .UseSwaggerUI(config =>
+                {
+                    config.SwaggerEndpoint("/swagger/v1/swagger.json", "WodItEasy v1");
+                });
+
+        public static async Task<IApplicationBuilder> SeedRoles(
+            this IApplicationBuilder app, 
+            IConfiguration configuration)
         {
             using var scope = app.ApplicationServices.CreateScope();
             var roleSeeder = scope.ServiceProvider.GetRequiredService<IRoleSeeder>();

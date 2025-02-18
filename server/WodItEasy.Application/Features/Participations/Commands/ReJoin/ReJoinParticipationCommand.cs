@@ -34,10 +34,17 @@
                 this.userService = userService;
             }
 
-            public async Task<Result<ParticipationOutputModel>> Handle(ReJoinParticipationCommand request, CancellationToken cancellationToken)
+            public async Task<Result<ParticipationOutputModel>> Handle(
+                ReJoinParticipationCommand request, 
+                CancellationToken cancellationToken)
             {
-                var participation = await this.participationRepository.ById(request.Id, cancellationToken);
-                var athleteId = await this.athleteRepository.GetId(this.userService.UserId!, cancellationToken);
+                var participation = await this.participationRepository.ById(
+                    request.Id, 
+                    cancellationToken);
+
+                var athleteId = await this.athleteRepository.GetId(
+                    this.userService.UserId!, 
+                    cancellationToken);
 
                 if (participation is null)
                 {
@@ -53,7 +60,9 @@
 
                 await this.participationRepository.Save(participation, cancellationToken);
 
-                var workout = await this.workoutRepository.ById(participation.WorkoutId, cancellationToken);
+                var workout = await this.workoutRepository.ById(
+                    participation.WorkoutId, 
+                    cancellationToken);
 
                 if (workout is not null)
                 {
