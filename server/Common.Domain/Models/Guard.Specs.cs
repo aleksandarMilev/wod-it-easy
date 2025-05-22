@@ -1,7 +1,5 @@
-﻿namespace WodItEasy.Domain.Common.Tests
+﻿namespace WodItEasy.Common.Domain.Models.Tests
 {
-    using System;
-    using Exceptions;
     using FluentAssertions;
     using Xunit;
 
@@ -20,7 +18,7 @@
         [Fact]
         public void AgainstEmptyStringShouldThrowExceptionIfStringIsNull()
         {
-            var againstEmptyString = () => Guard.AgainstEmptyString<TestException>(null!);
+            var againstEmptyString = () => Guard.AgainstEmptyString<TestException>(null);
 
             againstEmptyString.Should().Throw<TestException>();
         }
