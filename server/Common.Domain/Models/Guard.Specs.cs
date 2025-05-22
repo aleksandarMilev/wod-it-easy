@@ -1,6 +1,5 @@
 ﻿namespace WodItEasy.Common.Domain.Models.Tests
 {
-    using Exceptions;
     using FluentAssertions;
     using Xunit;
 

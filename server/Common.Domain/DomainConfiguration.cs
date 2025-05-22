@@ -1,7 +1,6 @@
 ﻿namespace WodItEasy.Common.Domain
 {
     using System.Reflection;
-    using Factories;
     using Microsoft.Extensions.DependencyInjection;
     using Models;
 
