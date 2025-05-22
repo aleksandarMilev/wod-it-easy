@@ -5,8 +5,8 @@
 
     public class MappingProfile : Profile
     {
-        public MappingProfile() 
-            => this.ApplyMappingsFromAssembly(Assembly.GetExecutingAssembly());
+        public MappingProfile(Assembly assembly) 
+            => this.ApplyMappingsFromAssembly(assembly);
 
         private void ApplyMappingsFromAssembly(Assembly assembly)
             => assembly
@@ -20,6 +20,7 @@
                 .ForEach(type =>
                 {
                     var instance = Activator.CreateInstance(type);
+
                     const string mappingMethodName = "Mapping";
                     var methodInfo = type
                         .GetMethod(mappingMethodName)

@@ -10,17 +10,16 @@
 
         public ModelValidationException(IEnumerable<ValidationFailure> errors)
             : this()
-        {
-            var failureGroups = errors.GroupBy(e => e.PropertyName, e => e.ErrorMessage);
+            => errors
+                .GroupBy(e => e.PropertyName, e => e.ErrorMessage)
+                .ToList()
+                .ForEach(failureGroup =>
+                {
+                    var propertyName = failureGroup.Key;
+                    var propertyFailures = failureGroup.ToArray();
 
-            foreach (var failureGroup in failureGroups)
-            {
-                var propertyName = failureGroup.Key;
-                var propertyFailures = failureGroup.ToArray();
-
-                this.Errors.Add(propertyName, propertyFailures);
-            }
-        }
+                    this.Errors.Add(propertyName, propertyFailures);
+                });
 
         public IDictionary<string, string[]> Errors { get; }
     }

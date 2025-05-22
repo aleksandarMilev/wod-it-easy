@@ -24,7 +24,7 @@
             if (errors.Count > 0)
                 throw new ModelValidationException(errors);
 
-            return next();
+            return next(cancellationToken);
         }
     }
 }
