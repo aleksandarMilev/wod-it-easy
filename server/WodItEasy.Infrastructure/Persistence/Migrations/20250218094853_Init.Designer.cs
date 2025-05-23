@@ -6,7 +6,7 @@ namespace WodItEasy.Infrastructure.Persistence.Migrations
     using Microsoft.EntityFrameworkCore.Infrastructure;
     using Microsoft.EntityFrameworkCore.Migrations;
 
-    [DbContext(typeof(WodItEasyDbContext))]
+    [DbContext(typeof(WorkoutsDbContext))]
     [Migration("20250218094853_Init")]
     partial class Init
     {

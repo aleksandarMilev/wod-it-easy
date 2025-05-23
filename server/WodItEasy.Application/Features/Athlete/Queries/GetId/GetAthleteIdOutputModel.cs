@@ -1,6 +1,6 @@
 ﻿namespace WodItEasy.Application.Features.Athlete.Queries.GetId
 {
-    using Application.Common;
+    using WodItEasy.Common.Application.Queries;
 
     public class GetAthleteIdOutputModel : EntityQuery<int> { }
 }

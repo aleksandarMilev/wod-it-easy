@@ -1,24 +1,20 @@
 ﻿namespace WodItEasy.Infrastructure.Persistence.Repositories
 {
-    using System;
-    using System.Linq;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Application.Common;
     using Application.Features.Participations;
     using Application.Features.Participations.Queries.Mine;
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
     using Domain.Models.Participation;
     using Microsoft.EntityFrameworkCore;
-   
-    internal class ParticipationRepository : DataRepository<Participation>, IParticipationRepository
-    {
-        private readonly IMapper mapper;
+    using WodItEasy.Common.Application.Models;
+    using WodItEasy.Common.Infrastructure;
 
-        public ParticipationRepository(WodItEasyDbContext data, IMapper mapper)
-            : base(data)
-            => this.mapper = mapper;
+    internal class ParticipationRepository(
+        WorkoutsDbContext data, IMapper mapper)
+        : DataRepository<WorkoutsDbContext, Participation>(data),
+          IParticipationRepository
+    {
+        private readonly IMapper mapper = mapper;
 
         public async Task<Participation?> ById(
             int id, 

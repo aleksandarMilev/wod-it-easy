@@ -1,14 +1,7 @@
 ﻿namespace WodItEasy.Infrastructure.Persistence
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Linq.Expressions;
     using System.Reflection;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Application.Contracts;
-    using Domain.Common;
     using Domain.Models.Athletes;
     using Domain.Models.Participation;
     using Domain.Models.Workouts;
@@ -16,23 +9,19 @@
     using Interceptors;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
+    using WodItEasy.Common.Application.Contracts;
+    using WodItEasy.Common.Domain.Models;
 
-    using static Common.Constants;
+    using static WodItEasy.Infrastructure.Persistence.Constants;
 
-    internal class WodItEasyDbContext : IdentityDbContext<User>
+    internal class WorkoutsDbContext(
+        DbContextOptions<WorkoutsDbContext> options,
+        PublishDomainEventInterceptor eventInterceptor,
+        ICurrentUserService userService)
+        : IdentityDbContext<User>(options)
     {
-        private readonly PublishDomainEventInterceptor eventInterceptor;
-        private readonly ICurrentUserService userService;
-
-        public WodItEasyDbContext(
-            DbContextOptions<WodItEasyDbContext> options,
-            PublishDomainEventInterceptor eventInterceptor,
-            ICurrentUserService userService)
-                : base(options)
-        {
-            this.eventInterceptor = eventInterceptor;
-            this.userService = userService;
-        }
+        private readonly PublishDomainEventInterceptor eventInterceptor = eventInterceptor;
+        private readonly ICurrentUserService userService = userService;
 
         public DbSet<Athlete> Athletes { get; init; }
 

@@ -1,15 +1,11 @@
 ﻿namespace WodItEasy.Application.Features.Workouts
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Common;
-    using Contracts;
     using Domain.Models.Workouts;
     using Queries.Details;
     using Queries.Search;
-   
+    using WodItEasy.Common.Application.Contracts;
+    using WodItEasy.Common.Application.Models;
+
     public interface IWorkoutRepository : IRepository<Workout>
     {
         Task<bool> ExistsById(

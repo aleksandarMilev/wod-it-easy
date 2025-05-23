@@ -1,6 +1,5 @@
 ﻿namespace WodItEasy.Domain.Models.Workouts
 {
-    using System;
     using Exceptions;
     using FakeItEasy;
     using FluentAssertions;

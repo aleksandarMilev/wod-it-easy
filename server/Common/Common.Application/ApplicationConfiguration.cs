@@ -9,7 +9,7 @@
 
     public static class ApplicationConfiguration
     {
-        public static IServiceCollection AddApplication(
+        public static IServiceCollection AddCommonApplication(
             this IServiceCollection services,
             IConfiguration configuration,
             Assembly assembly)

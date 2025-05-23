@@ -1,28 +1,27 @@
 ﻿namespace WodItEasy.Application.Features.Workouts.Commands.Update
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Application.Common;
     using Commands.Common;
-    using Domain.Common;
     using Domain.Models.Workouts;
     using MediatR;
-    
-    public class UpdateWorkoutCommand : WorkoutCommand<UpdateWorkoutCommand>, IRequest<Result>
+    using WodItEasy.Common.Application;
+    using WodItEasy.Common.Domain.Models;
+
+    public class UpdateWorkoutCommand
+        : WorkoutCommand<UpdateWorkoutCommand>, IRequest<Result>
     {
-        public class EditWorkoutCommandHandler : IRequestHandler<UpdateWorkoutCommand, Result>
+        public class EditWorkoutCommandHandler(
+            IWorkoutRepository repository)
+            : IRequestHandler<UpdateWorkoutCommand, Result>
         {
             private const string NotFoundErrorMessage = "Workout not found!";
             private const string InvalidMaxParticipantsErrorMessage = "There are {0} participants in the workout. You can't set the Max Participants value to less than that!";
             private const string OverlappingErrorMessage = "A Workout is already scheduled in this date and time, please select another one!";
 
-            private readonly IWorkoutRepository repository;
+            private readonly IWorkoutRepository repository = repository;
 
-            public EditWorkoutCommandHandler(IWorkoutRepository repository) 
-                => this.repository = repository;
-
-            public async Task<Result> Handle(UpdateWorkoutCommand request, CancellationToken cancellationToken)
+            public async Task<Result> Handle(
+                UpdateWorkoutCommand request,
+                CancellationToken cancellationToken)
             {
                 var workout = await this.repository.ById(request.Id, cancellationToken);
                 

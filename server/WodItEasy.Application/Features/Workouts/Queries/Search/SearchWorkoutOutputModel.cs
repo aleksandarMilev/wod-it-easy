@@ -3,9 +3,10 @@
     using AutoMapper;
     using Common;
     using Domain.Models.Workouts;
-    using Mapping;
+    using WodItEasy.Common.Application.Mapping;
 
-    public class SearchWorkoutOutputModel : WorkoutOutputModel, IMapFrom<Workout>
+    public class SearchWorkoutOutputModel
+        : WorkoutOutputModel, IMapFrom<Workout>
     {
         public override void Mapping(Profile mapper)
             => mapper

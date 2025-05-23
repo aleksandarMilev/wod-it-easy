@@ -1,8 +1,6 @@
 ﻿namespace WodItEasy.Domain.Models.Workouts
 {
-    using System;
-    using System.Collections.Generic;
-    using Common;
+    using Common.Domain.Models;
 
     public class WorkoutData : IInitialData
     {

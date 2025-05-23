@@ -1,6 +1,5 @@
 ﻿namespace WodItEasy.Domain.Models.Athletes
 {
-    using System;
     using FakeItEasy;
 
     public class AthleteFakes

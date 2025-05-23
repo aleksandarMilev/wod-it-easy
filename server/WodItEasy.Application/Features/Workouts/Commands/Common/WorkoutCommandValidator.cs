@@ -1,12 +1,13 @@
 ﻿namespace WodItEasy.Application.Features.Workouts.Commands.Common
 {
-    using Application.Common;
     using FluentValidation;
+    using WodItEasy.Common.Application.Commands;
 
     using static Domain.Models.ModelConstants.WorkoutConstants;
 
-    public class WorkoutCommandValidator<TCommand> : AbstractValidator<WorkoutCommand<TCommand>>
-       where TCommand : EntityCommand<int>
+    public class WorkoutCommandValidator<TCommand>
+        : AbstractValidator<WorkoutCommand<TCommand>> 
+            where TCommand : EntityCommand<int>
     {
         public WorkoutCommandValidator()
         {

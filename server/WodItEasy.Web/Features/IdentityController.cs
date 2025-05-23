@@ -1,10 +1,9 @@
 ﻿namespace WodItEasy.Web.Features
 {
-    using System.Threading.Tasks;
     using Application.Features.Identity.Commands.Login;
     using Application.Features.Identity.Commands.Register;
-    using Common;
     using Microsoft.AspNetCore.Mvc;
+    using WodItEasy.Common.Web.Controllers;
 
     public class IdentityController : ApiController
     {

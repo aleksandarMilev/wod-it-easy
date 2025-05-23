@@ -1,7 +1,5 @@
 ﻿namespace WodItEasy.Domain.Models
 {
-    using System;
-
     public static class ModelConstants
     {
         public class Common

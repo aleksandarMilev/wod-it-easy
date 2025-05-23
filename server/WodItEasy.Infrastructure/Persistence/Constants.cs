@@ -1,4 +1,4 @@
-﻿namespace WodItEasy.Infrastructure.Persistence.Common
+﻿namespace WodItEasy.Infrastructure.Persistence
 {
     public static class Constants
     {

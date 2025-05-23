@@ -1,9 +1,5 @@
 ﻿namespace WodItEasy.Application.Features.Participations.Commands.Create
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Application.Common;
     using Athlete;
     using Commands.Common;
     using Domain.Factories.Participation;
@@ -12,6 +8,7 @@
     using Domain.Models.Workouts;
     using MediatR;
     using Workouts;
+    using WodItEasy.Common.Application;
 
     public class CreateParticipationCommand : IRequest<Result<ParticipationOutputModel>>
     {
@@ -19,27 +16,20 @@
 
         public int AthleteId { get; set; }
 
-        public class CreateParticipationCommandHandler : IRequestHandler<CreateParticipationCommand, Result<ParticipationOutputModel>>
+        public class CreateParticipationCommandHandler(
+            IParticipationFactory factory,
+            IParticipationRepository participationRepository,
+            IWorkoutRepository workoutRepository,
+            IAthleteRepository athleteRepository)
+            : IRequestHandler<CreateParticipationCommand, Result<ParticipationOutputModel>>
         {
             private const string NotFoundErrorMessage = "{0} with Id: {1} not found!";
             private const string AlreadyAParticipantErrorMessage = "Athlete with Id: {0} is already a participant in workout with Id: {1}!";
 
-            private readonly IParticipationFactory factory;
-            private readonly IParticipationRepository participationRepository;
-            private readonly IWorkoutRepository workoutRepository;
-            private readonly IAthleteRepository athleteRepository;
-
-            public CreateParticipationCommandHandler(
-                IParticipationFactory factory,
-                IParticipationRepository participationRepository, 
-                IWorkoutRepository workoutRepository, 
-                IAthleteRepository athleteRepository)
-            {
-                this.factory = factory;
-                this.participationRepository = participationRepository;
-                this.workoutRepository = workoutRepository;
-                this.athleteRepository = athleteRepository;
-            }
+            private readonly IParticipationFactory factory = factory;
+            private readonly IParticipationRepository participationRepository = participationRepository;
+            private readonly IWorkoutRepository workoutRepository = workoutRepository;
+            private readonly IAthleteRepository athleteRepository = athleteRepository;
 
             public async Task<Result<ParticipationOutputModel>> Handle(
                 CreateParticipationCommand request, 

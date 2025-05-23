@@ -1,21 +1,15 @@
 ﻿namespace WodItEasy.Infrastructure.Identity.Roles
 {
-    using System.Threading.Tasks;
-    using Application.Contracts;
     using Microsoft.AspNetCore.Identity;
+    using WodItEasy.Common.Application.Contracts;
 
-    public class RoleSeeder : IRoleSeeder
+    public class RoleSeeder(
+        UserManager<User> userManager,
+        RoleManager<IdentityRole> roleManager)
+        : IRoleSeeder
     {
-        private readonly UserManager<User> userManager;
-        private readonly RoleManager<IdentityRole> roleManager;
-
-        public RoleSeeder(
-            UserManager<User> userManager,
-            RoleManager<IdentityRole> roleManager)
-        {
-            this.userManager = userManager;
-            this.roleManager = roleManager;
-        }
+        private readonly UserManager<User> userManager = userManager;
+        private readonly RoleManager<IdentityRole> roleManager = roleManager;
 
         public async Task SeedRole(
             string roleName,

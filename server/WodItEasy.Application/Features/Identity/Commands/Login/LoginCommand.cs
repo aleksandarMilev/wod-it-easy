@@ -1,9 +1,7 @@
 ﻿namespace WodItEasy.Application.Features.Identity.Commands.Login
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Application.Common;
     using MediatR;
+    using WodItEasy.Common.Application;
 
     public class LoginCommand : IRequest<Result<LoginOutputModel>>
     {
@@ -13,12 +11,10 @@
 
         public bool RememberMe { get; set; }
 
-        public class LoginCommandHandler : IRequestHandler<LoginCommand, Result<LoginOutputModel>>
+        public class LoginCommandHandler(IIdentityService service)
+            : IRequestHandler<LoginCommand, Result<LoginOutputModel>>
         {
-            private readonly IIdentityService service;
-
-            public LoginCommandHandler(IIdentityService service) 
-                => this.service = service;
+            private readonly IIdentityService service = service;
 
             public async Task<Result<LoginOutputModel>> Handle(
                 LoginCommand request, 

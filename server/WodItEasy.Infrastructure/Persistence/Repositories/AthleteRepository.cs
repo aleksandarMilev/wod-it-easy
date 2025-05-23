@@ -1,22 +1,20 @@
 ﻿namespace WodItEasy.Infrastructure.Persistence.Repositories
 {
-    using System.Linq;
-    using System.Threading;
-    using System.Threading.Tasks;
     using Application.Features.Athlete;
     using Application.Features.Athlete.Queries.Details;
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
     using Domain.Models.Athletes;
     using Microsoft.EntityFrameworkCore;
+    using WodItEasy.Common.Infrastructure;
 
-    internal class AthleteRepository : DataRepository<Athlete>, IAthleteRepository
+    internal class AthleteRepository(
+        WorkoutsDbContext data,
+        IMapper mapper)
+        : DataRepository<WorkoutsDbContext, Athlete>(data),
+          IAthleteRepository
     {
-        private readonly IMapper mapper;
-
-        public AthleteRepository(WodItEasyDbContext data, IMapper mapper)
-            : base(data)
-            => this.mapper = mapper;
+        private readonly IMapper mapper = mapper;
 
         public async Task<Athlete?> ByUserId(
             string userId, 

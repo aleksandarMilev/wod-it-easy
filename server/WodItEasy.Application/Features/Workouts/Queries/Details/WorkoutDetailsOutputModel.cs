@@ -3,9 +3,10 @@
     using AutoMapper;
     using Common;
     using Domain.Models.Workouts;
-    using Mapping;
+    using WodItEasy.Common.Application.Mapping;
 
-    public class WorkoutDetailsOutputModel : WorkoutOutputModel, IMapFrom<Workout>
+    public class WorkoutDetailsOutputModel
+        : WorkoutOutputModel, IMapFrom<Workout>
     {
         public string Description { get; set; } = default!;
 

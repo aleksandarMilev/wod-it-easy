@@ -4,7 +4,7 @@
     using Microsoft.EntityFrameworkCore;
     using Domain.Models;
 
-    internal abstract class DbInitializer : IDbInitializer
+    public abstract class DbInitializer : IDbInitializer
     {
         private readonly DbContext data;
         private readonly IEnumerable<IInitialData> initialDataProviders;

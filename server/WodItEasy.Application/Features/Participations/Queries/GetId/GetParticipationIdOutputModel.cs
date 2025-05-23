@@ -1,6 +1,6 @@
 ﻿namespace WodItEasy.Application.Features.Participations.Queries.GetId
 {
-    using Application.Common;
+    using WodItEasy.Common.Application.Models;
 
     public class GetParticipationIdOutputModel : EntityOutputModel<int> { }
 }

@@ -1,10 +1,9 @@
 ﻿namespace WodItEasy.Application.Features.Workouts.Queries.Common
 {
-    using System;
     using AutoMapper;
-    using Domain.Common;
     using Domain.Models.Workouts;
-    using Mapping;
+    using WodItEasy.Common.Application.Mapping;
+    using WodItEasy.Common.Domain.Models;
 
     public class WorkoutOutputModel : IMapFrom<Workout>
     {

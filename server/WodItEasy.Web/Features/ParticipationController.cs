@@ -1,7 +1,5 @@
 ﻿namespace WodItEasy.Web.Features
 {
-    using System.Threading.Tasks;
-    using Application.Common;
     using Application.Features.Participations.Commands.Cancel;
     using Application.Features.Participations.Commands.Common;
     using Application.Features.Participations.Commands.Create;
@@ -10,7 +8,8 @@
     using Application.Features.Participations.Queries.GetId;
     using Application.Features.Participations.Queries.Mine;
     using Microsoft.AspNetCore.Mvc;
-    using Web.Common;
+    using WodItEasy.Common.Application.Models;
+    using WodItEasy.Common.Web.Controllers;
 
     public class ParticipationController : AuthenticatedApiController
     {

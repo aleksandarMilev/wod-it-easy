@@ -1,11 +1,9 @@
 ﻿namespace WodItEasy.Application.Features.Participations
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Common;
-    using Contracts;
     using Domain.Models.Participation;
     using Queries.Mine;
+    using WodItEasy.Common.Application.Contracts;
+    using WodItEasy.Common.Application.Models;
 
     public interface IParticipationRepository : IRepository<Participation>
     {

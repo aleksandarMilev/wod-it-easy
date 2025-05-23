@@ -1,12 +1,13 @@
 ﻿namespace WodItEasy.Application.Features.Athlete.Commands.Common
 {
-    using Application.Common;
     using FluentValidation;
+    using WodItEasy.Common.Application.Commands;
 
     using static Domain.Models.ModelConstants.AthleteConstants;
 
-    public class AthleteCommandValidator<TCommand> : AbstractValidator<AthleteCommand<TCommand>>
-       where TCommand : EntityCommand<int>
+    public class AthleteCommandValidator<TCommand>
+        : AbstractValidator<AthleteCommand<TCommand>>
+        where TCommand : EntityCommand<int>
     {
         public AthleteCommandValidator()
         {

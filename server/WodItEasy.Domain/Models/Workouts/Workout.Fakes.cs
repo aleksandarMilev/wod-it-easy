@@ -1,6 +1,5 @@
 ﻿namespace WodItEasy.Domain.Models.Workouts
 {
-    using System;
     using FakeItEasy;
 
     public class WorkoutFakes : IDummyFactory

@@ -1,6 +1,5 @@
 ﻿namespace WodItEasy.Domain.Models.Participation
 {
-    using System;
     using Athletes;
     using Exceptions;
     using FakeItEasy;

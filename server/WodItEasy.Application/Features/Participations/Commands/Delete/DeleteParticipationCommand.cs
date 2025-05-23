@@ -1,39 +1,31 @@
 ﻿namespace WodItEasy.Application.Features.Participations.Commands.Delete
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Application.Common;
     using Athlete;
     using Commands.Common;
-    using Contracts;
     using Domain.Models.Participation;
     using MediatR;
+    using WodItEasy.Common.Application;
+    using WodItEasy.Common.Application.Contracts;
     using Workouts;
 
-    public class DeleteParticipationCommand : ParticipationCommand<DeleteParticipationCommand>, IRequest<Result>
+    public class DeleteParticipationCommand
+        : ParticipationCommand<DeleteParticipationCommand>, IRequest<Result>
     {
-        public class DeleteParticipationCommandHandler : IRequestHandler<DeleteParticipationCommand, Result>
+        public class DeleteParticipationCommandHandler(
+            IParticipationRepository participationRepository,
+            IAthleteRepository athleteRepository,
+            IWorkoutRepository workoutRepository,
+            ICurrentUserService userService)
+            : IRequestHandler<DeleteParticipationCommand, Result>
         {
             private const string ParticipationNotFoundErrorMessage = "Participation with Id: {0} does not exist!";
             private const string UnauthorizedErrorMessage = "Current user can not modify this participation!";
             private const string WorkoutClosedErrorMessage = "You can not cancel a participation when the workout is already closed!";
 
-            private readonly IParticipationRepository participationRepository;
-            private readonly IAthleteRepository athleteRepository;
-            private readonly IWorkoutRepository workoutRepository;
-            private readonly ICurrentUserService userService;
-
-            public DeleteParticipationCommandHandler(
-                IParticipationRepository participationRepository,
-                IAthleteRepository athleteRepository,
-                IWorkoutRepository workoutRepository,
-                ICurrentUserService userService)
-            {
-                this.participationRepository = participationRepository;
-                this.athleteRepository = athleteRepository;
-                this.workoutRepository = workoutRepository;
-                this.userService = userService;
-            }
+            private readonly IParticipationRepository participationRepository = participationRepository;
+            private readonly IAthleteRepository athleteRepository = athleteRepository;
+            private readonly IWorkoutRepository workoutRepository = workoutRepository;
+            private readonly ICurrentUserService userService = userService;
 
             public async Task<Result> Handle(
                 DeleteParticipationCommand request, 

@@ -1,9 +1,7 @@
 ﻿namespace WodItEasy.Application.Features.Identity.Commands.Register
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Application.Common;
     using MediatR;
+    using WodItEasy.Common.Application;
 
     public class RegisterCommand : IRequest<Result<RegisterOutputModel>>
     {
@@ -13,12 +11,10 @@
 
         public string Password { get; set; } = default!;
 
-        public class RegisterCommandHandler : IRequestHandler<RegisterCommand, Result<RegisterOutputModel>>
+        public class RegisterCommandHandler(IIdentityService service)
+            : IRequestHandler<RegisterCommand, Result<RegisterOutputModel>>
         {
-            private readonly IIdentityService service;
-
-            public RegisterCommandHandler(IIdentityService service) 
-                => this.service = service;
+            private readonly IIdentityService service = service;
 
             public async Task<Result<RegisterOutputModel>> Handle(
                 RegisterCommand request, 

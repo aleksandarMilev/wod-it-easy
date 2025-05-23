@@ -1,5 +1,7 @@
 ﻿namespace WodItEasy.Domain.Exceptions
 {
+    using Common.Domain;
+
     public class JoinWorkoutException : BaseDomainException
     {
         public JoinWorkoutException() { }

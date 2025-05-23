@@ -1,29 +1,24 @@
 ﻿namespace WodItEasy.Application.Features.Workouts.Commands.Create
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Application.Common;
     using Commands.Common;
-    using Domain.Common;
     using Domain.Factories.Workout;
     using Domain.Models.Workouts;
     using MediatR;
-    
-    public class CreateWorkoutCommand : WorkoutCommand<CreateWorkoutCommand>, IRequest<Result<CreateWorkoutOutputModel>>
+    using WodItEasy.Common.Application;
+    using WodItEasy.Common.Domain.Models;
+
+    public class CreateWorkoutCommand
+        : WorkoutCommand<CreateWorkoutCommand>, IRequest<Result<CreateWorkoutOutputModel>>
     {
-        public class CreateWorkoutCommandHandler : IRequestHandler<CreateWorkoutCommand, Result<CreateWorkoutOutputModel>>
+        public class CreateWorkoutCommandHandler(
+            IWorkoutRepository repository,
+            IWorkoutFactory factory)
+            : IRequestHandler<CreateWorkoutCommand, Result<CreateWorkoutOutputModel>>
         {
             private const string OverlappingErrorMessage = "A Workout is already scheduled in this date and time, please select another one.";
 
-            private readonly IWorkoutRepository repository;
-            private readonly IWorkoutFactory factory;
-
-            public CreateWorkoutCommandHandler(IWorkoutRepository repository, IWorkoutFactory factory)
-            {
-                this.repository = repository;
-                this.factory = factory;
-            }
+            private readonly IWorkoutRepository repository = repository;
+            private readonly IWorkoutFactory factory = factory;
 
             public async Task<Result<CreateWorkoutOutputModel>> Handle(
                 CreateWorkoutCommand request, 

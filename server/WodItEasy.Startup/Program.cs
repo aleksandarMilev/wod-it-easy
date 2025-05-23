@@ -1,12 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Hosting;
-using WodItEasy.Application;
 using WodItEasy.Domain;
 using WodItEasy.Infrastructure;
 using WodItEasy.Startup;
 using WodItEasy.Web;
 using WodItEasy.Web.Extensions;
-using WodItEasy.Web.Middlewares;
+using WodItEasy.Workouts.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,7 +26,6 @@ if (app.Environment.IsDevelopment())
 app
     .UseHttpsRedirection()
     .UseRouting()
-    .UseValidationExceptionHandler()
     .UseAllowedCors()
     .UseAuthentication()
     .UseAuthorization()

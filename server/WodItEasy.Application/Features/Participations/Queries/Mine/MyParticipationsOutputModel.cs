@@ -1,10 +1,9 @@
 ﻿namespace WodItEasy.Application.Features.Participations.Queries.Mine
 {
-    using System;
     using AutoMapper;
-    using Domain.Common;
     using Domain.Models.Participation;
-    using Mapping;
+    using WodItEasy.Common.Application.Mapping;
+    using WodItEasy.Common.Domain.Models;
 
     public class MyParticipationsOutputModel : IMapFrom<Participation>
     {
