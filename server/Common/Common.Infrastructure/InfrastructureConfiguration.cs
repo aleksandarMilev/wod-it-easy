@@ -15,9 +15,7 @@
         public static IServiceCollection AddCommonInfrastructure<TDbContext>(
             this IServiceCollection services,
             IConfiguration configuration,
-            Assembly assembly,
-            bool databaseHealthChecks = true,
-            bool messagingHealthChecks = true)
+            Assembly assembly)
             where TDbContext : DbContext
             => services
                 .AddDatabase<TDbContext>(configuration)

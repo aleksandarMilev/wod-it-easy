@@ -1,10 +1,9 @@
-﻿namespace WodItEasy.Web.Areas.Admin
+﻿namespace WodItEasy.Common.Web.Controllers
 {
-    using Common;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    using static Common.Constants;
+    using static Constants;
 
     [ApiController]
     [Area(AdminRoleName)]

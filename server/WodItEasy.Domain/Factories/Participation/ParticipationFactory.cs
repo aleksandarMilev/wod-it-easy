@@ -1,6 +1,5 @@
 ﻿namespace WodItEasy.Domain.Factories.Participation
 {
-    using System;
     using Models.Athletes;
     using Models.Participation;
     using Models.Workouts;

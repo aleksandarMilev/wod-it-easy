@@ -1,11 +1,9 @@
 ﻿namespace WodItEasy.Application.Features.Athlete.Queries.Details
 {
-    using System;
-    using System.Linq;
     using AutoMapper;
     using Domain.Models.Athletes;
     using Domain.Models.Participation;
-    using Mapping;
+    using WodItEasy.Common.Application.Mapping;
 
     public class GetAthleteDetailsOutputModel : IMapFrom<Athlete>
     {

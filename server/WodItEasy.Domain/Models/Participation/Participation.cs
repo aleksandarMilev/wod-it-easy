@@ -1,8 +1,7 @@
 ﻿namespace WodItEasy.Domain.Models.Participation
 {
-    using System;
     using Athletes;
-    using Common;
+    using Common.Domain.Models;
     using Exceptions;
     using Workouts;
 
@@ -34,6 +33,7 @@
             this.Status = status;
         }
 
+        // EF Core needs it
         private Participation(DateTime joinedAt)
         {
             this.Athlete = default!;

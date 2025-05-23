@@ -1,14 +1,12 @@
 ﻿namespace WodItEasy.Application.Features.Workouts.Queries.Search
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Application.Common;
     using MediatR;
+    using WodItEasy.Common.Application.Models;
 
-    using static Application.Common.DefaultValues;
+    using static WodItEasy.Common.Application.Constants.DefaultValues;
 
-    public class SearchWorkoutQuery : IRequest<PaginatedOutputModel<SearchWorkoutOutputModel>>
+    public class SearchWorkoutQuery
+        : IRequest<PaginatedOutputModel<SearchWorkoutOutputModel>>
     {
         public string? StartsAt { get; set; }
 
@@ -16,12 +14,11 @@
 
         public int PageSize { get; set; } = DefaultPageSize;
 
-        public class SearchWorkoutQueryHandler : IRequestHandler<SearchWorkoutQuery, PaginatedOutputModel<SearchWorkoutOutputModel>>
+        public class SearchWorkoutQueryHandler(
+            IWorkoutRepository repository)
+            : IRequestHandler<SearchWorkoutQuery, PaginatedOutputModel<SearchWorkoutOutputModel>>
         {
-            private readonly IWorkoutRepository repository;
-
-            public SearchWorkoutQueryHandler(IWorkoutRepository repository)
-                => this.repository = repository;
+            private readonly IWorkoutRepository repository = repository;
 
             public async Task<PaginatedOutputModel<SearchWorkoutOutputModel>> Handle(
                 SearchWorkoutQuery request,

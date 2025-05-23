@@ -1,27 +1,20 @@
 ﻿namespace WodItEasy.Application.Features.Athlete.Commands.Delete
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Application.Common;
-    using Contracts;
     using MediatR;
+    using WodItEasy.Common.Application;
+    using WodItEasy.Common.Application.Contracts;
 
     public class DeleteAthleteCommand : IRequest<Result>
     {
-        public class DeleteAthleteCommandHandler : IRequestHandler<DeleteAthleteCommand, Result>
+        public class DeleteAthleteCommandHandler(
+            IAthleteRepository repository,
+            ICurrentUserService userService)
+            : IRequestHandler<DeleteAthleteCommand, Result>
         {
             private const string NotFoundErrorMessage = "Athlete with UserId: {0} was not found!";
 
-            private readonly IAthleteRepository repository;
-            private readonly ICurrentUserService userService;
-
-            public DeleteAthleteCommandHandler(
-                IAthleteRepository repository, 
-                ICurrentUserService userService)
-            {
-                this.repository = repository;
-                this.userService = userService;
-            }
+            private readonly IAthleteRepository repository = repository;
+            private readonly ICurrentUserService userService = userService;
 
             public async Task<Result> Handle(
                 DeleteAthleteCommand request, 

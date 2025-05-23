@@ -1,9 +1,8 @@
 ﻿namespace WodItEasy.Application.Features.Identity
 {
-    using System.Threading.Tasks;
-    using Application.Common;
     using Commands.Login;
     using Commands.Register;
+    using WodItEasy.Common.Application;
 
     public interface IIdentityService
     {

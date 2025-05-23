@@ -1,22 +1,23 @@
 ﻿namespace WodItEasy.Application.Features.Workouts.Commands.Delete
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Application.Common;
     using MediatR;
+    using WodItEasy.Common.Application;
+    using WodItEasy.Common.Application.Commands;
 
-    public class DeleteWorkoutCommand : EntityCommand<int>, IRequest<Result>
+    public class DeleteWorkoutCommand
+        : EntityCommand<int>, IRequest<Result>
     {
-        public class DeleteWorkoutCommandHandler : IRequestHandler<DeleteWorkoutCommand, Result>
+        public class DeleteWorkoutCommandHandler(
+            IWorkoutRepository repository)
+            : IRequestHandler<DeleteWorkoutCommand, Result>
         {
             private const string NotFoundErrorMessage = "Workout with Id: {0} not found!";
 
-            private readonly IWorkoutRepository repository;
+            private readonly IWorkoutRepository repository = repository;
 
-            public DeleteWorkoutCommandHandler(IWorkoutRepository repository) 
-                => this.repository = repository;
-
-            public async Task<Result> Handle(DeleteWorkoutCommand request, CancellationToken cancellationToken)
+            public async Task<Result> Handle(
+                DeleteWorkoutCommand request,
+                CancellationToken cancellationToken)
             {
                  var success = await this.repository.Delete(request.Id, cancellationToken);
 

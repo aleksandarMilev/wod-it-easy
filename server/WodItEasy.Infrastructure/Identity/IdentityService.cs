@@ -1,28 +1,26 @@
 ﻿namespace WodItEasy.Infrastructure.Identity
 {
-    using System.Linq;
-    using System.Threading.Tasks;
-    using Application.Common;
     using Application.Features.Identity;
     using Application.Features.Identity.Commands.Login;
     using Application.Features.Identity.Commands.Register;
     using Jwt;
     using Microsoft.AspNetCore.Identity;
-   
+    using WodItEasy.Common.Application;
+
     using static Constants;
 
-    public class IdentityService : IIdentityService
+    public class IdentityService(
+        UserManager<User> userManager,
+        IJwtTokenGeneratorService jwtTokenGenerator)
+        : IIdentityService
     {
-        private readonly UserManager<User> userManager;
-        private readonly IJwtTokenGeneratorService jwtTokenGenerator;
+        private readonly UserManager<User> userManager = userManager;
+        private readonly IJwtTokenGeneratorService jwtTokenGenerator = jwtTokenGenerator;
 
-        public IdentityService(UserManager<User> userManager, IJwtTokenGeneratorService jwtTokenGenerator)
-        {
-            this.userManager = userManager;
-            this.jwtTokenGenerator = jwtTokenGenerator;
-        }
-
-        public async Task<Result<RegisterOutputModel>> Register(string username, string email, string password)
+        public async Task<Result<RegisterOutputModel>> Register(
+            string username,
+            string email,
+            string password)
         {
             var user = new User()
             {
@@ -34,7 +32,10 @@
 
             if (identityResult.Succeeded)
             {
-                var token = this.jwtTokenGenerator.GenerateJwtToken(user.Id, user.UserName, user.Email!);
+                var token = this.jwtTokenGenerator.GenerateJwtToken(
+                    user.Id,
+                    user.UserName,
+                    user.Email!);
 
                 return new RegisterOutputModel() { Token = token };
             }
@@ -42,7 +43,10 @@
             return string.Join("; ", identityResult.Errors.Select(e => e.Description));
         }
 
-        public async Task<Result<LoginOutputModel>> Login(string credentials, string password, bool rememberMe)
+        public async Task<Result<LoginOutputModel>> Login(
+            string credentials,
+            string password,
+            bool rememberMe)
         {
             var user = await this.userManager.FindByNameAsync(credentials);
             user ??= await this.userManager.FindByEmailAsync(credentials);

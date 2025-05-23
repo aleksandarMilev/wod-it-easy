@@ -1,10 +1,8 @@
 ﻿namespace WodItEasy.Application.Features.Athlete
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Contracts;
     using Domain.Models.Athletes;
     using Queries.Details;
+    using WodItEasy.Common.Application.Contracts;
 
     public interface IAthleteRepository : IRepository<Athlete>
     {

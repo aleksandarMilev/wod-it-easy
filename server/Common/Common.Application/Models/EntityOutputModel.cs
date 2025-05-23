@@ -1,4 +1,4 @@
-﻿namespace WodItEasy.Application.Common
+﻿namespace WodItEasy.Common.Application.Models
 {
     public class EntityOutputModel<TId>
     {

@@ -1,6 +1,6 @@
 ﻿namespace WodItEasy.Domain.Models.Workouts
 {
-    using Common;
+    using Common.Domain.Models;
 
     public class WorkoutType : Enumeration
     {
@@ -13,13 +13,10 @@
         public static readonly WorkoutType Other = new(7, nameof(Other));
 
         private WorkoutType(int value, string name)
-           : base (value, name)
-        {
-        }
+           : base(value, name) { }
 
-        private WorkoutType(int value)
-            : this(value, FromValue<WorkoutType>(value).Name)
-        {
-        }
+        // EF Core needs it
+        private WorkoutType(int value) 
+            : this(value, FromValue<WorkoutType>(value).Name) { }
     }
 }

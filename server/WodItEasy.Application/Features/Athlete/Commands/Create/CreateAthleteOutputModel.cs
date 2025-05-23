@@ -1,6 +1,6 @@
 ﻿namespace WodItEasy.Application.Features.Athlete.Commands.Create
 {
-    using Application.Common;
+    using WodItEasy.Common.Application.Models;
 
     public class CreateAthleteOutputModel : EntityOutputModel<int> { }
 }

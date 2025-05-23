@@ -1,11 +1,5 @@
 ﻿namespace WodItEasy.Infrastructure.Persistence.Repositories
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Application.Common;
     using Application.Features.Workouts;
     using Application.Features.Workouts.Queries.Details;
     using Application.Features.Workouts.Queries.Search;
@@ -14,14 +8,16 @@
     using Domain.Models.Participation;
     using Domain.Models.Workouts;
     using Microsoft.EntityFrameworkCore;
+    using WodItEasy.Common.Application.Models;
+    using WodItEasy.Common.Infrastructure;
 
-    internal class WorkoutRepository : DataRepository<Workout>, IWorkoutRepository
+    internal class WorkoutRepository(
+        WorkoutsDbContext data,
+        IMapper mapper)
+        : DataRepository<WorkoutsDbContext, Workout>(data),
+          IWorkoutRepository
     {
-        private readonly IMapper mapper;
-
-        public WorkoutRepository(WodItEasyDbContext data, IMapper mapper)
-            : base(data) 
-            => this.mapper = mapper;
+        private readonly IMapper mapper = mapper;
 
         public async Task<bool> ExistsById(
             int id, 

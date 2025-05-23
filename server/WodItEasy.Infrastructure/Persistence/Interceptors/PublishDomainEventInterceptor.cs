@@ -1,23 +1,24 @@
 ﻿namespace WodItEasy.Infrastructure.Persistence.Interceptors
 {
-    using System.Linq;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Domain.Common;
     using MediatR;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Diagnostics;
+    using WodItEasy.Common.Domain.Models;
 
-    public class PublishDomainEventInterceptor : SaveChangesInterceptor
+    public class PublishDomainEventInterceptor(
+        IPublisher mediator)
+        : SaveChangesInterceptor
     {
-        private readonly IPublisher mediator;
+        private readonly IPublisher mediator = mediator;
 
-        public PublishDomainEventInterceptor(IPublisher mediator) 
-            => this.mediator = mediator;
-
-        public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
+        public override InterceptionResult<int> SavingChanges(
+            DbContextEventData eventData,
+            InterceptionResult<int> result)
         {
-            this.PublishDomainEvents(eventData.Context).GetAwaiter().GetResult();
+            this
+                .PublishDomainEvents(eventData.Context)
+                .GetAwaiter()
+                .GetResult();
 
             return base.SavingChanges(eventData, result);
         }

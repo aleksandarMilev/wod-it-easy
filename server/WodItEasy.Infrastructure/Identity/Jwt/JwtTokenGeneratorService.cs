@@ -1,22 +1,19 @@
 ﻿namespace WodItEasy.Infrastructure.Identity.Jwt
 {
-    using System;
-    using System.Collections.Generic;
     using System.IdentityModel.Tokens.Jwt;
     using System.Security.Claims;
     using System.Text;
-    using Application;
     using Microsoft.Extensions.Options;
     using Microsoft.IdentityModel.Tokens;
+    using WodItEasy.Common.Application;
 
     using static Constants;
 
-    public class JwtTokenGeneratorService : IJwtTokenGeneratorService
+    public class JwtTokenGeneratorService(
+        IOptions<ApplicationSettings> applicationSettings)
+        : IJwtTokenGeneratorService
     {
-        private readonly ApplicationSettings applicationSettings;
-
-        public JwtTokenGeneratorService(IOptions<ApplicationSettings> applicationSettings)
-            => this.applicationSettings = applicationSettings.Value;
+        private readonly ApplicationSettings applicationSettings = applicationSettings.Value;
 
         public string GenerateJwtToken(
             string userId,

@@ -1,7 +1,5 @@
 ﻿namespace WodItEasy.Application.Features.Participations.Queries.GetId
 {
-    using System.Threading;
-    using System.Threading.Tasks;
     using MediatR;
 
     public class GetParticipationIdQuery : IRequest<GetParticipationIdOutputModel>
@@ -10,12 +8,10 @@
 
         public int WorkoutId { get; set; }
 
-        public class GetParticipationIdQueryHandler : IRequestHandler<GetParticipationIdQuery, GetParticipationIdOutputModel>
+        public class GetParticipationIdQueryHandler(IParticipationRepository repository)
+            : IRequestHandler<GetParticipationIdQuery, GetParticipationIdOutputModel>
         {
-            private readonly IParticipationRepository repository;
-
-            public GetParticipationIdQueryHandler(IParticipationRepository repository)
-                => this.repository = repository;
+            private readonly IParticipationRepository repository = repository;
 
             public async Task<GetParticipationIdOutputModel> Handle(
                 GetParticipationIdQuery request, 

@@ -1,36 +1,30 @@
 ﻿namespace WodItEasy.Application.Features.Participations.Queries.Mine
 {
-    using System.Threading;
-    using System.Threading.Tasks;
     using Athlete;
-    using Common;
-    using Contracts;
     using Domain.Exceptions;
     using MediatR;
+    using WodItEasy.Common.Application.Contracts;
+    using WodItEasy.Common.Application.Models;
 
-    using static Common.DefaultValues;
+    using static WodItEasy.Common.Application.Constants.DefaultValues;
 
-    public class MyParticipationsQuery : IRequest<PaginatedOutputModel<MyParticipationsOutputModel>>
+
+    public class MyParticipationsQuery
+        : IRequest<PaginatedOutputModel<MyParticipationsOutputModel>>
     {
         public int PageIndex { get; set; } = DefaultPageIndex;
 
         public int PageSize { get; set; } = DefaultPageSize;
 
-        public class MyParticipationsQueryHandler : IRequestHandler<MyParticipationsQuery, PaginatedOutputModel<MyParticipationsOutputModel>>
+        public class MyParticipationsQueryHandler(
+            IParticipationRepository participationRepository,
+            IAthleteRepository athleteRepository,
+            ICurrentUserService userService)
+            : IRequestHandler<MyParticipationsQuery, PaginatedOutputModel<MyParticipationsOutputModel>>
         {
-            private readonly IParticipationRepository participationRepository;
-            private readonly IAthleteRepository athleteRepository;
-            private readonly ICurrentUserService userService;
-
-            public MyParticipationsQueryHandler(
-                IParticipationRepository participationRepository, 
-                IAthleteRepository athleteRepository, 
-                ICurrentUserService userService)
-            {
-                this.participationRepository = participationRepository;
-                this.athleteRepository = athleteRepository;
-                this.userService = userService;
-            }
+            private readonly IParticipationRepository participationRepository = participationRepository;
+            private readonly IAthleteRepository athleteRepository = athleteRepository;
+            private readonly ICurrentUserService userService = userService;
 
             public async Task<PaginatedOutputModel<MyParticipationsOutputModel>> Handle(
                 MyParticipationsQuery request, 

@@ -1,4 +1,4 @@
-﻿namespace WodItEasy.Application.Common
+﻿namespace WodItEasy.Common.Application.Queries
 {
     public class EntityQuery<TId>
     {

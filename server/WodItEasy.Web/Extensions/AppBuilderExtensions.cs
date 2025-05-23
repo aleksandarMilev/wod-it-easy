@@ -1,12 +1,11 @@
 ﻿namespace WodItEasy.Web.Extensions
 {
-    using System.Threading.Tasks;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.DependencyInjection;
-    using Application.Contracts;
     using Microsoft.Extensions.Configuration;
+    using WodItEasy.Common.Application.Contracts;
 
-    using static Common.Constants;
+    using static WodItEasy.Common.Web.Constants;
 
     public static class AppBuilderExtensions
     {

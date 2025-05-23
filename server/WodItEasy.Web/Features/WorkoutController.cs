@@ -1,11 +1,10 @@
 ﻿namespace WodItEasy.Web.Features
 {
-    using System.Threading.Tasks;
-    using Application.Common;
     using Application.Features.Workouts.Queries.Details;
     using Application.Features.Workouts.Queries.Search;
-    using Common;
     using Microsoft.AspNetCore.Mvc;
+    using WodItEasy.Common.Application.Models;
+    using WodItEasy.Common.Web.Controllers;
 
     public class WorkoutController : ApiController
     {

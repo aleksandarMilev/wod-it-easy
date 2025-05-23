@@ -1,6 +1,6 @@
 ﻿namespace WodItEasy.Domain.Factories.Workout
 {
-    using System;
+    using Common.Domain;
     using Models.Workouts;
 
     public interface IWorkoutFactory : IFactory<Workout>

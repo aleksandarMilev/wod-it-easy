@@ -4,7 +4,7 @@
     using Domain.Models;
     using Microsoft.EntityFrameworkCore;
 
-    internal abstract class DataRepository<TDbContext, TEntity> : IRepository<TEntity>
+    public abstract class DataRepository<TDbContext, TEntity> : IRepository<TEntity>
         where TDbContext : DbContext
         where TEntity : class, IAggregateRoot
     {

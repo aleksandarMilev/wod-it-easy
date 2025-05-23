@@ -1,9 +1,6 @@
 ﻿namespace WodItEasy.Domain.Models.Workouts
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using Common;
+    using Common.Domain.Models;
     using Exceptions;
     using Participation;
 
@@ -36,6 +33,7 @@
             this.Type = workoutType;
         }
 
+        // EF Core needs it
         private Workout(
             string name,
             string imageUrl,
@@ -209,6 +207,11 @@
                 minStartAt,
                 maxStartAt,
                 nameof(this.StartsAt));
+        }
+
+        public void UpdateType(object value)
+        {
+            throw new NotImplementedException();
         }
     }
 }

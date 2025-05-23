@@ -1,4 +1,4 @@
-﻿namespace WodItEasy.Application.Common
+﻿namespace WodItEasy.Common.Application.Commands
 {
     public class EntityCommand<TId>
     {
@@ -7,11 +7,12 @@
 
     public static class EntityCommandExtensions
     {
-        public static TCommand SetId<TCommand, TId>(this TCommand command, TId id)
+        public static TCommand SetId<TCommand, TId>(
+            this TCommand command,
+            TId id)
             where TCommand : EntityCommand<TId>
         {
             command.Id = id;
-
             return command;
         }
     }

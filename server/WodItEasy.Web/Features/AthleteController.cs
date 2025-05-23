@@ -1,13 +1,12 @@
 ﻿namespace WodItEasy.Web.Features
 {
-    using System.Threading.Tasks;
     using Application.Features.Athlete.Commands.Create;
     using Application.Features.Athlete.Commands.Delete;
     using Application.Features.Athlete.Commands.Update;
     using Application.Features.Athlete.Queries.Details;
     using Application.Features.Athlete.Queries.GetId;
-    using Common;
     using Microsoft.AspNetCore.Mvc;
+    using WodItEasy.Common.Web.Controllers;
 
     public class AthleteController : AuthenticatedApiController
     {

@@ -1,9 +1,10 @@
 ﻿namespace WodItEasy.Application.Features.Workouts.Commands.Common
 {
-    using Application.Common;
+    using WodItEasy.Common.Application.Commands;
 
-    public abstract class WorkoutCommand<TCommand> : EntityCommand<int>
-        where TCommand : EntityCommand<int>
+    public abstract class WorkoutCommand<TCommand>
+        : EntityCommand<int>
+            where TCommand : EntityCommand<int>
     {
         public string Name { get; set; } = default!;
 
