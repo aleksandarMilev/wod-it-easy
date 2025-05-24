@@ -42,7 +42,7 @@
             var domainEventsEntities = data
                 .ChangeTracker
                 .Entries<IHaveDomainEvents>()
-                .Where(e => e.Entity.DomainEvents.Any())
+                .Where(e => e.Entity.DomainEvents.Count > 0)
                 .Select(e => e.Entity)
                 .ToList();
 
