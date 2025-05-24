@@ -12,9 +12,9 @@
     using WodItEasy.Common.Infrastructure;
 
     internal class WorkoutRepository(
-        WorkoutsDbContext data,
+        WorkoutDbContext data,
         IMapper mapper)
-        : DataRepository<WorkoutsDbContext, Workout>(data),
+        : DataRepository<WorkoutDbContext, Workout>(data),
           IWorkoutRepository
     {
         private readonly IMapper mapper = mapper;

@@ -1,21 +1,23 @@
-﻿namespace WodItEasy.Workouts.Infrastructure.Identity
+﻿namespace WodItEasy.Identity.Infrastructure.Services
 {
-    using Application.Features.Identity;
-    using Application.Features.Identity.Commands.Login;
-    using Application.Features.Identity.Commands.Register;
-    using Jwt;
+    using Application;
+    using Application.Commands.Login;
+    using Application.Commands.Register;
+    using Common.Application;
+    using JwtGenerator;
     using Microsoft.AspNetCore.Identity;
-    using WodItEasy.Common.Application;
 
-    using static Constants;
+    using static Common.Domain.Constants;
 
     public class IdentityService(
         UserManager<User> userManager,
-        IJwtTokenGeneratorService jwtTokenGenerator)
+        IJwtTokenGenerator jwtTokenGenerator)
         : IIdentityService
     {
+        private const string InvalidLoginErrorMessage = "Invalid login attempt!";
+
         private readonly UserManager<User> userManager = userManager;
-        private readonly IJwtTokenGeneratorService jwtTokenGenerator = jwtTokenGenerator;
+        private readonly IJwtTokenGenerator jwtTokenGenerator = jwtTokenGenerator;
 
         public async Task<Result<RegisterOutputModel>> Register(
             string username,
@@ -60,7 +62,7 @@
 
             if (passwordIsValid)
             {
-                var isAdmin = await this.userManager.IsInRoleAsync(user, AdministratorRoleName);
+                var isAdmin = await this.userManager.IsInRoleAsync(user, AdminRoleName);
 
                 var token = this.jwtTokenGenerator.GenerateJwtToken(
                     user.Id,

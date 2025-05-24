@@ -1,4 +1,4 @@
-﻿namespace WodItEasy.Workouts.Application.Features.Identity.Commands.Common
+﻿namespace WodItEasy.Identity.Application.Commands.Common
 {
     public class IdentityOutputModel 
     {

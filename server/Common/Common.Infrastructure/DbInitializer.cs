@@ -21,7 +21,7 @@
             : this(data)
             => this.initialDataProviders = initialDataProviders;
 
-        public void Initialize()
+        public virtual void Initialize()
         {
             this.data.Database.Migrate();
 

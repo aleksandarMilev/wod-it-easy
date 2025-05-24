@@ -5,7 +5,7 @@ namespace WodItEasy.Workouts.Infrastructure.Persistence.Migrations
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Infrastructure;
 
-    [DbContext(typeof(WorkoutsDbContext))]
+    [DbContext(typeof(WorkoutDbContext))]
     partial class WodItEasyDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

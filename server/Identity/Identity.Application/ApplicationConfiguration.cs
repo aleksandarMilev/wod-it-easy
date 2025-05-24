@@ -1,4 +1,4 @@
-﻿namespace WodItEasy.Workouts.Application
+﻿namespace WodItEasy.Identity.Application
 {
     using System.Reflection;
     using Common.Application;

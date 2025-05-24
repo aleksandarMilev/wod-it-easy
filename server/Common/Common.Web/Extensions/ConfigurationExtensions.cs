@@ -1,6 +1,5 @@
-﻿namespace WodItEasy.Workouts.Web.Extensions
+﻿namespace WodItEasy.Common.Web.Extensions
 {
-    using System;
     using Microsoft.Extensions.Configuration;
 
     public static class ConfigurationExtensions

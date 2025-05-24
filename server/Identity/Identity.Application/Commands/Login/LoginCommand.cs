@@ -1,4 +1,4 @@
-﻿namespace WodItEasy.Workouts.Application.Features.Identity.Commands.Login
+﻿namespace WodItEasy.Identity.Application.Commands.Login
 {
     using MediatR;
     using WodItEasy.Common.Application;

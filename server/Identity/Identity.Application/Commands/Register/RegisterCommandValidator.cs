@@ -1,4 +1,4 @@
-﻿namespace WodItEasy.Workouts.Application.Features.Identity.Commands.Register
+﻿namespace WodItEasy.Identity.Application.Commands.Register
 {
     using FluentValidation;
 

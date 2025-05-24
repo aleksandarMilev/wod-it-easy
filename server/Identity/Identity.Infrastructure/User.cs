@@ -1,4 +1,4 @@
-﻿namespace WodItEasy.Workouts.Infrastructure.Identity
+﻿namespace WodItEasy.Identity.Infrastructure
 {
     using Microsoft.AspNetCore.Identity;
 

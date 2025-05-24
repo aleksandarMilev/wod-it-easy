@@ -4,7 +4,7 @@
     using Common.Infrastructure;
 
     internal class WorkoutsDbInitializer(
-        WorkoutsDbContext data,
+        WorkoutDbContext data,
         IEnumerable<IInitialData> initialDataProviders)
         : DbInitializer(data, initialDataProviders)
     { }

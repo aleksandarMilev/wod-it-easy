@@ -1,4 +1,4 @@
-﻿namespace WodItEasy.Workouts.Application.Features.Identity
+﻿namespace WodItEasy.Identity.Application
 {
     using Commands.Login;
     using Commands.Register;

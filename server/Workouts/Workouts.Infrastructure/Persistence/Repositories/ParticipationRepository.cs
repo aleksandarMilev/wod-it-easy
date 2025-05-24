@@ -10,8 +10,8 @@
     using Microsoft.EntityFrameworkCore;
 
     internal class ParticipationRepository(
-        WorkoutsDbContext data, IMapper mapper)
-        : DataRepository<WorkoutsDbContext, Participation>(data),
+        WorkoutDbContext data, IMapper mapper)
+        : DataRepository<WorkoutDbContext, Participation>(data),
           IParticipationRepository
     {
         private readonly IMapper mapper = mapper;

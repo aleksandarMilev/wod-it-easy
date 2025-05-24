@@ -1,7 +1,7 @@
-﻿namespace WodItEasy.Workouts.Web.Features
+﻿namespace WodItEasy.Identity.Web
 {
-    using Application.Features.Identity.Commands.Login;
-    using Application.Features.Identity.Commands.Register;
+    using Application.Commands.Login;
+    using Application.Commands.Register;
     using Common.Web.Controllers;
     using Microsoft.AspNetCore.Mvc;
 
@@ -9,12 +9,12 @@
     {
         [HttpPost(nameof(this.Register))]
         public async Task<ActionResult<RegisterOutputModel>> Register(
-            [FromBody] RegisterCommand command) 
+            [FromBody] RegisterCommand command)
             => await this.Send(command);
 
         [HttpPost(nameof(this.Login))]
         public async Task<ActionResult<LoginOutputModel>> Login(
-            [FromBody] LoginCommand command) 
+            [FromBody] LoginCommand command)
             => await this.Send(command);
     }
 }

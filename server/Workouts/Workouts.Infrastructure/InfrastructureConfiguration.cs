@@ -12,7 +12,7 @@
             this IServiceCollection services,
             IConfiguration configuration)
             => services
-                .AddCommonInfrastructure<WorkoutsDbContext>(
+                .AddCommonInfrastructure<WorkoutDbContext>(
                     configuration,
                     Assembly.GetExecutingAssembly());
     }

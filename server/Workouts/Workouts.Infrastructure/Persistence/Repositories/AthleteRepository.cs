@@ -9,9 +9,9 @@
     using Microsoft.EntityFrameworkCore;
 
     internal class AthleteRepository(
-        WorkoutsDbContext data,
+        WorkoutDbContext data,
         IMapper mapper)
-        : DataRepository<WorkoutsDbContext, Athlete>(data),
+        : DataRepository<WorkoutDbContext, Athlete>(data),
           IAthleteRepository
     {
         private readonly IMapper mapper = mapper;

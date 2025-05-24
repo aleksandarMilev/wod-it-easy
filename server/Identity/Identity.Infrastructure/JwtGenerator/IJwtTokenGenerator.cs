@@ -1,6 +1,6 @@
-﻿namespace WodItEasy.Workouts.Infrastructure.Identity.Jwt
+﻿namespace WodItEasy.Identity.Infrastructure.JwtGenerator
 {
-    public interface IJwtTokenGeneratorService
+    public interface IJwtTokenGenerator
     {
         string GenerateJwtToken(
            string userId,
