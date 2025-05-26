@@ -1,8 +1,8 @@
 import * as requester from "./requester";
 import {
   routes,
-  baseUrl,
-  baseAdminUrl,
+  workoutsServiceUrl as baseUrl,
+  workoutsServiceAdminUrl as baseAdminUrl,
   errorMessages,
 } from "../common/constants";
 

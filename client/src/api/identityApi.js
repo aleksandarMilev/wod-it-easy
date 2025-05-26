@@ -1,4 +1,8 @@
-import { baseUrl, routes, errorMessages } from "../common/constants";
+import {
+  identityServiceUrl as baseUrl,
+  routes,
+  errorMessages,
+} from "../common/constants";
 import { post } from "./requester";
 
 export async function login(data) {

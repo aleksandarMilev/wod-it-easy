@@ -1,4 +1,8 @@
-import { baseUrl, routes, errorMessages } from "../common/constants";
+import {
+  workoutsServiceUrl as baseUrl,
+  routes,
+  errorMessages,
+} from "../common/constants";
 import * as requester from "./requester";
 
 export async function mine(token) {

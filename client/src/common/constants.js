@@ -1,7 +1,6 @@
-export const baseUrl =
-  import.meta?.env?.VITE_REACT_APP_SERVER_URL ?? "http://localhost:8080";
-
-export const baseAdminUrl = `${baseUrl}/administrator`;
+export const identityServiceUrl = import.meta.env.VITE_IDENTITY_SERVICE_URL;
+export const workoutsServiceUrl = import.meta.env.VITE_WORKOUTS_SERVICE_URL;
+export const workoutsServiceAdminUrl = `${workoutsServiceUrl}/administrator`;
 
 export const routes = {
   home: "/",
