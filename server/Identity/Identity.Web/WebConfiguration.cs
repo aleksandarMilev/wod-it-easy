@@ -1,12 +1,14 @@
 ﻿namespace WodItEasy.Identity.Web
 {
     using Common.Web;
+    using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.DependencyInjection;
 
     public static class WebConfiguration
     {
         public static IServiceCollection AddWebComponents(
-            this IServiceCollection services)
-            => services.AddCommonWebComponents();
+            this IServiceCollection services,
+            IWebHostEnvironment env)
+            => services.AddCommonWebComponents(env);
     }
 }

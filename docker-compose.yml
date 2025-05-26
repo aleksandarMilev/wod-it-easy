@@ -1,51 +1,34 @@
 services:
   sqlserver:
+    container_name: wod-it-easy-sql-server
     image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: sqlserver
-    restart: always
-    environment:
-      SA_PASSWORD: "!Passw0rd"
-      ACCEPT_EULA: "Y"
     ports:
       - "1433:1433"
-    networks:
-      - backend
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=YourStrong!Password123
     volumes:
-      - sql_data:/var/opt/mssql
+      - sqldata:/var/opt/mssql
+    networks:
+      - wod-it-easy-network
 
-  server:
+  identity:
+    container_name: wod-it-easy-identity
     build:
-      context: .
-      dockerfile: server/WodItEasy.Startup/Dockerfile
-    container_name: server
+      context: ./server
+      dockerfile: Identity/Identity.StartUp/Dockerfile
+    ports:
+      - "5000:8080"
+    environment:
+     - ConnectionStrings__DefaultConnection=Server=wod-it-easy-sql-server;Database=WodItEasyIdentityDb;User Id=sa;Password=YourStrong!Password123;TrustServerCertificate=True;Encrypt=True;
+    restart: on-failure
+    networks:
+      - wod-it-easy-network
     depends_on:
       - sqlserver
-    ports:
-      - "8080:8080"
-      - "8081:8081"
-    environment:
-      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=WodItEasy;User Id=sa;Password=!Passw0rd;TrustServerCertificate=True;
-      - Admin__Password=admin1234
-      - Admin__Email=admin@mail.com
-      - ApplicationSettings__Secret=A_very_strong_secret_key_that_is_at_least_16_characters_long
-    networks:
-      - backend
-
-  client:
-    build:
-      context: ./client
-      dockerfile: Dockerfile
-    container_name: client
-    ports:
-      - "80:80"
-    environment:
-      - VITE_REACT_APP_SERVER_URL=http://localhost:8080
-    networks:
-      - backend
 
 networks:
-  backend:
-    driver: bridge
+  wod-it-easy-network:
 
 volumes:
-  sql_data:
+  sqldata:

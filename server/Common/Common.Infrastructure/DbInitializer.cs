@@ -21,9 +21,9 @@
             : this(data)
             => this.initialDataProviders = initialDataProviders;
 
-        public virtual void Initialize()
+        public virtual async Task Initialize()
         {
-            this.data.Database.Migrate();
+            await this.data.Database.MigrateAsync();
 
             foreach (var initialDataProvider in this.initialDataProviders)
             {
@@ -36,7 +36,7 @@
                 }
             }
 
-            this.data.SaveChanges();
+            await this.data.SaveChangesAsync();
         }
 
         private bool DataSetIsEmpty(Type type)

@@ -12,25 +12,29 @@
 
     public static class ApplicationBuilderExtensions
     {
-        public static IApplicationBuilder UseWebServices(
+        public static async Task<IApplicationBuilder> UseWebServices(
             this IApplicationBuilder app,
             IWebHostEnvironment env)
-            => app
-                .UseExceptionHandling(env)
-                .UseValidationExceptionHandler()
-                .UseHttpsRedirection()
-                .UseRouting()
-                .UseCors(options => options
-                    .AllowAnyOrigin()
-                    .AllowAnyHeader()
-                    .AllowAnyMethod())
-                .UseSwaggerDocs(env)
-                .UseAuthentication()
-                .UseAuthorization()
-                .UseEndpoints(endpoints => endpoints
-                    .MapHealthChecks()
-                    .MapControllers())
-                .Initialize();
+        {
+            app
+               .UseExceptionHandling(env)
+               .UseValidationExceptionHandler()
+               .UseHttpsRedirection()
+               .UseRouting()
+               .UseCors(options => options
+                   .AllowAnyOrigin()
+                   .AllowAnyHeader()
+                   .AllowAnyMethod())
+               .UseSwaggerDocs(env)
+               .UseAuthentication()
+               .UseAuthorization()
+               .UseEndpoints(endpoints => endpoints
+                   .MapHealthChecks()
+                   .MapControllers());
+
+            await app.Initialize();
+            return app;
+        }
 
         private static IApplicationBuilder UseExceptionHandling(
            this IApplicationBuilder app,
@@ -67,13 +71,13 @@
             return endpoints;
         }
 
-        private static IApplicationBuilder Initialize(this IApplicationBuilder app)
+        private static async Task<IApplicationBuilder> Initialize(this IApplicationBuilder app)
         {
             using var serviceScope = app.ApplicationServices.CreateScope();
             var initializers = serviceScope.ServiceProvider.GetServices<IDbInitializer>();
 
             foreach (var initializer in initializers)
-                initializer.Initialize();
+                await initializer.Initialize();
 
             return app;
         }

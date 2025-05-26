@@ -4,13 +4,11 @@ using WodItEasy.Identity.Infrastructure;
 using WodItEasy.Identity.Web;
 
 var builder = WebApplication.CreateBuilder(args);
-
 builder.Services
     .AddApplication(builder.Configuration)
     .AddInfrastructure(builder.Configuration)
-    .AddWebComponents();
+    .AddWebComponents(builder.Environment);
 
 var app = builder.Build();
-app.UseWebServices(app.Environment);
-
+await app.UseWebServices(app.Environment);
 await app.RunAsync();
