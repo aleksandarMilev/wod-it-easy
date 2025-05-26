@@ -7,7 +7,7 @@
     using static Common.Domain.Constants;
     using static Domain.Models.ModelConstants.ProfileConstants;
 
-    public class AthleteConfiguration : IEntityTypeConfiguration<Profile>
+    public class ProfileConfiguration : IEntityTypeConfiguration<Profile>
     {
         public void Configure(EntityTypeBuilder<Profile> builder)
         {

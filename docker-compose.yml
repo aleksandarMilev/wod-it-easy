@@ -42,6 +42,21 @@ services:
     depends_on:
       - sqlserver
 
+  profile:
+    container_name: wod-it-easy-profile
+    build:
+      context: ./server
+      dockerfile: Profile/Profile.StartUp/Dockerfile
+    ports:
+      - "5002:8080"
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=wod-it-easy-sql-server;Database=WodItEasyProfileDb;User Id=sa;Password=YourStrong!Password123;TrustServerCertificate=True;Encrypt=True;MultipleActiveResultSets=true;
+    restart: on-failure
+    networks:
+      - wod-it-easy-network
+    depends_on:
+      - sqlserver
+
   client:
     container_name: wod-it-easy-client
     build:
@@ -54,6 +69,7 @@ services:
     depends_on:
       - identity
       - workouts
+      - profile
 
 networks:
   wod-it-easy-network:
