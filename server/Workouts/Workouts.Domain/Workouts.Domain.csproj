@@ -11,7 +11,7 @@
 		<Compile Remove="**\*.Fakes.cs" />
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(Configuration)' != 'Release'">
+	<ItemGroup Condition="'$(Configuration)' != 'Debug'">
 		<PackageReference Include="FluentAssertions" Version="7.0.0" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
 		<PackageReference Include="xunit" Version="2.9.2" />

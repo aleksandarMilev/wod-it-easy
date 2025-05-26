@@ -20,12 +20,40 @@ services:
     ports:
       - "5000:8080"
     environment:
-     - ConnectionStrings__DefaultConnection=Server=wod-it-easy-sql-server;Database=WodItEasyIdentityDb;User Id=sa;Password=YourStrong!Password123;TrustServerCertificate=True;Encrypt=True;
+      - ConnectionStrings__DefaultConnection=Server=wod-it-easy-sql-server;Database=WodItEasyIdentityDb;User Id=sa;Password=YourStrong!Password123;TrustServerCertificate=True;Encrypt=True;MultipleActiveResultSets=true;
     restart: on-failure
     networks:
       - wod-it-easy-network
     depends_on:
       - sqlserver
+
+  workouts:
+    container_name: wod-it-easy-workouts
+    build:
+      context: ./server
+      dockerfile: Workouts/Workouts.StartUp/Dockerfile
+    ports:
+      - "5001:8080"
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=wod-it-easy-sql-server;Database=WodItEasyWorkoutsDb;User Id=sa;Password=YourStrong!Password123;TrustServerCertificate=True;Encrypt=True;MultipleActiveResultSets=true;
+    restart: on-failure
+    networks:
+      - wod-it-easy-network
+    depends_on:
+      - sqlserver
+
+  client:
+    container_name: wod-it-easy-client
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    networks:
+      - wod-it-easy-network
+    depends_on:
+      - identity
+      - workouts
 
 networks:
   wod-it-easy-network:

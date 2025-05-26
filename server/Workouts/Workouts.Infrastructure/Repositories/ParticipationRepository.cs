@@ -1,4 +1,4 @@
-﻿namespace WodItEasy.Workouts.Infrastructure.Persistence.Repositories
+﻿namespace WodItEasy.Workouts.Infrastructure.Repositories
 {
     using Application.Features.Participations;
     using Application.Features.Participations.Queries.Mine;
@@ -8,6 +8,7 @@
     using Common.Infrastructure;
     using Domain.Models.Participation;
     using Microsoft.EntityFrameworkCore;
+    using Persistence;
 
     internal class ParticipationRepository(
         WorkoutDbContext data, IMapper mapper)
@@ -17,7 +18,7 @@
         private readonly IMapper mapper = mapper;
 
         public async Task<Participation?> ById(
-            int id, 
+            int id,
             CancellationToken cancellationToken = default)
             => await this
                 .All()
@@ -57,7 +58,7 @@
                 .AsNoTracking()
                 .Where(p => p.AthleteId == athleteId)
                 .OrderByDescending(p => p.JoinedAt)
-                .ProjectTo<MyParticipationsOutputModel>(this.mapper.ConfigurationProvider);
+                .ProjectTo<MyParticipationsOutputModel>(mapper.ConfigurationProvider);
 
             var total = query.Count();
 
@@ -74,7 +75,7 @@
         }
 
         public async Task<bool> Delete(
-            int id, 
+            int id,
             CancellationToken cancellationToken = default)
         {
             var participation = await this

@@ -1,4 +1,4 @@
-﻿namespace WodItEasy.Workouts.Infrastructure.Persistence.Configurations
+﻿namespace WodItEasy.Workouts.Infrastructure.Configurations
 {
     using Domain.Models.Athletes;
     using Microsoft.EntityFrameworkCore;

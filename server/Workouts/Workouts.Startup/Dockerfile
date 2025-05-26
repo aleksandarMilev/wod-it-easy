@@ -1,33 +1,31 @@
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
-EXPOSE 8080 8081
-
-RUN useradd -m appuser
-USER appuser
+EXPOSE 80
+EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
-COPY ["server/WodItEasy.Startup/WodItEasy.Startup.csproj", "server/WodItEasy.Startup/"]
-COPY ["server/WodItEasy.Infrastructure/WodItEasy.Infrastructure.csproj", "server/WodItEasy.Infrastructure/"]
-COPY ["server/WodItEasy.Application/WodItEasy.Application.csproj", "server/WodItEasy.Application/"]
-COPY ["server/WodItEasy.Domain/WodItEasy.Domain.csproj", "server/WodItEasy.Domain/"]
-COPY ["server/WodItEasy.Web/WodItEasy.Web.csproj", "server/WodItEasy.Web/"]
+COPY ["Common/Common.Application/Common.Application.csproj", "Common/Common.Application/"]
+COPY ["Common/Common.Domain/Common.Domain.csproj", "Common/Common.Domain/"]
+COPY ["Common/Common.Infrastructure/Common.Infrastructure.csproj", "Common/Common.Infrastructure/"]
+COPY ["Common/Common.Web/Common.Web.csproj", "Common/Common.Web/"]
+COPY ["Workouts/Workouts.Application/Workouts.Application.csproj", "Workouts/Workouts.Application/"]
+COPY ["Workouts/Workouts.Infrastructure/Workouts.Infrastructure.csproj", "Workouts/Workouts.Infrastructure/"]
+COPY ["Workouts/Workouts.StartUp/Workouts.StartUp.csproj", "Workouts/Workouts.StartUp/"]
+COPY ["Workouts/Workouts.Web/Workouts.Web.csproj", "Workouts/Workouts.Web/"]
 
-RUN dotnet restore "server/WodItEasy.Startup/WodItEasy.Startup.csproj"
+RUN dotnet restore "Workouts/Workouts.StartUp/Workouts.StartUp.csproj"
 
-COPY server/ server/
+COPY . .
 
-WORKDIR "/src/server/WodItEasy.Startup"
-RUN dotnet build "WodItEasy.Startup.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/Workouts/Workouts.StartUp"
+RUN dotnet build "Workouts.StartUp.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "WodItEasy.Startup.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "Workouts.StartUp.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-
-USER appuser
-ENTRYPOINT ["dotnet", "WodItEasy.Startup.dll"]
+ENTRYPOINT ["dotnet", "Workouts.StartUp.dll"]

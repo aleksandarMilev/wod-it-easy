@@ -1,15 +1,16 @@
-﻿namespace WodItEasy.Workouts.Infrastructure.Persistence.Repositories
+﻿namespace WodItEasy.Workouts.Infrastructure.Repositories
 {
     using Application.Features.Workouts;
     using Application.Features.Workouts.Queries.Details;
     using Application.Features.Workouts.Queries.Search;
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
+    using Common.Application.Models;
+    using Common.Infrastructure;
     using Domain.Models.Participation;
     using Domain.Models.Workouts;
     using Microsoft.EntityFrameworkCore;
-    using WodItEasy.Common.Application.Models;
-    using WodItEasy.Common.Infrastructure;
+    using Persistence;
 
     internal class WorkoutRepository(
         WorkoutDbContext data,
@@ -20,10 +21,10 @@
         private readonly IMapper mapper = mapper;
 
         public async Task<bool> ExistsById(
-            int id, 
+            int id,
             CancellationToken cancellationToken = default)
-            => await this
-                .All()
+            => await 
+                All()
                 .AsNoTracking()
                 .AnyAsync(w => w.Id == id, cancellationToken);
 
@@ -33,14 +34,14 @@
             int pageSize,
             CancellationToken cancellationToken = default)
         {
-            var query = this
-                .All()
+            var query = 
+                All()
                 .AsNoTracking()
                 .Where(w => startsAt == null
                         ? true
                         : startsAt.Value.Date == w.StartsAt.Date)
                 .OrderBy(w => w.StartsAt)
-                .ProjectTo<SearchWorkoutOutputModel>(this.mapper.ConfigurationProvider);
+                .ProjectTo<SearchWorkoutOutputModel>(mapper.ConfigurationProvider);
 
             var total = query.Count();
 
@@ -57,19 +58,19 @@
         }
 
         public async Task<WorkoutDetailsOutputModel?> Details(
-            int id, 
+            int id,
             CancellationToken cancellationToken = default)
-            => await this
-                .All()
+            => await 
+                All()
                 .AsNoTracking()
-                .ProjectTo<WorkoutDetailsOutputModel>(this.mapper.ConfigurationProvider)
+                .ProjectTo<WorkoutDetailsOutputModel>(mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(w => w.Id == id, cancellationToken);
 
         public async Task<Workout?> ById(
-            int id, 
+            int id,
             CancellationToken cancellationToken = default)
-            => await this
-                .All()
+            => await 
+                All()
                 .AsNoTracking()
                 .FirstOrDefaultAsync(w => w.Id == id, cancellationToken);
 
@@ -77,37 +78,37 @@
             DateTime date,
             int? excludeId = null,
             CancellationToken cancellationToken = default)
-                => await this
-                    .All()
+                => await 
+                    All()
                     .AsNoTracking()
-                    .Where(w => 
-                        w.StartsAt.Date == date.Date && 
+                    .Where(w =>
+                        w.StartsAt.Date == date.Date &&
                         w.Id != excludeId.GetValueOrDefault())
                     .ToListAsync(cancellationToken);
 
         public async Task<Workout?> ByIdWithParticipants(
-            int id, 
+            int id,
             CancellationToken cancellationToken = default)
-            => await this
-                .All()
+            => await 
+                All()
                 .AsNoTracking()
                 .Include(w => w.Participations
                     .Where(p => p.Status == ParticipationStatus.Joined))
                 .FirstOrDefaultAsync(w => w.Id == id, cancellationToken);
 
         public async Task<bool> Delete(
-            int id, 
+            int id,
             CancellationToken cancellationToken = default)
         {
-            var workout = await this.ById(id, cancellationToken);
+            var workout = await ById(id, cancellationToken);
 
             if (workout is null)
             {
                 return false;
             }
 
-            this.Data.Remove(workout);
-            await this.Data.SaveChangesAsync(cancellationToken);
+            Data.Remove(workout);
+            await Data.SaveChangesAsync(cancellationToken);
 
             return true;
         }

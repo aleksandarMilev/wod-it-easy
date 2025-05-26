@@ -1,4 +1,4 @@
-﻿namespace WodItEasy.Workouts.Infrastructure.Persistence.Repositories
+﻿namespace WodItEasy.Workouts.Infrastructure.Repositories
 {
     using Application.Features.Athlete;
     using Application.Features.Athlete.Queries.Details;
@@ -7,6 +7,7 @@
     using Common.Infrastructure;
     using Domain.Models.Athletes;
     using Microsoft.EntityFrameworkCore;
+    using Persistence;
 
     internal class AthleteRepository(
         WorkoutDbContext data,
@@ -17,14 +18,14 @@
         private readonly IMapper mapper = mapper;
 
         public async Task<Athlete?> ByUserId(
-            string userId, 
+            string userId,
             CancellationToken cancellationToken = default)
             => await this
                 .All()
                 .FirstOrDefaultAsync(a => a.UserId == userId, cancellationToken);
 
         public async Task<Athlete?> GetDeleted(
-            string userId, 
+            string userId,
             CancellationToken cancellationToken = default)
             => await this
                 .All()
@@ -32,23 +33,23 @@
                 .FirstOrDefaultAsync(a => a.UserId == userId, cancellationToken);
 
         public async Task<Athlete?> ById(
-            int id, 
+            int id,
             CancellationToken cancellationToken = default)
             => await this
                 .All()
                 .FirstOrDefaultAsync(a => a.Id == id, cancellationToken);
 
         public async Task<GetAthleteDetailsOutputModel?> GetOutputModel(
-            string userId, 
+            string userId,
             CancellationToken cancellationToken = default)
             => await this
                 .All()
                 .Where(a => a.UserId == userId)
-                .ProjectTo<GetAthleteDetailsOutputModel>(this.mapper.ConfigurationProvider)
+                .ProjectTo<GetAthleteDetailsOutputModel>(mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(cancellationToken);
 
         public async Task<int?> GetId(
-            string userId, 
+            string userId,
             CancellationToken cancellationToken = default)
         {
             var id = await this
@@ -61,17 +62,17 @@
         }
 
         public async Task<bool> ExistsById(
-            int id, 
+            int id,
             CancellationToken cancellationToken = default)
             => await this
                 .All()
                 .AnyAsync(a => a.Id == id, cancellationToken);
 
         public async Task<bool> Delete(
-            string userId, 
+            string userId,
             CancellationToken cancellationToken = default)
         {
-            var athlete = await this.ByUserId(userId, cancellationToken);
+            var athlete = await ByUserId(userId, cancellationToken);
 
             if (athlete is null)
             {

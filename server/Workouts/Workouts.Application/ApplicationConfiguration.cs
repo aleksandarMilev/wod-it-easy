@@ -11,6 +11,8 @@
             this IServiceCollection services,
             IConfiguration configuration)
             => services
-                .AddCommonApplication(configuration, Assembly.GetExecutingAssembly());
+                .AddCommonApplication(
+                    configuration,
+                    Assembly.GetExecutingAssembly());
     }
 }

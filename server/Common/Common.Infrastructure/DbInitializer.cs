@@ -12,7 +12,7 @@
         protected internal DbInitializer(DbContext data)
         {
             this.data = data;
-            this.initialDataProviders = new List<IInitialData>();
+            this.initialDataProviders = [];
         }
 
         protected internal DbInitializer(
@@ -41,21 +41,32 @@
 
         private bool DataSetIsEmpty(Type type)
         {
-            var setMethod = this.GetType()
-                .GetMethod(nameof(this.GetSet), BindingFlags.Instance | BindingFlags.NonPublic)!
-                .MakeGenericMethod(type);
+            var setMethod = typeof(DbInitializer)
+                .GetMethods(BindingFlags.Instance | BindingFlags.NonPublic)
+                .FirstOrDefault(m =>
+                    m.Name == nameof(GetSet) &&
+                    m.IsGenericMethodDefinition &&
+                    m.GetGenericArguments().Length == 1)
+                    ?? throw new InvalidOperationException(
+                        "Failed to find generic method GetSet<TEntity>.");
 
-            var set = setMethod.Invoke(this, []);
+            var genericSetMethod = setMethod.MakeGenericMethod(type);
+            var set = genericSetMethod.Invoke(this, [])
+                ?? throw new InvalidOperationException(
+                    $"Failed to get DbSet for type {type.FullName}.");
 
             var countMethod = typeof(Queryable)
                 .GetMethods()
-                .First(m => m.Name == nameof(Queryable.Count) && m.GetParameters().Length == 1)
+                .First(m => 
+                    m.Name == nameof(Queryable.Count) &&
+                    m.GetParameters().Length == 1)
                 .MakeGenericMethod(type);
 
-            var result = (int)countMethod.Invoke(null, [set])!;
+            var result = (int)countMethod.Invoke(null, new[] { set })!;
 
             return result == 0;
         }
+
 
         private DbSet<TEntity> GetSet<TEntity>()
             where TEntity : class

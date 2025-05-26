@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Builder;
 using WodItEasy.Common.Web.Extensions;
 using WodItEasy.Workouts.Application;
 using WodItEasy.Workouts.Domain;
