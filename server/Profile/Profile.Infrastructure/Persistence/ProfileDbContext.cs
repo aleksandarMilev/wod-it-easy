@@ -4,6 +4,7 @@
     using System.Reflection;
     using Common.Application.Contracts;
     using Common.Domain.Models;
+    using Domain.Models.Profile;
     using Microsoft.EntityFrameworkCore;
 
     internal class ProfileDbContext(
@@ -12,6 +13,8 @@
         : DbContext(options)
     {
         private readonly ICurrentUserService userService = userService;
+
+        public DbSet<Profile> Profiles { get; set; } = default!;
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
         {

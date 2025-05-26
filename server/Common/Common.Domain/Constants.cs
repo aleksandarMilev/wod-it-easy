@@ -2,6 +2,7 @@
 {
     public static class Constants
     {
+        public const int UrlMinLength = 10;
         public const int UrlMaxLength = 2_048;
 
         public const string AdminRoleName = "Administrator";

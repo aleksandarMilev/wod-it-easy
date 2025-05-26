@@ -1,10 +1,12 @@
 ﻿namespace WodItEasy.Profile.Infrastructure
 {
-    using System.Reflection;
+    using Application.Features.Profile;
     using Common.Infrastructure;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Persistence;
+    using Repositories;
+    using System.Reflection;
 
     public static class InfrastructureConfiguration
     {
@@ -14,6 +16,8 @@
             => services
                 .AddCommonInfrastructure<ProfileDbContext>(
                     configuration,
-                    Assembly.GetExecutingAssembly());
+        Assembly.GetExecutingAssembly())
+            .AddTransient<IProfileRepository, ProfileRepository>()
+            .AddTransient<IDbInitializer, ProfileDbInitializer>();
     }
 }
