@@ -23,8 +23,8 @@
         public async Task<bool> ExistsById(
             int id,
             CancellationToken cancellationToken = default)
-            => await 
-                All()
+            => await this
+                .All()
                 .AsNoTracking()
                 .AnyAsync(w => w.Id == id, cancellationToken);
 
@@ -34,14 +34,14 @@
             int pageSize,
             CancellationToken cancellationToken = default)
         {
-            var query = 
-                All()
+            var query = this
+                .All()
                 .AsNoTracking()
                 .Where(w => startsAt == null
                         ? true
                         : startsAt.Value.Date == w.StartsAt.Date)
                 .OrderBy(w => w.StartsAt)
-                .ProjectTo<SearchWorkoutOutputModel>(mapper.ConfigurationProvider);
+                .ProjectTo<SearchWorkoutOutputModel>(this.mapper.ConfigurationProvider);
 
             var total = query.Count();
 
@@ -63,7 +63,7 @@
             => await 
                 All()
                 .AsNoTracking()
-                .ProjectTo<WorkoutDetailsOutputModel>(mapper.ConfigurationProvider)
+                .ProjectTo<WorkoutDetailsOutputModel>(this.mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(w => w.Id == id, cancellationToken);
 
         public async Task<Workout?> ById(
@@ -100,15 +100,15 @@
             int id,
             CancellationToken cancellationToken = default)
         {
-            var workout = await ById(id, cancellationToken);
+            var workout = await this.ById(id, cancellationToken);
 
             if (workout is null)
             {
                 return false;
             }
 
-            Data.Remove(workout);
-            await Data.SaveChangesAsync(cancellationToken);
+            this.Data.Remove(workout);
+            await this.Data.SaveChangesAsync(cancellationToken);
 
             return true;
         }

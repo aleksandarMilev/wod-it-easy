@@ -5,5 +5,12 @@
 
     public interface IProfileRepository : IRepository<Profile>
     {
+        Task<Profile?> ById(
+            int id,
+            CancellationToken cancellationToken = default);
+
+        Task<bool> Delete(
+            int id,
+            CancellationToken cancellationToken = default);
     }
 }

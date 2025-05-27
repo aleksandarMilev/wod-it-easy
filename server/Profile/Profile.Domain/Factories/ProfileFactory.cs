@@ -6,8 +6,8 @@
     {
         private string userId = default!;
         private string displayName = default!;
-        private string avatarUrl = default!;
-        private string bio = default!;
+        private string? avatarUrl = default!;
+        private string? bio = default!;
 
         public IProfileFactory ForUser(string userId)
         {
@@ -21,13 +21,13 @@
             return this;
         }
 
-        public IProfileFactory WithAvatarUrl(string avatarUrl)
+        public IProfileFactory WithAvatarUrl(string? avatarUrl)
         {
             this.avatarUrl = userId;
             return this;
         }
 
-        public IProfileFactory WithBio(string bio)
+        public IProfileFactory WithBio(string? bio)
         {
             this.bio = bio;
             return this;

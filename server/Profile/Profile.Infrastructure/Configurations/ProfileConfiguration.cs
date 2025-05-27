@@ -21,12 +21,10 @@
 
             builder
                 .Property(p => p.AvatarUrl)
-                .IsRequired()
                 .HasMaxLength(UrlMaxLength);
 
             builder
                 .Property(p => p.Bio)
-                .IsRequired()
                 .HasMaxLength(MaxBioLength);
 
             builder

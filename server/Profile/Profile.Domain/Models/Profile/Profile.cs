@@ -36,7 +36,7 @@
             return this;
         }
 
-        public Profile UpdateAvatarUrl(string avatarUrl)
+        public Profile UpdateAvatarUrl(string? avatarUrl)
         {
             this.ValidateAvatarUrl(avatarUrl);
             this.AvatarUrl = avatarUrl;
@@ -44,7 +44,7 @@
             return this;
         }
 
-        public Profile UpdateBio(string bio)
+        public Profile UpdateBio(string? bio)
         {
             this.ValidateBio(bio);
             this.Bio = bio;
@@ -59,18 +59,28 @@
                 MaxDisplayNameLength,
                 nameof(this.DisplayName));
 
-        private void ValidateAvatarUrl(string avatarUrl)
-            => Guard.ForStringLength<InvalidProfileException>(
-                avatarUrl,
-                UrlMinLength,
-                UrlMaxLength,
-                nameof(this.DisplayName));
+        private void ValidateAvatarUrl(string? avatarUrl)
+        {
+            if (avatarUrl is not null)
+            {
+                Guard.ForStringLength<InvalidProfileException>(
+                    avatarUrl,
+                    UrlMinLength,
+                    UrlMaxLength,
+                    nameof(this.AvatarUrl));
+            }
+        }
 
-        private void ValidateBio(string bio)
-            => Guard.ForStringLength<InvalidProfileException>(
-                bio,
-                MinBioLength,
-                MaxBioLength,
-                nameof(this.DisplayName));
+        private void ValidateBio(string? bio)
+        {
+            if (bio is not null)
+            {
+                Guard.ForStringLength<InvalidProfileException>(
+                    bio,
+                    MinBioLength,
+                    MaxBioLength,
+                    nameof(this.Bio));
+            }
+        }
     }
 }
