@@ -3,12 +3,18 @@
     using Application.Features.Profile.Commands.Create;
     using Application.Features.Profile.Commands.Delete;
     using Application.Features.Profile.Commands.Update;
+    using Application.Features.Profile.Queries.Details;
     using Common.Application.Commands;
     using Common.Web.Controllers;
     using Microsoft.AspNetCore.Mvc;
 
     public class ProfileController : ApiController 
     {
+        [HttpGet]
+        public async Task<ActionResult<ProfileDetailsOutputModel?>> Details(
+            [FromRoute] ProfileDetailsQuery query)
+            => await this.Send(query);
+
         [HttpPost]
         public async Task<ActionResult<CreateProfileOutputModel>> Create(
              [FromBody] CreateProfileCommand command)

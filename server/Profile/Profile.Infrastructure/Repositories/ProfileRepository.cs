@@ -2,9 +2,11 @@
 {
     using Application.Features.Profile;
     using AutoMapper;
+    using AutoMapper.QueryableExtensions;
     using Common.Infrastructure;
     using Microsoft.EntityFrameworkCore;
     using Persistence;
+    using WodItEasy.Profile.Application.Features.Profile.Queries.Details;
 
     internal class ProfileRepository(
         ProfileDbContext data,
@@ -37,5 +39,13 @@
 
             return true;
         }
+
+        public async Task<ProfileDetailsOutputModel?> Details(
+            int id,
+            CancellationToken cancellationToken = default)
+            => await this
+                .All()
+                .ProjectTo<ProfileDetailsOutputModel>(this.mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
     }
 }

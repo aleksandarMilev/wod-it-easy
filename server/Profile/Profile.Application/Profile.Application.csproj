@@ -18,8 +18,4 @@
 		<ProjectReference Include="..\Profile.Domain\Profile.Domain.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Features\Profile\Queries\" />
-	</ItemGroup>
-
 </Project>
