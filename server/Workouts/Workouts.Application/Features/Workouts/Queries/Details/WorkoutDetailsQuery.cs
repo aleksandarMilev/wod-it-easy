@@ -12,10 +12,10 @@
         {
             private readonly IWorkoutRepository repository = repository;
 
-            public Task<WorkoutDetailsOutputModel?> Handle(
+            public async Task<WorkoutDetailsOutputModel?> Handle(
                 WorkoutDetailsQuery request,
-                CancellationToken cancellationToken) 
-                => this.repository.Details(request.Id, cancellationToken);
+                CancellationToken cancellationToken)
+                => await this.repository.Details(request.Id, cancellationToken);
         }
     }
 }

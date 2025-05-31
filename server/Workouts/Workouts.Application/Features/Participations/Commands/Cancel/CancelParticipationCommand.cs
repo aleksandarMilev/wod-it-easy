@@ -38,14 +38,10 @@
                     cancellationToken);
 
                 if (participation is null)
-                {
                     return ParticipationNotFoundErrorMessage;
-                }
 
                 if (participation.AthleteId != athleteId)
-                {
                     return UnauthorizedErrorMessage;
-                }
 
                 participation.MarkAsLeft();
 

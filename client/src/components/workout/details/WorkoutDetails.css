@@ -139,6 +139,32 @@
   box-shadow: 0 4px 10px rgba(40, 167, 69, 0.5);
 }
 
+.workout-details__participants-list {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0;
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.workout-details__participant-name {
+  background-color: #f1f3f5;
+  color: #495057;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.workout-details__participant-name:hover {
+  background-color: #d4e3f1;
+  color: #007bff;
+  cursor: default;
+}
+
 @media (max-width: 576px) {
   .workout-details__title {
     font-size: 24px;

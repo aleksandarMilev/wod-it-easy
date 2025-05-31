@@ -28,7 +28,8 @@ export default function WorkoutDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { showMessage } = useMessage();
-  const { isAdmin, isAthlete, athleteId, token } = useContext(UserContext);
+  const { isAdmin, isAthlete, athleteId, token, athleteName } =
+    useContext(UserContext);
 
   const [showModal, setShowModal] = useState(false);
   const toggleModal = () => setShowModal((prev) => !prev);
@@ -38,6 +39,11 @@ export default function WorkoutDetails() {
   const [participantsCount, setParticipantsCount] = useState(0);
   useEffect(() => {
     setParticipantsCount(workout?.currentParticipantsCount || 0);
+  }, [workout]);
+
+  const [athleteNames, setAthleteNames] = useState([]);
+  useEffect(() => {
+    setAthleteNames(workout?.athleteNames || []);
   }, [workout]);
 
   const [participationId, setParticipationId] = useState(0);
@@ -101,6 +107,7 @@ export default function WorkoutDetails() {
 
     setShowJoin(false);
     setParticipantsCount((prev) => prev + 1);
+    setAthleteNames((prev) => [...prev, athleteName]);
     showMessage(
       "You have successfully joined in the workout! Go to 'Participations' for more details."
     );
@@ -171,6 +178,22 @@ export default function WorkoutDetails() {
             <p className="workout-details__value">{participantsCount}</p>
           </div>
         </div>
+
+        {athleteNames && athleteNames.length > 0 && (
+          <div className="workout-details__section">
+            <FaUsers className="workout-details__icon" />
+            <div>
+              <strong className="workout-details__label">Participants:</strong>
+              <ul className="workout-details__participants-list">
+                {athleteNames.map((name, index) => (
+                  <li key={index} className="workout-details__participant-name">
+                    {name}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        )}
 
         <div className="workout-details__section">
           <FaCalendarAlt className="workout-details__icon" />

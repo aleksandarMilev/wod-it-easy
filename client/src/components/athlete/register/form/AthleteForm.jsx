@@ -14,7 +14,7 @@ import "./AthleteForm.css";
 export default function AthleteForm({ isEditMode = false, athlete = {} }) {
   const navigate = useNavigate();
   const { showMessage } = useMessage();
-  const { token, updateAthleteId } = useContext(UserContext);
+  const { token, updateAthleteIdAndName } = useContext(UserContext);
 
   const {
     register,
@@ -40,7 +40,7 @@ export default function AthleteForm({ isEditMode = false, athlete = {} }) {
         navigate(routes.athlete.mine);
       } else {
         const id = await create(athleteData, token);
-        updateAthleteId(id);
+        updateAthleteIdAndName(id, athleteData.name);
 
         showMessage(
           `You are now an Athlete! Go to 'View Workouts and Join!'`,

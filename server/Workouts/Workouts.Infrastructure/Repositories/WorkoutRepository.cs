@@ -60,17 +60,19 @@
         public async Task<WorkoutDetailsOutputModel?> Details(
             int id,
             CancellationToken cancellationToken = default)
-            => await 
-                All()
+            => await this 
+                .All()
                 .AsNoTracking()
+                .Include(w => w.Participations
+                        .Where(p => p.Status == ParticipationStatus.Joined))
                 .ProjectTo<WorkoutDetailsOutputModel>(this.mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(w => w.Id == id, cancellationToken);
 
         public async Task<Workout?> ById(
             int id,
             CancellationToken cancellationToken = default)
-            => await 
-                All()
+            => await this
+                .All()
                 .AsNoTracking()
                 .FirstOrDefaultAsync(w => w.Id == id, cancellationToken);
 
@@ -78,23 +80,13 @@
             DateTime date,
             int? excludeId = null,
             CancellationToken cancellationToken = default)
-                => await 
-                    All()
+                => await this
+                    .All()
                     .AsNoTracking()
                     .Where(w =>
                         w.StartsAt.Date == date.Date &&
                         w.Id != excludeId.GetValueOrDefault())
                     .ToListAsync(cancellationToken);
-
-        public async Task<Workout?> ByIdWithParticipants(
-            int id,
-            CancellationToken cancellationToken = default)
-            => await 
-                All()
-                .AsNoTracking()
-                .Include(w => w.Participations
-                    .Where(p => p.Status == ParticipationStatus.Joined))
-                .FirstOrDefaultAsync(w => w.Id == id, cancellationToken);
 
         public async Task<bool> Delete(
             int id,

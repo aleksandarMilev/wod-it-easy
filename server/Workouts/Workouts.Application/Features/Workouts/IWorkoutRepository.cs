@@ -21,10 +21,6 @@
             int? excludeId = null, 
             CancellationToken cancellationToken = default);
 
-        Task<Workout?> ByIdWithParticipants(
-            int id, 
-            CancellationToken cancellationToken = default);
-
         Task<PaginatedOutputModel<SearchWorkoutOutputModel>> Paginated(
             DateTime? startsAt,
             int pageIndex,

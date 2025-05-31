@@ -17,7 +17,7 @@ import "./AthleteProfile.css";
 export default function AthleteProfile() {
   const navigate = useNavigate();
   const { showMessage } = useMessage();
-  const { token, updateAthleteId } = useContext(UserContext);
+  const { token, updateAthleteIdAndName } = useContext(UserContext);
 
   const { isFetching, athlete } = useMine(token);
 
@@ -28,7 +28,7 @@ export default function AthleteProfile() {
     if (showModal) {
       try {
         await deleteAthlete(token);
-        updateAthleteId(null);
+        updateAthleteIdAndName(0, "");
 
         showMessage("Your profile was successfully deleted!", true);
         navigate(routes.home);

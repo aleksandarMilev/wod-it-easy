@@ -6,6 +6,7 @@
     using Common.Infrastructure;
     using Microsoft.EntityFrameworkCore;
     using Persistence;
+    using WodItEasy.Common.Application.Commands;
     using WodItEasy.Profile.Application.Features.Profile.Queries.Details;
 
     internal class ProfileRepository(
@@ -17,35 +18,34 @@
         private readonly IMapper mapper = mapper;
 
         public async Task<Domain.Models.Profile.Profile?> ById(
-            int id,
+            string userId,
             CancellationToken cancellationToken = default)
             => await this
                 .All()
-                .FirstOrDefaultAsync(w => w.Id == id, cancellationToken);
+                .FirstOrDefaultAsync(p => p.UserId == userId, cancellationToken);
+
+        public async Task<ProfileDetailsOutputModel?> Details(
+            string userId,
+            CancellationToken cancellationToken = default)
+            => await this
+                .All()
+                .Where(p => p.UserId == userId)
+                .ProjectTo<ProfileDetailsOutputModel>(this.mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync(cancellationToken);
 
         public async Task<bool> Delete(
-           int id,
-           CancellationToken cancellationToken = default)
+            string userId,
+            CancellationToken cancellationToken = default)
         {
-            var profile = await this.ById(id, cancellationToken);
+            var profile = await this.ById(userId, cancellationToken);
 
             if (profile is null)
-            {
                 return false;
-            }
 
             this.Data.Remove(profile);
             await this.Data.SaveChangesAsync(cancellationToken);
 
             return true;
         }
-
-        public async Task<ProfileDetailsOutputModel?> Details(
-            int id,
-            CancellationToken cancellationToken = default)
-            => await this
-                .All()
-                .ProjectTo<ProfileDetailsOutputModel>(this.mapper.ConfigurationProvider)
-                .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
     }
 }

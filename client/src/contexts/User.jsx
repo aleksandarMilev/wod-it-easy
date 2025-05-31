@@ -8,6 +8,7 @@ import usePersistedState from "../hooks/usePersistedState";
 export const UserContext = createContext({
   userId: "",
   athleteId: "",
+  athleteName: "",
   username: "",
   email: "",
   token: "",
@@ -15,7 +16,7 @@ export const UserContext = createContext({
   isAthlete: false,
   isAuthenticated: false,
   changeAuthenticationState: (state) => {},
-  updateAthleteId: (id) => {},
+  updateAthleteIdAndName: (id, name) => {},
   logout: () => {},
 });
 
@@ -32,17 +33,19 @@ export function UserContextProvider(props) {
 
   const changeAuthenticationState = (state) => setUser(state);
 
-  const updateAthleteId = (athleteId) =>
+  const updateAthleteIdAndName = (id, name) =>
     setUser({
       userId: user.userId,
-      athleteId: athleteId,
+      athleteId: id,
+      athleteName: name,
       username: user.username,
       email: user.email,
       isAdmin: user.isAdmin,
-      isAthlete: athleteId && athleteId !== 0,
+      isAthlete: id && id !== 0,
       token: user.token,
       isAuthenticated: !!user.username,
       changeAuthenticationState,
+      updateAthleteIdAndName,
       logout,
     });
 
@@ -59,6 +62,7 @@ export function UserContextProvider(props) {
   const userData = {
     userId: user.userId,
     athleteId: user.athleteId,
+    athleteName: user.athleteName,
     username: user.username,
     email: user.email,
     isAdmin: user.isAdmin,
@@ -66,7 +70,7 @@ export function UserContextProvider(props) {
     isAthlete: user.isAthlete,
     isAuthenticated: !!user.username,
     changeAuthenticationState,
-    updateAthleteId,
+    updateAthleteIdAndName,
     logout,
   };
 

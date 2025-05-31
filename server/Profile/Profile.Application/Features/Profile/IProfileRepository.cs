@@ -7,15 +7,15 @@
     public interface IProfileRepository : IRepository<Profile>
     {
         Task<Profile?> ById(
-            int id,
+            string userId,
             CancellationToken cancellationToken = default);
 
         Task<ProfileDetailsOutputModel?> Details(
-           int id,
-           CancellationToken cancellationToken = default);
+            string userId,
+            CancellationToken cancellationToken = default);
 
         Task<bool> Delete(
-            int id,
+            string userId,
             CancellationToken cancellationToken = default);
     }
 }

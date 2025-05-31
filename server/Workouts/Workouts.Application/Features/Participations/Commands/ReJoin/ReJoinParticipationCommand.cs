@@ -40,14 +40,10 @@
                     cancellationToken);
 
                 if (participation is null)
-                {
                     return ParticipationNotFoundErrorMessage;
-                }
 
                 if (participation.AthleteId != athleteId)
-                {
                     return UnauthorizedErrorMessage;
-                }
 
                 participation.MarkAsJoined();
 
@@ -60,9 +56,7 @@
                 if (workout is not null)
                 {
                     if (workout.CurrentParticipantsCount == workout.MaxParticipantsCount)
-                    {
                         return string.Format(WorkoutFullErrorMessage, workout.CurrentParticipantsCount);
-                    }
 
                     workout.IncrementParticipantsCount();
 
