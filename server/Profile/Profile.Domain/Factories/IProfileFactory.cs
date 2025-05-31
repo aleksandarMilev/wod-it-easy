@@ -7,8 +7,6 @@
     {
         IProfileFactory ForUser(string userId);
 
-        IProfileFactory WithDisplayName(string displayName);
-
         IProfileFactory WithAvatarUrl(string? avatarUrl);
 
         IProfileFactory WithBio(string? bio);

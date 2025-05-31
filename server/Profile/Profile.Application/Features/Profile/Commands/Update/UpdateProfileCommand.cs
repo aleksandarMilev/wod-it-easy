@@ -30,7 +30,6 @@
                     return string.Format(NotFoundErrorMessage, request.Id);
 
                 profile
-                    .UpdateDisplayName(request.DisplayName)
                     .UpdateAvatarUrl(request.AvatarUrl)
                     .UpdateBio(request.Bio);
 

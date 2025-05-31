@@ -12,9 +12,9 @@ import { UserContext } from "../../../contexts/User";
 import DeleteConfirmModal from "../../common/delete-modal/DeleteConfirmModal";
 import DefaultSpinner from "../../common/default-spinner/DefaultSpinner";
 
-import "./AthleteProfile.css";
+import "./Profile.css";
 
-export default function AthleteProfile() {
+export default function Profile() {
   const navigate = useNavigate();
   const { showMessage } = useMessage();
   const { token, updateAthleteIdAndName } = useContext(UserContext);
@@ -44,6 +44,8 @@ export default function AthleteProfile() {
 
   if (isFetching || !athlete) {
     return <DefaultSpinner />;
+  } else {
+    console.log("Athlete Profile:", athlete);
   }
 
   return (

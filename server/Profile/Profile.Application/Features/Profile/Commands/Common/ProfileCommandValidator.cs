@@ -13,13 +13,6 @@
         public ProfileCommandValidator()
         {
             this
-                .RuleFor(p => p.DisplayName)
-                .NotEmpty()
-                .WithMessage("DisplayName cannot be null or empty.")
-                .Length(MinDisplayNameLength, MaxDisplayNameLength)
-                .WithMessage(
-                     $"Display Name must be between {MinDisplayNameLength} and {MaxDisplayNameLength} characters.");
-            this
                 .RuleFor(p => p.AvatarUrl)
                 .MinimumLength(UrlMinLength)
                 .MaximumLength(UrlMaxLength)

@@ -10,31 +10,19 @@
     {
         internal Profile(
             string userId,
-            string displayName,
             string? avatarUrl,
             string? bio)
         {
             this.UserId = userId;
-            this.DisplayName = displayName;
             this.AvatarUrl = avatarUrl;
             this.Bio = bio;
         }
 
         public string UserId { get; }
 
-        public string DisplayName { get; private set; }
-
         public string? AvatarUrl { get; private set; }
 
         public string? Bio { get; private set; }
-
-        public Profile UpdateDisplayName(string displayName)
-        {
-            this.ValidateDisplayName(displayName);
-            this.DisplayName = displayName;
-
-            return this;
-        }
 
         public Profile UpdateAvatarUrl(string? avatarUrl)
         {
@@ -51,13 +39,6 @@
 
             return this;
         }
-
-        private void ValidateDisplayName(string name)
-            => Guard.ForStringLength<InvalidProfileException>(
-                name,
-                MinDisplayNameLength,
-                MaxDisplayNameLength,
-                nameof(this.DisplayName));
 
         private void ValidateAvatarUrl(string? avatarUrl)
         {

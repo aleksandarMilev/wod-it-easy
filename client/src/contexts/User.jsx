@@ -15,8 +15,10 @@ export const UserContext = createContext({
   isAdmin: false,
   isAthlete: false,
   isAuthenticated: false,
+  hasProfile: false,
   changeAuthenticationState: (state) => {},
   updateAthleteIdAndName: (id, name) => {},
+  setHasProfile: (hasProfile) => {},
   logout: () => {},
 });
 
@@ -44,8 +46,28 @@ export function UserContextProvider(props) {
       isAthlete: id && id !== 0,
       token: user.token,
       isAuthenticated: !!user.username,
+      hasProfile: user.hasProfile,
       changeAuthenticationState,
       updateAthleteIdAndName,
+      setHasProfile,
+      logout,
+    });
+
+  const setHasProfile = (hasProfile) =>
+    setUser({
+      userId: user.userId,
+      athleteId: user.athleteId,
+      athleteName: user.athleteName,
+      username: user.username,
+      email: user.email,
+      isAdmin: user.isAdmin,
+      isAthlete: user.athleteId && user.athleteId !== 0,
+      token: user.token,
+      isAuthenticated: !!user.username,
+      hasProfile: hasProfile,
+      changeAuthenticationState,
+      updateAthleteIdAndName,
+      setHasProfile,
       logout,
     });
 
@@ -69,8 +91,10 @@ export function UserContextProvider(props) {
     token: user.token,
     isAthlete: user.isAthlete,
     isAuthenticated: !!user.username,
+    hasProfile: user.hasProfile,
     changeAuthenticationState,
     updateAthleteIdAndName,
+    setHasProfile,
     logout,
   };
 

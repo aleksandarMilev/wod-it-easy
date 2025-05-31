@@ -4,6 +4,7 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
+    using static Common.Domain.Constants;
     using static Domain.Models.ModelConstants.AthleteConstants;
 
     public class AthleteConfiguration : IEntityTypeConfiguration<Athlete>
@@ -20,6 +21,7 @@
 
             builder
                 .Property(a => a.UserId)
+                .HasMaxLength(UserIdMaxLength)
                 .IsRequired();
 
             builder

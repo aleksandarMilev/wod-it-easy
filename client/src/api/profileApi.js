@@ -1,26 +1,24 @@
 import {
-  workoutsServiceUrl as baseUrl,
+  profileServiceUrl as baseUrl,
   routes,
   errorMessages,
 } from "../common/constants";
 import * as requester from "./requester";
 
-export async function getId(token) {
-  const response = await requester.get(baseUrl + routes.athlete.getId, token);
+export async function mine(token) {
+  const response = await requester.get(baseUrl + routes.profile.default, token);
 
   if (response.ok) {
-    const result = await response.json();
-    return result.id;
-  } else if (response.status === 404) {
-    return null;
+    return await response.json();
   }
 
-  throw new Error(errorMessages.athlete.getId);
+  throw new Error(errorMessages.profile.mine);
 }
 
 export async function create(data, token) {
+  console.log(data);
   const response = await requester.post(
-    baseUrl + routes.athlete.default,
+    baseUrl + routes.profile.default,
     data,
     token
   );
@@ -35,23 +33,23 @@ export async function create(data, token) {
 
 export async function update(data, token) {
   const response = await requester.put(
-    baseUrl + routes.athlete.default,
+    baseUrl + routes.profile.default,
     data,
     token
   );
 
   if (!response.ok) {
-    throw new Error(errorMessages.athlete.update);
+    throw new Error(errorMessages.profile.update);
   }
 }
 
 export async function remove(token) {
   const response = await requester.remove(
-    baseUrl + routes.athlete.default,
+    baseUrl + routes.profile.default,
     token
   );
 
   if (!response.ok) {
-    throw new Error(errorMessages.athlete.remove);
+    throw new Error(errorMessages.profile.remove);
   }
 }

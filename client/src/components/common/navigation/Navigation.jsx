@@ -7,8 +7,15 @@ import { UserContext } from "../../../contexts/User";
 import "./Navigation.css";
 
 export default function Navigation() {
-  const { username, isAuthenticated, isAthlete, isAdmin, logout } =
+  const { username, isAuthenticated, isAthlete, isAdmin, hasProfile, logout } =
     useContext(UserContext);
+
+  console.log("Navigation rendered");
+  console.log("isAuthenticated:", isAuthenticated);
+  console.log("isAthlete:", isAthlete);
+  console.log("isAdmin:", isAdmin);
+  console.log("hasProfile:", hasProfile);
+  console.log("username:", username);
 
   return (
     <header className="header">
@@ -25,11 +32,22 @@ export default function Navigation() {
               <Link to={routes.athlete.create}>Become an Athlete</Link>
             </li>
           )}
-          {isAthlete && !isAdmin && isAuthenticated && (
+          {isAuthenticated && !hasProfile && !isAdmin && (
             <>
               <li>
-                <Link to={routes.athlete.mine}>Profile</Link>
+                <Link to={routes.profile.create}>Configure Profile</Link>
               </li>
+            </>
+          )}
+          {isAuthenticated && hasProfile && !isAdmin && (
+            <>
+              <li>
+                <Link to={routes.profile.default}>Profile</Link>
+              </li>
+            </>
+          )}
+          {isAthlete && !isAdmin && isAuthenticated && (
+            <>
               <li>
                 <Link to={routes.participation.default}>Participations</Link>
               </li>

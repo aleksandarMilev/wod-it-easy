@@ -37,7 +37,7 @@ export default function AthleteForm({ isEditMode = false, athlete = {} }) {
         await update(athleteData, token);
 
         showMessage(`Your profile was successfully updated!`, true);
-        navigate(routes.athlete.mine);
+        navigate(routes.profile.mine);
       } else {
         const id = await create(athleteData, token);
         updateAthleteIdAndName(id, athleteData.name);
@@ -46,7 +46,7 @@ export default function AthleteForm({ isEditMode = false, athlete = {} }) {
           `You are now an Athlete! Go to 'View Workouts and Join!'`,
           true
         );
-        navigate(routes.athlete.mine);
+        navigate(routes.profile.mine);
       }
     } catch (error) {
       showMessage(error.message, false);

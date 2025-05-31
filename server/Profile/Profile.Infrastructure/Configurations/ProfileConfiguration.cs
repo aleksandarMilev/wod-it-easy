@@ -15,11 +15,6 @@
                 .HasKey(p => p.Id);
 
             builder
-                .Property(p => p.DisplayName)
-                .IsRequired()
-                .HasMaxLength(MaxDisplayNameLength);
-
-            builder
                 .Property(p => p.AvatarUrl)
                 .HasMaxLength(UrlMaxLength);
 
@@ -29,7 +24,11 @@
 
             builder
                 .Property(p => p.UserId)
+                .HasMaxLength(UserIdMaxLength)
                 .IsRequired();
+
+            builder
+                .HasIndex(p => p.UserId);
         }
     }
 }

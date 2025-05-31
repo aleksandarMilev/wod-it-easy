@@ -1,6 +1,12 @@
-export const identityServiceUrl = import.meta.env.VITE_IDENTITY_SERVICE_URL;
-export const workoutsServiceUrl = import.meta.env.VITE_WORKOUTS_SERVICE_URL;
+// export const identityServiceUrl = import.meta.env.VITE_IDENTITY_SERVICE_URL;
+// export const workoutsServiceUrl = import.meta.env.VITE_WORKOUTS_SERVICE_URL;
+// export const workoutsServiceAdminUrl = `${workoutsServiceUrl}/administrator`;
+// export const profileServiceUrl = import.meta.env.VITE_PROFILE_SERVICE_URL;
+
+export const identityServiceUrl = "http://localhost:5000";
+export const workoutsServiceUrl = "http://localhost:5001";
 export const workoutsServiceAdminUrl = `${workoutsServiceUrl}/administrator`;
+export const profileServiceUrl = "http://localhost:5002";
 
 export const routes = {
   home: "/",
@@ -14,9 +20,14 @@ export const routes = {
     accessDenied: "/error/access-denied",
   },
 
+  profile: {
+    default: "/profile",
+    create: "/profile/new",
+    update: "/profile/update",
+  },
+
   athlete: {
     default: "/athlete",
-    mine: "/athlete/mine",
     getId: "/athlete/id",
     create: "/athlete/new",
     update: "/athlete/update",
@@ -75,8 +86,17 @@ export const errorMessages = {
       "Sorry, something went wrong while deleting the workout. Please try again later. If the issue persists, contact our support.",
   },
 
-  athlete: {
+  profile: {
     mine: "Sorry, something went wrong while loading your profile. Please try again later.",
+    create:
+      "Sorry, something went wrong while creating your profile. Please try again later. If the issue persists, contact our support.",
+    update:
+      "Sorry, something went wrong while updating your profile. Please try again later. If the issue persists, contact our support.",
+    remove:
+      "Sorry, something went wrong while deleting your profile. Please try again later. If the issue persists, contact our support",
+  },
+
+  athlete: {
     getId:
       "Sorry, something went wrong while fetching the athlete's id. Please try again later.",
     create:

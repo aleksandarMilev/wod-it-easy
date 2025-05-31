@@ -7,8 +7,6 @@
     {
         public int Id { get; set; }
 
-        public string DisplayName { get; set; } = default!;
-
         public string? AvatarUrl { get; set; }
 
         public string? Bio { get; set; }

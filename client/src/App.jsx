@@ -17,7 +17,10 @@ import Login from "./components/identity/login/Login";
 import Register from "./components/identity/register/Register";
 import RegistrationChoice from "./components/identity/registration-choice/RegistrationChoice";
 
-import AthleteProfile from "./components/athlete/profile/AthleteProfile";
+import Profile from "./components/profile/mine/Profile";
+import CreateProfile from "./components/profile/create/CreateProfile";
+import UpdateProfile from "./components/profile/update/UpdateProfile";
+
 import CreateAthlete from "./components/athlete/register/create/CreateAthlete";
 import UpdateAthlete from "./components/athlete/register/update/UpdateAthlete";
 
@@ -51,9 +54,18 @@ export default function App() {
               />
 
               <Route
-                path={routes.athlete.mine}
-                element={<AthleteRoute element={<AthleteProfile />} />}
+                path={routes.profile.default}
+                element={<AuthenticatedRoute element={<Profile />} />}
               />
+              <Route
+                path={routes.profile.create}
+                element={<AuthenticatedRoute element={<CreateProfile />} />}
+              />
+              <Route
+                path={routes.profile.update}
+                element={<AuthenticatedRoute element={<UpdateProfile />} />}
+              />
+
               <Route
                 path={routes.athlete.create}
                 element={<AuthenticatedRoute element={<CreateAthlete />} />}

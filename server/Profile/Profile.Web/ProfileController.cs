@@ -4,7 +4,6 @@
     using Application.Features.Profile.Commands.Delete;
     using Application.Features.Profile.Commands.Update;
     using Application.Features.Profile.Queries.Details;
-    using Common.Application.Commands;
     using Common.Web.Controllers;
     using Microsoft.AspNetCore.Mvc;
 
@@ -20,13 +19,12 @@
              [FromBody] CreateProfileCommand command)
              => await this.Send(command);
 
-        [HttpPut(Id)]
+        [HttpPut]
         public async Task<ActionResult> Update(
-            [FromRoute] int id,
             [FromBody] UpdateProfileCommand command)
-            => await this.Send(command.SetId(id));
+            => await this.Send(command);
 
-        [HttpDelete(Id)]
+        [HttpDelete]
         public async Task<ActionResult> Delete(
             [FromRoute] DeleteProfileCommand command)
             => await this.Send(command);

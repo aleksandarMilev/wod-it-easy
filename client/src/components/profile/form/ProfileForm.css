@@ -1,0 +1,60 @@
+.athlete-form {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.athlete-form .form-title {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.athlete-form .form-group {
+  margin-bottom: 20px;
+}
+
+.athlete-form .form-group label {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #444;
+}
+
+.athlete-form .form-group input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+}
+
+.athlete-form .form-group input:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.athlete-form .error-message {
+  font-size: 0.9rem;
+  color: red;
+  margin-top: 5px;
+}
+
+.athlete-form .submit-button {
+  width: 100%;
+  padding: 10px;
+  font-size: 1.2rem;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.athlete-form .submit-button:hover {
+  background-color: #0056b3;
+}

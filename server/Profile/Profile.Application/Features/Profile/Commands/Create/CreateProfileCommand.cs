@@ -1,13 +1,10 @@
 ﻿namespace WodItEasy.Profile.Application.Features.Profile.Commands.Create
 {
     using Common;
+    using Domain.Factories;
     using MediatR;
-    using System.Threading;
-    using System.Threading.Tasks;
     using WodItEasy.Common.Application;
-    using WodItEasy.Common.Application.Commands;
     using WodItEasy.Common.Application.Contracts;
-    using WodItEasy.Profile.Domain.Factories;
 
     public class CreateProfileCommand
         : ProfileCommand<CreateProfileCommand>, IRequest<Result<CreateProfileOutputModel>>
@@ -28,7 +25,6 @@
             {
                 var profile = this.factory
                     .ForUser(this.userService.UserId!)
-                    .WithDisplayName(request.DisplayName)
                     .WithAvatarUrl(request.AvatarUrl)
                     .WithBio(request.Bio)
                     .Build();
