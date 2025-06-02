@@ -5,6 +5,16 @@ import {
 } from "../common/constants";
 import * as requester from "./requester";
 
+export async function mine(token) {
+  const response = await requester.get(baseUrl + routes.athlete.default, token);
+
+  if (response.ok) {
+    return await response.json();
+  }
+
+  throw new Error(errorMessages.athlete.mine);
+}
+
 export async function getId(token) {
   const response = await requester.get(baseUrl + routes.athlete.getId, token);
 

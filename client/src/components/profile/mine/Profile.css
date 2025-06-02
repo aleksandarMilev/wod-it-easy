@@ -1,133 +1,109 @@
-.athlete-profile-container {
+.user-profile-container {
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100vh;
+  align-items: flex-start; /* Changed from center to flex-start */
+  min-height: 100vh; /* Changed from height to min-height */
   background: linear-gradient(135deg, #6a11cb, #2575fc);
-  padding: 20px;
+  padding: 40px 20px; /* Increased vertical padding */
 }
 
-.athlete-profile-card {
+.user-profile-card {
   background: #ffffff;
   border-radius: 16px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   padding: 40px;
   text-align: center;
-  max-width: 50em;
+  max-width: 600px; /* Changed from 50em to fixed pixel value */
   width: 100%;
+  margin: 40px 0; /* Added margin to separate from top/bottom */
   animation: fadeIn 0.8s ease-in-out;
+  position: relative; /* Added for proper z-index */
+  z-index: 1; /* Ensures card stays above background */
 }
 
-.athlete-icon-container {
+.user-icon-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 300px;
-  height: 300px;
-  margin: 0 auto 20px;
+  width: 200px; /* Reduced from 300px */
+  height: 200px; /* Reduced from 300px */
+  margin: -100px auto 20px; /* Negative margin to pull up into card */
   background: linear-gradient(135deg, #6a11cb, #2575fc);
   border-radius: 50%;
   box-shadow: 0 4px 16px rgba(106, 17, 203, 0.3);
+  position: relative; /* For proper stacking */
 }
 
-.athlete-avatar {
-  width: 300px;
-  height: 300px;
+.user-avatar {
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
-  object-fit: fill;
+  object-fit: cover; /* Changed from fill to cover */
 }
 
-.athlete-icon {
+.user-icon {
   color: #ffffff;
   font-size: 48px;
   animation: bounce 2s infinite;
 }
 
-.athlete-name {
-  font-size: 32px;
-  font-weight: 600;
-  color: #333333;
-  margin: 0;
-  animation: slideIn 0.8s ease-in-out;
-  white-space: nowrap;
-  overflow: auto;
-  max-width: 100%;
-}
-
-.profile-details {
-  margin: 20px 0;
-  text-align: left;
+.user-profile-details {
+  margin: 40px 0 20px; /* Increased top margin */
+  text-align: center; /* Changed from left to center */
   padding: 0 20px;
 }
 
-.profile-details p {
-  margin: 10px 0;
+.user-profile-line {
+  margin: 15px 0; /* Increased margin */
+  padding: 12px 0; /* Increased padding */
   font-size: 16px;
   color: #555;
-}
-
-.profile-username,
-.profile-email,
-.profile-bio {
-  padding: 8px 0;
   border-bottom: 1px solid #eee;
 }
 
-.profile-actions {
+.user-profile-actions {
   margin-top: 30px;
   display: flex;
   justify-content: center;
-  gap: 15px;
+  gap: 20px; /* Increased gap */
 }
 
-.update-button {
+.user-update-button,
+.user-delete-button {
   display: inline-block;
-  padding: 10px 20px;
+  padding: 12px 24px; /* Increased padding */
   font-size: 16px;
   font-weight: 600;
   color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease; /* Smoother transition */
+  min-width: 120px; /* Ensures consistent button width */
+}
+
+.user-update-button {
   background: linear-gradient(135deg, #6a11cb, #2575fc);
-  border: none;
-  border-radius: 8px;
-  text-decoration: none;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.update-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(106, 17, 203, 0.3);
-}
-
-.update-button:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 8px rgba(106, 17, 203, 0.3);
-}
-
-.delete-button {
-  display: inline-block;
-  padding: 10px 20px;
-  font-size: 16px;
-  font-weight: 600;
-  color: #ffffff;
+.user-delete-button {
   background: linear-gradient(135deg, #ff416c, #ff4b2b);
-  border: none;
-  border-radius: 8px;
-  text-decoration: none;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.delete-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(255, 65, 108, 0.3);
+.user-update-button:hover,
+.user-delete-button:hover {
+  transform: translateY(-3px); /* More pronounced hover effect */
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
 
-.delete-button:active {
+.user-update-button:active,
+.user-delete-button:active {
   transform: translateY(0);
-  box-shadow: 0 2px 8px rgba(255, 65, 108, 0.3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Animations - unchanged */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -136,17 +112,6 @@
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
   }
 }
 
@@ -166,23 +131,44 @@
   }
 }
 
-@media (max-width: 600px) {
-  .athlete-profile-card {
-    padding: 20px;
+@media (max-width: 768px) {
+  .user-profile-container {
+    padding: 20px 15px;
   }
 
-  .profile-details {
+  .user-profile-card {
+    padding: 30px 20px;
+    margin: 20px 0;
+  }
+
+  .user-icon-container {
+    width: 150px;
+    height: 150px;
+    margin: -75px auto 15px;
+  }
+
+  .user-profile-actions {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .user-update-button,
+  .user-delete-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .user-profile-card {
+    padding: 25px 15px;
+  }
+
+  .user-profile-details {
     padding: 0 10px;
   }
 
-  .profile-actions {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .update-button,
-  .delete-button {
-    width: 100%;
-    margin: 5px 0;
+  .user-profile-line {
+    font-size: 15px;
+    padding: 10px 0;
   }
 }

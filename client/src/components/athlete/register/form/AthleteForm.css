@@ -1,60 +1,121 @@
 .athlete-form {
   max-width: 500px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 2rem auto;
+  padding: 2.5rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  font-family: "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
 }
 
 .athlete-form .form-title {
   text-align: center;
-  font-size: 1.8rem;
-  margin-bottom: 20px;
-  color: #333;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #2d3748;
+  font-weight: 600;
+  letter-spacing: -0.5px;
 }
 
 .athlete-form .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 1.75rem;
 }
 
 .athlete-form .form-group label {
-  font-size: 1.1rem;
-  font-weight: bold;
-  color: #444;
+  display: block;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #4a5568;
+  margin-bottom: 0.5rem;
 }
 
 .athlete-form .form-group input {
   width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  border-radius: 5px;
-  border: 1px solid #ddd;
+  padding: 0.875rem 1rem;
+  margin-top: 0.25rem;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
   font-size: 1rem;
+  transition: all 0.2s ease;
+  background-color: #f8fafc;
+}
+
+.athlete-form .form-group input:hover {
+  border-color: #cbd5e0;
+  background-color: #ffffff;
 }
 
 .athlete-form .form-group input:focus {
   outline: none;
-  border-color: #007bff;
+  border-color: #4299e1;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
+  background-color: #ffffff;
 }
 
 .athlete-form .error-message {
-  font-size: 0.9rem;
-  color: red;
-  margin-top: 5px;
+  font-size: 0.875rem;
+  color: #e53e3e;
+  margin-top: 0.5rem;
+  font-weight: 500;
 }
 
 .athlete-form .submit-button {
   width: 100%;
-  padding: 10px;
-  font-size: 1.2rem;
-  background-color: #007bff;
-  color: #fff;
+  padding: 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  background-color: #3182ce;
+  color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .athlete-form .submit-button:hover {
-  background-color: #0056b3;
+  background-color: #2c5282;
+  transform: translateY(-1px);
+}
+
+.athlete-form .submit-button:active {
+  transform: translateY(0);
+}
+
+.delete-button {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  background-color: #e53e3e;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.delete-button:hover {
+  background-color: #c53030;
+  transform: translateY(-1px);
+}
+
+.delete-button:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 600px) {
+  .athlete-form {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+
+  .athlete-form .form-title {
+    font-size: 1.5rem;
+  }
 }

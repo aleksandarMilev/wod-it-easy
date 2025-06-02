@@ -10,12 +10,23 @@ export default function Navigation() {
   const { username, isAuthenticated, isAthlete, isAdmin, hasProfile, logout } =
     useContext(UserContext);
 
-  console.log("Navigation rendered");
-  console.log("isAuthenticated:", isAuthenticated);
-  console.log("isAthlete:", isAthlete);
-  console.log("isAdmin:", isAdmin);
-  console.log("hasProfile:", hasProfile);
-  console.log("username:", username);
+  const showBecomeAtlete = !isAthlete && !isAdmin && isAuthenticated;
+  const showUpdateAthleteStatus = isAthlete && !isAdmin && isAuthenticated;
+  const showConfigProfile = isAuthenticated && !hasProfile && !isAdmin;
+  const showProfile = isAuthenticated && hasProfile && !isAdmin;
+  const showParticipations = isAthlete && !isAdmin && isAuthenticated;
+
+  console.log({
+    isAuthenticated,
+    isAthlete,
+    isAdmin,
+    hasProfile,
+    showBecomeAtlete,
+    showUpdateAthleteStatus,
+    showConfigProfile,
+    showProfile,
+    showParticipations,
+  });
 
   return (
     <header className="header">
@@ -27,31 +38,30 @@ export default function Navigation() {
       </Link>
       <nav className="nav-bar">
         <ul className="nav-left">
-          {!isAthlete && !isAdmin && isAuthenticated && (
+          {showBecomeAtlete && (
             <li>
               <Link to={routes.athlete.create}>Become an Athlete</Link>
             </li>
           )}
-          {isAuthenticated && !hasProfile && !isAdmin && (
-            <>
-              <li>
-                <Link to={routes.profile.create}>Configure Profile</Link>
-              </li>
-            </>
+          {showUpdateAthleteStatus && (
+            <li>
+              <Link to={routes.athlete.update}>Update Athlete Status</Link>
+            </li>
           )}
-          {isAuthenticated && hasProfile && !isAdmin && (
-            <>
-              <li>
-                <Link to={routes.profile.default}>Profile</Link>
-              </li>
-            </>
+          {showConfigProfile && (
+            <li>
+              <Link to={routes.profile.create}>Configure Profile</Link>
+            </li>
           )}
-          {isAthlete && !isAdmin && isAuthenticated && (
-            <>
-              <li>
-                <Link to={routes.participation.default}>Participations</Link>
-              </li>
-            </>
+          {showProfile && (
+            <li>
+              <Link to={routes.profile.default}>Profile</Link>
+            </li>
+          )}
+          {showParticipations && (
+            <li>
+              <Link to={routes.participation.default}>Participations</Link>
+            </li>
           )}
           {isAdmin && (
             <li>

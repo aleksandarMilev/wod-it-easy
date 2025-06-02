@@ -17,11 +17,10 @@ import "./Profile.css";
 export default function Profile() {
   const navigate = useNavigate();
   const { showMessage } = useMessage();
-  const { token, setHasProfile, username, athleteName, email } =
+  const { token, setHasProfile, username, athleteName, email, isAthlete } =
     useContext(UserContext);
 
   const { isFetching, profile } = useMine(token);
-
   const [showModal, setShowModal] = useState(false);
   const toggleModal = () => setShowModal((prev) => !prev);
 
@@ -29,14 +28,12 @@ export default function Profile() {
     if (showModal) {
       try {
         await deleteProfle(token);
-
         setHasProfile(false);
         showMessage("Your profile was successfully deleted!", true);
         navigate(routes.home);
       } catch (error) {
         showMessage(error.message, false);
       }
-
       toggleModal();
     } else {
       toggleModal();
@@ -45,11 +42,8 @@ export default function Profile() {
 
   if (isFetching || !profile) {
     return <DefaultSpinner />;
-  } else {
-    console.log("Profile Data:", profile);
   }
 
-  const displayName = athleteName || "Not an Athlete";
   const displayBio = profile.bio || "Hard Work Pays Off";
   const avatarUrl =
     profile.avatarUrl ||
@@ -57,26 +51,31 @@ export default function Profile() {
 
   return (
     <>
-      <div className="athlete-profile-container">
-        <div className="athlete-profile-card">
-          <div className="athlete-icon-container">
+      <div className="user-profile-container">
+        <div className="user-profile-card">
+          <div className="user-icon-container">
             {profile.avatarUrl ? (
-              <img src={avatarUrl} alt="Profile" className="athlete-avatar" />
+              <img src={avatarUrl} alt="Profile" className="user-avatar" />
             ) : (
-              <FaUser className="athlete-icon" />
+              <FaUser className="user-icon" />
             )}
           </div>
-          <h2 className="athlete-name">{displayName}</h2>
-          <div className="profile-details">
-            <p className="profile-username">Username: {username}</p>
-            <p className="profile-email">Email: {email}</p>
-            <p className="profile-bio">Bio: {displayBio}</p>
+          <div className="user-profile-details">
+            <p className="user-profile-line">
+              Status: {isAthlete ? "Athlete" : "Regular User"}
+            </p>
+            {isAthlete && (
+              <p className="user-profile-line">Athlete Name: {athleteName}</p>
+            )}
+            <p className="user-profile-line">Username: {username}</p>
+            <p className="user-profile-line">Email: {email}</p>
+            <p className="user-profile-line">Bio: {displayBio}</p>
           </div>
-          <div className="profile-actions">
-            <Link to={routes.profile.update} className="update-button">
+          <div className="user-profile-actions">
+            <Link to={routes.profile.update} className="user-update-button">
               Update
             </Link>
-            <button className="delete-button" onClick={toggleModal}>
+            <button className="user-delete-button" onClick={toggleModal}>
               Delete
             </button>
           </div>
