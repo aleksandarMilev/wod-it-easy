@@ -37,15 +37,27 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Identity.StartUp", "Identit
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Profile", "Profile", "{7F6B897E-5E9B-456B-B6B0-8C924F223D33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Profile.Infrastructure", "Profile\Profile.Infrastructure\Profile.Infrastructure.csproj", "{431166E2-C634-4E14-AD1E-BC554F56122A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Profile.Infrastructure", "Profile\Profile.Infrastructure\Profile.Infrastructure.csproj", "{431166E2-C634-4E14-AD1E-BC554F56122A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Profile.Application", "Profile\Profile.Application\Profile.Application.csproj", "{B8A46668-6081-44E5-A8EF-5691BC172B56}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Profile.Application", "Profile\Profile.Application\Profile.Application.csproj", "{B8A46668-6081-44E5-A8EF-5691BC172B56}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Profile.Domain", "Profile\Profile.Domain\Profile.Domain.csproj", "{DB1A5BC3-9F48-4BD6-93B9-FEF234884847}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Profile.Domain", "Profile\Profile.Domain\Profile.Domain.csproj", "{DB1A5BC3-9F48-4BD6-93B9-FEF234884847}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Profile.Web", "Profile\Profile.Web\Profile.Web.csproj", "{D866CF27-F34F-4C0D-B661-F6CD91172093}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Profile.Web", "Profile\Profile.Web\Profile.Web.csproj", "{D866CF27-F34F-4C0D-B661-F6CD91172093}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Profile.StartUp", "Profile\Profile.StartUp\Profile.StartUp.csproj", "{3599DC7E-74AD-43FA-AFC5-44DEE07D7D4D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Profile.StartUp", "Profile\Profile.StartUp\Profile.StartUp.csproj", "{3599DC7E-74AD-43FA-AFC5-44DEE07D7D4D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EmailSender", "EmailSender", "{A55D9FC1-CAE6-4D2A-BE73-17245914790A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailSender.Domain", "EmailSender\EmailSender.Domain\EmailSender.Domain.csproj", "{BF603291-6570-4BD1-B855-63ADAA18CC52}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailSender.Application", "EmailSender\EmailSender.Application\EmailSender.Application.csproj", "{B49D0F6F-BAB4-4D62-8E76-D3B55CC8F0A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailSender.Infrastructure", "EmailSender\EmailSender.Infrastructure\EmailSender.Infrastructure.csproj", "{74FEFE19-D094-49F0-8C58-414757213061}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailSender.Web", "EmailSender\EmailSender.Web\EmailSender.Web.csproj", "{A3182150-5817-4190-9B51-D39E0741DDCF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailSender.StartUp", "EmailSender\EmailSender.StartUp\EmailSender.StartUp.csproj", "{D64E8363-4195-4EC2-ADCF-E31F7DB758FE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -125,6 +137,26 @@ Global
 		{3599DC7E-74AD-43FA-AFC5-44DEE07D7D4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3599DC7E-74AD-43FA-AFC5-44DEE07D7D4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3599DC7E-74AD-43FA-AFC5-44DEE07D7D4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF603291-6570-4BD1-B855-63ADAA18CC52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF603291-6570-4BD1-B855-63ADAA18CC52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF603291-6570-4BD1-B855-63ADAA18CC52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF603291-6570-4BD1-B855-63ADAA18CC52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B49D0F6F-BAB4-4D62-8E76-D3B55CC8F0A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B49D0F6F-BAB4-4D62-8E76-D3B55CC8F0A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B49D0F6F-BAB4-4D62-8E76-D3B55CC8F0A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B49D0F6F-BAB4-4D62-8E76-D3B55CC8F0A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74FEFE19-D094-49F0-8C58-414757213061}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74FEFE19-D094-49F0-8C58-414757213061}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74FEFE19-D094-49F0-8C58-414757213061}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74FEFE19-D094-49F0-8C58-414757213061}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3182150-5817-4190-9B51-D39E0741DDCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3182150-5817-4190-9B51-D39E0741DDCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3182150-5817-4190-9B51-D39E0741DDCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3182150-5817-4190-9B51-D39E0741DDCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D64E8363-4195-4EC2-ADCF-E31F7DB758FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D64E8363-4195-4EC2-ADCF-E31F7DB758FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D64E8363-4195-4EC2-ADCF-E31F7DB758FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D64E8363-4195-4EC2-ADCF-E31F7DB758FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -148,6 +180,11 @@ Global
 		{DB1A5BC3-9F48-4BD6-93B9-FEF234884847} = {7F6B897E-5E9B-456B-B6B0-8C924F223D33}
 		{D866CF27-F34F-4C0D-B661-F6CD91172093} = {7F6B897E-5E9B-456B-B6B0-8C924F223D33}
 		{3599DC7E-74AD-43FA-AFC5-44DEE07D7D4D} = {7F6B897E-5E9B-456B-B6B0-8C924F223D33}
+		{BF603291-6570-4BD1-B855-63ADAA18CC52} = {A55D9FC1-CAE6-4D2A-BE73-17245914790A}
+		{B49D0F6F-BAB4-4D62-8E76-D3B55CC8F0A2} = {A55D9FC1-CAE6-4D2A-BE73-17245914790A}
+		{74FEFE19-D094-49F0-8C58-414757213061} = {A55D9FC1-CAE6-4D2A-BE73-17245914790A}
+		{A3182150-5817-4190-9B51-D39E0741DDCF} = {A55D9FC1-CAE6-4D2A-BE73-17245914790A}
+		{D64E8363-4195-4EC2-ADCF-E31F7DB758FE} = {A55D9FC1-CAE6-4D2A-BE73-17245914790A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {12F89A21-6580-47EF-8DAB-4A1285CEBD06}

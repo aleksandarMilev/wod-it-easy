@@ -4,7 +4,7 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-    using static Domain.Models.ModelConstants.Common;
+    using static Common.Domain.Constants;
     using static Domain.Models.ModelConstants.WorkoutConstants;
 
     public class WorkoutConfiguration : IEntityTypeConfiguration<Workout>

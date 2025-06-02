@@ -57,6 +57,21 @@ services:
     depends_on:
       - sqlserver
 
+  email-sender:
+    container_name: wod-it-easy-email-sender
+    build:
+      context: ./server
+      dockerfile: EmailSender/EmailSender.StartUp/Dockerfile
+    ports:
+      - "5003:8080"
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=wod-it-easy-sql-server;Database=WodItEasyEmailSenderDb;User Id=sa;Password=YourStrong!Password123;TrustServerCertificate=True;Encrypt=True;MultipleActiveResultSets=true;
+    restart: on-failure
+    networks:
+      - wod-it-easy-network
+    depends_on:
+      - sqlserver
+
   # client:
   #   container_name: wod-it-easy-client
   #   build:

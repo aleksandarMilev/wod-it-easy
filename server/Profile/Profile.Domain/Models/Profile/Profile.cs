@@ -13,6 +13,9 @@
             string? avatarUrl,
             string? bio)
         {
+            this.ValidateAvatarUrl(avatarUrl);
+            this.ValidateBio(bio);
+
             this.UserId = userId;
             this.AvatarUrl = avatarUrl;
             this.Bio = bio;
