@@ -1,7 +1,7 @@
 ﻿namespace WodItEasy.Workouts.Infrastructure.Persistence
 {
     using Common.Domain.Models;
-    using Common.Infrastructure;
+    using Common.Infrastructure.Persistence;
 
     internal class WorkoutsDbInitializer(
         WorkoutDbContext data,

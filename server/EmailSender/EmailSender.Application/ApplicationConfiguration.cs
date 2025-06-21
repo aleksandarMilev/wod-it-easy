@@ -7,12 +7,15 @@
 
     public static class ApplicationConfiguration
     {
+        private static readonly Assembly ExecutingAssembly = Assembly.GetExecutingAssembly();
+
         public static IServiceCollection AddApplication(
             this IServiceCollection services,
             IConfiguration configuration)
             => services
+                .AddEventConsumers(ExecutingAssembly)
                 .AddCommonApplication(
                     configuration,
-                    Assembly.GetExecutingAssembly());
+                    ExecutingAssembly);
     }
 }

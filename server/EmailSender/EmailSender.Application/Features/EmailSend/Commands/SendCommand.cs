@@ -2,6 +2,8 @@
 {
     using Domain.Factories;
     using MediatR;
+    using System.Threading;
+    using System.Threading.Tasks;
 
     public class SendCommand : IRequest
     {
@@ -32,7 +34,7 @@
                    .IsHtml(request.IsHtml)
                    .Build();
 
-                await this.sender.SendAsync(
+                await this.sender.Send(
                     email.To,
                     email.Subject,
                     email.Body,

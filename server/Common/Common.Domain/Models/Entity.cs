@@ -1,24 +1,22 @@
 ﻿namespace WodItEasy.Common.Domain.Models
 {
-    public abstract class Entity<TId> : IHaveDomainEvents
+    using Events;
+
+    public abstract class Entity<TId> : IEntity
         where TId : struct
     {
-        private readonly List<IDomainEvent> events = [];
+        private readonly ICollection<IDomainEvent> events;
 
-        protected Entity() { }
+        protected Entity() => this.events = [];
 
         public TId Id { get; protected set; } = default;
 
-        public IReadOnlyCollection<IDomainEvent> DomainEvents 
-            => this.events.AsReadOnly();
+        public IReadOnlyCollection<IDomainEvent> Events
+            => this.events.ToList().AsReadOnly();
 
-        public void AddDomainEvent(IDomainEvent domainEvent)
-            => this.events.Add(domainEvent);
+        public void ClearEvents() => this.events.Clear();
 
-        public void ClearDomainEvents() 
-            => this.events.Clear();
-
-        protected void RaiseEvent(IDomainEvent domainEvent) 
+        protected void RaiseEvent(IDomainEvent domainEvent)
             => this.events.Add(domainEvent);
 
         public override bool Equals(object? obj)

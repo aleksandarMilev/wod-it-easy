@@ -1,7 +1,7 @@
 ﻿namespace WodItEasy.Common.Web.Extensions
 {
     using HealthChecks.UI.Client;
-    using Infrastructure;
+    using Infrastructure.Persistence;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Diagnostics.HealthChecks;
     using Microsoft.AspNetCore.Hosting;

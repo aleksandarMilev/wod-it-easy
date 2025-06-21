@@ -5,19 +5,34 @@
     using Common.Infrastructure;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    using Persistence;
     using Services;
+    using Application.Features.EmailSend.Consumers;
 
     public static class InfrastructureConfiguration
     {
-        public static IServiceCollection AddInfrastructure(
+        private static readonly Type[] Consumers =
+        {
+            typeof(UserRegisteredConsumer),
+        };
+
+        public static async Task<IServiceCollection> AddInfrastructure(
             this IServiceCollection services,
-            IConfiguration configuration)
-            => services
-                .AddCommonInfrastructure<EmailSenderDbContext>(
-                    configuration,
+            IConfiguration config)
+        {
+            services
+                .AddCommonInfrastructure(
+                    config,
                     Assembly.GetExecutingAssembly())
-            .AddTransient<IDbInitializer, EmailSenderDbInitializer>()
-            .AddTransient<IEmailSender, SmtpEmailSender>();;
+                .AddTransient<IEmailSender, EmailSender>()
+                .Configure<EmailSettings>(
+                    config.GetSection("MailSettings"));
+
+            await services.AddEvents(
+               config,
+               usePolling: false,
+               consumers: Consumers);
+
+            return services;
+        }
     }
 }

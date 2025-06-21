@@ -4,18 +4,23 @@
     using Application.Commands.Login;
     using Application.Commands.Register;
     using Common.Application;
+    using Common.Domain.Events;
+    using Common.Domain.Models;
+    using Infrastructure.Persistence;
     using JwtGenerator;
     using Microsoft.AspNetCore.Identity;
 
     using static Common.Domain.Constants;
 
     public class IdentityService(
+        IdentityDbContext data,
         UserManager<User> userManager,
         IJwtTokenGenerator jwtTokenGenerator)
         : IIdentityService
     {
         private const string InvalidLoginErrorMessage = "Invalid login attempt!";
 
+        private readonly IdentityDbContext data = data;
         private readonly UserManager<User> userManager = userManager;
         private readonly IJwtTokenGenerator jwtTokenGenerator = jwtTokenGenerator;
 
@@ -39,6 +44,11 @@
                     user.UserName,
                     user.Email!);
 
+                var @event = new UserRegisteredEvent(user.Email!, user.UserName!);
+
+                this.data.Add(new Message(@event));
+                await this.data.SaveChangesAsync();
+
                 return new RegisterOutputModel() { Token = token };
             }
 
@@ -54,9 +64,7 @@
             user ??= await this.userManager.FindByEmailAsync(credentials);
 
             if (user is null)
-            {
                 return InvalidLoginErrorMessage;
-            }
 
             var passwordIsValid = await this.userManager.CheckPasswordAsync(user, password);
 

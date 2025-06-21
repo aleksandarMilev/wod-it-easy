@@ -1,12 +1,13 @@
 ﻿namespace WodItEasy.Profile.Infrastructure
 {
+    using System.Reflection;
     using Application.Features.Profile;
     using Common.Infrastructure;
+    using Common.Infrastructure.Persistence;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Persistence;
     using Repositories;
-    using System.Reflection;
 
     public static class InfrastructureConfiguration
     {

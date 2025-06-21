@@ -1,6 +1,6 @@
 ﻿namespace WodItEasy.Identity.Infrastructure.Persistence
 {
-    using Common.Infrastructure;
+    using Common.Infrastructure.Persistence;
     using Microsoft.AspNetCore.Identity;
 
     using static Common.Domain.Constants;

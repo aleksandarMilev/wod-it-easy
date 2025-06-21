@@ -3,6 +3,7 @@
     using System.Reflection;
     using Application;
     using Common.Infrastructure;
+    using Common.Infrastructure.Persistence;
     using JwtGenerator;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.Configuration;
@@ -12,15 +13,24 @@
 
     public static class InfrastructureConfiguration
     {
-        public static IServiceCollection AddInfrastructure(
+        public static async Task<IServiceCollection> AddInfrastructure(
             this IServiceCollection services,
             IConfiguration configuration)
-            => services
+        {
+            services
                 .AddIdentity()
                 .AddCommonInfrastructure<IdentityDbContext>(
                     configuration,
                     Assembly.GetExecutingAssembly())
                 .AddTransient<IDbInitializer, IdentityDbInitializer>();
+
+            await services.AddEvents(
+                  configuration,
+                  usePolling: false,
+                  consumers: []);
+
+            return services;
+        }
 
         private static IServiceCollection AddIdentity(
             this IServiceCollection services)

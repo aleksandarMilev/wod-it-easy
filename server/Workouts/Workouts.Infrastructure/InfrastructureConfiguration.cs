@@ -5,6 +5,7 @@
     using Application.Features.Participations;
     using Application.Features.Workouts;
     using Common.Infrastructure;
+    using Common.Infrastructure.Persistence;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Persistence;

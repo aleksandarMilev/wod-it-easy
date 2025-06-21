@@ -2,7 +2,7 @@
 {
     public interface IEmailSender
     {
-        Task SendAsync(
+        Task Send(
             string to,
             string subject,
             string body,

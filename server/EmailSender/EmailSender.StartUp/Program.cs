@@ -4,12 +4,14 @@ using WodItEasy.EmailSender.Domain;
 using WodItEasy.EmailSender.Infrastructure;
 using WodItEasy.EmailSender.Web;
 
+Thread.Sleep(10_000);
 var builder = WebApplication.CreateBuilder(args);
 builder.Services
     .AddDomain()
-    .AddApplication(builder.Configuration)
-    .AddInfrastructure(builder.Configuration)
-    .AddWebComponents(builder.Environment);
+    .AddApplication(builder.Configuration);
+
+await builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddWebComponents(builder.Environment);
 
 var app = builder.Build();
 await app.UseWebServices(app.Environment);
