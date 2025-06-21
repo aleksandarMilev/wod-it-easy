@@ -16,7 +16,6 @@ export async function mine(token) {
 }
 
 export async function create(data, token) {
-  console.log(data);
   const response = await requester.post(
     baseUrl + routes.profile.default,
     data,

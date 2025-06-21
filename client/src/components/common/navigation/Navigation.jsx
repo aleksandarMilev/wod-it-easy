@@ -16,18 +16,6 @@ export default function Navigation() {
   const showProfile = isAuthenticated && hasProfile && !isAdmin;
   const showParticipations = isAthlete && !isAdmin && isAuthenticated;
 
-  console.log({
-    isAuthenticated,
-    isAthlete,
-    isAdmin,
-    hasProfile,
-    showBecomeAtlete,
-    showUpdateAthleteStatus,
-    showConfigProfile,
-    showProfile,
-    showParticipations,
-  });
-
   return (
     <header className="header">
       <Link to={routes.home}>

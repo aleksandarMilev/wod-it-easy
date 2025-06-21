@@ -15,11 +15,12 @@ services:
       test:
         [
           "CMD-SHELL",
-          '/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "$${SA_PASSWORD}" -Q "SELECT 1"',
+          '/opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P "$${SA_PASSWORD}" -Q "SELECT 1" || exit 1',
         ]
       interval: 10s
       timeout: 5s
       retries: 10
+      start_period: 30s
 
   rabbitmq:
     container_name: wod-it-easy-rabbitmq
@@ -60,7 +61,7 @@ services:
       rabbitmq:
         condition: service_healthy
       sqlserver:
-        condition: service_started
+        condition: service_healthy
 
   workouts:
     container_name: wod-it-easy-workouts
@@ -81,7 +82,7 @@ services:
       rabbitmq:
         condition: service_healthy
       sqlserver:
-        condition: service_started
+        condition: service_healthy
 
   profile:
     container_name: wod-it-easy-profile
@@ -102,7 +103,7 @@ services:
       rabbitmq:
         condition: service_healthy
       sqlserver:
-        condition: service_started
+        condition: service_healthy
 
   email-sender:
     container_name: wod-it-easy-email-sender
@@ -123,22 +124,22 @@ services:
       rabbitmq:
         condition: service_healthy
       sqlserver:
-        condition: service_started
+        condition: service_healthy
 
-  # client:
-  #   container_name: wod-it-easy-client
-  #   build:
-  #     context: ./client
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "3001:80"
-  #   networks:
-  #     - wod-it-easy-network
-  #   depends_on:
-  #     - identity
-  #     - workouts
-  #     - profile
-  #     - email-sender
+  client:
+    container_name: wod-it-easy-client
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - "3001:80"
+    networks:
+      - wod-it-easy-network
+    depends_on:
+      - identity
+      - workouts
+      - profile
+      - email-sender
 
 networks:
   wod-it-easy-network:
