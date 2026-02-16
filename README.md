@@ -1,8 +1,5 @@
 # WodItEasy
 
-🚧 **Work in Progress** 🚧  
-***This project is not finished yet!***
-
 ## 🚀 Overview  
 WodItEasy is a **web application** designed to help users manage and participate in workouts. Built with **React** on the frontend and **ASP.NET Core** on the backend, it follows **Domain-Driven Design** and **Clean Architecture** principles. The application is fully containerized using **Docker** and utilizes **MS SQL Server** as the database.
 
@@ -53,3 +50,4 @@ The application includes a built-in profile with admin privileges:
 This project is licensed under MIT License.  
 
 ---
+
