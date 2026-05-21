@@ -1,175 +1,158 @@
-# WodItEasy
+# Wod It Easy
 
-## 🚀 Overview  
-WodItEasy is a **web application** designed to help users manage and participate in workouts. Built with **React** on the frontend and **ASP.NET Core** on the backend, it follows **Domain-Driven Design** and **Clean Architecture** principles. The application is fully containerized using **Docker** and utilizes **MS SQL Server** as the database.
-
----
-
-## 🎯 Features  
-- 🔐 **Identity Management** – User registration and authentication.  
-- 📅 **Workout Scheduling** – Admins can create, update, and delete workouts.  
-- 🏋️ **Workout Participation** – Athletes can join, cancel, and rejoin workouts.  
-- 🔥 **Calories Tracking** *(Upcoming)* – Track calorie intake and nutrition.  
-- 📊 **1RM Calculator & Daily Results Logging** *(Upcoming)* – Monitor progress using a one-rep max calculator and daily workout logs.  
+A workout scheduling and participation platform for CrossFit athletes. Users register as athletes, create and manage workouts, and track their participation — all enforced by real domain business rules.
 
 ---
 
-## 👤 Built-in Admin Profile  
-The application includes a built-in profile with admin privileges:  
+## Architecture
 
-- **Email:** `admin@mail.com`  
-- **Password:** `admin1234`
+WodItEasy is built on **Domain-Driven Design (DDD)** and **Clean Architecture** principles. The backend is organized into four explicit layers with strict inward-only dependency flow:
+
+```
+WodItEasy.Domain          ← no external dependencies
+      ↑
+WodItEasy.Application     ← depends only on Domain
+      ↑
+WodItEasy.Infrastructure  ← implements Application abstractions
+      ↑
+WodItEasy.Web             ← HTTP entry point, delegates to Application
+      ↑
+WodItEasy.Startup         ← composition root, wires everything together
+```
+
+### Domain Layer
+
+The heart of the application. It contains all business logic and has zero dependencies on frameworks or infrastructure.
+
+- **Aggregate Roots:** `Athlete`, `Workout`, `Participation` — each owns its invariants and exposes only valid state transitions.
+- **Domain Guards:** A static `Guard` class enforces string lengths, date ranges, URL formats, and more at object construction time. Invalid state cannot be created.
+- **Business Rules encoded in entities:**
+  - A workout is considered *closed* 2 hours before its start time — participants cannot join after that point.
+  - A workout tracks its capacity and rejects joins when full.
+  - Overlapping workout schedules are detected and prevented per athlete.
+- **Domain Events:** Entities inherit from `Entity<TId>` which implements `IHaveDomainEvents`. Events are raised during state transitions and published via an EF Core interceptor at save time.
+- **Value Objects & Enumerations:** `WorkoutType` is a type-safe enumeration (not a plain enum), and `ValueObject` provides structural equality for complex values.
+- **Domain Exceptions:** `InvalidAthleteException`, `InvalidWorkoutException`, `WorkoutClosedException`, `WorkoutFullException` — thrown directly by entities, never by callers.
+
+### Application Layer
+
+Orchestrates use cases without knowing about HTTP or databases.
+
+- **CQRS via MediatR:** All operations are expressed as Commands or Queries dispatched through a MediatR pipeline. There is no shared service class.
+- **Validation Pipeline:** A `RequestValidationBehavior<TRequest, TResponse>` MediatR behavior runs FluentValidation on every request before the handler executes.
+- **Repository Abstractions:** `IWorkoutRepository`, `IAthleteRepository`, `IParticipationRepository` are defined here — the Application layer never references EF Core.
+- **AutoMapper with `IMapFrom<T>`:** Mapping is convention-based. Any output model that implements `IMapFrom<TSource>` is automatically registered by a scanning `MappingProfile`.
+- **Paginated Results:** `PaginatedOutputModel<T>` is returned from search queries.
+
+### Infrastructure Layer
+
+Implements persistence and identity, all behind Application-defined interfaces.
+
+- **EF Core 9 with SQL Server:** Fluent entity configurations keep the `DbContext` clean.
+- **Generic + Specialized Repositories:** `DataRepository<TEntity>` handles save operations; `WorkoutRepository`, `AthleteRepository`, and `ParticipationRepository` add domain-specific queries.
+- **Domain Event Interceptor:** `PublishDomainEventInterceptor` hooks into `SaveChangesAsync` to dispatch domain events after persistence.
+- **ASP.NET Core Identity + JWT:** User management and token issuance are fully isolated to this layer.
+
+### Web / Presentation Layer
+
+Thin HTTP adapters — no business logic lives here.
+
+- **`ApiController` base class** wires MediatR `Send()` into a reusable `Send<TResult>()` helper that maps results to `IActionResult`.
+- **Result Pattern:** Handlers return `Result<T>`; extension methods convert it to the appropriate HTTP response.
+- **Validation error middleware** catches `ValidationException` and returns structured 400 responses.
 
 ---
 
-## 🛠 Tech Stack  
-### **Frontend**  
-- React (Vite)  
+## Tech Stack
 
-### **Backend**  
-- ASP.NET Core  
-- Entity Framework Core  
-- MS SQL Server  
-
-### **Infrastructure**  
-- Docker
-
-### **Other Tools & Libraries**  
-- AutoMapper  
-- MediatR  
-- Scrutor  
-- XUnit
-- FakeItEasy  
-- FluentValidator
-- FluentAssertions  
-- Swagger
+| Layer | Technology |
+|---|---|
+| Backend runtime | .NET 8 / ASP.NET Core |
+| Domain orchestration | MediatR (CQRS) |
+| Validation | FluentValidation |
+| ORM | Entity Framework Core 9 |
+| Database | SQL Server 2022 |
+| Authentication | ASP.NET Core Identity + JWT Bearer |
+| Object mapping | AutoMapper |
+| API docs | Swagger / Swashbuckle |
+| Frontend | React 18 + Vite |
+| UI | React Bootstrap |
+| Forms | React Hook Form + Yup |
+| Routing | React Router v7 |
+| HTTP client | Axios |
+| Containerization | Docker + Docker Compose |
+| Testing | xUnit + FakeItEasy + FluentAssertions |
 
 ---
 
-## 🏛 Backend Architecture  
+## Features
 
-### 📂 **Domain Layer**  
-The **Domain Layer** contains core business logic, rules, and validation. It is independent of any external frameworks and technologies.  
-```plaintext
-WodItEasy.Domain/
-│── Common/                  # Shared base classes and utilities
-│── Exceptions/              # Custom domain-specific exceptions
-│── Factories/               # Factories for domain entities
-│── Models/                  # Core domain entities, value objects and enumerations
-│── DomainConfiguration.cs   # Registers domain services in DI
+- **Athlete profiles** — registered users create and manage their athlete identity.
+- **Workout management** — create, update, and delete workouts with type, capacity, and schedule.
+- **Participation** — join, cancel, and re-join workouts; the domain enforces all eligibility rules.
+- **Workout search** — paginated search filtered by date.
+- **Role-based access** — Admin and Athlete roles seeded on startup.
+- **Real-time business rule enforcement** — closed workouts, full workouts, and schedule conflicts are rejected at the domain level, not the controller level.
+
+---
+
+## Project Structure
+
 ```
-
-### ⚙️ **Application Layer**  
-Implements **use cases** and business logic, following the **CQRS (Command Query Responsibility Segregation) pattern**.  
-```plaintext
-WodItEasy.Application/
-│── Behaviors/                    # MediatR pipeline behavior
-│── Common/                       # Shared utilities and base classes
-│── Contracts/                    # Repository & service interfaces
-│── Exceptions/                   # Custom application-specific exceptions
-│── Features/                     # CQRS command/query handlers for each app feature
-│── Mapping/                      # AutoMapper additional logic
-│── ApplicationConfiguration.cs   # Registers application services in DI
-│── ApplicationSettings.cs        # JWT secret settings
-│── Result.cs                     # Util class for simplifying result returning from commands and, in some cases, queries.
-```
-
-### 🏗 **Infrastructure Layer**  
-Handles **database access, authentication, and external service integrations**.  
-```plaintext
-WodItEasy.Infrastructure/
-│── Identity/                       # User authentication & JWT
-│── Persistence/                    # ApplictionDbContext, Fluent API configurations & Repository implementations
-│── IInitializer.cs                 # Database initialization interface
-│── InfrastructureConfiguration.cs  # Registers infrastructure services in DI
-```
-
-### 🌍 **Web Layer**  
-The **Web Layer** is the entry point for HTTP requests, handling API routing, middleware, and presentation logic.  
-```plaintext
-WodItEasy.Web/
-│── Areas/                          # Admin-specific endpoints
-│── Common/                         # Shared utilities and base classes
-│── Extensions/                     # Extension methods for IConfiguration and IApplicationBuilder
-│── Features/                       # Controllers for API endpoints
-│── Middlewares/                    # Custom Middlewares 
-│── Services/                       # Current user service implementation
-│── WebConfiguration.cs             # Registers Web layer services in DI
-```
-
-### 🚀 **Startup Layer**  
-Responsible for **bootstrapping and running** the application.  
-```plaintext
-WodItEasy.StartUp/
-│── ApplicationInitializer.cs       # Calls the Initialize() on each IInitializer.cs implementation
-│── appsettings.json                # App configuration settings
-│── Program.cs                      # Entry point of the application
+wod-it-easy/
+├── server/
+│   ├── WodItEasy.Domain/           # Entities, value objects, domain events, guards
+│   ├── WodItEasy.Application/      # CQRS handlers, validators, DTOs, repo interfaces
+│   ├── WodItEasy.Infrastructure/   # EF Core, repositories, identity, migrations
+│   ├── WodItEasy.Web/              # Controllers, middleware, result mapping
+│   └── WodItEasy.Startup/          # Composition root, DI wiring, seeding
+└── client/
+    └── src/
+        ├── api/                    # Axios API clients per domain
+        ├── components/             # Feature-grouped React components
+        ├── contexts/               # UserContext, MessageContext
+        └── hooks/                  # Custom React hooks
 ```
 
 ---
 
-## ⚡ Getting Started  
-### 📌 Prerequisites  
-Ensure you have the following installed:
-- 🐳 Docker
-  
-Or:
-- 🟢 Node.js 
-- 🔵 .NET SDK
-- 🗄️ MS SQL Server
+## Running Locally
 
-### 📥 Installation & Setup  
-#### 1️⃣ With docker
-```sh
-git clone https://github.com/aleksandarMilev/wod-it-easy.git
-cd wod-it-easy
-docker-compose up --build -d
+### With Docker (recommended)
+
+```bash
+docker-compose up --build
 ```
 
-#### 2️⃣ If you want to run the client locally:
-```sh
-git clone https://github.com/aleksandarMilev/wod-it-easy.git
-cd wod-it-easy/client
+This starts SQL Server, the .NET API, and the React frontend.
+
+### Without Docker
+
+**Backend:**
+```bash
+cd server/WodItEasy.Startup
+dotnet run
+```
+
+Update `appsettings.Development.json` with your local SQL Server connection string, then apply migrations:
+```bash
+dotnet ef database update --project ../WodItEasy.Infrastructure
+```
+
+**Frontend:**
+```bash
+cd client
 npm install
 npm run dev
 ```
 
-#### 3️⃣ If you want to run the server locally:
-```sh
-git clone https://github.com/aleksandarMilev/wod-it-easy.git
-cd wod-it-easy/server
-dotnet restore
-dotnet run
+---
+
+## Testing
+
+```bash
+cd server
+dotnet test
 ```
 
-### 📝 Configuration Notes  
-
-You can configure the **URLs** and **Database** connection in the following files:
-
-#### Client Configuration:
-- **Server Endpoint**: In the `.env` file, set the server URL where the client makes requests. If not specified, it defaults to **http://localhost:8080**.
-- **Client URL**: In the `Dockerfile`, configure the client’s URL. By default, it runs on **http://localhost:80**.
-
-#### Server Configuration:
-- **Server URLs**: In the `launchSettings.json` file, set the server URLs. If not specified, it defaults to:
-  - **http://localhost:5097** for HTTP
-  - **https://localhost:7141** for HTTPS
-  - **http://localhost:8080** for Docker (HTTP)
-  - **https://localhost:8081** for Docker (HTTPS)
-
-- **Database Connection**: In the `appsettings.json` file, configure the database connection string. If not specified, the default is:
-  
-  ```json
-  "ConnectionStrings": {
-    "DefaultConnection": "Server=sqlserver,1433;Database=WodItEasy;User Id=sa;Password=!Passw0rd;TrustServerCertificate=True;"
-  }
-
----
-
-## 📜 License  
-This project is licensed under MIT License.  
-
----
-
-🚧 **Work in Progress** 🚧  
-***This project is not finished yet! I am actively working on it!***
+Tests cover application handlers and domain logic using xUnit, FakeItEasy for mocks, and FluentAssertions for readable assertions.
